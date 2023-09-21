@@ -5,6 +5,7 @@ function App() {
      <p>This is a our project</p>
      <p>asdasdasdasdasdas</p>
      <h1>asdasdasdasd</h1>
+     <h1>Nguyen Hoang Minh</h1>
     </div>
   );
 }
