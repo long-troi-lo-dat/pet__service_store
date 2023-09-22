@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import LogoHeader from "../../assets/logo-header.png";
 import {
   FiPhone,
@@ -18,6 +18,7 @@ function Navbar(props) {
     letterSpacing: "0.2px",
     color: "#273171",
   };
+  const navigate = useNavigate();
 
   return (
     <div className="w-full ">
@@ -49,11 +50,11 @@ function Navbar(props) {
 
       <div>
         <nav className="flex items-center ">
-          <span className="px-20">
+          <span onClick={() => navigate("/")} className="px-20">
             <img
               className="ml-36"
               src={LogoHeader}
-              style={{ width: "156px", height: "auto" }}
+              style={{ width: "156px", height: "auto", cursor: "pointer" }}
               alt="Logo"
             />
           </span>
