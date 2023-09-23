@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
       <GlobalState>
-        <section className="w-full flex flex-col">
+        <section className=" ">
           <Navbar />
           <main>
             <Routes>
