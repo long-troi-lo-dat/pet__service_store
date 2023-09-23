@@ -1,22 +1,29 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import LogoHeader from "../../assets/logo-header.png";
+import LogoHeader from "../../assets/logo-1.png";
 import {
   FiPhone,
   FiShoppingCart,
   FiSearch,
-  FiShoppingBag,
+  FiMapPin,
   FiSend,
 } from "react-icons/fi";
 
 function Navbar(props) {
   const navLinkStyle = {
     fontFamily: "Montserrat, sans-serif",
-    fontSize: "18px",
+    fontSize: "12px",
     fontWeight: 700,
     textTransform: "uppercase",
     letterSpacing: "0.2px",
-    color: "#273171",
+    color: "##101A5F",
+    width: "70px",
+    height: "15px",
+  };
+  const liStyle = {
+    width: "102px",
+    height: "47px",
+    marginTop: "32px",
   };
   const navigate = useNavigate();
 
@@ -33,72 +40,104 @@ function Navbar(props) {
           padding: "2 20px", // Khoảng cách ngoài cùng
         }}
       >
-        <div className="flex items-center space-x-4 px-56">
+        <div
+          style={{
+            width: "1523px",
+            height: "46px",
+            marginLeft: "245px",
+          }}
+          className="flex items-center space-x-4 "
+        >
           <FiPhone size={24} color="white" />
-          <span style={{ marginLeft: "8px" }}>Liên hệ: 0123-456-789</span>
-          <FiShoppingBag size={24} color="white" />
+          <span style={{ marginLeft: "8px" }}>0123-456-789</span>
+          <FiMapPin size={24} color="white" />
           <span style={{ marginLeft: "8px" }}>
             Công viên phần mềm quang trung
           </span>
         </div>
 
-        <div className="flex items-center space-x-4 px-72">
+        <div
+          style={{
+            marginRight: "365px",
+          }}
+          className="flex space-x-4 "
+        >
+          <p className="w-4">0đ</p>
           <FiShoppingCart size={24} color="white" />
           <FiSearch size={24} color="white" />
         </div>
       </div>
 
-      <div>
-        <nav className="flex items-center ">
-          <span onClick={() => navigate("/")} className="px-20">
-            <img
-              className="ml-36"
-              src={LogoHeader}
-              style={{ width: "156px", height: "auto", cursor: "pointer" }}
-              alt="Logo"
-            />
-          </span>
-          <ul className="list-none flex justify-center items-center gap-x-12 ">
-            <li>
+      <div
+        style={{
+          height: "110px",
+          width: "1520px",
+        }}
+      >
+        <nav className="flex items-center  ">
+          <img
+            onClick={() => navigate("/")}
+            className="ml-36"
+            src={LogoHeader}
+            style={{
+              width: "200px",
+              height: "70px",
+              cursor: "pointer",
+              marginTop: "18px",
+              marginLeft: "250px",
+            }}
+            alt="Logo"
+          />
+          <ul
+            style={{
+              marginTop: "18px",
+              marginLeft: "100px",
+            }}
+            className="list-none flex items-center gap-x-4 "
+          >
+            <li style={liStyle}>
               <NavLink to="/" style={navLinkStyle}>
                 TRANG CHỦ
               </NavLink>
             </li>
-            <li>
+            <li style={liStyle}>
               <NavLink to="/About" style={navLinkStyle}>
                 GIỚI THIỆU
               </NavLink>
             </li>
-            <li>
+            <li style={liStyle}>
               <NavLink to="/Service" style={navLinkStyle}>
                 DỊCH VỤ
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/Shop" style={navLinkStyle}>
-                CỬA HÀNG
-              </NavLink>
-            </li>
-            <li>
+            <li style={liStyle}>
               <NavLink to="/Blog" style={navLinkStyle}>
                 BLOG
               </NavLink>
             </li>
-            <li>
+            <li style={liStyle}>
               <NavLink to="/Contact" style={navLinkStyle}>
                 LIÊN HỆ
               </NavLink>
             </li>
-            <li>
-              <NavLink className="ml-24" to="/Booking" style={navLinkStyle}>
-                <button className="bg-slate-800 text-white border-r-4 rounded-lg shadow-md p-4 ">
-                  <span className="flex justify-between">
-                    Booking Online
-                    <FiSend className="items-center justify-center mt-1 ml-2" />
-                  </span>
-                </button>
+            <li style={liStyle}>
+              <NavLink to="/Shop" style={navLinkStyle}>
+                CỬA HÀNG
               </NavLink>
             </li>
+            <button
+              style={{
+                width: "220px",
+                height: "34px",
+                marginLeft: "35px",
+                marginTop: "7px",
+                borderRadius: "17px",
+              }}
+              className="bg-slate-800 text-white border-r-17 rounded-lg shadow-md flex justify-center items-center"
+            >
+              Booking Online
+              <FiSend className="font-bold ml-6" size={18} />
+            </button>
           </ul>
         </nav>
       </div>
