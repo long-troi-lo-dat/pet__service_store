@@ -2,11 +2,14 @@ import React from "react";
 
 function Footer(props) {
   return (
-    <footer style={{
-      bottom:0,
-      width:"100%",
-      position:"fixed"
-    }} class="bg-white dark:bg-gray-900">
+    <footer
+      style={{
+        bottom: 0,
+        width: "100%",
+        position: "fixed",
+        backgroundColor: "black",
+      }}
+    >
       <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
