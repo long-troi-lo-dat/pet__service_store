@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
       <GlobalState>
-        <section className=" ">
+        <section className="">
           <Navbar />
           <main>
             <Routes>
