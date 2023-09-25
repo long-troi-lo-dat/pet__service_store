@@ -2,4 +2,33 @@ body {
     margin: 0;
     line-height: normal;
   }
+  :root {
+    /* fonts */
+    --font-montserrat: Montserrat;
+    --font-inter: Inter;
   
+    /* font sizes */
+    --font-size-base: 16px;
+    --font-size-xs: 12px;
+    --font-size-smi: 13px;
+    --font-size-5xl: 24px;
+  
+    /* Colors */
+    --color-white: #fff;
+    --color-gainsboro: #d9d9d9;
+    --color-dimgray: rgba(102, 102, 102, 0.6);
+    --color-darkslateblue: #222a63;
+    --color-midnightblue: #101a5f;
+    --color-black: #000;
+  
+    /* Gaps */
+    --gap-2xs: 11px;
+    --gap-4xs: 9px;
+  
+    /* Paddings */
+    --padding-3xs: 10px;
+    --padding-11xl: 30px;
+  
+    /* Border radiuses */
+    --br-11xl: 30px;
+  }
