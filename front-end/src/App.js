@@ -10,6 +10,9 @@ import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Service from "./pages/Service";
 import Shop from "./pages/Shop";
+import Login from "./pages/Login";
+import Register from "./pages/register";
+
 
 const App = () => {
   return (
@@ -26,6 +29,9 @@ const App = () => {
               <Route path="/Shop" element={<Shop />} />
               <Route path="/Blog" element={<Blog />} />
               <Route path="/Booking" element={<Booking />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Register" element={<Register />} />
+
             </Routes>
           </main>
           <Footer />

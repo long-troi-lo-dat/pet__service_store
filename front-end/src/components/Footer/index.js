@@ -3,7 +3,7 @@ import React from "react";
 function Footer(props) {
   return (
     <footer
-      style={{
+      style={{  
         width: "100%",
         backgroundColor: "black",
       }}
