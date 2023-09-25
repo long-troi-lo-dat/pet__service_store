@@ -3,7 +3,10 @@ import React from "react";
 function Home() {
   return (
     <div>
-      <h1>Trang chủ</h1>
+      <div className="banner-home">
+        <hr />
+        <div> </div >
+      </div>
     </div>
   );
 }

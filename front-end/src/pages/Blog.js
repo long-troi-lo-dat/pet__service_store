@@ -115,7 +115,6 @@ function Blog(props) {
                             </div>
                             <div class="littletext">
                                 Mèo là loài động vật có vú, thân hình nhỏ nhắn, thông minh nhanh nhẹn và được nuôi thành thú
-
                             </div>
                             <div class="btn-more"> XEM THÊM</div>
                             <div class="line"></div>
