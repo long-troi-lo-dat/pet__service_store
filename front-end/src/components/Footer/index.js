@@ -3,14 +3,12 @@ import React from "react";
 function Footer(props) {
   return (
     <footer
-      style={{
-     
+      style={{  
         width: "100%",
-      
         backgroundColor: "black",
       }}
     >
-      <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+      <div class="relative mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
             <a href="https://flowbite.com/" class="flex items-center">
