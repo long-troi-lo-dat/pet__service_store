@@ -44,9 +44,8 @@ function Navbar(props) {
           style={{
             width: "100%",
             height: "46px",
-            marginLeft: "245px",
           }}
-          className="flex items-center space-x-4 "
+          className="flex items-center space-x-4 ml-10"
         >
           <FiPhone size={24} color="white" />
           <span style={{ marginLeft: "8px" }}>0123-456-789</span>
@@ -57,10 +56,8 @@ function Navbar(props) {
         </div>
 
         <div
-          style={{
-            marginRight: "365px",
-          }}
-          className="flex space-x-4 "
+          
+          className="flex space-x-4 mr-8 "
         >
           <p className="w-4">0đ</p>
           <FiShoppingCart size={24} color="white" />
@@ -74,10 +71,10 @@ function Navbar(props) {
           width: "100%",
         }}
       >
-        <nav className="flex items-center  ">
+        <nav className="flex items-center justify-center  ">
           <img
             onClick={() => navigate("/")}
-            className="ml-36"
+            className=""
             src={LogoHeader}
             style={{
               width: "200px",
@@ -93,7 +90,7 @@ function Navbar(props) {
               marginTop: "18px",
               marginLeft: "30px",
             }}
-            className="list-none flex items-center gap-x-4 "
+            className="list-none flex items-center gap-x-4 pl-4"
           >
             <li style={liStyle}>
               <NavLink to="/" style={navLinkStyle}>
@@ -133,7 +130,7 @@ function Navbar(props) {
                 marginTop: "7px",
                 borderRadius: "17px",
               }}
-              className="bg-slate-800 text-white border-r-17 rounded-lg shadow-md flex justify-center items-center"
+              className="bg-slate-800 text-white border-r-17 rounded-lg shadow-md flex justify-center items-center hover:bg-slate-700"
             >
               Booking Online
               <FiSend className="font-bold ml-6" size={18} />

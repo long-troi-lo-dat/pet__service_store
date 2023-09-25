@@ -3,11 +3,15 @@ import React from "react";
 function Footer(props) {
   return (
     <footer
-      style={{  
+      style={{
         width: "100%",
         backgroundColor: "black",
       }}
     >
+      <div class="tillefinal">
+        Hotline hỗ trợ 24/7 của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc
+        của bạn | 0825478781
+      </div>
       <div class="relative mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
