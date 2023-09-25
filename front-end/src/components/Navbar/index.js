@@ -130,7 +130,7 @@ function Navbar(props) {
                 marginTop: "7px",
                 borderRadius: "17px",
               }}
-              className="bg-slate-800 text-white border-r-17 rounded-lg shadow-md flex justify-center items-center"
+              className="bg-slate-800 text-white border-r-17 rounded-lg shadow-md flex justify-center items-center hover:bg-slate-700"
             >
               Booking Online
               <FiSend className="font-bold ml-6" size={18} />
