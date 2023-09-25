@@ -28,7 +28,7 @@ function Blog(props) {
                     />
 
                 </div>
-                <div class="coverfull flex w-4/5 m-auto">
+                <div class="coverfull flex w-4/5 m-auto py-8">
                     <div class="prd-1 flex w-4/5">
                         <div class="littleprd1 mb-5">
                             <div class="coverimg">
@@ -326,9 +326,7 @@ function Blog(props) {
                     <div class="move">19</div>
                     <div class="move">20</div>
                 </div>
-                <div class="tillefinal">
-                    Hotline hỗ trợ 24/7 của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc của bạn | 0825478781
-                </div>
+               
             </div>
         </>
 
