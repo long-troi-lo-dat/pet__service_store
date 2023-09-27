@@ -4,9 +4,7 @@ function Footer(props) {
   return (
     <footer
       style={{
-     
         width: "100%",
-      
         backgroundColor: "black",
       }}
     >
