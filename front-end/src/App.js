@@ -13,6 +13,7 @@ import Shop from "./pages/Shop";
 import Login from "./pages/Login";
 import Register from "./pages/register";
 import Detail from "./pages/detail";
+import Cart from "./pages/cart";
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
               <Route path="/Login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
               <Route path="/detail" element={<Detail />} />
+              <Route path="/cart" element={<Cart />} />
 
             </Routes>
           </main>
