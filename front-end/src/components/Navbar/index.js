@@ -42,7 +42,7 @@ function Navbar(props) {
       >
         <div
           style={{
-            width: "1523px",
+            width: "100%",
             height: "46px",
             marginLeft: "245px",
           }}
@@ -71,7 +71,7 @@ function Navbar(props) {
       <div
         style={{
           height: "110px",
-          width: "1520px",
+          width: "100%",
         }}
       >
         <nav className="flex items-center  ">
@@ -84,14 +84,14 @@ function Navbar(props) {
               height: "70px",
               cursor: "pointer",
               marginTop: "18px",
-              marginLeft: "250px",
+              marginLeft: "60px",
             }}
             alt="Logo"
           />
           <ul
             style={{
               marginTop: "18px",
-              marginLeft: "100px",
+              marginLeft: "30px",
             }}
             className="list-none flex items-center gap-x-4 "
           >
@@ -129,7 +129,7 @@ function Navbar(props) {
               style={{
                 width: "220px",
                 height: "34px",
-                marginLeft: "35px",
+                marginLeft: "30px",
                 marginTop: "7px",
                 borderRadius: "17px",
               }}
