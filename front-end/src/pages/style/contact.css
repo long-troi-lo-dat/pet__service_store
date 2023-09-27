@@ -1,0 +1,342 @@
+.contact-banner {
+    background: url("../../assets/images-contact/v12_90.png");
+    height: 350px;
+    width: 100%;
+}
+
+.container-contact {
+    width: 100%;
+    height: 1500px;
+    position: relative;
+}
+
+.contact-parent {
+    position: absolute;
+    left: 370px;
+    width: 503px;
+    height: 742px;
+    overflow: hidden;
+}
+
+.content-child-1 {
+    width: 5px;
+    height: 5px;
+    background: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    top: 398px;
+    left: 0px;
+    border-radius: 50%;
+}
+
+.content-child-2 {
+    width: 5px;
+    height: 5px;
+    background: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    top: 398px;
+    left: 11px;
+    border-radius: 50%;
+}
+
+.content-child-3 {
+    width: 5px;
+    height: 5px;
+    background: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    top: 398px;
+    left: 22px;
+    border-radius: 50%;
+}
+
+.content-child-4 {
+    width: 50px;
+    height: 5px;
+    background: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    top: 398px;
+    left: 33px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+}
+
+
+.content-contact {
+    position: absolute;
+    top: 62px;
+    left: 0;
+    width: 502px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+}
+
+.lin-h1 {
+    position: relative;
+    font-weight: 500;
+    font-family: Inter;
+    display: inline-block;
+    width: 65px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.ng-gp-container {
+    position: relative;
+    display: inline-block;
+    width: 328px;
+    height: 51px;
+    flex-shrink: 0;
+}
+
+.ng-gp {
+    margin: 0;
+}
+
+.span1 {
+    color: red;
+}
+
+.l-bt-buc {
+    color: #000;
+}
+
+.hy-gh-thm {
+    position: relative;
+    font-size: 60px;
+}
+
+.office-spa-nh-container {
+    position: relative;
+    font-size: 60px;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    color: #49b3f4;
+}
+
+.i {
+    font-weight: 800;
+    font-family: Montserrat;
+}
+
+.dghouse-hcm-ra-container {
+    position: relative;
+    text-align: justify;
+    display: inline-block;
+    width: 502px;
+    flex-shrink: 0;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Inter;
+}
+
+.dghouse-hcm {
+    font-weight: 600;
+}
+
+.ra-i-vi {
+    font-weight: 500;
+}
+
+.body,
+.rectangle-parent-contact {
+    position: absolute;
+    overflow: hidden;
+}
+
+.rectangle-parent-contact {
+    left: 1090px;
+    width: 500px;
+    height: 740px;
+    font-size: 20px;
+}
+
+
+.button {
+    position: absolute;
+    top: 683px;
+    left: 0;
+    width: 154px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 200px;
+    height: 50px;
+    background-color: black;
+    color: gray;
+}
+
+.gi-yu-cu {
+    position: relative;
+    font-weight: 600;
+    color: white;
+}
+
+.gi-yu-cu:hover {
+    color: gray;
+}
+
+
+.email,
+.h-tn-container,
+.li-nhn,
+.s-in-thoi-container {
+    position: absolute;
+    top: 107px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+    width: 87px;
+    height: 36px;
+}
+
+.email,
+.li-nhn,
+.s-in-thoi-container {
+    top: 266px;
+    left: 264px;
+}
+
+.li-nhn,
+.s-in-thoi-container {
+    top: 433px;
+    left: 0;
+    width: 150px;
+}
+
+.s-in-thoi-container {
+    top: 266px;
+    width: 154px;
+    height: 44px;
+}
+
+.map {
+    margin-left: 250px;
+    position: relative;
+    top: 800px;
+}
+
+input {
+    border: 2px gainsboro solid;
+    background-color: whitesmoke;
+    color: black;
+}
+
+input#name {
+    width: 490px;
+    height: 50px;
+}
+
+input#sdt {
+    width: 225px;
+    height: 50px;
+}
+
+input#email {
+    width: 225px;
+    height: 50px;
+}
+
+
+input#loinhan {
+    width: 490px;
+    height: 200px;
+}
+
+.adress-contact-logo-3 {
+    width: 25px;
+    height: 25px;
+    background: url("../../assets/images-contact/v12_196.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 74px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.adress-contact-logo-1 {
+    width: 25px;
+    height: 25px;
+    background: url("../../assets/images-contact/v12_197.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.adress-contact-logo-2 {
+    width: 25px;
+    height: 25px;
+    background: url("../../assets/images-contact/v12_198.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 37px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.address-contact {
+    width: 390px;
+    color: rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 0px;
+    left: 35px;
+    font-weight: Medium;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+}
+
+.hotline-contact {
+    width: 390px;
+    color: rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 37px;
+    left: 35px;
+    /* font-family: Montserrat; */
+    font-weight: Medium;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+}
+
+.email-contact {
+    width: 390px;
+    color: rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 74px;
+    left: 35px;
+    /* font-family: Montserrat; */
+    font-weight: Medium;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+}
+
+.address-contact-main {
+    width: 425px;
+    height: 100px;
+    opacity: 1;
+    position: absolute;
+    top: 500px;
+}
