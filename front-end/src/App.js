@@ -12,6 +12,7 @@ import Service from "./pages/Service";
 import Shop from "./pages/Shop";
 import Login from "./pages/Login";
 import Register from "./pages/register";
+import Detail from "./pages/detail";
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="/Booking" element={<Booking />} />
               <Route path="/Login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
+              <Route path="/detail" element={<Detail />} />
 
             </Routes>
           </main>
