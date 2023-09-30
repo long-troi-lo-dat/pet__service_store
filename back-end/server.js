@@ -1,24 +1,18 @@
-const express = require('express');
-const mysql = require("mysql");
+const express = require("express");
 const cors = require("cors");
-const port = 8000;
+const dotenv = require("dotenv");
+const route = require("./src/routes/index")
+dotenv.config();
+
+const port = process.env.PORT || 8000;
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 
-const app = express()
-app.use(cors())
-
-// Connect Database
-const db = mysql.createConnection({
-  host: "localhost",
-  user:"root",
-  password:"",
-  database:""
-})
-
-// Định nghĩa các route và xử lý logic ở đây
-app.get('/', (req, res) => {
-  res.send('Setup successfully from backend');
-});
+app.use("/api", route)
 
 // Khởi động máy chủ
 app.listen(port, () => {
