@@ -21,9 +21,9 @@ function Service(props) {
                 className=""
             >
                 <div class="sv__banner">
-                     <img src={backgroundImg} alt="" class="w-full h-full"/>
-                    <div class="sv__titlebanner">Dịch Vụ Tại Nhà</div>
+                     <img src={backgroundImg} alt="" />
                 </div>
+                <div className=' text-4xl font-bold text-center py-6'>Dịch Vụ Tại Nhà</div>
                 <div class="sv__coverfull flex w-4/5 m-auto py-8">
                     <div class="sv__prd-1 flex w-4/5">
                         <div class="sv__littleprd1 mb-5">
