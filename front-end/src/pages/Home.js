@@ -391,7 +391,7 @@ export default function Home() {
             alt=""
           />
         </div>
-        <div>
+        <div id="dichvutialong">
           <p className="font-semibold text-sm">THÔNG TIN & BẢNG GIÁ</p>
           <h2 className="font-semibold text-5xl leading-tight py-4">
             Dịch vụ cắt tỉa lông{" "}

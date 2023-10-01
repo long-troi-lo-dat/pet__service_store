@@ -24,7 +24,9 @@ function Navbar(props) {
     width: "102px",
     height: "47px",
     marginTop: "32px",
+   
   };
+
   const navigate = useNavigate();
 
   return (
@@ -56,7 +58,7 @@ function Navbar(props) {
         </div>
 
         <div
-          
+
           className="flex space-x-4 mr-8 "
         >
           <p className="w-4">0đ</p>
@@ -102,9 +104,16 @@ function Navbar(props) {
                 GIỚI THIỆU
               </NavLink>
             </li>
-            <li style={liStyle}>
-              <NavLink to="/Service" style={navLinkStyle}>
-                DỊCH VỤ
+            <li style={liStyle} class="dropdown">
+              <NavLink to="/Service" style={navLinkStyle}> 
+                DỊCH VỤ 
+                <div class="dropdown-content">
+                  <a href="#">Thú y tại nhà</a>
+                  <a href="#">Tắm vệ sinh tại nhà</a>
+                  <a href="#dichvutialong" >Cắt tỉa lông tại nhà</a>
+                  <a href="#">Dắt chó đi dạo</a>
+                  <a href="#">Khách sạn thú cưng</a>
+                </div>
               </NavLink>
             </li>
             <li style={liStyle}>
