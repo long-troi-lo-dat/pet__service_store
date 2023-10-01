@@ -20,7 +20,7 @@ function Blog(props) {
                 }}
                 className=""
             >
-                <div className="w-full">
+                <div className="w-full h-96">
                     <img
                         src={imagebanner}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
@@ -28,7 +28,7 @@ function Blog(props) {
                     />
 
                 </div>
-                <div class="coverfull flex w-4/5 m-auto py-8">
+                <div class="coverfull flex w-4/5 m-auto py-14">
                     <div class="prd-1 flex w-4/5">
                         <div class="littleprd1 mb-5">
                             <div class="coverimg">
