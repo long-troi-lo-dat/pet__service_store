@@ -383,7 +383,7 @@ export default function Home() {
           DỊCH VỤ THÚ CƯNG TẠI NHÀ - 24/7
         </p>
       </section>
-      <section className="max-w-6xl mx-auto flex justify-between items-center gap-16 mb-52">
+      <section className="max-w-6xl mx-auto flex justify-between items-center gap-16 mb-52" id="dichvutialong">
         <div>
           <img
             src={ImageServiceItem5}
@@ -391,7 +391,7 @@ export default function Home() {
             alt=""
           />
         </div>
-        <div id="dichvutialong">
+        <div >
           <p className="font-semibold text-sm">THÔNG TIN & BẢNG GIÁ</p>
           <h2 className="font-semibold text-5xl leading-tight py-4">
             Dịch vụ cắt tỉa lông{" "}
