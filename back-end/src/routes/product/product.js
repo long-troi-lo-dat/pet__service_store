@@ -5,6 +5,6 @@ const router = express.Router();
 const sanphamController = require('../../controller/productController/index');
 
 // define route for /api/sanpham
-router.get('/', sanphamController.getSanpham); 
+router.get('/', sanphamController.getSanpham);
 
 module.exports = router;

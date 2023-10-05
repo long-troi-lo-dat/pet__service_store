@@ -1,0 +1,53 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.container {
+  width: 1520px;
+  height: auto;
+}
+.container-content {
+  width: 1200px;
+  margin: auto;
+  /* background-color: green; */
+  color: black;
+}
+.flex {
+  display: flex;
+}
+.shop-banner .banner-left {
+  /* margin-left: 60px; */
+  width: 30%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  text-align: right;
+}
+.shop-banner .banner-left h1 {
+  font-size: 50px;
+  color: #273172;
+  font-weight: 600;
+  font-family: "Fira sans";
+}
+.shop-banner .banner-left h3 {
+  font-size: 22px;
+  color: #4c4c4c;
+  font-weight: 800;
+}
+.shop-banner .banner-right {
+  width: 70%;
+}
+.shop-banner .banner-right img {
+  width: 100%;
+  height: auto;
+}
+
+.container .product-left {
+  width: 300px;
+  /* background-color: green; */
+}
+.container .product-right {
+  width: 900px;
+  /* background-color: yellow; */
+}
