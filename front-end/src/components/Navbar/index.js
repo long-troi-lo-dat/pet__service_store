@@ -29,7 +29,12 @@ function Navbar(props) {
 
   const scrolltoContent = (id) => {
     const element = document.getElementById(id);
-    element.scrollIntoView({ behavior: "smooth" });
+
+    if (!element) {
+      navigate("/")
+    } else {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   }
   const navigate = useNavigate();
 
