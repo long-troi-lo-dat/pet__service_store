@@ -11,7 +11,7 @@ const App = () => {
       <GlobalState>
         <section className="">
           <Navbar />
-          <main>
+          <main className="w-full">
             <Routes>
               {publicRoutes.map((item, index) => {
                 const Page = item.component;

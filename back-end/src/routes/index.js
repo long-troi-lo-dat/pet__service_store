@@ -5,4 +5,5 @@ const productRouter = require("../routes/product/product")
 
 router.use("/product", productRouter)
 
+
 module.exports = router;
