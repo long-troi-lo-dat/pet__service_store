@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../assets/css/shop.css";
-import "../assets/css/global.css";
+// import "../assets/css/shop.css";
+// import "../assets/css/global.css";
+import "../assets/css/shop2.css"
+// import img1 from "../assets/img_pet/4.jpg";
 import { getProductList } from "../api/product";
 
 function Shop(props) {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     // Gọi hàm getProductList từ API để lấy danh sách sản phẩm
     async function fetchData() {
@@ -22,8 +23,63 @@ function Shop(props) {
 
   return (
     <>
-      <div class="trang-product">
-        <div class="body">
+      <div className="container">
+        <div class="container-content shop-banner flex">
+          <div className="banner-left">
+            <div>
+              <h1>DG HOUSE STORE</h1>
+              <h3>SẢN PHẨM</h3>
+            </div>
+          </div>
+          <div className="banner-right">
+            <img
+              class=""
+              alt=""
+              src="https://petservicehcm.com/wp-content/uploads/2021/04/pet-cover-1440x548.jpeg.webp"
+            />
+          </div>
+        </div>
+        <div class="container-content flex">
+          <div className="product-left mx-3">
+            <ul class="list-group mb-3">
+              <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Thú cưng</li>
+              <li class="list-group-item">Alaska</li>
+              <li class="list-group-item">Bloodhound</li>
+              <li class="list-group-item">Golden</li>
+              <li class="list-group-item">Border Collies</li>
+              <li class="list-group-item">Chó cỏ</li>
+            </ul>
+            <ul class="list-group mb-3">
+              <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Thực phẩm chức năng</li>
+              <li class="list-group-item">Dưới 100.000đ</li>
+              <li class="list-group-item">Dưới 500.000đ</li>
+              <li class="list-group-item">Trên 500.000đ</li>
+            </ul>
+          </div>
+          <div className="product-right">
+            <div className="row">
+              {data.map((item, i) => {
+                return (
+                  <div className="col-lg-4 col-md-12 mb-4">
+                    <div class="card" style={{ width: "18rem" }}>
+                      {/* <img src={"../../assets/img-pet/" + item.hinhanh + ".jpg"} class="card-img-top" alt="..." /> */}
+                      <img src={item.hinhanh} class="card-img-top" alt="..." />
+                      {/* <img src={img1} class="card-img-top" alt="..." /> */}
+                      <div class="card-body">
+                        <h5 class="card-title">{item.ten}</h5>
+                        <p class="card-text mb-3">{item.mota}.</p>
+                        <a href="#" class="btn btn-info card-link">Chi tiết</a>
+                        <a href="#" class="btn btn-success card-link">Mua ngay</a>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </div >
+      {/* <div class="body">
           <div class="price">
             <div class="lc-theo-gi">Lọc theo giá</div>
             <div class="price-child"></div>
@@ -92,19 +148,24 @@ function Shop(props) {
               <b class="b8">-&gt;</b>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div class="banner">
-          <div class="dg-house-store">DG HOUSE STORE</div>
-          <div class="sn-phm">SẢN PHẨM</div>
-        </div>
+      {/* <div class="shop-banner">
+          <div className="banner-left">
+            <h1>DG HOUSE STORE</h1>
+            <h3>SẢN PHẨM</h3>
+          </div>
+          <div className="banner-right">
+            <img
+              class="image-2-icon"
+              alt=""
+              src="https://petservicehcm.com/wp-content/uploads/2021/04/pet-cover-1440x548.jpeg.webp"
+            />
+          </div>
+        </div> */}
 
-        <img
-          class="image-2-icon"
-          alt=""
-          src="https://petservicehcm.com/wp-content/uploads/2021/04/pet-cover-1440x548.jpeg.webp"
-        />
-      </div>
+
+
     </>
   );
 }
