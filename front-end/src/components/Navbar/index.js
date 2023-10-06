@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import LogoHeader from "../../assets/logo-1.png";
 import {
@@ -8,8 +8,10 @@ import {
   FiMapPin,
   FiSend,
 } from "react-icons/fi";
+import { GlobalContext } from "../../Context";
 
 function Navbar(props) {
+  const { setShouldScroll } = useContext(GlobalContext);
   const navLinkStyle = {
     fontFamily: "Montserrat, sans-serif",
     fontSize: "12px",
@@ -24,18 +26,18 @@ function Navbar(props) {
     width: "102px",
     height: "47px",
     marginTop: "32px",
-
   };
 
   const scrolltoContent = (id) => {
     const element = document.getElementById(id);
 
     if (!element) {
-      navigate("/")
+      navigate("/");
+      setShouldScroll(true);
     } else {
       element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
   const navigate = useNavigate();
 
   return (
@@ -66,10 +68,7 @@ function Navbar(props) {
           </span>
         </div>
 
-        <div
-
-          className="flex space-x-4 mr-8 "
-        >
+        <div className="flex space-x-4 mr-8 ">
           <p className="w-4">0đ</p>
           <FiShoppingCart size={24} color="white" />
           <FiSearch size={24} color="white" />
@@ -114,17 +113,33 @@ function Navbar(props) {
               </NavLink>
             </li>
             <li style={liStyle} class="dropdown">
-
               <NavLink to="/service" style={navLinkStyle}>
                 DỊCH VỤ
-
               </NavLink>
               <ul class="dropdown-content">
-                <li><span onClick={() => scrolltoContent("")}  >Thú y tại nhà</span></li>
-                <li><span onClick={() => scrolltoContent("")}  >Tắm vệ sinh tại nhà</span></li>
-                <li><span onClick={() => scrolltoContent("dichvutialong")}  >Cắt tỉa lông tại nhà</span></li>
-                <li><span onClick={() => scrolltoContent("")}  >Dắt chó đi dạo</span></li>
-                <li><span onClick={() => scrolltoContent("")}  >Khách sạn thú cưng</span></li>
+                <li>
+                  <span onClick={() => scrolltoContent("")}>Thú y tại nhà</span>
+                </li>
+                <li>
+                  <span onClick={() => scrolltoContent("")}>
+                    Tắm vệ sinh tại nhà
+                  </span>
+                </li>
+                <li>
+                  <span onClick={() => scrolltoContent("dichvutialong")}>
+                    Cắt tỉa lông tại nhà
+                  </span>
+                </li>
+                <li>
+                  <span onClick={() => scrolltoContent("")}>
+                    Dắt chó đi dạo
+                  </span>
+                </li>
+                <li>
+                  <span onClick={() => scrolltoContent("")}>
+                    Khách sạn thú cưng
+                  </span>
+                </li>
               </ul>
             </li>
             <li style={liStyle}>

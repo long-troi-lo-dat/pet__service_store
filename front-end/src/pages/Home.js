@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -20,6 +20,7 @@ import ImageProduct1 from "../assets/img/83581f8bbe69f01df9acb0df5bd28e1d-remove
 import ImageSlide1 from "../assets/images-slideFeedBack/imgaaaa.png";
 import ImageBanner from "../assets/img/anusha-barwa-ppKcYi1CXcI-unsplash-removebg-preview.png";
 import "../assets/css/shop.css";
+import { GlobalContext } from "../Context";
 
 const links = [
   { name: "Xem thêm", href: "#" },
@@ -27,15 +28,17 @@ const links = [
 ];
 
 export default function Home() {
-  useEffect(() => {
-    // Xác định ID từ URL
-    const element = document.getElementById("dichvutialong");
+  const { shouldScroll, setShouldScroll } = useContext(GlobalContext);
 
-    if (element) {
-      // Cuộn đến phần tử có ID cụ thể nếu nó tồn tại
-      element.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    if (shouldScroll) {
+      const element = document.getElementById("dichvutialong");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setShouldScroll(false)
+      }
     }
-  }, []);
+  }, [shouldScroll, setShouldScroll]);
   return (
     <>
       <section className="flex justify-between max-w-6xl mx-auto pt-20 pb-20 items-center">
@@ -44,7 +47,13 @@ export default function Home() {
             <div className="w-10 bg-[#3858BB] h-[2px]"></div>
             <span> G D HOUSE</span>
           </p>
-          <h1 className="py-8 text-6xl italic leading-tight" style={{ WebkitTextStrokeWidth: '2px', WebkitTextStrokeColor: '101A5F' }}>
+          <h1
+            className="py-8 text-6xl italic leading-tight"
+            style={{
+              WebkitTextStrokeWidth: "2px",
+              WebkitTextStrokeColor: "101A5F",
+            }}
+          >
             DỊCH VỤ THÚ CƯNG
             <span className="font-extrabold stroke-[#101A5F] stroke-2 ">
               {" "}
@@ -392,7 +401,10 @@ export default function Home() {
           DỊCH VỤ THÚ CƯNG TẠI NHÀ - 24/7
         </p>
       </section>
-      <section className="max-w-6xl mx-auto flex justify-between items-center gap-16 mb-52" id="dichvutialong">
+      <section
+        className="max-w-6xl mx-auto flex justify-between items-center gap-16 mb-52"
+        id="dichvutialong"
+      >
         <div>
           <img
             src={ImageServiceItem5}
@@ -400,7 +412,7 @@ export default function Home() {
             alt=""
           />
         </div>
-        <div >
+        <div>
           <p className="font-semibold text-sm">THÔNG TIN & BẢNG GIÁ</p>
           <h2 className="font-semibold text-5xl leading-tight py-4">
             Dịch vụ cắt tỉa lông{" "}
