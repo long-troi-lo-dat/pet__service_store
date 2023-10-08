@@ -21,9 +21,9 @@ function Service(props) {
                 className=""
             >
                 <div class="sv__banner">
-                     <img src={backgroundImg} alt="" class="w-full h-full"/>
-                    <div class="sv__titlebanner">Dịch Vụ Tại Nhà</div>
+                     <img src={backgroundImg} alt="" />
                 </div>
+                <div className=' text-4xl font-bold text-center py-6'>Dịch Vụ Tại Nhà</div>
                 <div class="sv__coverfull flex w-4/5 m-auto py-8">
                     <div class="sv__prd-1 flex w-4/5">
                         <div class="sv__littleprd1 mb-5">
@@ -229,7 +229,7 @@ function Service(props) {
                                 </svg><svg xmlns="http://www.w3.org/2000/svg" width="4.735px" height="5.272px" viewBox="0 0 7 8" fill="none">
                                     <path d="M1.29987 7L5.06934 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg></div>
-                            <div class="sv__holder">Tìm kiếm...</div>
+                            <input class="sv__holder" placeholder='Tìm kiếm...'/>
                         </div>
                         <div class="sv__cvalltext">
                             <div class="sv__tllist">
