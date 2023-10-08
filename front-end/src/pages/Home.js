@@ -35,7 +35,7 @@ export default function Home() {
             <div className="w-10 bg-[#3858BB] h-[2px]"></div>
             <span> G D HOUSE</span>
           </p>
-          <h1 className="py-8 text-6xl italic leading-tight" style={{WebkitTextStrokeWidth: '2px', WebkitTextStrokeColor: '101A5F'}}>
+          <h1 className="py-8 text-6xl italic leading-tight" style={{ WebkitTextStrokeWidth: '2px', WebkitTextStrokeColor: '101A5F' }}>
             DỊCH VỤ THÚ CƯNG
             <span className="font-extrabold stroke-[#101A5F] stroke-2 ">
               {" "}
