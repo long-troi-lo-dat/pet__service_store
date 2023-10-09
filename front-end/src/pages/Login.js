@@ -63,6 +63,7 @@ function Login(props) {
           ĐĂNG NHẬP
         </h2>
         <form action="" onSubmit={handleLoginSubmit} className="form-login">
+          {/* <form action="" className="form-login"> */}
           {/* <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Tài Khoản</label>
             <input
@@ -114,8 +115,8 @@ function Login(props) {
           </div>
 
           <button
-            onClick={() => handleLoginSubmit}
             type="submit"
+            // onClick={handleLoginSubmit}
             style={{
               backgroundColor: "#222A63",
               width: "500px",

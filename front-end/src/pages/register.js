@@ -26,12 +26,18 @@ function Register(props) {
 
 
   const handleRegisterSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     setErrors(validation(formData))
     if (errors.hoten === "" && errors.sdt === "" && errors.email === "" && errors.password === "") {
       axios.post('http://localhost:8000/signup', formData)
-        .then(res => { navigate("/login") })
-        .catch(err => console.log(err))
+        .then(
+          res => {
+            navigate("/login")
+          }
+        )
+        .catch(
+          err => console.log(err)
+        )
     }
   };
   // const [formData, setFormData] = useState(initialFormData);
@@ -71,7 +77,8 @@ function Register(props) {
         >
           ĐĂNG KÝ
         </h2>
-        <form action="#" onSubmit={handleRegisterSubmit}>
+        <form action="" onSubmit={handleRegisterSubmit}>
+          {/* <form action=""> */}
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Họ tên</label>
             <input
@@ -122,6 +129,7 @@ function Register(props) {
             />
             {errors.email && <span className="text-danger">{errors.email}</span>}
           </div>
+
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Mật khẩu</label>
             <input
@@ -147,8 +155,8 @@ function Register(props) {
               fontSize: "16px",
             }}
             class="bg-blue-500 text-white mt-10 mb-6 px-4 rounded-3xl"
-            onClick={handleRegisterSubmit}
             type="submit"
+          // onClick={handleRegisterSubmit}
           >
             ĐĂNG KÝ
           </button>
