@@ -49,9 +49,9 @@ export default function Home() {
             <button className="bg-[#3858BB] py-3 px-5 text-white rounded-[20px] font-bold text-xs">
               XEM THÊM
             </button>
-            <button className="bg-white py-3 px-5 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs">
+            <a className="bg-white py-3 px-5 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs" href="/booking">
               ONLINE BOOKING
-            </button>
+            </a>
           </div>
         </div>
         <div>

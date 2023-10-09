@@ -1,5 +1,6 @@
 function validation(values) {
     let error = {}
+    // console.log(values,"oasdngoiasdngoiasdg")
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
     if (values.hoten === "") {
@@ -8,12 +9,14 @@ function validation(values) {
     else {
         error.hoten = ""
     }
+
     if (values.sdt === "") {
         error.sdt = "Số điện thoại không được để trống!"
     }
     else {
         error.sdt = ""
     }
+
     if (values.email === "") {
         error.email = "Email không được để trống!"
     }
@@ -23,6 +26,7 @@ function validation(values) {
     else {
         error.email = ""
     }
+
     if (values.password === "") {
         error.password = "password không được để trống!"
     }
