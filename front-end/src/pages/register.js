@@ -3,10 +3,13 @@ import "../assets/css/register.css";
 import "../assets/css/global.css";
 import logoRegister from "../assets/img/image-register.png";
 import { useNavigate } from "react-router-dom";
+import validation from "../components/Validate/registervalidate";
+import axios from 'axios'
 
 const initialFormData = {
-  username: "",
+  hoten: "",
   email: "",
+  sdt: "",
   password: "",
 };
 
@@ -14,14 +17,36 @@ function Register(props) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialFormData);
 
-  const handleRegisterSubmit = () => {};
-
+  const [errors, setErrors] = useState({})
   const handleChangeInput = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    // const { name, value } = event.target;
+    // setFormData({ ...formData, [name]: value });
+    setFormData(prev => ({ ...prev, [event.target.name]: [event.target.value] }))
   };
 
-  console.log(formData);
+
+  const handleRegisterSubmit = (event) => {
+    // event.preventDefault();
+    setErrors(validation(formData))
+    if (errors.hoten === "" && errors.sdt === "" && errors.email === "" && errors.password === "") {
+      axios.post('http://localhost:8000/signup', formData)
+        .then(res => { navigate("/login") })
+        .catch(err => console.log(err))
+    }
+  };
+  // const [formData, setFormData] = useState(initialFormData);
+
+  // const handleRegisterSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+
+  // const handleChangeInput = (event) => {
+  //   // const { name, value } = event.target;
+  //   // setFormData({ ...formData, [name]: value });
+  //   setFormData(prev => ({ ...prev, [event.target.name]: [event.target.value] }))
+  // };
+
+  // console.log(formData);
 
   return (
     <div
@@ -36,7 +61,7 @@ function Register(props) {
       <div
         style={{
           width: "587px",
-          height: "606px",
+          height: "auto",
         }}
         className="form-register bg-white p-10 rounded-2xl shadow-2xl border-black border-2 flex flex-col items-center"
       >
@@ -46,14 +71,14 @@ function Register(props) {
         >
           ĐĂNG KÝ
         </h2>
-        <div>
+        <form action="#" onSubmit={handleRegisterSubmit}>
           <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2">Tài Khoản</label>
+            <label class="block text-gray-700 font-bold mb-2">Họ tên</label>
             <input
-              name="username"
-              placeholder="Tài Khoản"
+              name="hoten"
+              placeholder="Họ tên"
               style={{
-                width: "435px",
+                width: "500px",
                 height: "50px",
                 backgroundColor: "#D9D9D9",
               }}
@@ -61,6 +86,24 @@ function Register(props) {
               type="text"
               onChange={handleChangeInput}
             />
+            {errors.hoten && <span className="text-danger">{errors.hoten}</span>}
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Số điện thoại</label>
+            <input
+              name="sdt"
+              placeholder="Số điện thoại"
+              style={{
+                width: "500px",
+                height: "50px",
+                backgroundColor: "#D9D9D9",
+              }}
+              class="border  p-2 w-full rounded-3xl  "
+              type="text"
+              onChange={handleChangeInput}
+            />
+            {errors.sdt && <span className="text-danger">{errors.sdt}</span>}
           </div>
 
           <div class="mb-4">
@@ -69,7 +112,7 @@ function Register(props) {
               name="email"
               placeholder="Email"
               style={{
-                width: "435px",
+                width: "500px",
                 height: "50px",
                 backgroundColor: "#D9D9D9",
               }}
@@ -77,6 +120,7 @@ function Register(props) {
               type="email"
               onChange={handleChangeInput}
             />
+            {errors.email && <span className="text-danger">{errors.email}</span>}
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Mật khẩu</label>
@@ -84,7 +128,7 @@ function Register(props) {
               name="password"
               placeholder="Mật khẩu"
               style={{
-                width: "435px",
+                width: "500px",
                 height: "50px",
                 backgroundColor: "#D9D9D9",
               }}
@@ -92,17 +136,19 @@ function Register(props) {
               type="password"
               onChange={handleChangeInput}
             />
+            {errors.password && <span className="text-danger">{errors.password}</span>}
           </div>
 
           <button
             style={{
               backgroundColor: "#222A63",
-              width: "435px",
+              width: "500px",
               height: "50px",
               fontSize: "16px",
             }}
             class="bg-blue-500 text-white mt-10 mb-6 px-4 rounded-3xl"
             onClick={handleRegisterSubmit}
+            type="submit"
           >
             ĐĂNG KÝ
           </button>
@@ -116,7 +162,7 @@ function Register(props) {
               Đăng nhập{" "}
             </span>{" "}
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

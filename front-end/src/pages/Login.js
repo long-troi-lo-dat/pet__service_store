@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoLogin from "../assets/img/image-login.png";
+import validation from "../components/Validate/loginvalidate";
+import axios from 'axios';
+
+const initialFormData = {
+  email: "",
+  password: "",
+};
+
 function Login(props) {
   const navigate = useNavigate()
+  const [formData, setFormData] = useState(initialFormData);
+
+  const [errors, setErrors] = useState({})
+  const handleChangeInput = (event) => {
+    // const { name, value } = event.target;
+    // setFormData({ ...formData, [name]: value });
+    setFormData(prev => ({ ...prev, [event.target.name]: [event.target.value] }))
+  };
+
+  const handleLoginSubmit = (event) => {
+    event.preventDefault();
+    setErrors(validation(formData))
+    if (errors.email === "" && errors.password === "") {
+      axios.post('http://localhost:8000/login', formData)
+        .then(
+          res => {
+            if (res.data === "success") {
+              navigate("/")
+            } else {
+              alert("Tài khoản không tồn tại!")
+            }
+          }
+        )
+        .catch(
+          err => console.log(err)
+        )
+    }
+  };
   return (
     <div
       style={{
@@ -16,7 +52,7 @@ function Login(props) {
       <div
         style={{
           width: "587px",
-          height: "606px",
+          height: "546px",
         }}
         className="form-register bg-white p-10 rounded-2xl shadow-2xl border-black border-2 flex flex-col items-center"
       >
@@ -26,8 +62,8 @@ function Login(props) {
         >
           ĐĂNG NHẬP
         </h2>
-        <div className="form-login">
-          <div class="mb-4">
+        <form action="" onSubmit={handleLoginSubmit} className="form-login">
+          {/* <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Tài Khoản</label>
             <input
               placeholder="Tài Khoản"
@@ -39,43 +75,50 @@ function Login(props) {
               class="border  p-2 w-full rounded-3xl  "
               type="text"
             />
-          </div>
+          </div> */}
 
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Email</label>
             <input
               placeholder="Email"
               style={{
-                width: "435px",
+                width: "500px",
                 height: "50px",
                 backgroundColor: "#D9D9D9",
               }}
               class="border p-2 w-full rounded-3xl"
-              type="email"
+              type="text"
+              name="email"
+              onChange={handleChangeInput}
             />
+            {errors.email && <span className="text-danger">{errors.email}</span>}
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Mật khẩu</label>
             <input
               placeholder="Mật khẩu"
               style={{
-                width: "435px",
+                width: "500px",
                 height: "50px",
                 backgroundColor: "#D9D9D9",
               }}
               class="border p-2 w-full rounded-3xl"
               type="password"
+              name="password"
+              onChange={handleChangeInput}
             />
+            {errors.password && <span className="text-danger">{errors.password}</span>}
           </div>
           <div className="text-right ">
             <span className="text-blue-600 cursor-pointer underline">Quên mật khẩu</span>
           </div>
 
           <button
-          // onClick={()=> handle}
+            onClick={() => handleLoginSubmit}
+            type="submit"
             style={{
               backgroundColor: "#222A63",
-              width: "435px",
+              width: "500px",
               height: "50px",
               fontSize: "16px",
             }}
@@ -91,7 +134,7 @@ function Login(props) {
               Tạo tài khoản{" "}
             </span>{" "}
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

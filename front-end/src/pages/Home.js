@@ -33,7 +33,7 @@ export default function Home() {
         <div className="">
           <p className="font-semibold text-sm flex gap-2 items-center px-2">
             <div className="w-10 bg-[#3858BB] h-[2px]"></div>
-            <span> G D HOUSE</span>
+            <span> D G HOUSE</span>
           </p>
           <h1 className="py-8 text-6xl italic leading-tight" style={{ WebkitTextStrokeWidth: '2px', WebkitTextStrokeColor: '101A5F' }}>
             DỊCH VỤ THÚ CƯNG
@@ -362,7 +362,7 @@ export default function Home() {
         </div>
       </section>
       <section className="mb-56">
-        <p className="font-semibold text-base text-center">GDHOUSE.COM</p>
+        <p className="font-semibold text-base text-center">DGHOUSE.COM</p>
         <h2 className="font-bold text-5xl text-black text-center mt-8 mb-10">
           CHÚNG TÔI LUÔN LUÔN <span className="text-[#49B3F4]">SÃN SÀNG</span>{" "}
           PHỤC VỤ BẠN
@@ -383,7 +383,7 @@ export default function Home() {
           DỊCH VỤ THÚ CƯNG TẠI NHÀ - 24/7
         </p>
       </section>
-      <section className="max-w-6xl mx-auto flex justify-between items-center gap-16 mb-52">
+      <section className="max-w-6xl mx-auto flex justify-between items-center gap-16 mb-52" id="dichvutialong">
         <div>
           <img
             src={ImageServiceItem5}
