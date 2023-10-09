@@ -55,6 +55,12 @@ function Shop(props) {
               <li class="list-group-item">Dưới 500.000đ</li>
               <li class="list-group-item">Trên 500.000đ</li>
             </ul>
+            <ul class="list-group mb-3">
+              <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Dịch vụ</li>
+              <li class="list-group-item">Dịch vụ tắm cho thú cưng</li>
+              <li class="list-group-item">Dịch vụ khám chữa bệnh</li>
+              <li class="list-group-item">Dịch vụ hotel thú cưng</li>
+            </ul>
           </div>
           <div className="product-right">
             <div className="row">
@@ -69,7 +75,7 @@ function Shop(props) {
                         <h5 class="card-title">{item.ten}</h5>
                         <p class="card-text mb-3">{item.mota}.</p>
                         <a href="#" class="btn btn-info card-link">Chi tiết</a>
-                        <a href="#" class="btn btn-success card-link">Mua ngay</a>
+                        <a href="#" class="btn btn-success card-link">Thêm vào giỏ</a>
                       </div>
                     </div>
                   </div>

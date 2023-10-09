@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 05, 2023 lúc 07:36 PM
+-- Thời gian đã tạo: Th10 09, 2023 lúc 12:24 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.1.12
 
@@ -92,6 +92,7 @@ CREATE TABLE `donhang` (
   `id_user` int(4) NOT NULL,
   `ten_nguoi_nhan` text NOT NULL,
   `sdt_nguoi_nhan` varchar(20) NOT NULL,
+  `diachi` varchar(100) NOT NULL,
   `tongtien` int(11) NOT NULL,
   `ngaydat` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `trangthai` tinyint(1) NOT NULL DEFAULT 0
@@ -108,8 +109,34 @@ CREATE TABLE `donhangchitiet` (
   `id_dh` int(4) NOT NULL,
   `id_sp` int(4) NOT NULL,
   `id_dv` int(4) NOT NULL,
+  `id_tc` int(11) NOT NULL,
+  `id_nv` int(11) NOT NULL,
   `soluong` int(11) NOT NULL,
   `tong` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `donhangdichvu`
+--
+
+CREATE TABLE `donhangdichvu` (
+  `id` int(11) NOT NULL,
+  `hoten` varchar(255) NOT NULL,
+  `sodienthoai` int(11) NOT NULL,
+  `diachi` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `thoigian` date NOT NULL,
+  `tenthucung` varchar(255) NOT NULL,
+  `loai` varchar(255) NOT NULL,
+  `thuocgiong` varchar(255) NOT NULL,
+  `sotuoi` int(2) NOT NULL,
+  `trongluong` int(3) NOT NULL,
+  `ghichu` varchar(255) NOT NULL,
+  `trangthai` tinyint(1) NOT NULL,
+  `nhanvien` int(11) NOT NULL,
+  `id_dichvu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -147,10 +174,10 @@ CREATE TABLE `nguoidung` (
   `sdt` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `matkhau` varchar(100) NOT NULL,
-  `diachi` varchar(50) NOT NULL,
-  `mota` varchar(100) NOT NULL,
-  `vaitro` tinyint(1) NOT NULL,
-  `lichsudh` varchar(50) NOT NULL
+  `diachi` varchar(50) DEFAULT NULL,
+  `mota` varchar(100) DEFAULT NULL,
+  `vaitro` tinyint(1) NOT NULL DEFAULT 0,
+  `lichsudh` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -162,7 +189,18 @@ INSERT INTO `nguoidung` (`id_user`, `hoTen`, `sdt`, `email`, `matkhau`, `diachi`
 (2, 'quốc bảo', '0123664879', 'quocbao@gmail.com', '123456789', '3 điện biên phủ', '', 1, ''),
 (3, 'gia long', '0123654798', 'longgiagia@gmail.com', '123456789', '6 xa lộ hà nội', '', 2, ''),
 (4, 'tuần lộc', '0451389762', 'tuanlocc@gmail.com', '123456789', '965 hoàng sa', '', 2, ''),
-(5, 'Anh tài', '0987456132', 'maianhtai@gmail.com', '123456789', '578 trường sa', '', 0, '');
+(5, 'Anh tài', '0987456132', 'maianhtai@gmail.com', '123456789', '578 trường sa', '', 0, ''),
+(18, 'U la tr', '01115548632', 'troioilatroi@gmail.com', '0123456987Olatr', NULL, NULL, 0, NULL),
+(19, 'Lan Nay Chac Chan Thanh Cong', '0123456987', 'thanhcongchacluon@gmail.com', '123456789Tc', NULL, NULL, 0, NULL),
+(20, 'Thanh cong di ma', '0987456123', 'lamon@gmail.com', '123456987Aw', NULL, NULL, 0, NULL),
+(21, 'Test Lan 1', '0123456987', 'emailtestlan1@gmail.com', '123456789Oi', NULL, NULL, 0, NULL),
+(22, 'Test Lan 2', '012345879', 'testlan2@gmail.com', '123456987Mk', NULL, NULL, 0, NULL),
+(23, 'test lan 3', '0123456789', 'testlan3@gmail.com', '321654987Mk', NULL, NULL, 0, NULL),
+(24, 'test lan 4', '088888888', 'giadinhlaso1@gmail.com', '123456789zA', NULL, NULL, 0, NULL),
+(25, 'huỳnh ngọc bảo long', '0123456789', 'troidanhtranhbuaan@gmail.com', 'Bl0123456', NULL, NULL, 0, NULL),
+(26, 'cuoc song kho khan', '0987523146', 'cuocsongkhokhan@gmail.com', '0123456Lb', NULL, NULL, 0, NULL),
+(27, 'Cuoc doi Tam Toi', '0326541798', 'cuocdoitamtoi@gmail.com', '03145297Uh', NULL, NULL, 0, NULL),
+(28, 'Co em ben doi bong vui', '016666666', 'coemdoibongvui@gmail.com', '123456789Aq', NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -186,11 +224,11 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`id_sp`, `ten`, `gia`, `hinhanh`, `ngaythem`, `soluong`, `mota`, `id_dm`) VALUES
-(1, 'Bánh bích quy hỗn hợp cho chó | túi 220g', 75000, '1', '2023-09-23 16:50:34', 20, 'thực phẩm cho chó', 2),
-(2, 'Hạt ANF 2KG cho chó vị cừu', 460000, '2', '2023-09-23 16:50:34', 5, 'thực phẩm bổ sung', 2),
-(3, 'Hạt chó Royal Canin Poodle Puppy - 1.5Kg', 466000, 'https://fagopet.vn/uploads/images/62b3f0149487f64db4fa408c/nuoi_cho_ta__4_.webp', '2023-10-05 16:45:05', 3, 'thực phẩm bổ sung', 2),
-(4, 'Hạt Royal Canin Hair&Skin 2kg', 556000, '4', '2023-10-05 16:41:06', 10, 'thực phẩm cho chó', 2),
-(5, 'Hạt Royal Canin kitten 2kg', 527000, '5', '2023-09-23 16:50:34', 5, 'thực phẩm chức năng', 2);
+(1, 'Bánh bích quy hỗn hợp cho chó | túi 220g', 75000, 'https://petservicehcm.com/wp-content/uploads/2023/02/Vong-co-23.png', '2023-10-06 04:39:21', 20, 'thực phẩm cho chó', 2),
+(2, 'Hạt ANF 2KG cho chó vị cừu', 460000, 'https://petservicehcm.com/wp-content/uploads/2023/02/Vong-co-25.png', '2023-10-06 04:38:39', 5, 'thực phẩm bổ sung', 2),
+(3, 'Hạt chó Royal Canin Poodle Puppy - 1.5Kg', 466000, 'https://petservicehcm.com/wp-content/uploads/2022/07/Khung-Shopee-41.png.webp', '2023-10-06 04:38:36', 3, 'thực phẩm bổ sung', 2),
+(4, 'Hạt Royal Canin Hair&Skin 2kg', 556000, 'https://petservicehcm.com/wp-content/uploads/2022/07/Khung-Shopee-41.png.webp', '2023-10-06 04:38:16', 10, 'thực phẩm cho chó', 2),
+(5, 'Hạt Royal Canin kitten 2kg', 527000, 'https://petservicehcm.com/wp-content/uploads/2023/02/Vong-co-23.png', '2023-10-06 04:38:06', 5, 'thực phẩm chức năng', 2);
 
 -- --------------------------------------------------------
 
@@ -268,6 +306,14 @@ ALTER TABLE `donhangchitiet`
   ADD KEY `fk_dhct_dichvu` (`id_dv`);
 
 --
+-- Chỉ mục cho bảng `donhangdichvu`
+--
+ALTER TABLE `donhangdichvu`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_dhdv_dichvu` (`id_dichvu`),
+  ADD KEY `fk_dhdv_nhanvien` (`nhanvien`);
+
+--
 -- Chỉ mục cho bảng `giongloai`
 --
 ALTER TABLE `giongloai`
@@ -329,6 +375,12 @@ ALTER TABLE `donhangchitiet`
   MODIFY `id_dhct` int(4) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `donhangdichvu`
+--
+ALTER TABLE `donhangdichvu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `giongloai`
 --
 ALTER TABLE `giongloai`
@@ -338,7 +390,7 @@ ALTER TABLE `giongloai`
 -- AUTO_INCREMENT cho bảng `nguoidung`
 --
 ALTER TABLE `nguoidung`
-  MODIFY `id_user` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
@@ -382,6 +434,13 @@ ALTER TABLE `donhangchitiet`
   ADD CONSTRAINT `fk_dhct_dichvu` FOREIGN KEY (`id_dv`) REFERENCES `dichvu` (`id_dv`),
   ADD CONSTRAINT `fk_dhct_donhang` FOREIGN KEY (`id_dh`) REFERENCES `donhang` (`id`),
   ADD CONSTRAINT `fk_dhct_sanpham` FOREIGN KEY (`id_sp`) REFERENCES `sanpham` (`id_sp`);
+
+--
+-- Các ràng buộc cho bảng `donhangdichvu`
+--
+ALTER TABLE `donhangdichvu`
+  ADD CONSTRAINT `fk_dhdv_dichvu` FOREIGN KEY (`id_dichvu`) REFERENCES `danhmuc` (`id_dm`),
+  ADD CONSTRAINT `fk_dhdv_nhanvien` FOREIGN KEY (`nhanvien`) REFERENCES `nguoidung` (`id_user`);
 
 --
 -- Các ràng buộc cho bảng `sanpham`
