@@ -20,7 +20,7 @@ function Contact(props) {
                         <b class="hy-gh-thm">Hãy ghé thăm</b>
                         <div class="office-spa-nh-container">
                             <span>
-                                <b>Office Spa</b>
+                                <b>DG House</b>
                                 <i class="i"> </i>
                             </span>
                             <b class="l-bt-buc">nhé</b>
