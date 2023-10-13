@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -20,6 +20,7 @@ import ImageProduct1 from "../assets/img/83581f8bbe69f01df9acb0df5bd28e1d-remove
 import ImageSlide1 from "../assets/images-slideFeedBack/imgaaaa.png";
 import ImageBanner from "../assets/img/anusha-barwa-ppKcYi1CXcI-unsplash-removebg-preview.png";
 import "../assets/css/shop.css";
+import { GlobalContext } from "../Context";
 
 const links = [
   { name: "Xem thêm", href: "#" },
@@ -27,6 +28,17 @@ const links = [
 ];
 
 export default function Home() {
+  const { shouldScroll, setShouldScroll } = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (shouldScroll) {
+      const element = document.getElementById("dichvutialong");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setShouldScroll(false)
+      }
+    }
+  }, [shouldScroll, setShouldScroll]);
   return (
     <>
       <section className="flex justify-between max-w-6xl mx-auto pt-20 pb-20 items-center">

@@ -66,7 +66,7 @@ function Shop(props) {
             <div className="row">
               {data.map((item, i) => {
                 return (
-                  <div className="col-lg-4 col-md-12 mb-4">
+                  <div key={i} className="col-lg-4 col-md-12 mb-4">
                     <div class="card" style={{ width: "18rem" }}>
                       {/* <img src={"../../assets/img-pet/" + item.hinhanh + ".jpg"} class="card-img-top" alt="..." /> */}
                       <img src={item.hinhanh} class="card-img-top" alt="..." />

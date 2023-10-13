@@ -118,10 +118,10 @@ function Navbar(props) {
               </NavLink>
               <ul class="dropdown-content">
                 <li>
-                  <span onClick={() => scrolltoContent("")}>Thú y tại nhà</span>
+                  <span >Thú y tại nhà</span>
                 </li>
                 <li>
-                  <span onClick={() => scrolltoContent("")}>
+                  <span >
                     Tắm vệ sinh tại nhà
                   </span>
                 </li>
@@ -131,12 +131,12 @@ function Navbar(props) {
                   </span>
                 </li>
                 <li>
-                  <span onClick={() => scrolltoContent("")}>
+                  <span >
                     Dắt chó đi dạo
                   </span>
                 </li>
                 <li>
-                  <span onClick={() => scrolltoContent("")}>
+                  <span >
                     Khách sạn thú cưng
                   </span>
                 </li>
