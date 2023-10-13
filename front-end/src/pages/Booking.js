@@ -1,6 +1,34 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from '../Context';
 
 function Booking(props) {
+    const navigate = useNavigate();
+    const { formData, setFormData } = useContext(GlobalContext)
+
+    const handleChangeInput = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+
+    };
+    const handleBookingSubmit = async (event) => {
+        setFormData(formData)
+        await axios.post('http://localhost:8000/bookingservice', formData)
+            .then(
+                res => {
+                    console.log(res)
+                    setTimeout(() => {
+                        navigate("/success")
+                    }, 2000);
+                    // return setFormData(formData)
+                }
+            )
+            .catch(
+                err => console.log(err)
+            )
+    }
+    // };
     return (
         <div className="sv__coverfull w-4/5 m-auto py-8">
             <h5 class="h5 mb-0 text-gray-800">Đặt Lịch Nhanh</h5>
@@ -13,64 +41,67 @@ function Booking(props) {
                                 <div class="row g-3">
                                     <div class="col-12">
                                         <label for="dichvu" class="form-label">YÊU CẦU DỊCH VỤ <span className="text-danger">*</span></label>
-                                        <h6 style={{ fontSize: "12px" }}>Vui lòng chọn 1 dịch vụ bạn đang cần để DG House HCM có thể chuẩn bị, và phục vụ các bé một cách chu đáo nhất nhé!</h6>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected value="1">Dịch vụ tắm thú cưng</option>
-                                            <option value="2">khám chữa bệnh tại nhà</option>
-                                            <option value="3">khám chữa bệnh tại cơ sở</option>
-                                            <option value="4">giữ, chăm sóc hộ chủ</option>
+                                        <h6 style={{ fontSize: "12px" }} className="pb-3">Vui lòng chọn 1 dịch vụ bạn đang cần để DG House HCM có thể chuẩn bị, và phục vụ các bé một cách chu đáo nhất nhé!</h6>
+                                        <select class="form-select" aria-label="Default select example" name="dichvu" onChange={handleChangeInput}>
+                                            <option>Vui lòng chọn dịch vụ</option>
+                                            <option value="1">Dịch vụ tắm thú cưng - Chó</option>
+                                            <option value="2">Khám chữa bệnh tại nhà</option>
+                                            <option value="3">Khám chữa bệnh tại cơ sở</option>
+                                            <option value="4">Hotel thú cưng</option>
+                                            <option value="5" disabled>Dịch vụ tắm thú cưng - Mèo (Sắp ra mắt)</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
                                         <label for="hoten" class="form-label">Họ tên <span className="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="hoten" placeholder="Họ và tên" />
+                                        <input type="text" class="form-control" id="hoten" placeholder="Họ và tên" name="hoten" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-12">
                                         <label for="sodienthoai" class="form-label">Số điện thoại <span className="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="sodienthoai" placeholder="Số điện thoại" />
+                                        <input type="text" class="form-control" id="sodienthoai" placeholder="Số điện thoại" name="sdt" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="diachi" class="form-label">Địa chỉ <span className="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="diachi" />
+                                        <input type="text" class="form-control" id="diachi" name="diachi" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="emailcuaban" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="emailcuaban" />
+                                        <input type="text" class="form-control" id="emailcuaban" name="email" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-12">
                                         <label for="thoigianhen" class="form-label">Thời gian <span className="text-danger">*</span></label>
-                                        <input type="date" class="form-control" id="thoigianhen" />
+                                        <input type="date" class="form-control" id="thoigianhen" name="thoigianhen" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-12">
                                         <label for="tenthucung" class="form-label">Tên thú cưng <span className="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="tenthucung" placeholder="Tên thú cưng" />
+                                        <input type="text" class="form-control" id="tenthucung" placeholder="Tên thú cưng" name="tenthucung" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label">Loài <span className="text-danger">*</span></label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected value="1">Chó</option>
-                                            <option value="2">Mèo</option>
-                                            <option value="3">Khác</option>
+                                        <select class="form-select" aria-label="Default select example" name="loai" onChange={handleChangeInput}>
+                                            <option selected>Vui lòng chọn loài vật</option>
+                                            <option value="Chó">Chó</option>
+                                            <option value="Mèo">Mèo</option>
+                                            <option value="Others">Khác</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
-                                        <label for="thuocgiongloai" class="form-label">Thuộc giống loài <span className="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="thuocgiongloai" placeholder="Thuộc giống loài" />
+                                        <label for="thuocgiong" class="form-label">Thuộc giống loài <span className="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="thuocgiong" placeholder="Thuộc giống loài" name="thuocgiong" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="tuoi" class="form-label">Tuổi (năm) <span className="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="tuoi" placeholder="1 tuổi" />
+                                        <input type="text" class="form-control" id="tuoi" placeholder="1" name="tuoi" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="trongluong" class="form-label">Trọng lượng (Kg) <span className="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="trongluong" placeholder="1" />
+                                        <input type="text" class="form-control" id="trongluong" placeholder="1" name="trongluong" onChange={handleChangeInput} />
                                     </div>
                                     <div class="col-12">
                                         <label for="ghichu" class="form-label">Ghi chú cho nhân viên</label>
-                                        <textarea class="form-control" id="ghichu" rows="7" placeholder='Nhập một vài môt tả về tình trạng của các bé để các chuyên viên của chúng tôi có thể hỗ trợ bạn tốt nhất...'></textarea>
+                                        <textarea class="form-control" name="ghichu" onChange={handleChangeInput} id="ghichu" rows="7" placeholder='Nhập một vài môt tả về tình trạng của các bé để các chuyên viên của chúng tôi có thể hỗ trợ bạn tốt nhất...'></textarea>
                                     </div>
                                 </div>
-                                <button class="btn btn-success mt-4 bg-success" type="submit">Gửi xác nhận</button>
+                                <button class="btn btn-success mt-4 bg-success" onClick={handleBookingSubmit}>Gửi xác nhận</button>
                             </div>
                         </div>
                     </div>

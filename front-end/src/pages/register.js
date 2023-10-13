@@ -22,13 +22,9 @@ function Register(props) {
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    // setFormData(prev => ({ ...prev, [event.target.name]: event.target.value }))
   };
 
-  console.log(errors)
-
   const handleRegisterSubmit = async (event) => {
-    // event.preventDefault();
     setErrors(validation(formData))
 
     const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
@@ -38,16 +34,11 @@ function Register(props) {
     const validateEmail = formData.email
     const validatePassword = formData.password
 
-    // setErrors(formData)
-    // console.log("trước if")
-    // if (errors.hoten === "" && errors.sdt === "" && errors.email === "" && errors.password === "") {
     if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && password_pattern.test(validatePassword)) {
       await axios.post('http://localhost:8000/signup', formData)
         .then(
           res => {
-            // console.log("asdoignoasidngoiasdngioasodignioasdigonasoidngoansdiognoaisndigo")
             navigate("/login")
-            // alert("thanh cong")
           }
         )
         .catch(
@@ -55,19 +46,6 @@ function Register(props) {
         )
     }
   };
-  // const [formData, setFormData] = useState(initialFormData);
-
-  // const handleRegisterSubmit = (event) => {
-  //   event.preventDefault();
-  // };
-
-  // const handleChangeInput = (event) => {
-  //   // const { name, value } = event.target;
-  //   // setFormData({ ...formData, [name]: value });
-  //   setFormData(prev => ({ ...prev, [event.target.name]: [event.target.value] }))
-  // };
-
-  // console.log(formData);
 
   return (
     <div
@@ -93,8 +71,6 @@ function Register(props) {
           ĐĂNG KÝ
         </h2>
         <div >
-          {/* <form action=""> */}
-          {/* <form action="" method> */}
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Họ tên</label>
             <input
@@ -172,7 +148,6 @@ function Register(props) {
               fontSize: "16px",
             }}
             class="bg-blue-500 text-white mt-10 mb-6 px-4 rounded-3xl"
-          // onClick={handleRegisterSubmit}
           >
             ĐĂNG KÝ
           </button>

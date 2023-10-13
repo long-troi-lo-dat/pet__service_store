@@ -18,6 +18,7 @@ app.use("/api", route)
 app.get('/', (re, res) => {
   return res.json("abc");
 })
+
 //api crud
 app.post('/signup', (req, res) => {
   const sql = "INSERT into `nguoidung` (`hoten`,`sdt`,`email`,`matkhau`) values (?,?,?,?)";
@@ -46,6 +47,30 @@ app.post('/login', (req, res) => {
     } else {
       return res.json("fail")
     }
+  })
+})
+
+app.post('/bookingservice', (req, res) => {
+  const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `diachi`, `email`, `thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`, `id_dichvu`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+  const values = [
+    req.body.hoten,
+    req.body.sdt,
+    req.body.diachi,
+    req.body.email,
+    req.body.thoigianhen,
+    req.body.tenthucung,
+    req.body.loai,
+    req.body.thuocgiong,
+    req.body.tuoi,
+    req.body.trongluong,
+    req.body.ghichu,
+    req.body.dichvu
+  ]
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
   })
 })
 
