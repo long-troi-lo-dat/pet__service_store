@@ -158,14 +158,14 @@ export default function Home() {
             className="flex flex-col items-center  p-5 rounded-[20px]"
             style={{ boxShadow: "1px 1px 4px rgba(0, 0, 0, 0.25)" }}
           >
-            <img src={ImageProduct1} className="w-[219px] h-[230px]" alt="" />
+            <img src="https://petservicehcm.com/wp-content/uploads/2022/07/Khung-Shopee-41.png.webp" className="w-[219px] h-[230px]" alt="" />
             <p className="font-semibold text-[10px] text-[#D9D9D9]">
-              SẢN PHẨM TRỊ LIỆU
+              Thức ăn cho thú cưng
             </p>
             <h4 className="font-bold text-xs text-black py-4">
-              Chai xịt huấn luyện vệ sinh cho chó
+              Hạt chó Royal Canin Poodle Puppy - 1.5Kg
             </h4>
-            <h3 className="font-semibold text-lg text-[#101A5F]">150.000 đ</h3>
+            <h3 className="font-semibold text-lg text-[#101A5F]">466.000 đ</h3>
           </div>
         </div>
       </section>
