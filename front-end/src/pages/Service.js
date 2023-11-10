@@ -1,15 +1,15 @@
 import React from 'react';
 import './style/service.css';
-import backgroundImg from "../assets/images-service/background.jpg";
-import img1 from "../assets/images-service/1.jpg"
-import img2 from "../assets/images-service/2.jpg"
-import img3 from "../assets/images-service/3.jpg"
-import img4 from "../assets/images-service/4.jpg"
-import img5 from "../assets/images-service/5.jpg"
-import img6 from "../assets/images-service/6.jpg"
-import img7 from "../assets/images-service/7.jpg"
-import img8 from "../assets/images-service/8.jpg"
-import img9 from "../assets/images-service/9.jpg"
+import backgroundImg from "../assets/img/images-service/background.jpg";
+import img1 from "../assets/img/images-service/1.jpg"
+import img2 from "../assets/img/images-service/2.jpg"
+import img3 from "../assets/img/images-service/3.jpg"
+import img4 from "../assets/img/images-service/4.jpg"
+import img5 from "../assets/img/images-service/5.jpg"
+import img6 from "../assets/img/images-service/6.jpg"
+import img7 from "../assets/img/images-service/7.jpg"
+import img8 from "../assets/img/images-service/8.jpg"
+import img9 from "../assets/img/images-service/9.jpg"
 function Service(props) {
     return (
         <>

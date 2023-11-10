@@ -2,25 +2,28 @@ import { createContext, useState } from "react";
 
 export const GlobalContext = createContext(null);
 
+var iduser = localStorage.getItem("id_user")
+
 const formBooking = {
+  dichvu: "",
+  chinhanh: "",
   hoten: "",
   sdt: "",
-  diachi: "",
   email: "",
-  thoigianhen: "",
+  ngay: "",
+  thoigian: "",
   tenthucung: "",
   loai: "",
   thuocgiong: "",
   tuoi: "",
   trongluong: "",
   ghichu: "",
-  dichvu: ""
 };
 
 const GlobalState = ({ children }) => {
   const [shouldScroll, setShouldScroll] = useState(false);
 
-  const [formData, setFormData] = useState(formBooking);
+  const [formData, setFormData] = useState({ formBooking, iduser: iduser });
 
   const [addressFormData, setAddressFormData] = useState({
     fullName: "",

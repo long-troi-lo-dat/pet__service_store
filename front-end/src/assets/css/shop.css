@@ -867,7 +867,7 @@
   width: 1520px;
 }
 .navbar {
-  top: 48px;
+  /* top: 48px; */
   height: 110px;
   font-size: 12px;
   color: #101a5f;

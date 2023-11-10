@@ -2,29 +2,30 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../Context";
-
 function Booking(props) {
   const navigate = useNavigate();
   const { formData, setFormData } = useContext(GlobalContext);
 
   const handleChangeInput = (event) => {
     const name = event.target.name;
-    console.log(name);
     const value = event.target.value;
     setFormData({
-        ...formData,
-        [name]: value 
-      })
+      ...formData,
+      [name]: value
+    })
   };
+
+  var iduser = localStorage.getItem("id_user")
+
   const handleBookingSubmit = async (event) => {
     setFormData(formData);
     await axios
       .post("http://localhost:8000/bookingservice", formData)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setTimeout(() => {
           navigate("/success");
-        }, 2000);
+        }, 1000);
       })
       .catch((err) => console.log(err));
   };
@@ -56,13 +57,29 @@ function Booking(props) {
                       onChange={handleChangeInput}
                     >
                       <option>Vui lòng chọn dịch vụ</option>
-                      <option value="1">Dịch vụ tắm thú cưng - Chó</option>
-                      <option value="2">Khám chữa bệnh tại nhà</option>
-                      <option value="3">Khám chữa bệnh tại cơ sở</option>
-                      <option value="4">Hotel thú cưng</option>
+                      <option value="1">Dịch vụ spa cho thú cưng <span>( 500.000đ )</span></option>
+                      <option value="2">Dịch vụ cắt tỉa lông cho thú cưng<span>( 300.000đ )</span></option>
+                      <option value="3">Khám chữa bệnh tại cơ sở <span>( 120.000đ )</span></option>
+                      <option value="4">Hotel thú cưng <span>( 100.000đ / 1 ngày )</span></option>
                       <option value="5" disabled>
                         Dịch vụ tắm thú cưng - Mèo (Sắp ra mắt)
                       </option>
+                    </select>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="chinhanh" class="form-label">
+                      Chi nhánh <span className="text-danger">*</span>
+                    </label>
+                    <select
+                      class="form-select form-control"
+                      aria-label="Default select example"
+                      name="chinhanh"
+                      id="chinhanh"
+                      onChange={handleChangeInput}
+                    >
+                      <option>Vui lòng chi nhánh gần nhất</option>
+                      <option value="2">Tòa nhà QTSC9 (toà T), đường Tô Ký, phường Tân Chánh Hiệp, quận 12, TP HCM.</option>
+                      <option value="3">778/B1 Nguyễn Kiệm, phường 04, quận Phú Nhuận, TP HCM</option>
                     </select>
                   </div>
                   <div class="col-12">
@@ -75,11 +92,19 @@ function Booking(props) {
                       id="hoten"
                       placeholder="Họ và tên"
                       name="hoten"
-                      value={formData.hoten}
+                      // value={formData.hoten}
+                      onChange={handleChangeInput}
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="iduser"
+                      name="iduser"
+                      value={iduser}
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-12">
+                  <div class="col-6">
                     <label for="sodienthoai" class="form-label">
                       Số điện thoại <span className="text-danger">*</span>
                     </label>
@@ -93,18 +118,6 @@ function Booking(props) {
                     />
                   </div>
                   <div class="col-md-6">
-                    <label for="diachi" class="form-label">
-                      Địa chỉ <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="diachi"
-                      name="diachi"
-                      onChange={handleChangeInput}
-                    />
-                  </div>
-                  <div class="col-md-6">
                     <label for="emailcuaban" class="form-label">
                       Email
                     </label>
@@ -113,20 +126,34 @@ function Booking(props) {
                       class="form-control"
                       id="emailcuaban"
                       name="email"
+                      placeholder="Email của bạn"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-12">
-                    <label for="thoigianhen" class="form-label">
-                      Thời gian <span className="text-danger">*</span>
+                  <div class="col-6">
+                    <label for="ngay" class="form-label">
+                      Ngày <span className="text-danger">*</span>
                     </label>
                     <input
                       type="date"
                       class="form-control"
-                      id="thoigianhen"
-                      name="thoigianhen"
+                      id="ngay"
+                      name="ngay"
                       onChange={handleChangeInput}
                     />
+                  </div>
+                  <div class="col-6">
+                    <label for="thoigian" class="form-label">
+                      Thời gian <span className="text-danger">*</span>
+                    </label>
+                    <input type="time"
+                      class="form-control"
+                      id="thoigian"
+                      name="thoigian"
+                      onChange={handleChangeInput} />
+                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DesktopTimePicker name="thoigian" defaultValue={dayjs('2022-04-17T00:00')} />
+                    </LocalizationProvider> */}
                   </div>
                   <div class="col-12">
                     <label for="tenthucung" class="form-label">
@@ -467,7 +494,7 @@ function Booking(props) {
                     </form>
                 </div>
             </div> */}
-    </div>
+    </div >
   );
 }
 

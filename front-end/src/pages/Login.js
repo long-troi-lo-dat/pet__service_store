@@ -7,30 +7,64 @@ import axios from 'axios';
 const initialFormData = {
   email: "",
   password: "",
-};
+}
 
 function Login(props) {
   const navigate = useNavigate()
   const [formData, setFormData] = useState(initialFormData);
-
+  // const [userData, setUserData] = useState()
   const [errors, setErrors] = useState({})
+
   const handleChangeInput = (event) => {
-    // const { name, value } = event.target;
-    // setFormData({ ...formData, [name]: value });
-    setFormData(prev => ({ ...prev, [event.target.name]: [event.target.value] }))
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleLoginSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
+    const validateEmail = formData.email
+    const validatePassword = formData.password
     setErrors(validation(formData))
-    if (errors.email === "" && errors.password === "") {
+    if (validateEmail !== "" && validatePassword !== "") {
       axios.post('http://localhost:8000/login', formData)
         .then(
           res => {
-            if (res.data === "success") {
-              navigate("/")
-            } else {
+            if (res.data === "fail") {
               alert("Tài khoản không tồn tại!")
+            } else {
+              console.log(res.data)
+              console.log(res.data[0].vaitro);
+              // console.log(res.data)
+              // console.log(typeof res.data.vaitro);
+              // console.log(res.data.vaitro)
+              // console.log(res.data.id_user)
+              if (res.data[0].vaitro === 0) {
+                localStorage.setItem("vaitro", res.data[0].vaitro)
+                localStorage.setItem("id_user", res.data[0].id_user)
+                localStorage.setItem("header", 0)
+                localStorage.setItem("login", "yes")
+                navigate("/")
+              } else if (res.data[0].vaitro === 1) {
+                localStorage.setItem("vaitro", res.data[0].vaitro)
+                localStorage.setItem("id_user", res.data[0].id_user)
+                localStorage.setItem("header", 1)
+                localStorage.setItem("login", "yes")
+                navigate("/admin/index")
+              } else if (res.data[0].vaitro === 2) {
+                localStorage.setItem("vaitro", res.data[0].vaitro)
+                localStorage.setItem("id_user", res.data[0].id_user)
+                localStorage.setItem("header", 1)
+                localStorage.setItem("login", "yes")
+                localStorage.setItem("chinhanh", res.data[0].chinhanh)
+                navigate("/QuanLyChiNhanh/index")
+              } else if (res.data[0].vaitro === 5) {
+                localStorage.setItem("vaitro", res.data[0].vaitro)
+                localStorage.setItem("id_user", res.data[0].id_user)
+                localStorage.setItem("header", 1)
+                localStorage.setItem("login", "yes")
+                localStorage.setItem("chinhanh", res.data[0].chinhanh)
+                navigate("/NhanVienDichVu/index")
+              }
             }
           }
         )
@@ -62,7 +96,7 @@ function Login(props) {
         >
           ĐĂNG NHẬP
         </h2>
-        <form action="" onSubmit={handleLoginSubmit} className="form-login">
+        <div className="form-login">
           {/* <form action="" className="form-login"> */}
           {/* <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Tài Khoản</label>
@@ -116,7 +150,7 @@ function Login(props) {
 
           <button
             type="submit"
-            // onClick={handleLoginSubmit}
+            onClick={handleLoginSubmit}
             style={{
               backgroundColor: "#222A63",
               width: "500px",
@@ -135,7 +169,7 @@ function Login(props) {
               Tạo tài khoản{" "}
             </span>{" "}
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

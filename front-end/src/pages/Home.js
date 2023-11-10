@@ -17,7 +17,7 @@ import ImageServiceItem3 from "../assets/img/cat_3670613.png";
 import ImageServiceItem4 from "../assets/img/photo-1672426637977-1c84fb473464.avif";
 import ImageServiceItem5 from "../assets/img/reba-spike-nAedTCXPdeg-unsplash.jpg";
 import ImageProduct1 from "../assets/img/83581f8bbe69f01df9acb0df5bd28e1d-removebg-preview.png";
-import ImageSlide1 from "../assets/images-slideFeedBack/imgaaaa.png";
+import ImageSlide1 from "../assets/img/images-slideFeedBack/imgaaaa.png";
 import ImageBanner from "../assets/img/anusha-barwa-ppKcYi1CXcI-unsplash-removebg-preview.png";
 import "../assets/css/shop.css";
 import { GlobalContext } from "../Context";
@@ -61,9 +61,14 @@ export default function Home() {
             <button className="bg-[#3858BB] py-3 px-5 text-white rounded-[20px] font-bold text-xs">
               XEM THÊM
             </button>
-            <a className="bg-white py-3 px-5 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs" href="/booking">
-              ONLINE BOOKING
-            </a>
+            {localStorage.getItem("login") === "yes" ?
+              <a className="bg-white py-3 px-5 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs" href="/booking">
+                ONLINE BOOKING
+              </a>
+              :
+              <a className="bg-white py-3 px-5 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs" href="/login">
+                ONLINE BOOKING
+              </a>}
           </div>
         </div>
         <div>
@@ -360,9 +365,9 @@ export default function Home() {
                 />
               </svg>
             </button>
-            <button className="bg-white py-3 px-8 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs">
+            <a className="bg-white py-3 px-8 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs" href="/booking">
               Đặt lịch ngay
-            </button>
+            </a>
           </div>
         </div>
         <div className="">
@@ -449,9 +454,9 @@ export default function Home() {
                 />
               </svg>
             </button>
-            <button className="bg-white py-3 px-8 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs">
+            <a className="bg-white py-3 px-8 text-[#3858BB] border-[#3858BB] border-2 rounded-[20px] font-bold text-xs" href="/booking">
               Đặt lịch ngay
-            </button>
+            </a>
           </div>
         </div>
       </section>

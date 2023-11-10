@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-function success(props) {
+function Success(props) {
     return (
         <div id="notfound">
             <div class="notfound">
@@ -11,4 +11,4 @@ function success(props) {
     );
 }
 
-export default success;
+export default Success;
