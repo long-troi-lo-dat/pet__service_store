@@ -5,6 +5,10 @@ import Navbar from "./components/Navbar";
 import GlobalState from "./Context";
 import { publicRoutes } from "./routes";
 
+// const Home = React.lazy(() => import("./pages/home"));
+// const HomeAdmin = React.lazy(() => import("./admin/home"));
+// const ProductList = React.lazy(() => import("./admin/product/list"));
+
 const App = () => {
   return (
     <>
@@ -15,9 +19,7 @@ const App = () => {
             <Routes>
               {publicRoutes.map((item, index) => {
                 const Page = item.component;
-                return (
-                  <Route key={index} path={item.path} element={<Page />} />
-                );
+                return <Route key={index} path={item.path} element={<Page />} />;
               })}
             </Routes>
           </main>

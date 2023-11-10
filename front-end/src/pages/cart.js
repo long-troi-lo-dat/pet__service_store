@@ -1,8 +1,10 @@
 import React from 'react';
-import '../assets/css/cart.css';
-import '../assets/css/global3.css';
+// import '../assets/css/global3.css';
 
-function Cart(props) {
+function Cart({ setShowCart, cart }) {
+  const onCloseCartHandler = () => {
+    setShowCart(false)
+  }
   return (
     <div className="sv__coverfull w-4/5 m-auto py-8">
       <div className="row">
@@ -28,6 +30,7 @@ function Cart(props) {
             </div>
           </div>
           <button class="btn btn-success mt-4 bg-success" type="submit">Gửi xác nhận</button>
+          <button class="btn btn-danger mt-4 bg-danger" style={{ marginLeft: "20px" }} onClick={onCloseCartHandler}>Tiếp tục mua sắm</button>
         </div>
         <div className="col-xl-7 col-lg-7">
           <div class="card shadow mb-4">
@@ -47,35 +50,16 @@ function Cart(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td style={{ width: "20%" }}><img src="https://www.petmart.vn/wp-content/uploads/2021/06/thuc-an-cho-cho-poodle-con-royal-canin-poodle-puppy1.jpg" alt='img' /></td>
-                    <td style={{ width: "30%" }}>Thức ăn cho chó Poodle con ROYAL CANIN Poodle Puppy</td>
-                    <td style={{ width: "15%" }}>175.000 đ</td>
-                    <td style={{ width: "15%" }}><input type="number" style={{ width: "100%" }} className='text-center' value="1" /></td>
-                    <td style={{ width: "20%" }}>175.000 đ</td>
-                    <td>Xóa</td>
-                  </tr>
-                  <tr>
-                    <td style={{ width: "20%" }}><img src="https://www.petmart.vn/wp-content/uploads/2020/11/thuc-an-cho-cho-poodle-mkb-all-life-stages-formula-nutrition.jpg" alt='img' /></td>
-                    <td style={{ width: "30%" }}>Thức ăn cho chó Poodle MKB All Life Stages Formula Nutrition</td>
-                    <td style={{ width: "15%" }}>315.000 đ</td>
-                    <td style={{ width: "15%" }}><input type="number" style={{ width: "100%" }} className='text-center' value="2" /></td>
-                    <td style={{ width: "20%" }}>630.000 đ</td>
-                    <td>Xóa</td>
-                  </tr>
-                  <tr>
-                    <td style={{ width: "20%" }}><img src="https://www.petmart.vn/wp-content/uploads/2015/11/xich-cho-cho-kem-vong-co-hand-in-hand-reflective-collar-leash.jpg" alt='img' /></td>
-                    <td style={{ width: "30%" }}>Xích cho chó kèm vòng cổ HAND IN HAND Reflective Collar Leash</td>
-                    <td style={{ width: "15%" }}>200.000 đ</td>
-                    <td style={{ width: "15%" }}><input type="number" style={{ width: "100%" }} className='text-center' value="1" /></td>
-                    <td style={{ width: "20%" }}>200.000 đ</td>
-                    <td>Xóa</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" style={{ width: "20%" }}></td>
-                    <td colspan="2" style={{ width: "15%" }}>Tổng tiền: </td>
-                    <td colspan="2" style={{ width: "20%" }}>1.005.000 đ</td>
-                  </tr>
+                  {cart.map((item, i) => (
+                    <tr>
+                      <td style={{ width: "20%" }}><img src={item.hinhanh} alt='img' /></td>
+                      <td style={{ width: "30%" }}>{item.ten}</td>
+                      <td style={{ width: "15%" }}>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                      <td style={{ width: "15%" }}><span><button>-</button><input type="text" style={{ width: "100%" }} className='text-center' /><button>+</button></span></td>
+                      <td style={{ width: "20%" }}>175.000 đ</td>
+                      <td>Xóa</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

@@ -1,5 +1,5 @@
 .contact-banner {
-  background: url("../../assets/images-contact/v12_90.png");
+  background: url("../../assets/img/images-contact/v12_90.png");
   height: 350px;
   width: 100%;
 }
@@ -218,7 +218,7 @@
 }
 
 .map {
-  margin-left: 180px;
+  margin-left: 90px;
   position: relative;
   top: 800px;
 }
@@ -252,7 +252,7 @@ input#loinhan {
 .adress-contact-logo-3 {
   width: 25px;
   height: 25px;
-  background: url("../../assets/images-contact/v12_196.png");
+  background: url("../../assets/img/images-contact/v12_196.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -266,7 +266,7 @@ input#loinhan {
 .adress-contact-logo-1 {
   width: 25px;
   height: 25px;
-  background: url("../../assets/images-contact/v12_197.png");
+  background: url("../../assets/img/images-contact/v12_197.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -280,7 +280,7 @@ input#loinhan {
 .adress-contact-logo-2 {
   width: 25px;
   height: 25px;
-  background: url("../../assets/images-contact/v12_198.png");
+  background: url("../../assets/img/images-contact/v12_198.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

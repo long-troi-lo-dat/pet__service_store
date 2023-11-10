@@ -38,6 +38,7 @@ function Register(props) {
       await axios.post('http://localhost:8000/signup', formData)
         .then(
           res => {
+            console.log(res)
             navigate("/login")
           }
         )

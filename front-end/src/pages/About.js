@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import imageAbout from "../assets/images-about/image1.png";
-import imageMain from "../assets/images-about/logo-2.png";
-import dogImage from "../assets/images-about/dogImage.png";
-import catImage from "../assets/images-about/catImage.png";
-import Image2 from "../assets/images-about/image2.png";
-import Image3 from "../assets/images-about/image3.png";
-import Image4 from "../assets/images-about/image4.png";
-import Image5 from "../assets/images-about/image5.png";
-import Image6 from "../assets/images-about/image6.png";
-import Image7 from "../assets/images-about/image7.png";
-import Image8 from "../assets/images-about/image8.png";
+import imageAbout from "../assets/img/images-about/image1.png";
+import imageMain from "../assets/img/images-about/logo-2.png";
+import dogImage from "../assets/img/images-about/dogImage.png";
+import catImage from "../assets/img/images-about/catImage.png";
+import Image2 from "../assets/img/images-about/image2.png";
+import Image3 from "../assets/img/images-about/image3.png";
+import Image4 from "../assets/img/images-about/image4.png";
+import Image5 from "../assets/img/images-about/image5.png";
+import Image6 from "../assets/img/images-about/image6.png";
+import Image7 from "../assets/img/images-about/image7.png";
+import Image8 from "../assets/img/images-about/image8.png";
 
 function About(props) {
   const [comment, setComment] = useState(0)

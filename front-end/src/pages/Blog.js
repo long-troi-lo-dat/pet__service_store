@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import './style/style.css';
-import imagebanner from '../assets/images-blog/image 3.png';
-import info1 from '../assets/images-blog/Rectangle 103.png';
-import info2 from '../assets/images-blog/Rectangle 106.png';
-import info3 from '../assets/images-blog/Rectangle 112.png';
-import info4 from '../assets/images-blog/Rectangle 118.png';
-import info5 from '../assets/images-blog/Rectangle 124.png';
-import info6 from '../assets/images-blog/Rectangle 134.png';
-import info7 from '../assets/images-blog/Rectangle 136.png';
-import info8 from '../assets/images-blog/Rectangle 138.png';
+import imagebanner from '../assets/img/images-blog/image 3.png';
+import info1 from '../assets/img/images-blog/Rectangle 103.png';
+import info2 from '../assets/img/images-blog/Rectangle 106.png';
+import info3 from '../assets/img/images-blog/Rectangle 112.png';
+import info4 from '../assets/img/images-blog/Rectangle 118.png';
+import info5 from '../assets/img/images-blog/Rectangle 124.png';
+import info6 from '../assets/img/images-blog/Rectangle 134.png';
+import info7 from '../assets/img/images-blog/Rectangle 136.png';
+import info8 from '../assets/img/images-blog/Rectangle 138.png';
 function Blog(props) {
     const [comment, setComment] = useState(0)
     return (
@@ -325,7 +325,7 @@ function Blog(props) {
                     <div class="move">19</div>
                     <div class="move">20</div>
                 </div>
-               
+
             </div>
         </>
 
