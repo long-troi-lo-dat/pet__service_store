@@ -8,7 +8,7 @@ function Cart({ setShowCart, cart, setCart }) {
     const idx = cart.indexOf(sanpham);
     const arr = [...cart];
     arr[idx].amount += sl
-    if (arr[idx].amount == 0) arr[idx].amount = 1;
+    if (arr[idx].amount === 0) arr[idx].amount = 1;
     setCart([...arr]);
   }
   const removeProduct = (sanpham) => {
