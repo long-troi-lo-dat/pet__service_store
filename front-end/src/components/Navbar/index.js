@@ -60,7 +60,7 @@ function Navbar(props) {
     navigate("/")
   }
 
-  if (headerOnOff === 0) {
+  if (headerOnOff === 0 || headerOnOff === null) {
     return (
       <section className="">
         <main className="w-full">

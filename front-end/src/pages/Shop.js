@@ -163,7 +163,7 @@ function Shop() {
               )
             }
             {isShowCart &&
-              <Cart setShowCart={setShowCart} cart={cart} />
+              <Cart setShowCart={setShowCart} cart={cart} setCart={setCart} />
             }
           </div>
         </div>
