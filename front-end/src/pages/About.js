@@ -39,20 +39,20 @@ function About(props) {
         <div className="flex items-center justify-center mt-10 mb-14 ">
           <div className="text-left max-w-6xl p-6 ">
             <p className="text-xl text-black">
-              GDHOUSE ra đời với mong muốn mang lại cho khách hàng sự chuyên
+              DGHOUSE ra đời với mong muốn mang lại cho khách hàng sự chuyên
               nghiệp, uy tín mang nét đẹp hoa mỹ mà chúng tôi đem lại sự trải
               nghiệm tốt nhất cho thú cưng của chúng ta. Với hơn 5 năm kinh
               nghiệm trong ngành dịch vụ thú cưng bao gồm: Thú y, Spa thú cưng,
               Khách sạn thú cưng, Cung cấp các dòng thú cưng chuyên nghiệp...
             </p>
             <h2 className="font-bold text-6xl py-10">
-              Tầm nhìn – Sứ mệnh – Giá trị cốt lõi của G D HOUSE
+              Tầm nhìn – Sứ mệnh – Giá trị cốt lõi của D G HOUSE
             </h2>
             <div className="text-left">
               <div className="pb-6">
                 <h1 className="font-bold text-xl py-2">TẦM NHÌN</h1>
                 <p>
-                  G D HOUSEHOUSE định hướng phát triển trở thành Công ty cung
+                  D G HOUSE định hướng phát triển trở thành Công ty cung
                   cấp các Sản phẩm, dịch vụ cho thú cưng hàng đầu Việt Nam.
                 </p>
                 <h1 className="font-bold text-xl py-2">SỨ MỆNH</h1>
@@ -63,9 +63,9 @@ function About(props) {
                 <h1 className="font-bold text-xl py-2">GÍA TRỊ CỐT LÕI</h1>
                 <ul className="list-disc space-y-4">
                   <li className=" ml-[20px]">
-                    Trân trọng khách hàng: Mỗi khách hàng khi đến G D HOUSE là
+                    Trân trọng khách hàng: Mỗi khách hàng khi đến D G HOUSE là
                     một điều đáng quý. Khách hàng xứng đáng được trải nghiệm
-                    những dịch vụ tốt nhất, thú cưng được chăm sóc chỉn chu
+                    nhữnD Gịch vụ tốt nhất, thú cưng được chăm sóc chỉn chu
                     nhất.
                   </li>
                   <li className=" ml-[20px]">
@@ -78,7 +78,7 @@ function About(props) {
                   </li>
                 </ul>
                 <h2 className="my-8">
-                  <span className="font-bold">G D HOUSE</span> – Với hơn 5 kinh
+                  <span className="font-bold">D G HOUSE</span> – Với hơn 5 kinh
                   nghiệm trong ngành dịch vụ thú cưng bao gồm: Spa thú cưng,
                   Dịch vụ chăm sóc thú cưng tại nhà, Thú y, Sản phẩm dành cho
                   thú cưng, Khách sạn thú cưng, Dịch vụ dắt chó đi dạo,…
@@ -91,8 +91,8 @@ function About(props) {
               <h2 className="font-bold text-6xl py-10">Đội ngũ GD HOUSE</h2>
               <p className="pb-10">
                 Với đội ngũ Nhân viên Spa – Grooming chuyên nghiệp, đội ngũ chăm
-                sóc khách hàng có nhiều năm kinh nghiệm. Nhân viên G D
-                HOUSEHOUSE với tin thần trách nhiệm, cởi mở với Slogan “Để thú
+                sóc khách hàng có nhiều năm kinh nghiệm. Nhân viên D G
+                HOUSE với tin thần trách nhiệm, cởi mở với Slogan “Để thú
                 cưng của bạn được chỉn chu nhất”.
               </p>
               <img src={dogImage} className="w-full " />
@@ -103,7 +103,7 @@ function About(props) {
               </p>
               <div className="items-start">
                 <h2 className="text-2xl font-bold mb-4">
-                  Tại sao lại chọn G D HOUSE
+                  Tại sao lại chọn D G HOUSE
                 </h2>
                 <ul className="list-disc space-y-4 list-inside  ml-4 mb-10">
                   <li>Dịch vụ CHẤT LƯỢNG đi đôi với UY TÍN.</li>
@@ -122,7 +122,7 @@ function About(props) {
                   <li>Giá TỐT NHẤT thị trường</li>
                   <li>
                     Chương trình KHUYẾN MÃI thường xuyên, ưu đãi đặc biệt với
-                    khách hàng đã sử dụng dịch vụ.
+                    khách hàng đã sử dụnD Gịch vụ.
                   </li>
                 </ul>
                 <img src={Image2} alt="Imgae2" className="w-full" />

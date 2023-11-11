@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import '../assets/css/global3.css';
 
-function Cart({ setShowCart, cart }) {
+function Cart({ setShowCart, cart, setCart }) {
+  const [tongtien, setTongTien] = useState(0)
+
+  const thaydoisoluong = (sanpham, sl) => {
+    const idx = cart.indexOf(sanpham);
+    const arr = [...cart];
+    arr[idx].amount += sl
+    if (arr[idx].amount == 0) arr[idx].amount = 1;
+    setCart([...arr]);
+  }
+  const removeProduct = (sanpham) => {
+    const arr = cart.filter(sp => sp.id_sp !== sanpham.id_sp);
+    setCart([...arr])
+  }
+  const tinhtongtien = () => {
+    let tt = 0;
+    cart.map(item => {
+      tt += item.gia * item.amount
+    })
+    setTongTien(tt);
+  }
+  useEffect(() => {
+    tinhtongtien()
+  })
   const onCloseCartHandler = () => {
     setShowCart(false)
   }
   return (
-    <div className="sv__coverfull w-4/5 m-auto py-8">
+    <div className="sv__coverfull m-auto py-8">
       <div className="row">
         <div className='col-xl-5 col-lg-7'>
           <h5 class="h2 mb-0 text-gray-800">Thông tin giao hàng</h5>
@@ -41,26 +64,27 @@ function Cart({ setShowCart, cart }) {
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th style={{ width: "20%" }}>Hình ảnh</th>
-                    <th style={{ width: "30%" }}>Tên sản phẩm</th>
-                    <th style={{ width: "15%" }}>Giá</th>
-                    <th style={{ width: "15%" }}>Số lượng</th>
-                    <th style={{ width: "20%" }}>Thành tiền</th>
+                    <th style={{}}>Hình ảnh</th>
+                    <th style={{ width: "100px" }}>Tên sản phẩm</th>
+                    <th style={{ width: "100px" }}>Giá</th>
+                    <th style={{ width: "100px" }}>Số lượng</th>
+                    <th style={{ width: "140px" }}>Thành tiền</th>
                     <th>Xóa</th>
                   </tr>
                 </thead>
                 <tbody>
                   {cart.map((item, i) => (
                     <tr>
-                      <td style={{ width: "20%" }}><img src={item.hinhanh} alt='img' /></td>
-                      <td style={{ width: "30%" }}>{item.ten}</td>
-                      <td style={{ width: "15%" }}>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                      <td style={{ width: "15%" }}><span><button>-</button><input type="text" style={{ width: "100%" }} className='text-center' /><button>+</button></span></td>
-                      <td style={{ width: "20%" }}>175.000 đ</td>
-                      <td>Xóa</td>
+                      <td style={{}}><img src={item.hinhanh} alt='img' /></td>
+                      <td style={{}}>{item.ten}</td>
+                      <td style={{}}>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                      <td style={{ textAlign: "center" }}><div><button onClick={() => thaydoisoluong(item, -1)}>-</button><input type="text" style={{ width: "100%" }} value={item.amount} readOnly={true} className='text-center' /><button onClick={() => thaydoisoluong(item, 1)}>+</button></div></td>
+                      <td style={{}}>{(item.gia * item.amount).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                      <td><button onClick={() => removeProduct(item)}>Xóa</button></td>
                     </tr>
                   ))}
                 </tbody>
+                <div>tong tien: {tongtien}</div>
               </table>
             </div>
           </div>
