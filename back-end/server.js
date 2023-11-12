@@ -326,6 +326,35 @@ app.get('/huydichvu', (req, res) => {
   });
 });
 
+// dat hang
+app.post('/add-to-mysql', (req, res) => {
+  const { hoten, sodienthoai, diachi, ghichu, id_user, cart } = req.body;
+
+  // Thêm thông tin giao hàng vào bảng trong cơ sở dữ liệu
+  const insertOrderQuery = `INSERT INTO donhang (ten_nguoi_nhan, sdt_nguoi_nhan, diachi, ghichu, id_user) VALUES (?, ?, ?, ?, ?)`;
+  db.query(insertOrderQuery, [hoten, sodienthoai, diachi, id_user, ghichu], (err, result) => {
+    if (err) {
+      console.error('Error inserting order:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      const orderId = result.id;
+
+      // Thêm các sản phẩm trong giỏ hàng vào bảng chi tiết đơn hàng
+      const insertOrderDetailsQuery = `INSERT INTO donhangchitiet (id_dh, id_sp, soluong, thanhtien) VALUES ?`;
+      const orderDetailsValues = cart.map(item => [orderId, item.id_sp, item.amount, item.gia * item.amount]);
+      db.query(insertOrderDetailsQuery, [orderDetailsValues], (err, result) => {
+        if (err) {
+          console.error('Error inserting order details:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(200).json({ message: 'Order added successfully' });
+        }
+      });
+    }
+  });
+});
+
+
 // Khởi động máy chủ
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -10,9 +10,11 @@ import img6 from "../assets/img/images-service/6.jpg"
 import img7 from "../assets/img/images-service/7.jpg"
 import img8 from "../assets/img/images-service/8.jpg"
 import img9 from "../assets/img/images-service/9.jpg"
+import Navbar from '../components/Navbar';
 function Service(props) {
     return (
         <>
+            <Navbar />
             <div
                 style={{
                     fontFamily: "Montsterrat",

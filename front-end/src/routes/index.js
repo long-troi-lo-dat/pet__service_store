@@ -10,9 +10,10 @@ import Register from "../pages/register";
 import Service from "../pages/Service";
 import Shop from "../pages/Shop";
 import ShopPet from "../pages/shoppet";
-import Success from "../pages/Success";
+import Success from "../pages/success";
 import Notfound from "../pages/notfound";
 import UserDetail from "../pages/userdetail";
+import UserDetailEdit from "../pages/userdetailedit";
 import DetailPet from "../pages/detailpet";
 
 // import adminDonHang from "../pages/QuanLyAdmin/qldonhang";
@@ -48,7 +49,9 @@ const publicRoutes = [
   { path: "/cart", component: Cart },
   { path: "/success", component: Success },
   { path: "/userdetail/:id", component: UserDetail },
+  { path: "/userdetailedit/:id", component: UserDetailEdit },
   // { path: "/admin/admindonhang", component: adminDonHang },
+  
   { path: "/admin/index", component: AdminIndex },
   { path: "/admin/binhluan", component: AdminBinhLuan },
   { path: "/admin/dichvu", component: AdminDichVu },

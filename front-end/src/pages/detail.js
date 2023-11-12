@@ -3,6 +3,7 @@ import '../assets/css/detail.css';
 import '../assets/css/global1.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
 // import facebook from '../assets/img/facebook.png';
 // import twitter from '../assets/img/twitter.png';
 // import linkdln from '../assets/img/in.png';
@@ -204,6 +205,7 @@ function Detail(props) {
 
         // </>
         <>
+            <Navbar />
             <section class="py-5">
                 <div class="container">
                     {datadetail.map((item, i) => (
