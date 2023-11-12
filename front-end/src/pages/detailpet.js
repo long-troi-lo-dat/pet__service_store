@@ -3,6 +3,7 @@ import '../assets/css/detail.css';
 import '../assets/css/global1.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
 // import facebook from '../assets/img/facebook.png';
 // import twitter from '../assets/img/twitter.png';
 // import linkdln from '../assets/img/in.png';
@@ -29,34 +30,8 @@ function DetailPet(props) {
     const id = params.id
 
     const [datadetailpet, setDataDetailpet] = useState([]);
-    // const [dataBinhLuan, setDataBinhluan] = useState([]);
     const [datadcungloai, setDatacungloai] = useState([]);
-    // const [formBLData, setFormData] = useState({
-    //     initialFormData,
-    //     idsp: id
-    // });
 
-    // const handleChangeInput = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormData({ ...formBLData, [name]: value });
-    // };
-
-    // const handleRegisterSubmit = async (event) => {
-    //     const validateName = formBLData.hoten
-    //     const validateNoidung = formBLData.noidung
-
-    //     if (validateName !== "" && validateNoidung !== "") {
-    //         await axios.post('http://localhost:8000/binhluan', formBLData)
-    //             .then(
-    //                 res => {
-    //                     console.log(res)
-    //                 }
-    //             )
-    //             .catch(
-    //                 err => console.log(err)
-    //             )
-    //     }
-    // };
     let tiem = ""
     if (DetailPet.tiemphong === 1) {
         tiem = "Chưa tiêm phòng"
@@ -81,16 +56,10 @@ function DetailPet(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        // axios.get(`http://localhost:8000/binhluan/${id}`)
-        //     .then((response) => {
-        //         setDataBinhluan(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.error('error fetching data :', error);
-        //     });
     }, []);
     return (
         <>
+            <Navbar />
             <section class="py-5">
                 <div class="container">
                     {datadetailpet.map((item, i) => (

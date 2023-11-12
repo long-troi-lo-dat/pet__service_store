@@ -6,6 +6,7 @@ import "../assets/css/shop2.css"
 import axios from "axios";
 import CartButton from "./CartButton"
 import Cart from "./cart";
+import Navbar from "../components/Navbar";
 
 function Shop() {
   const [data, setData] = useState([]);
@@ -15,13 +16,19 @@ function Shop() {
 
   const [isShowCart, setShowCart] = useState(false)
 
+  // const onAddToCartHandler = (item) => {
+  //   if (cart.indexOf(item) !== -1) return null;
+  //   const arr = [...cart];
+  //   item.amount = 1;
+  //   arr.push(item);
+  //   setCart([...arr]);
+  // }
+
   const onAddToCartHandler = (item) => {
-    if (cart.indexOf(item) !== -1) return null;
-    const arr = [...cart];
-    item.amount = 1;
-    arr.push(item);
-    setCart([...arr]);
-  }
+    if (cart.some(cartItem => cartItem.id_sp === item.id_sp)) return null;
+    const updatedCart = [...cart, { ...item, amount: 1 }];
+    setCart(updatedCart);
+  };
 
   const fetchData = (value) => {
     fetch("http://localhost:8000/shop")
@@ -62,6 +69,7 @@ function Shop() {
 
   return (
     <>
+      <Navbar setShowCart={setShowCart} />
       <div className="container">
         <div class="container-content shop-banner flex">
           <div className="banner-left">
@@ -168,7 +176,7 @@ function Shop() {
           </div>
         </div>
       </div >
-      <CartButton setShowCart={setShowCart} />
+      {/* <CartButton setShowCart={setShowCart} /> */}
     </>
   );
 }

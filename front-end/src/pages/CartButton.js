@@ -7,9 +7,7 @@ function CartButton({ setShowCart }) {
         setShowCart(true)
     }
     return (
-        <span style={{ position: "fixed", zIndex: "100", right: "-220px", bottom: "20px", width: "300px" }}>
-            <button style={{ border: "1px solid #333", padding: "15px", borderRadius: "50%", lineHeight: "50px", textAlign: "center" }} onClick={onShowCartHandler}><FiShoppingCart size={24} /></button>
-        </span>
+        <button onClick={onShowCartHandler}><FiShoppingCart size={24} /></button>
     );
 }
 

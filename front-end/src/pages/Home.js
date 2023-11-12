@@ -21,6 +21,7 @@ import ImageSlide1 from "../assets/img/images-slideFeedBack/imgaaaa.png";
 import ImageBanner from "../assets/img/anusha-barwa-ppKcYi1CXcI-unsplash-removebg-preview.png";
 import "../assets/css/shop.css";
 import { GlobalContext } from "../Context";
+import Navbar from "../components/Navbar";
 
 const links = [
   { name: "Xem thêm", href: "#" },
@@ -41,6 +42,7 @@ export default function Home() {
   }, [shouldScroll, setShouldScroll]);
   return (
     <>
+      <Navbar />
       <section className="flex justify-between max-w-6xl mx-auto pt-20 pb-20 items-center">
         <div className="">
           <p className="font-semibold text-sm flex gap-2 items-center px-2">

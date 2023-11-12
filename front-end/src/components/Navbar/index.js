@@ -12,8 +12,12 @@ import {
 import { GlobalContext } from "../../Context";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Shop from "../../pages/Shop";
+import CartButton from "../../pages/CartButton";
 
-function Navbar(props) {
+function Navbar({ setShowCart }) {
+  const onShowCartHandler = () => {
+    setShowCart(true)
+  }
   const { setShouldScroll } = useContext(GlobalContext);
   const navLinkStyle = {
     fontFamily: "Montserrat, sans-serif",
@@ -59,7 +63,6 @@ function Navbar(props) {
     setOpenProfile((prev) => !prev)
     navigate("/")
   }
-
   if (headerOnOff === 0 || headerOnOff === null) {
     return (
       <section className="">
@@ -110,9 +113,8 @@ function Navbar(props) {
                     </ul>
                   </div>}
                 </li>
-                <FiShoppingCart size={24} color="white" /><sub>{ }</sub>
-
-                {/* <FiSearch size={24} color="white" /> */}
+                {/* <CartButton setShowCart={setShowCart} /> */}
+                <button onClick={onShowCartHandler}><FiShoppingCart size={24} color="white" /></button>
               </div>
             </div >
             <div

@@ -10,12 +10,14 @@ import Image5 from "../assets/img/images-about/image5.png";
 import Image6 from "../assets/img/images-about/image6.png";
 import Image7 from "../assets/img/images-about/image7.png";
 import Image8 from "../assets/img/images-about/image8.png";
+import Navbar from "../components/Navbar";
 
 function About(props) {
   const [comment, setComment] = useState(0)
 
   return (
     <>
+      <Navbar />
       <div
         style={{
           fontFamily: "Montsterrat",

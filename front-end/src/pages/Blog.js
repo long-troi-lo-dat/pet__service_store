@@ -9,10 +9,12 @@ import info5 from '../assets/img/images-blog/Rectangle 124.png';
 import info6 from '../assets/img/images-blog/Rectangle 134.png';
 import info7 from '../assets/img/images-blog/Rectangle 136.png';
 import info8 from '../assets/img/images-blog/Rectangle 138.png';
+import Navbar from "../components/Navbar";
 function Blog(props) {
     const [comment, setComment] = useState(0)
     return (
         <>
+            <Navbar />
             <div
                 style={{
                     fontFamily: "Montsterrat",

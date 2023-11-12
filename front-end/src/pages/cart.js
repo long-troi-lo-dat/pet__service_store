@@ -1,8 +1,14 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 // import '../assets/css/global3.css';
 
 function Cart({ setShowCart, cart, setCart }) {
   const [tongtien, setTongTien] = useState(0)
+  const [hoten, setHoten] = useState('');
+  const [sodienthoai, setSodienthoai] = useState('');
+  const [diachi, setDiachi] = useState('');
+  const [ghichu, setGhichu] = useState('');
+  const [id_user, setid_user] = useState('');
 
   const thaydoisoluong = (sanpham, sl) => {
     const idx = cart.indexOf(sanpham);
@@ -15,13 +21,35 @@ function Cart({ setShowCart, cart, setCart }) {
     const arr = cart.filter(sp => sp.id_sp !== sanpham.id_sp);
     setCart([...arr])
   }
-  const tinhtongtien = () => {
-    let tt = 0;
-    cart.map(item => {
-      tt += item.gia * item.amount
-    })
-    setTongTien(tt);
+  // const tinhtongtien = () => {
+  //   let tt = 0;
+  //   cart.map(item => {
+  //     tt += item.gia * item.amount
+  //   })
+  //   setTongTien(tt);
+  // }
+
+  const onSubmitOrder = async (cart, hoten, sodienthoai, diachi, ghichu, tongtien, id_user) => {
+    try {
+      const response = await axios.post('http://localhost:8000/add-to-mysql', {
+        hoten: JSON.stringify(hoten),
+        sodienthoai: JSON.stringify(sodienthoai),
+        diachi: JSON.stringify(diachi),
+        ghichu: JSON.stringify(ghichu),
+        tongtien: JSON.stringify(tongtien),
+        id_user: JSON.stringify(id_user),
+        cart: JSON.stringify(cart),
+      });
+      console.log(response.data.message);
+    } catch (error) {
+      console.error('Error adding to MySQL:', error);
+    }
   }
+
+  const tinhtongtien = () => {
+    const tt = cart.reduce((total, item) => total + item.gia * item.amount, 0);
+    setTongTien(tt);
+  };
   useEffect(() => {
     tinhtongtien()
   })
@@ -37,23 +65,23 @@ function Cart({ setShowCart, cart, setCart }) {
           <div className="row g-3 mt-2">
             <div class="col-12">
               <label for="hoten" class="form-label">Họ tên <span className="text-danger">*</span></label>
-              <input type="text" class="form-control" id="hoten" placeholder="Họ và tên" />
+              <input type="text" class="form-control" id="hoten" name="hoten" value={hoten} onChange={(e) => setHoten(e.target.value)} placeholder="Họ và tên" />
             </div>
             <div class="col-12">
               <label for="sodienthoai" class="form-label">Số điện thoại <span className="text-danger">*</span></label>
-              <input type="text" class="form-control" id="sodienthoai" placeholder="Số điện thoại" />
+              <input type="text" class="form-control" id="sodienthoai" name="sodienthoai" value={sodienthoai} onChange={(e) => setSodienthoai(e.target.value)} placeholder="Số điện thoại" />
             </div>
             <div class="col-md-12">
               <label for="diachi" class="form-label">Địa chỉ <span className="text-danger">*</span></label>
-              <input type="text" class="form-control" id="diachi" placeholder="Địa chỉ nhận hàng" />
+              <input type="text" class="form-control" id="diachi" name="diachi" value={diachi} onChange={(e) => setDiachi(e.target.value)} placeholder="Địa chỉ nhận hàng" />
             </div>
             <div class="col-12">
               <label for="ghichu" class="form-label">Ghi chú</label>
-              <textarea class="form-control" id="ghichu" rows="7" placeholder='Ghi chú cho cửa hàng để có thể hỗ trợ bạn hết sức có thể...'></textarea>
+              <textarea class="form-control" id="ghichu" name="ghichu" value={ghichu} onChange={(e) => setGhichu(e.target.value)} rows="7" placeholder='Ghi chú cho cửa hàng để có thể hỗ trợ bạn hết sức có thể...'></textarea>
             </div>
           </div>
-          <button class="btn btn-success mt-4 bg-success" type="submit">Gửi xác nhận</button>
-          <button class="btn btn-danger mt-4 bg-danger" style={{ marginLeft: "20px" }} onClick={onCloseCartHandler}>Tiếp tục mua sắm</button>
+          <button class="btn btn-success mt-4 bg-success" onClick={onSubmitOrder}>Gửi xác nhận</button>
+          <button class="btn btn-info mt-4 bg-info" style={{ marginLeft: "20px" }} onClick={onCloseCartHandler}>Tiếp tục mua sắm</button>
         </div>
         <div className="col-xl-7 col-lg-7">
           <div class="card shadow mb-4">
@@ -84,83 +112,12 @@ function Cart({ setShowCart, cart, setCart }) {
                     </tr>
                   ))}
                 </tbody>
-                <div>tong tien: {tongtien}</div>
               </table>
+              <div>Tổng số tiền: {tongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
             </div>
           </div>
         </div>
       </div>
-      {/* <div class="trang-gi-hng">
-        <div class="gi-hng">GIỎ HÀNG</div>
-        <div class="trang-gi-hng-inner"></div>
-        <div class="rectangle-div"></div>
-        <div class="trang-gi-hng-child1"></div>
-        <div class="sn-phm">Sản phẩm</div>
-        <div class="gi">Giá</div>
-        <div class="s-lng">Số lượng</div>
-        <div class="tm-tnh">Tạm tính</div>
-        <img class="x-circle-icon" alt="" src="./public/xcircle.svg" />
-
-        <img class="rectangle-icon" alt="" src="./public/rectangle-147@2x.png" />
-
-        <div class="pate-lon-ch">
-          Pate lon chó mèo [Cá Ngừ Trắng & Thịt Gà] 80g
-        </div>
-        <div class="div31">
-          150.000
-          <span class="span">đ</span>
-        </div>
-        <div class="div4">
-          300.000
-          <span class="span">đ</span>
-        </div>
-        <input type="number" class="vector-parent" />
-
-        <input class="m-u-i-wrapper" placeholder="Mã ưu đãi" />
-
-        <button class="p-dng-wrapper">ÁP DỤNG</button>
-        <button class="cp-nhp-gi-hng-wrapper">CẬP NHẬP GIỎ HÀNG</button>
-        <button class="tin-hnh-thanh-ton-wrapper" onclick="alert('Hello world!')">
-          TIẾN HÀNH THANH TOÁN
-        </button>
-        <div class="trang-gi-hng-child2"></div>
-        <div class="vn-chuyn-n-container">
-          <span>Vận chuyển đến</span>
-          <span class="h-ch-minh"> Hồ Chí Minh. </span>
-        </div>
-        <div class="cng-gi-hng">Cộng giỏ hàng</div>
-        <div class="line-div"></div>
-        <div class="trang-gi-hng-child3"></div>
-        <div class="trang-gi-hng-child4"></div>
-        <div class="trang-gi-hng-child5"></div>
-        <div class="tm-tnh-parent">
-          <div class="tng">Tạm tính :</div>
-          <div class="div5">
-            300.000
-            <span class="span">đ</span>
-          </div>
-        </div>
-        <div class="tng-parent">
-          <div class="tng">Tổng :</div>
-          <div class="div5">
-            330.000
-            <span class="span">đ</span>
-          </div>
-        </div>
-        <div class="giao-hng-parent">
-          <div class="tng">Giao hàng :</div>
-          <div class="div5">
-            30.000
-            <span class="span">đ</span>
-          </div>
-        </div>
-        <div class="i-a-ch">Đổi địa chỉ</div>
-        <button class="tin-hnh-thanh-ton-wrapper" onclick="alert('Hello world!')">
-          TIẾN HÀNH THANH TOÁN
-        </button>
-      </div> */}
-
-
     </div >
   );
 }
