@@ -191,7 +191,125 @@ app.post('/backstatus', (req, res) => {
   }
   )
 })
-
+app.post('/nextstatusdh', (req, res) => {
+  const sql = `UPDATE donhang SET trangthai='${req.body.trangthai + 1}' WHERE id='${req.body.id}'`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.post('/backstatusdh', (req, res) => {
+  const sql = `UPDATE donhang SET trangthai='${req.body.trangthai - 1}' WHERE id='${req.body.id}'`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/xoadonhang', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `donhang` WHERE id = ?"; // Include the placeholder
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.get('/detaildonhang', (req, res) => {
+  const receivedData = req.query.data;
+  const sql = "SELECT donhangchitiet.id_dhct,donhangchitiet.id_sp,donhangchitiet.thanhtien,donhangchitiet.soluong,donhangchitiet.id_dh,sanpham.ten,sanpham.gia   FROM`donhangchitiet`   INNER JOIN `sanpham` ON donhangchitiet.id_sp = sanpham.id_sp   WHERE donhangchitiet.id_dh = ? "; // Include the placeholder
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.post('/adddichvu', (req, res) => {
+  const sql = "INSERT into `dichvu` (`ten`,`gia`,`mota`,`id_dm`) values (?,?,?,3)";
+  const values = [
+    req.body.ten,
+    req.body.gia,
+    req.body.mota
+  ]
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
+app.post('/addsanpham', (req, res) => {
+  const sql = "INSERT into `sanpham` (`ten`,`gia`,`hinhanh`,`soluong`,`mota`,`id_dm`) values (?,?,?,?,?,2)";
+  const values = [
+    req.body.ten,
+    req.body.gia,
+    req.body.hinhanh,
+    req.body.soluong,
+    req.body.mota
+  ]
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
+app.post('/addthucung', (req, res) => {
+  const sql = "INSERT into `thucung` (`ten`,`gioitinh`,`id_gl`,`gia`,`dob`,`hinhanh`,`tiemphong`,`mota`,`id_dm`) values (?,?,?,?,?,?,?,?,1)";
+  const values = [
+    req.body.ten,
+    req.body.gioitinh,
+    req.body.id_gl,
+    req.body.gia,
+    req.body.dob,
+    req.body.hinhanh,
+    req.body.tiemphong,
+    req.body.mota,
+  ]
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
+app.get('/xoadichvu', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `dichvu` WHERE id = ?"; // Include the placeholder
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.get('/xoasanpham', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `sanpham` WHERE id = ?"; // Include the placeholder
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.get('/xoathucung', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `thucung` WHERE id = ?"; // Include the placeholder
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
 
 
 
@@ -326,33 +444,31 @@ app.get('/huydichvu', (req, res) => {
   });
 });
 
-// dat hang
-app.post('/add-to-mysql', (req, res) => {
+// đặt hàng
+app.post('/dathang', (req, res) => {
   const { hoten, sodienthoai, diachi, ghichu, id_user, cart } = req.body;
-
-  // Thêm thông tin giao hàng vào bảng trong cơ sở dữ liệu
-  const insertOrderQuery = `INSERT INTO donhang (ten_nguoi_nhan, sdt_nguoi_nhan, diachi, ghichu, id_user) VALUES (?, ?, ?, ?, ?)`;
-  db.query(insertOrderQuery, [hoten, sodienthoai, diachi, id_user, ghichu], (err, result) => {
+  const tongtien = cart.reduce((total, item) => total + item.gia * item.amount, 0)
+  const donhangSql = `INSERT INTO donhang (ten_nguoi_nhan, sdt_nguoi_nhan, diachi,tongtien, id_user,ghichu) VALUES (?, ?, ?, ?, ?, ?)`;
+  db.query(donhangSql, [hoten, sodienthoai, diachi, tongtien, id_user, ghichu], (err, result) => {
     if (err) {
-      console.error('Error inserting order:', err);
-      res.status(500).json({ message: 'Internal Server Error' });
+      console.log("don hang")
+      return res.json(err);
     } else {
-      const orderId = result.id;
-
-      // Thêm các sản phẩm trong giỏ hàng vào bảng chi tiết đơn hàng
-      const insertOrderDetailsQuery = `INSERT INTO donhangchitiet (id_dh, id_sp, soluong, thanhtien) VALUES ?`;
-      const orderDetailsValues = cart.map(item => [orderId, item.id_sp, item.amount, item.gia * item.amount]);
-      db.query(insertOrderDetailsQuery, [orderDetailsValues], (err, result) => {
+      const madh = result.insertId;
+      const donhangchitietSql = `INSERT INTO donhangchitiet (id_dh, id_sp, soluong, thanhtien) VALUES ?`;
+      const thongtincanthiet = cart.map(item => [madh, item.id_sp, item.amount, item.gia * item.amount]);
+      db.query(donhangchitietSql, [thongtincanthiet], (err, result) => {
         if (err) {
-          console.error('Error inserting order details:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
+          return res.json(err);
+          // console.error('Error inserting order details:', err);
+          // res.status(500).json({ message: 'Internal Server Error' });
         } else {
           res.status(200).json({ message: 'Order added successfully' });
         }
       });
     }
-  });
-});
+  })
+})
 
 
 // Khởi động máy chủ

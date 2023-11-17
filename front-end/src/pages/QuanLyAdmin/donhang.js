@@ -7,6 +7,8 @@ import { Layout, Menu } from 'antd'
 import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
 import Dropdown from 'react-bootstrap/Dropdown';
+import moment from "moment";
+import { Modal } from "react-bootstrap";
 const { Header, Sider } = Layout;
 
 function AdminDonHang(props) {
@@ -17,12 +19,68 @@ function AdminDonHang(props) {
     const [dataUser, setDataUser] = useState([])
     const [dataDonHang, setdataDonHang] = useState([])
     const [openProfile, setOpenProfile] = useState(false)
+    const [show, setShow] = useState(false);
+    const [dataDonHangChiTiet, setDataDonHangChiTiet] = useState([]);
 
+    let tong = 0;
+    const mappedArray = dataDonHangChiTiet.map((item, i) => {
+        tong += item.thanhtien
+    })
     const handleNavigate = async () => {
         navigate("/")
         localStorage.setItem("header", 0)
     }
 
+    const NextStatus = async (trangthai, id) => {
+        axios.post(`http://localhost:8000/nextstatusdh`, {
+            trangthai: trangthai,
+            id: id
+        })
+            .then((response) => {
+                console.log(response.data)
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            })
+    };
+
+    const BackStatus = async (trangthai, id) => {
+        axios.post(`http://localhost:8000/backstatusdh`, {
+            trangthai: trangthai,
+            id: id
+        })
+            .then((response) => {
+                console.log(response.data)
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            })
+    };
+
+    const huydonhang = (item) => {
+        axios.get(`http://localhost:8000/xoadonhang?id=${item}}`)
+            .then((response) => {
+                return response.data
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+        window.location.reload()
+    }
+
+    const handleShow = async (e) => {
+        setShow(true)
+        // localStorage.setItem("idCartDetail", e.currentTarget.id)
+        axios.get(`http://localhost:8000/detaildonhang?data=${e.currentTarget.id}`)
+            .then((response) => {
+                setDataDonHangChiTiet(response.data);
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    };
     useEffect(() => {
         axios.get(`http://localhost:8000/userdetail/${id}`)
             .then((response) => {
@@ -61,28 +119,26 @@ function AdminDonHang(props) {
                             </div>
                         </div>
                         <Menu.SubMenu key="dichvu" title="Dịch vụ">
-                            <Menu.Item key='dichvu-1'>Thêm mới</Menu.Item>
+                            <Menu.Item key='dichvu-1'><a href="/admin/adddichvu">Thêm mới</a></Menu.Item>
                             <Menu.Item key='dichvu-2'><a href="/admin/dichvu">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="thucung" title="Thú cưng">
-                            <Menu.Item key='thucung-1'>Thêm mới</Menu.Item>
+                            <Menu.Item key='thucung-1'><a href="/admin/addthucung">Thêm mới</a></Menu.Item>
                             <Menu.Item key='thucung-2'><a href="/admin/thucung">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="sanpham" title="Sản phẩm">
-                            <Menu.Item key='sanpham-1'>Thêm mới</Menu.Item>
+                            <Menu.Item key='sanpham-1'><a href="/admin/addsanpham">Thêm mới</a></Menu.Item>
                             <Menu.Item key='sanpham-2'><a href="/admin/sanpham">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="binhluan" title="Bình luận">
-                            <Menu.Item key='binhluan-1'>Thêm mới</Menu.Item>
-                            <Menu.Item key='binhluan-2'><a href="/admin/binhluan">Danh sách</a></Menu.Item>
+                            <Menu.Item key='binhluan-1'><a href="/admin/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="nguoidung" title="Người dùng">
-                            <Menu.Item key='nguoidung-1'>Thêm mới</Menu.Item>
+                            <Menu.Item key='nguoidung-1'><a href="/admin/addnguoidung">Thêm mới</a></Menu.Item>
                             <Menu.Item key='nguoidung-2'><a href="/admin/nguoidung">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            {/* <Menu.Item key='donhang-1'>Thêm mới</Menu.Item> */}
-                            <Menu.Item key='donhang-2'><a href="/admin/donhang">Task 2</a></Menu.Item>
+                            <Menu.Item key='donhang-2'><a href="/admin/donhang">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
                             <Menu.Item key='datlich-2'><a href="/admin/datlich">Danh sách</a></Menu.Item>
@@ -355,40 +411,70 @@ function AdminDonHang(props) {
                                         <tr>
                                             <th>Id</th>
                                             <th>Tên người nhận</th>
-                                            <th>Nơi nhận</th>
-                                            <th>tổng tiền</th>
-                                            <th>Nhân viên</th>
-                                            <th>Hành dộng</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Tổng tiền</th>
+                                            <th>PTTT</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Ghi chú</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {dataDonHang.map((item, i) => (
                                             <tr>
-                                                <td>1</td>
-                                                <td>Huy Hồ Hồ Hồ</td>
-                                                <td>100 Điện Biên Phủ</td>
-                                                <td>600.000đ</td>
-                                                <td>Vũ Luân</td>
-                                                <td>
+                                                <td>{item.id}</td>
+                                                <td>{item.ten_nguoi_nhan}</td>
+                                                <td>{item.sdt_nguoi_nhan}</td>
+                                                <td>{item.diachi}</td>
+                                                <td>{item.tongtien}</td>
+                                                <td>{item.phuongthucthanhtoan === 0 ? "Tiền mặt" : "Chuyển khoản"}</td>
+                                                <td>{moment(item.ngaydat).format('DD/MM/YYYY')}</td>
+                                                <td>{item.ghichu}</td>
+                                                <td>{item.trangthai === 0
+                                                    ? "Chờ xác nhận"
+                                                    : item.trangthai === 1
+                                                        ? "Đã xác nhận"
+                                                        : item.trangthai === 2
+                                                            ? "Đang thực hiện"
+                                                            : "Đã hoàn thành"}</td>
+                                                <td style={{ textAlign: "center", maxWidth: "154px" }}>
                                                     <button
                                                         type="button"
-                                                        class="btn btn-success btn-circle"
+                                                        class="btn btn-success"
+                                                        style={{ minWidth: "130px" }}
+                                                        // onClick={NextStatus}
+                                                        onClick={() => NextStatus(item.trangthai, item.id)}
                                                     >
-                                                        <i class="fas fa-check"></i>
+                                                        Xác nhận
                                                     </button>
                                                     <button
-                                                        class="btn btn-danger btn-circle"
-                                                        data-toggle="modal"
-                                                        data-target="#logoutModal"
-                                                    >
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <button
-                                                        class="btn btn-info btn-circle"
+                                                        class="btn btn-info"
                                                         data-toggle="modal"
                                                         data-target="#exampleModal"
+                                                        style={{ minWidth: "130px" }}
+                                                        id={item.id} onClick={handleShow}
                                                     >
-                                                        <i class="fas fa-info-circle"></i>
+                                                        Xem đơn
+                                                    </button>
+                                                    <button
+                                                        class="btn btn-danger"
+                                                        data-toggle="modal"
+                                                        data-target="#logoutModal"
+                                                        style={{ minWidth: "130px" }}
+                                                        onClick={() => BackStatus(item.trangthai, item.id)}
+                                                    >
+                                                        Hoàn tác
+                                                    </button>
+                                                    <button
+                                                        class="btn btn-danger"
+                                                        data-toggle="modal"
+                                                        data-target="#logoutModal"
+                                                        style={{ minWidth: "130px" }}
+                                                        onClick={() => huydonhang(item.id)}
+                                                    >
+                                                        Hủy đơn
                                                     </button>
                                                 </td>
                                             </tr>
@@ -400,7 +486,47 @@ function AdminDonHang(props) {
                     </div>
                 </div>
             </div>
-        </div>
+            <Modal
+                show={show}
+                onHide={() => setShow(false)}
+                dialogClassName="modal-xl"
+                aria-labelledby="example-custom-modal-styling-title"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-custom-modal-styling-title">
+                        Chi tiết đơn hàng {localStorage.getItem("idCartDetail")}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Mã sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {dataDonHangChiTiet.map((item, i) => (
+                                <tr>
+                                    <td>{i + 1}</td>
+                                    <td>{item.ten}</td>
+                                    <td>{item.id_sp}</td>
+                                    <td>{item.gia}</td>
+                                    <td>{item.soluong}</td>
+                                    <td>{item.thanhtien}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>Tổng tiền: {tong}</div>
+                </Modal.Body>
+            </Modal>
+        </div >
     );
 }
 

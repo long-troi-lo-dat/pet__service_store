@@ -1,45 +1,47 @@
-import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import "../../../src/assets/css/sb-admin-2.min.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
+import axios from "axios";
 const { Sider } = Layout;
 
-function AdminDichVu(props) {
+function AdminAddThuCung(props) {
+    const [openProfile, setOpenProfile] = useState(false)
+    const [dataUser, setDataUser] = useState([])
+    const [formData, setFormData] = useState({
+        ten: "",
+        gioitinh: "",
+        id_gl: "",
+        gia: "",
+        dob: "",
+        hinhanh: "",
+        tiemphong: "",
+        mota: "",
+    });
 
     const id = localStorage.getItem("id_user")
     const navigate = useNavigate();
 
-    const [dataUser, setDataUser] = useState([])
-    const [dataDichVu, setDataDichVu] = useState([])
-    const [openProfile, setOpenProfile] = useState(false)
-    const handleNavigate = async () => {
-        navigate("/")
-        localStorage.setItem("header", 0)
-    }
+    const handleChangeInput = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setFormData({
+            ...formData,
+            [name]: value
+        })
+        console.log(formData)
+    };
 
-    useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
-            .then((response) => {
-                setDataUser(response.data);
-                // console.log(dataUser, "data user")
+    const handleSubmit = (event) => {
+        axios
+            .post("http://localhost:8000/addthucung", formData)
+            .then((res) => {
+                console.log(res.data);
+                navigate("/admin/thucung")
             })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
-        axios.get(`http://localhost:8000/AdminDichVu`)
-            .then((response) => {
-                setDataDichVu(response.data);
-                // console.log(dataUser, "data user")
-            })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
-    }, []);
+            .catch((err) => console.log(err));
+    };
 
     const LogoutSubmit = () => {
         localStorage.setItem("header", 0)
@@ -338,59 +340,77 @@ function AdminDichVu(props) {
                     </nav>
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Thêm mới thú cưng</h1>
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-body">
-                                <table
-                                    class="table table-bordered"
-                                    id="dataTable"
-                                    width="100%"
-                                    cellspacing="0"
-                                >
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Tên dịch vụ</th>
-                                            <th>Giá tiền</th>
-                                            <th>Mô tả</th>
-                                            <th>Hành dộng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {dataDichVu.map((item, i) => (
-                                            <tr>
-                                                <td>{item.id_dv}</td>
-                                                <td>{item.ten}</td>
-                                                <td>{item.gia}</td>
-                                                <td>{item.mota}</td>
-                                                <td>
-                                                    <button
-                                                        class="btn btn-danger btn-circle"
-                                                        data-toggle="modal"
-                                                        data-target="#logoutModal"
-                                                    >
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <button
-                                                        class="btn btn-info btn-circle"
-                                                        data-toggle="modal"
-                                                        data-target="#exampleModal"
-                                                    >
-                                                        <i class="fas fa-info-circle"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Tên thú cưng</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="Tên thú cưng" name="ten" onChange={handleChangeInput} />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="gioitinh">Giới tính</label>
+                                        <select id="gioitinh" class="form-control" name="gioitinh" onChange={handleChangeInput}>
+                                            <option selected>Chọn giới tính</option>
+                                            <option value="0">Chưa biết</option>
+                                            <option value="1">Đực</option>
+                                            <option value="2">Cái</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Giá</label>
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Giá" name="gia" onChange={handleChangeInput} />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="giongloai">Giống loài</label>
+                                        <select id="giongloai" class="form-control" name="id_gl" onChange={handleChangeInput}>
+                                            <option selected>Chọn giống loài</option>
+                                            <option value="1">Alaska</option>
+                                            <option value="2">Pug</option>
+                                            <option value="3">Shiba</option>
+                                            <option value="4">Poodle</option>
+                                            <option value="5">Samoyed</option>
+                                            <option value="6">Anh Lông Dài</option>
+                                            <option value="7">Anh Lông Ngắn</option>
+                                            <option value="8">Ba Tư</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="ngaysinh">Ngày sinh</label>
+                                        <input type="date" class="form-control" id="ngaysinh"
+                                            placeholder="Số lượng còn trong kho" name="dob" onChange={handleChangeInput} />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="tiemphong">Tiêm phòng</label>
+                                        <select id="tiemphong" class="form-control" name="tiemphong" onChange={handleChangeInput}>
+                                            <option selected>Chọn chưa / đã tiêm </option>
+                                            <option value="0">Chưa tiêm phòng</option>
+                                            <option value="1">Đã tiêm phòng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hinhanh">Url hình ảnh</label>
+                                    <input type="text" class="form-control" id="hinhanh"
+                                        placeholder="Copy url hình ảnh" name="hinhanh" onChange={handleChangeInput} />
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCity">Mô tả</label>
+                                    <input type="text" class="form-control" id="inputCity" placeholder="Mô tả sản phẩm" name="mota" onChange={handleChangeInput} />
+                                </div>
+                                <button class="btn btn-primary" onClick={handleSubmit}>Thêm mới</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }
-
-export default AdminDichVu;
+export default AdminAddThuCung;

@@ -1,14 +1,46 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import '../assets/css/global3.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Notify = () => toast.success('Đặt hàng thành công', {
+  position: "bottom-left",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+});
 
 function Cart({ setShowCart, cart, setCart }) {
+
   const [tongtien, setTongTien] = useState(0)
-  const [hoten, setHoten] = useState('');
-  const [sodienthoai, setSodienthoai] = useState('');
-  const [diachi, setDiachi] = useState('');
-  const [ghichu, setGhichu] = useState('');
-  const [id_user, setid_user] = useState('');
+  const [formData, setFormData] = useState({
+    hoten: "",
+    sodienthoai: "",
+    diachi: "",
+    // tongtien: cart.reduce((total, item) => total + item.gia * item.amount, 0),
+    ghichu: "",
+    id_user: localStorage.getItem("id_user"),
+    cart: cart
+  })
+
+  const navigate = useNavigate();
+  const tinhtongtien = () => {
+    const tt = cart.reduce((total, item) => total + item.gia * item.amount, 0);
+    setTongTien(tt);
+  };
+
+  useEffect(() => {
+    tinhtongtien()
+  })
+  const onCloseCartHandler = () => {
+    setShowCart(false)
+  }
 
   const thaydoisoluong = (sanpham, sl) => {
     const idx = cart.indexOf(sanpham);
@@ -21,41 +53,30 @@ function Cart({ setShowCart, cart, setCart }) {
     const arr = cart.filter(sp => sp.id_sp !== sanpham.id_sp);
     setCart([...arr])
   }
-  // const tinhtongtien = () => {
-  //   let tt = 0;
-  //   cart.map(item => {
-  //     tt += item.gia * item.amount
-  //   })
-  //   setTongTien(tt);
-  // }
 
-  const onSubmitOrder = async (cart, hoten, sodienthoai, diachi, ghichu, tongtien, id_user) => {
-    try {
-      const response = await axios.post('http://localhost:8000/add-to-mysql', {
-        hoten: JSON.stringify(hoten),
-        sodienthoai: JSON.stringify(sodienthoai),
-        diachi: JSON.stringify(diachi),
-        ghichu: JSON.stringify(ghichu),
-        tongtien: JSON.stringify(tongtien),
-        id_user: JSON.stringify(id_user),
-        cart: JSON.stringify(cart),
-      });
-      console.log(response.data.message);
-    } catch (error) {
-      console.error('Error adding to MySQL:', error);
-    }
-  }
-
-  const tinhtongtien = () => {
-    const tt = cart.reduce((total, item) => total + item.gia * item.amount, 0);
-    setTongTien(tt);
+  const handleChangeInput = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+    console.log(formData)
   };
-  useEffect(() => {
-    tinhtongtien()
-  })
-  const onCloseCartHandler = () => {
-    setShowCart(false)
-  }
+  const handleSubmit = (event) => {
+    axios.post("http://localhost:8000/dathang", formData)
+      .then((res) => {
+        console.log(res.data);
+        setTimeout(() => {
+          navigate('/success')
+        }, 400);
+        // Notify()
+      })
+      .catch((err) => console.log(err));
+  };
+
+
+
   return (
     <div className="sv__coverfull m-auto py-8">
       <div className="row">
@@ -65,22 +86,22 @@ function Cart({ setShowCart, cart, setCart }) {
           <div className="row g-3 mt-2">
             <div class="col-12">
               <label for="hoten" class="form-label">Họ tên <span className="text-danger">*</span></label>
-              <input type="text" class="form-control" id="hoten" name="hoten" value={hoten} onChange={(e) => setHoten(e.target.value)} placeholder="Họ và tên" />
+              <input type="text" class="form-control" id="hoten" name="hoten" onChange={handleChangeInput} placeholder="Họ và tên" />
             </div>
             <div class="col-12">
               <label for="sodienthoai" class="form-label">Số điện thoại <span className="text-danger">*</span></label>
-              <input type="text" class="form-control" id="sodienthoai" name="sodienthoai" value={sodienthoai} onChange={(e) => setSodienthoai(e.target.value)} placeholder="Số điện thoại" />
+              <input type="text" class="form-control" id="sodienthoai" name="sodienthoai" onChange={handleChangeInput} placeholder="Số điện thoại" />
             </div>
             <div class="col-md-12">
               <label for="diachi" class="form-label">Địa chỉ <span className="text-danger">*</span></label>
-              <input type="text" class="form-control" id="diachi" name="diachi" value={diachi} onChange={(e) => setDiachi(e.target.value)} placeholder="Địa chỉ nhận hàng" />
+              <input type="text" class="form-control" id="diachi" name="diachi" onChange={handleChangeInput} placeholder="Địa chỉ nhận hàng" />
             </div>
             <div class="col-12">
               <label for="ghichu" class="form-label">Ghi chú</label>
-              <textarea class="form-control" id="ghichu" name="ghichu" value={ghichu} onChange={(e) => setGhichu(e.target.value)} rows="7" placeholder='Ghi chú cho cửa hàng để có thể hỗ trợ bạn hết sức có thể...'></textarea>
+              <textarea class="form-control" id="ghichu" name="ghichu" onChange={handleChangeInput} rows="7" placeholder='Ghi chú cho cửa hàng để có thể hỗ trợ bạn hết sức có thể...'></textarea>
             </div>
           </div>
-          <button class="btn btn-success mt-4 bg-success" onClick={onSubmitOrder}>Gửi xác nhận</button>
+          <button class="btn btn-success mt-4 bg-success" onClick={handleSubmit}>Gửi xác nhận</button>
           <button class="btn btn-info mt-4 bg-info" style={{ marginLeft: "20px" }} onClick={onCloseCartHandler}>Tiếp tục mua sắm</button>
         </div>
         <div className="col-xl-7 col-lg-7">
@@ -118,6 +139,18 @@ function Cart({ setShowCart, cart, setCart }) {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div >
   );
 }

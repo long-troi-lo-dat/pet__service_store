@@ -20,8 +20,11 @@ import DetailPet from "../pages/detailpet";
 import AdminIndex from "../pages/QuanLyAdmin/index"
 import AdminBinhLuan from "../pages/QuanLyAdmin/binhluan";
 import AdminDichVu from "../pages/QuanLyAdmin/dichvu";
+import AdminAddDichVu from "../pages/QuanLyAdmin/adddichvu";
 import AdminSanPham from "../pages/QuanLyAdmin/sanpham";
+import AdminAddSanPham from "../pages/QuanLyAdmin/addsanpham";
 import AdminThuCung from "../pages/QuanLyAdmin/thucung";
+import AdminAddThuCung from "../pages/QuanLyAdmin/addthucung";
 import AdminDonHang from "../pages/QuanLyAdmin/donhang";
 import AdminDatLich from "../pages/QuanLyAdmin/datlich";
 import AdminNguoiDung from "../pages/QuanLyAdmin/nguoidung";
@@ -51,12 +54,15 @@ const publicRoutes = [
   { path: "/userdetail/:id", component: UserDetail },
   { path: "/userdetailedit/:id", component: UserDetailEdit },
   // { path: "/admin/admindonhang", component: adminDonHang },
-  
+
   { path: "/admin/index", component: AdminIndex },
   { path: "/admin/binhluan", component: AdminBinhLuan },
   { path: "/admin/dichvu", component: AdminDichVu },
+  { path: "/admin/adddichvu", component: AdminAddDichVu },
   { path: "/admin/sanpham", component: AdminSanPham },
+  { path: "/admin/addsanpham", component: AdminAddSanPham },
   { path: "/admin/thucung", component: AdminThuCung },
+  { path: "/admin/addthucung", component: AdminAddThuCung },
   { path: "/admin/donhang", component: AdminDonHang },
   { path: "/admin/datlich", component: AdminDatLich },
   { path: "/admin/nguoidung", component: AdminNguoiDung },
