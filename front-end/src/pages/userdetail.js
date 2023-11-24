@@ -5,16 +5,42 @@ import moment from 'moment';
 import Navbar from "../components/Navbar";
 
 function UserDetail(props) {
-    const [show, setShow] = useState(false);
+    const id = localStorage.getItem("id_user")
+    const [showCart, setShowCart] = useState(false);
+    const [showBooking, setShowBooking] = useState(false);
     const [confirm, setConfirm] = useState(false);
+    const [dataUser, setDataUser] = useState([]);
+    const [dataCart, setDataCart] = useState([]);
+    const [dataCartDetail, setDataCartDetail] = useState([]);
+    const [dataBookingDetail, setDataBookingDetail] = useState([]);
 
     // const handleCloseConfirm = () => setConfirm(false);
 
-    const handleShowConfirm = (e) => {
+    let tong = 0;
+    const mappedArray = dataCartDetail.map((item, i) => {
+        tong += item.thanhtien
+    })
+
+    const handleShowCartConfirm = (e) => {
         setConfirm(true)
+        localStorage.setItem("idCartDetail", e.currentTarget.id)
+    };
+    const handleShowBookingConfirm = (e) => {
+        setConfirm(true)
+        localStorage.setItem("idBookingDetail", e.currentTarget.id)
     };
     const huydonhang = () => {
-        axios.get(`http://localhost:8000/huydichvu?id=${localStorage.getItem("idCartDetail")}`)
+        axios.get(`http://localhost:8000/huydonhang?id=${localStorage.getItem("idCartDetail")}`)
+            .then((response) => {
+                return response.data
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+        window.location.reload()
+    }
+    const huydatlich = () => {
+        axios.get(`http://localhost:8000/huydichvu?id=${localStorage.getItem("idBookingDetail")}`)
             .then((response) => {
                 return response.data
             })
@@ -26,8 +52,8 @@ function UserDetail(props) {
 
     // const handleClose = () => setShow(false);
 
-    const handleShow = async (e) => {
-        setShow(true)
+    const handleShowCart = async (e) => {
+        setShowCart(true)
         localStorage.setItem("idCartDetail", e.currentTarget.id)
         axios.get(`http://localhost:8000/detaildonhanguser?data=${e.currentTarget.id}`)
             .then((response) => {
@@ -37,10 +63,40 @@ function UserDetail(props) {
                 console.error('error fetching data :', error);
             });
     };
-    const id = localStorage.getItem("id_user")
-    const [dataUser, setDataUser] = useState([]);
-    const [dataCart, setDataCart] = useState([]);
-    const [dataCartDetail, setDataCartDetail] = useState([]);
+
+    const handleShowBooking = async (e) => {
+        setShowBooking(true)
+        localStorage.setItem("idBookingDetail", e.currentTarget.id)
+        axios.get(`http://localhost:8000/detaildatlichuser?data=${e.currentTarget.id}&&iduser=${localStorage.getItem("id_user")}`)
+            .then((response) => {
+                setDataBookingDetail(response.data);
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    };
+
+    const xemdonhang = () => {
+        localStorage.setItem("choose", "Cart")
+        axios.get(`http://localhost:8000/xemdathang?id=${id}`)
+            .then((response) => {
+                setDataCart(response.data)
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
+
+    const xemdatlich = () => {
+        localStorage.setItem("choose", "Booking")
+        axios.get(`http://localhost:8000/xemdatlich?id=${id}`)
+            .then((response) => {
+                setDataCart(response.data)
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:8000/userdetail/${id}`)
@@ -50,13 +106,13 @@ function UserDetail(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/donhanguser/${id}`)
-            .then((response) => {
-                setDataCart(response.data);
-            })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
+        // axios.get(`http://localhost:8000/donhanguser/${id}`)
+        //     .then((response) => {
+        //         setDataCart(response.data);
+        //     })
+        //     .catch((error) => {
+        //         console.error('error fetching data :', error);
+        //     });
     }, [id]);
 
 
@@ -79,68 +135,120 @@ function UserDetail(props) {
                         ))}
 
                         <div class="col-md-8">
-                            <div class="card shadow mb-4">
+                            <div class="card shadow ">
+                                <div style={{ display: "flex", justifyContent: "space-around", paddingTop: "15px" }}>
+                                    <button onClick={xemdonhang} style={{ minWidth: "180px", backgroundColor: "rgb(34, 42, 99)", color: "white", borderRadius: "3px", padding: "5px 0" }}>Đơn hàng</button>
+                                    <button onClick={xemdatlich} style={{ minWidth: "180px", backgroundColor: "rgb(34, 42, 99)", color: "white", borderRadius: "3px" }}>Đặt lịch</button>
+                                    <button style={{ minWidth: "180px", backgroundColor: "rgb(34, 42, 99)", color: "white", borderRadius: "3px" }}>Đơn đã hoàn thành</button>
+                                </div>
                                 <div class="card-body">
                                     <table class="table" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <tr>
-                                                <th>Mã đơn</th>
-                                                <th>Thời gian</th>
-                                                <th>Dịch vụ</th>
-                                                <th>Địa điểm</th>
-                                                <th>Tổng tiền</th>
-                                                <th>Trạng thái</th>
-                                                <th>Hành dộng</th>
-                                            </tr>
+                                            {localStorage.getItem("choose") === "Cart" ?
+                                                (<tr>
+                                                    <th>Mã đơn</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Địa chỉ nhận</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Hành dộng</th>
+                                                </tr>)
+                                                :
+                                                (<tr>
+                                                    <th>Mã đơn</th>
+                                                    <th>Thời gian</th>
+                                                    <th>Dịch vụ</th>
+                                                    <th>Địa điểm</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Hành dộng</th>
+                                                </tr>)
+                                            }
                                         </thead>
                                         <tbody>
-                                            {dataCart.map((item, i) => (
-                                                <tr>
-                                                    <td>{item.id}</td>
-                                                    <td>Ngày {moment(item.ngay).format('DD/MM/YYYY')} lúc {moment(item.thoigian, 'HH:mm:ss').format('HH:mm')}</td>
-                                                    <td>
-                                                        {item.id_dichvu === 1
-                                                            ? "Dịch vụ tắm thú cưng"
-                                                            : item.id_dichvu === 2
-                                                                ? "Cắt tỉa lông"
-                                                                : item.id_dichvu === 3
-                                                                    ? "khám chữa bệnh tại cơ sở"
-                                                                    : "giữ, chăm sóc hộ chủ"}
-                                                    </td>
-                                                    <td>
-                                                        {item.id_chinhanh === 2
-                                                            ? "Tòa nhà QTSC9 (toà T), đường Tô Ký, phường Tân Chánh Hiệp, quận 12, TP HCM."
-                                                            : item.id_chinhanh === 3
-                                                                ? "778/B1 Nguyễn Kiệm, phường 04, quận Phú Nhuận, TP HCM"
-                                                                : ""}
-                                                    </td>
-                                                    <td>
-                                                        {item.tongtien}
-                                                    </td>
-                                                    <td>
-                                                        {item.trangthai === 0
-                                                            ? "Chờ xác nhận"
-                                                            : item.trangthai === 1
-                                                                ? "Đã xác nhận"
-                                                                : item.trangthai === 2
-                                                                    ? "Đang thực hiện"
-                                                                    : "Đã hoàn thành"}
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-success" data-toggle="modal"
-                                                            data-target="#exampleModal" id={item.id} onClick={handleShow}>
-                                                            Xem thông tin
-                                                        </button>
-                                                        {item.trangthai === 0
-                                                            ? <button button class="btn btn-danger" id={item.id} onClick={handleShowConfirm}>
-                                                                Huỷ đơn hàng
+                                            {localStorage.getItem("choose") === "Cart" ?
+                                                dataCart.map((item, i) => (
+                                                    <tr>
+                                                        <td>{item.id}</td>
+                                                        <td>Ngày {moment(item.ngay).format('DD/MM/YYYY')}</td>
+                                                        <td>
+                                                            {item.diachi}
+                                                        </td>
+                                                        <td>
+                                                            {item.tongtien}
+                                                        </td>
+                                                        <td>
+                                                            {item.trangthai === 0
+                                                                ? "Chờ xác nhận"
+                                                                : item.trangthai === 1
+                                                                    ? "Đã xác nhận"
+                                                                    : item.trangthai === 2
+                                                                        ? "Đang thực hiện"
+                                                                        : "Đã hoàn thành"}
+                                                        </td>
+                                                        <td style={{ maxWidth: "154px" }}>
+                                                            <button class="btn btn-success" data-toggle="modal"
+                                                                data-target="#exampleModal" id={item.id} onClick={handleShowCart} style={{ minWidth: "150px" }}>
+                                                                Xem thông tin
                                                             </button>
-                                                            :
-                                                            ""
-                                                        }
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                                            {item.trangthai === 0
+                                                                ? <button button class="btn btn-danger" id={item.id} onClick={handleShowCartConfirm} style={{ minWidth: "150px" }}>
+                                                                    Huỷ đơn hàng
+                                                                </button>
+                                                                :
+                                                                ""
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                )) :
+                                                dataCart.map((item, i) => (
+                                                    <tr>
+                                                        <td>{item.id}</td>
+                                                        <td>Ngày {moment(item.ngay).format('DD/MM/YYYY')} lúc {moment(item.thoigian, 'HH:mm:ss').format('HH:mm')}</td>
+                                                        <td>
+                                                            {item.id_dichvu === 1
+                                                                ? "Dịch vụ tắm thú cưng"
+                                                                : item.id_dichvu === 2
+                                                                    ? "Cắt tỉa lông"
+                                                                    : item.id_dichvu === 3
+                                                                        ? "khám chữa bệnh tại cơ sở"
+                                                                        : "giữ, chăm sóc hộ chủ"}
+                                                        </td>
+                                                        <td>
+                                                            {item.id_chinhanh === 2
+                                                                ? "Tòa nhà QTSC9 (toà T), đường Tô Ký, phường Tân Chánh Hiệp, quận 12, TP HCM."
+                                                                : item.id_chinhanh === 3
+                                                                    ? "778/B1 Nguyễn Kiệm, phường 04, quận Phú Nhuận, TP HCM"
+                                                                    : ""}
+                                                        </td>
+                                                        <td>
+                                                            {item.tongtien}
+                                                        </td>
+                                                        <td>
+                                                            {item.trangthai === 0
+                                                                ? "Chờ xác nhận"
+                                                                : item.trangthai === 1
+                                                                    ? "Đã xác nhận"
+                                                                    : item.trangthai === 2
+                                                                        ? "Đang thực hiện"
+                                                                        : "Đã hoàn thành"}
+                                                        </td>
+                                                        <td style={{ maxWidth: "154px" }}>
+                                                            <button class="btn btn-success" data-toggle="modal"
+                                                                data-target="#exampleModal" id={item.id} onClick={handleShowBooking} style={{ minWidth: "150px" }}>
+                                                                Xem thông tin
+                                                            </button>
+                                                            {item.trangthai === 0
+                                                                ? <button button class="btn btn-danger" id={item.id} onClick={handleShowBookingConfirm} style={{ minWidth: "150px" }}>
+                                                                    Huỷ đơn hàng
+                                                                </button>
+                                                                :
+                                                                ""
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -152,8 +260,8 @@ function UserDetail(props) {
                 </div>
 
                 <Modal
-                    show={show}
-                    onHide={() => setShow(false)}
+                    show={showCart}
+                    onHide={() => setShowCart(false)}
                     dialogClassName="modal-xl"
                     aria-labelledby="example-custom-modal-styling-title"
                     centered
@@ -161,6 +269,44 @@ function UserDetail(props) {
                     <Modal.Header closeButton>
                         <Modal.Title id="example-custom-modal-styling-title">
                             Chi tiết đơn hàng {localStorage.getItem("idCartDetail")}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {dataCartDetail.map((item, i) => (
+                                    <tr>
+                                        <td>{i + 1}</td>
+                                        <td>{item.ten}</td>
+                                        <td>{item.gia}</td>
+                                        <td>{item.soluong}</td>
+                                        <td>{item.thanhtien}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <div style={{ display: "flex", justifyContent: "flex-end" }}>Tổng tiền: {tong}</div>
+                    </Modal.Body>
+                </Modal>
+                <Modal
+                    show={showBooking}
+                    onHide={() => setShowBooking(false)}
+                    dialogClassName="modal-xl"
+                    aria-labelledby="example-custom-modal-styling-title"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-custom-modal-styling-title">
+                            Chi tiết đặt lịch {localStorage.getItem("idBookingDetail")}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -179,7 +325,7 @@ function UserDetail(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {dataCartDetail.map((item, i) => (
+                                {dataBookingDetail.map((item, i) => (
                                     <tr>
                                         <td style={{ width: "5%" }}>{item.id}</td>
                                         <td style={{ width: "15%" }}>
@@ -220,10 +366,19 @@ function UserDetail(props) {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        Bạn có chắc chắn muốn hủy đặt lịch này không?
+
+                        {localStorage.getItem("choose") === "Cart" ?
+                            "Bạn có chắc chắn muốn hủy đơn hàng này không?"
+                            :
+                            "Bạn có chắc chắn muốn hủy đặt lịch này không?"
+                        }
                         <Modal.Footer>
                             <Button variant="secondary">Đóng</Button>
-                            <Button variant="primary" onClick={huydonhang}>Hủy đơn hàng</Button>
+                            {localStorage.getItem("choose") === "Cart" ?
+                                <Button variant="primary" onClick={huydonhang}>Hủy đơn hàng</Button>
+                                :
+                                <Button variant="primary" onClick={huydatlich}>Hủy đặt lịch</Button>
+                            }
                         </Modal.Footer>
                     </Modal.Body>
                 </Modal>
