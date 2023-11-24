@@ -1,47 +1,43 @@
-import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import "../../../src/assets/css/sb-admin-2.min.css";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
-import moment from "moment";
-const { Header, Sider } = Layout;
+import axios from "axios";
+const { Sider } = Layout;
 
-function AdminSanPham(props) {
+
+function AdminAddDichVu(props) {
+    const [openProfile, setOpenProfile] = useState(false)
+    const [dataUser, setDataUser] = useState([])
+    const [formData, setFormData] = useState({
+        ten: "",
+        gia: "",
+        mota: "",
+    });
 
     const id = localStorage.getItem("id_user")
     const navigate = useNavigate();
 
-    const [dataUser, setDataUser] = useState([])
-    const [dataSanPham, setDataSanPham] = useState([])
-    const [openProfile, setOpenProfile] = useState(false)
 
-    const handleNavigate = async () => {
-        navigate("/")
-        localStorage.setItem("header", 0)
-    }
+    const handleChangeInput = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setFormData({
+            ...formData,
+            [name]: value
+        })
+        console.log(formData)
+    };
 
-    useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
-            .then((response) => {
-                setDataUser(response.data);
-                // console.log(dataUser, "data user")
+    const handleSubmit = (event) => {
+        axios.post("http://localhost:8000/adddichvu", formData)
+            .then((res) => {
+                console.log(res.data);
+                navigate("/employee/dichvu")
             })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
-        axios.get(`http://localhost:8000/AdminSanPham`)
-            .then((response) => {
-                setDataSanPham(response.data);
-                // console.log(dataUser, "data user")
-            })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
-    }, []);
+            .catch((err) => console.log(err));
+    };
 
     const LogoutSubmit = () => {
         localStorage.setItem("header", 0)
@@ -309,7 +305,6 @@ function AdminSanPham(props) {
                             </li>
 
                             <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
                             <span
                                 class="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
@@ -340,65 +335,32 @@ function AdminSanPham(props) {
                     </nav>
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Thêm mới dịch vụ</h1>
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-body">
-                                <table
-                                    class="table table-bordered"
-                                    id="dataTable"
-                                    width="100%"
-                                    cellspacing="0"
-                                >
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Img</th>
-                                            <th>Tên</th>
-                                            <th>Giá</th>
-                                            <th>Ngày thêm sp</th>
-                                            <th>SL còn</th>
-                                            <th>Mô tả</th>
-                                            <th>Hành dộng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {dataSanPham.map((item, i) => (
-                                            <tr>
-                                                <td>{item.id_sp}</td>
-                                                <td><img src={item.hinhanh} alt="" width="70px" /></td>
-                                                <td>{item.ten}</td>
-                                                <td>{item.gia}</td>
-                                                <td>{moment(item.ngaythem).format('DD/MM/YYYY')}</td>
-                                                <td>{item.soluong}</td>
-                                                <td>{item.mota}</td>
-                                                <td>
-                                                    <button
-                                                        class="btn btn-danger btn-circle"
-                                                        data-toggle="modal"
-                                                        data-target="#logoutModal"
-                                                    >
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <button
-                                                        class="btn btn-info btn-circle"
-                                                        data-toggle="modal"
-                                                        data-target="#exampleModal"
-                                                    >
-                                                        <i class="fas fa-info-circle"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Tên dịch vụ</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="Tên dịch vụ" name="ten" onChange={handleChangeInput} />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Giá</label>
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Giá" name="gia" onChange={handleChangeInput} />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCity">Mô tả</label>
+                                    <input type="text" class="form-control" id="inputCity" placeholder="Mô tả sản phẩm" name="mota" onChange={handleChangeInput} />
+                                </div>
+                                <button class="btn btn-primary" onClick={handleSubmit}>Thêm mới</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }
-
-export default AdminSanPham;
+export default AdminAddDichVu;

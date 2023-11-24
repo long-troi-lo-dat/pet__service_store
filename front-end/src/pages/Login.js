@@ -50,7 +50,7 @@ function Login(props) {
                 localStorage.setItem("id_user", res.data[0].id_user)
                 localStorage.setItem("header", 1)
                 localStorage.setItem("login", "yes")
-                navigate("/admin/index")
+                navigate("/employee/index")
               } else if (res.data[0].vaitro === 2) {
                 localStorage.setItem("vaitro", res.data[0].vaitro)
                 localStorage.setItem("id_user", res.data[0].id_user)

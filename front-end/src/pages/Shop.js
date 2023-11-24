@@ -4,9 +4,22 @@ import React, { useEffect, useState } from "react";
 import "../assets/css/shop2.css"
 // import img1 from "../assets/img_pet/4.jpg";
 import axios from "axios";
-import CartButton from "./CartButton"
 import Cart from "./cart";
 import Navbar from "../components/Navbar";
+import { Pagination, Table } from 'antd';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Notify = () => toast.success('Thêm vào giỏ hàng thành công', {
+  position: "bottom-left",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+});
 
 function Shop() {
   const [data, setData] = useState([]);
@@ -86,20 +99,7 @@ function Shop() {
             />
           </div>
         </div>
-        {/* <div className="container-content ml-3 mb-3">
-          <div className="flex justify-content-end">
-            <label htmlFor="search-form">
-              <input
-                type="search"
-                name="search-form"
-                id="search-form"
-                className="search-input p-3"
-                placeholder="Tìm kiếm sản phẩm . . . "
-              />
-            </label>
-          </div>
-        </div> */}
-        {isShowCart &&
+        {!isShowCart &&
           <div className="container-content ml-3 mb-3">
             <div className="flex justify-content-end">
               <label htmlFor="search-form">
@@ -125,26 +125,12 @@ function Shop() {
               (
                 <>
                   <div className="product-left">
-                    {/* <ul class="list-group mb-3">
-              <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Thú cưng</li>
-              <li class="list-group-item">Alaska</li>
-              <li class="list-group-item">Bloodhound</li>
-              <li class="list-group-item">Golden</li>
-              <li class="list-group-item">Border Collies</li>
-              <li class="list-group-item">Chó cỏ</li>
-            </ul> */}
                     <ul class="list-group mb-3">
                       <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Thực phẩm chức năng</li>
                       <li class="list-group-item" onClick={() => phanloai("shop100")}>Dưới 100.000đ</li>
                       <li class="list-group-item" onClick={() => phanloai("shopduoi500")}>Dưới 500.000đ</li>
                       <li class="list-group-item" onClick={() => phanloai("shoptren500")}>Trên 500.000đ</li>
                     </ul>
-                    {/* <ul class="list-group mb-3">
-              <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Dịch vụ</li>
-              <li class="list-group-item">Dịch vụ tắm cho thú cưng</li>
-              <li class="list-group-item">Dịch vụ khám chữa bệnh</li>
-              <li class="list-group-item">Dịch vụ hotel thú cưng</li>
-            </ul> */}
                   </div>
                   <div className="product-right pr-0">
                     <div className="row">
@@ -156,15 +142,17 @@ function Shop() {
                               <a href={"/detail/" + item.id_sp}><img src={item.hinhanh} class="card-img-top" alt="..." /></a>
                               {/* <img src={img1} class="card-img-top" alt="..." /> */}
                               <div class="card-body">
-                                <h5 class="card-title">{item.ten}</h5>
+                                <h5 class="card-title" style={{ minHeight: "72px" }}>{item.ten}</h5>
                                 <h5 class="card-title">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
                                 <button href={"/detail/" + item.id_sp} class="btn btn-info card-link">Chi tiết</button>
-                                <button onClick={() => onAddToCartHandler(item)} class="btn btn-success card-link" >Thêm vào giỏ</button>
+                                <button onClick={() => { onAddToCartHandler(item); Notify() }} class="btn btn-success card-link" >Thêm vào giỏ</button>
                               </div>
                             </div>
                           </div>
                         )
                       })}
+
+                      {/* <Pagination defaultCurrent={1} total={50} /> */}
                     </div>
                   </div>
                 </>
@@ -173,10 +161,21 @@ function Shop() {
             {isShowCart &&
               <Cart setShowCart={setShowCart} cart={cart} setCart={setCart} />
             }
+            <ToastContainer
+              position="bottom-left"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </div>
         </div>
       </div >
-      {/* <CartButton setShowCart={setShowCart} /> */}
     </>
   );
 }

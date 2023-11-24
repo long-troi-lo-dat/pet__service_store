@@ -3,6 +3,10 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const route = require("./src/routes/index")
 const db = require("./src/db/dbConfig");
+let router = express.Router();
+// let $ = require('jquery');
+// const request = require('request');
+// const moment = require('moment');
 dotenv.config();
 
 const port = process.env.PORT || 8000;
@@ -131,7 +135,15 @@ app.get('/AdminDatLich', (req, res) => {
 });
 app.get('/ChiNhanh/DatLich', (req, res) => {
   const chinhanh = req.query.chinhanh
-  const sql = 'SELECT * FROM donhangdichvu where id_chinhanh=?';
+  const sql = 'SELECT * FROM donhangdichvu where id_chinhanh=? and not trangthai=3';
+  db.query(sql, [chinhanh], (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/dondahoanthanhchinhanh', (req, res) => {
+  const chinhanh = req.query.chinhanh
+  const sql = 'SELECT * FROM donhangdichvu where id_chinhanh=? and trangthai=3';
   db.query(sql, [chinhanh], (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -191,7 +203,125 @@ app.post('/backstatus', (req, res) => {
   }
   )
 })
-
+app.post('/nextstatusdh', (req, res) => {
+  const sql = `UPDATE donhang SET trangthai='${req.body.trangthai + 1}' WHERE id='${req.body.id}'`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.post('/backstatusdh', (req, res) => {
+  const sql = `UPDATE donhang SET trangthai='${req.body.trangthai - 1}' WHERE id='${req.body.id}'`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/xoadonhang', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `donhang` WHERE id = ?";
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.get('/detaildonhang', (req, res) => {
+  const receivedData = req.query.data;
+  const sql = "SELECT donhangchitiet.id_dhct,donhangchitiet.id_sp,donhangchitiet.thanhtien,donhangchitiet.soluong,donhangchitiet.id_dh,sanpham.ten,sanpham.gia   FROM`donhangchitiet`   INNER JOIN `sanpham` ON donhangchitiet.id_sp = sanpham.id_sp   WHERE donhangchitiet.id_dh = ? ";
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.post('/adddichvu', (req, res) => {
+  const sql = "INSERT into `dichvu` (`ten`,`gia`,`mota`,`id_dm`) values (?,?,?,3)";
+  const values = [
+    req.body.ten,
+    req.body.gia,
+    req.body.mota
+  ]
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
+app.post('/addsanpham', (req, res) => {
+  const sql = "INSERT into `sanpham` (`ten`,`gia`,`hinhanh`,`soluong`,`mota`,`id_dm`) values (?,?,?,?,?,2)";
+  const values = [
+    req.body.ten,
+    req.body.gia,
+    req.body.hinhanh,
+    req.body.soluong,
+    req.body.mota
+  ]
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
+app.post('/addthucung', (req, res) => {
+  const sql = "INSERT into `thucung` (`ten`,`gioitinh`,`id_gl`,`gia`,`dob`,`hinhanh`,`tiemphong`,`mota`,`id_dm`) values (?,?,?,?,?,?,?,?,1)";
+  const values = [
+    req.body.ten,
+    req.body.gioitinh,
+    req.body.id_gl,
+    req.body.gia,
+    req.body.dob,
+    req.body.hinhanh,
+    req.body.tiemphong,
+    req.body.mota,
+  ]
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
+app.get('/xoadichvu', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `dichvu` WHERE id = ?";
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.get('/xoasanpham', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `sanpham` WHERE id = ?";
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.get('/xoathucung', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `thucung` WHERE id = ?";
+  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
 
 
 
@@ -264,9 +394,20 @@ app.get('/donhanguser/:id', (req, res) => {
   })
 })
 
+app.get('/detaildatlichuser', (req, res) => {
+  const receivedData = req.query.data;
+  const receivedIdUser = req.query.iduser;
+  const sql = "SELECT * FROM `donhangdichvu` WHERE id=? and id_user =?";
+  db.query(sql, [receivedData, receivedIdUser], (err, data) => { // Pass the value in an array
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
 app.get('/detaildonhanguser', (req, res) => {
   const receivedData = req.query.data;
-  const sql = "SELECT * FROM `donhangdichvu` WHERE id = ?"; // Include the placeholder
+  const sql = "SELECT donhangchitiet.id_dhct,donhangchitiet.id_sp,donhangchitiet.thanhtien,donhangchitiet.soluong,donhangchitiet.id_dh,sanpham.ten,sanpham.gia   FROM`donhangchitiet`   INNER JOIN `sanpham` ON donhangchitiet.id_sp = sanpham.id_sp   WHERE donhangchitiet.id_dh = ?";
   db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
     if (err) {
       return res.json(err);
@@ -317,8 +458,8 @@ app.post('/bookingservice', (req, res) => {
 
 app.get('/huydichvu', (req, res) => {
   const receivedData = req.query.id;
-  const sql = "DELETE FROM `donhangdichvu` WHERE id = ?"; // Include the placeholder
-  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+  const sql = "DELETE FROM `donhangdichvu` WHERE id = ?";
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -326,34 +467,125 @@ app.get('/huydichvu', (req, res) => {
   });
 });
 
-// dat hang
-app.post('/add-to-mysql', (req, res) => {
-  const { hoten, sodienthoai, diachi, ghichu, id_user, cart } = req.body;
-
-  // Thêm thông tin giao hàng vào bảng trong cơ sở dữ liệu
-  const insertOrderQuery = `INSERT INTO donhang (ten_nguoi_nhan, sdt_nguoi_nhan, diachi, ghichu, id_user) VALUES (?, ?, ?, ?, ?)`;
-  db.query(insertOrderQuery, [hoten, sodienthoai, diachi, id_user, ghichu], (err, result) => {
+app.get('/huydonhang', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "DELETE FROM `donhang` WHERE id = ?";
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
-      console.error('Error inserting order:', err);
-      res.status(500).json({ message: 'Internal Server Error' });
-    } else {
-      const orderId = result.id;
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
 
-      // Thêm các sản phẩm trong giỏ hàng vào bảng chi tiết đơn hàng
-      const insertOrderDetailsQuery = `INSERT INTO donhangchitiet (id_dh, id_sp, soluong, thanhtien) VALUES ?`;
-      const orderDetailsValues = cart.map(item => [orderId, item.id_sp, item.amount, item.gia * item.amount]);
-      db.query(insertOrderDetailsQuery, [orderDetailsValues], (err, result) => {
+app.get('/xemdathang', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "select * FROM `donhang` WHERE id_user = ?";
+  db.query(sql, [receivedData], (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+
+app.get('/xemdatlich', (req, res) => {
+  const receivedData = req.query.id;
+  const sql = "select * FROM `donhangdichvu` WHERE id_user = ?";
+  db.query(sql, [receivedData], (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+
+// đặt hàng
+app.post('/dathang', (req, res) => {
+  const { hoten, sodienthoai, diachi, ghichu, id_user, cart } = req.body;
+  const tongtien = cart.reduce((total, item) => total + item.gia * item.amount, 0)
+  const donhangSql = `INSERT INTO donhang (ten_nguoi_nhan, sdt_nguoi_nhan, diachi,tongtien, id_user,ghichu) VALUES (?, ?, ?, ?, ?, ?)`;
+  db.query(donhangSql, [hoten, sodienthoai, diachi, tongtien, id_user, ghichu], (err, result) => {
+    if (err) {
+      console.log("don hang")
+      return res.json(err);
+    } else {
+      const madh = result.insertId;
+      const donhangchitietSql = `INSERT INTO donhangchitiet (id_dh, id_sp, soluong, thanhtien) VALUES ?`;
+      const thongtincanthiet = cart.map(item => [madh, item.id_sp, item.amount, item.gia * item.amount]);
+      db.query(donhangchitietSql, [thongtincanthiet], (err, result) => {
         if (err) {
-          console.error('Error inserting order details:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
+          return res.json(err);
+          // console.error('Error inserting order details:', err);
+          // res.status(500).json({ message: 'Internal Server Error' });
         } else {
           res.status(200).json({ message: 'Order added successfully' });
         }
       });
     }
-  });
-});
+  })
+})
 
+//payment
+router.post('/create_payment_url', function (req, res, next) {
+  var ipAddr = req.headers['x-forwarded-for'] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress;
+
+  var config = require('config');
+  var dateFormat = require('dateformat');
+
+
+  var tmnCode = config.get('RIRKXC7Z');
+  var secretKey = config.get('vnp_HashSecret');
+  var vnpUrl = config.get('https://sandbox.vnpayment.vn/paymentv2/vpcpay.html');
+  var returnUrl = config.get('vnp_ReturnUrl');
+
+  var date = new Date();
+
+  var createDate = dateFormat(date, 'yyyymmddHHmmss');
+  var orderId = dateFormat(date, 'HHmmss');
+  var amount = req.body.amount;
+  var bankCode = req.body.bankCode;
+
+  var orderInfo = req.body.orderDescription;
+  var orderType = req.body.orderType;
+  var locale = req.body.language;
+  if (locale === null || locale === '') {
+    locale = 'vn';
+  }
+  var currCode = 'VND';
+  var vnp_Params = {};
+  vnp_Params['vnp_Version'] = '2.1.0';
+  vnp_Params['vnp_Command'] = 'pay';
+  vnp_Params['vnp_TmnCode'] = tmnCode;
+  // vnp_Params['vnp_Merchant'] = ''
+  vnp_Params['vnp_Locale'] = locale;
+  vnp_Params['vnp_CurrCode'] = currCode;
+  vnp_Params['vnp_TxnRef'] = orderId;
+  vnp_Params['vnp_OrderInfo'] = orderInfo;
+  vnp_Params['vnp_OrderType'] = orderType;
+  vnp_Params['vnp_Amount'] = amount * 100;
+  vnp_Params['vnp_ReturnUrl'] = returnUrl;
+  vnp_Params['vnp_IpAddr'] = ipAddr;
+  vnp_Params['vnp_CreateDate'] = createDate;
+  if (bankCode !== null && bankCode !== '') {
+    vnp_Params['vnp_BankCode'] = bankCode;
+  }
+
+  vnp_Params = sortObject(vnp_Params);
+
+  var querystring = require('qs');
+  var signData = querystring.stringify(vnp_Params, { encode: false });
+  var crypto = require("crypto");
+  var hmac = crypto.createHmac("sha512", secretKey);
+  var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");
+  vnp_Params['vnp_SecureHash'] = signed;
+  vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
+
+  res.redirect(vnpUrl)
+});
 
 // Khởi động máy chủ
 app.listen(port, () => {

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 // import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 
 function AdminNguoiDung(props) {
 
@@ -22,7 +21,6 @@ function AdminNguoiDung(props) {
         axios.get(`http://localhost:8000/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
-                // console.log(dataUser, "data user")
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
@@ -52,35 +50,33 @@ function AdminNguoiDung(props) {
                         {/* <Menu mode="inline" theme="dark"> */}
                         <div className="logo">
                             <div className="logo-icon" style={{ margin: "15px 20px" }}>
-                                <a href="/admin/index"><img src={imglogo} alt="" /></a>
+                                <a href="/employee/index"><img src={imglogo} alt="" /></a>
                             </div>
                         </div>
                         <Menu.SubMenu key="dichvu" title="Dịch vụ">
-                            <Menu.Item key='dichvu-1'>Thêm mới</Menu.Item>
-                            <Menu.Item key='dichvu-2'><a href="/admin/dichvu">Danh sách</a></Menu.Item>
+                            <Menu.Item key='dichvu-1'><a href="/employee/adddichvu">Thêm mới</a></Menu.Item>
+                            <Menu.Item key='dichvu-2'><a href="/employee/dichvu">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="thucung" title="Thú cưng">
-                            <Menu.Item key='thucung-1'>Thêm mới</Menu.Item>
-                            <Menu.Item key='thucung-2'><a href="/admin/thucung">Danh sách</a></Menu.Item>
+                            <Menu.Item key='thucung-1'><a href="/employee/addthucung">Thêm mới</a></Menu.Item>
+                            <Menu.Item key='thucung-2'><a href="/employee/thucung">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="sanpham" title="Sản phẩm">
-                            <Menu.Item key='sanpham-1'>Thêm mới</Menu.Item>
-                            <Menu.Item key='sanpham-2'><a href="/admin/sanpham">Danh sách</a></Menu.Item>
+                            <Menu.Item key='sanpham-1'><a href="/employee/addsanpham">Thêm mới</a></Menu.Item>
+                            <Menu.Item key='sanpham-2'><a href="/employee/sanpham">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="binhluan" title="Bình luận">
-                            <Menu.Item key='binhluan-1'>Thêm mới</Menu.Item>
-                            <Menu.Item key='binhluan-2'><a href="/admin/binhluan">Danh sách</a></Menu.Item>
+                            <Menu.Item key='binhluan-1'><a href="/employee/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="nguoidung" title="Người dùng">
-                            <Menu.Item key='nguoidung-1'>Thêm mới</Menu.Item>
-                            <Menu.Item key='nguoidung-2'><a href="/admin/nguoidung">Danh sách</a></Menu.Item>
+                            <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
+                            <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            {/* <Menu.Item key='donhang-1'>Thêm mới</Menu.Item> */}
-                            <Menu.Item key='donhang-2'><a href="/admin/donhang">Task 2</a></Menu.Item>
+                            <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
-                            <Menu.Item key='datlich-2'><a href="/admin/datlich">Danh sách</a></Menu.Item>
+                            <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
                         <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}>Thống kê</Menu.Item>
                     </Menu>
