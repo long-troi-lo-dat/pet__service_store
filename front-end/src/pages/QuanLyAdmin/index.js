@@ -71,7 +71,7 @@ function AdminIndex(props) {
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
                             <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}>Thống kê</Menu.Item>
+                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                     </Menu>
                 </Sider>
             </Layout>

@@ -150,221 +150,7 @@ function AdminDonHang(props) {
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input
-                                    type="text"
-                                    class="form-control bg-light border-0 small"
-                                    placeholder="Search for..."
-                                    aria-label="Search"
-                                    aria-describedby="basic-addon2"
-                                />
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    id="searchDropdown"
-                                    role="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <i class="fas fa-search fa-fw"></i>
-                                </a>
-                                <div
-                                    class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                    aria-labelledby="searchDropdown"
-                                >
-                                    <form class="form-inline mr-auto w-100 navbar-search">
-                                        <div class="input-group">
-                                            <input
-                                                type="text"
-                                                class="form-control bg-light border-0 small"
-                                                placeholder="Search for..."
-                                                aria-label="Search"
-                                                aria-describedby="basic-addon2"
-                                            />
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa-search fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    id="alertsDropdown"
-                                    role="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <i class="fas fa-bell fa-fw"></i>
-                                    <span class="badge badge-danger badge-counter">3+</span>
-                                </a>
-                                <div
-                                    class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="alertsDropdown"
-                                >
-                                    <h6 class="dropdown-header">Alerts Center</h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-primary">
-                                                <i class="fas fa-file-alt text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 12, 2019</div>
-                                            <span class="font-weight-bold">
-                                                A new monthly report is ready to download!
-                                            </span>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-success">
-                                                <i class="fas fa-donate text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 7, 2019</div>
-                                            $290.29 has been deposited into your account!
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-warning">
-                                                <i class="fas fa-exclamation-triangle text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 2, 2019</div>
-                                            Spending Alert: We've noticed unusually high spending
-                                            for your account.
-                                        </div>
-                                    </a>
-                                    <a
-                                        class="dropdown-item text-center small text-gray-500"
-                                        href="#"
-                                    >
-                                        Show All Alerts
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    id="messagesDropdown"
-                                    role="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <i class="fas fa-envelope fa-fw"></i>
-                                    <span class="badge badge-danger badge-counter">7</span>
-                                </a>
-                                <div
-                                    class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="messagesDropdown"
-                                >
-                                    <h6 class="dropdown-header">Message Center</h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img
-                                                class="rounded-circle"
-                                                src="img/undraw_profile_1.svg"
-                                                alt="..."
-                                            />
-                                            <div class="status-indicator bg-success"></div>
-                                        </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate">
-                                                Hi there! I am wondering if you can help me with a
-                                                problem I've been having.
-                                            </div>
-                                            <div class="small text-gray-500">
-                                                Emily Fowler · 58m
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img
-                                                class="rounded-circle"
-                                                src="img/undraw_profile_2.svg"
-                                                alt="..."
-                                            />
-                                            <div class="status-indicator"></div>
-                                        </div>
-                                        <div>
-                                            <div class="text-truncate">
-                                                I have the photos that you ordered last month, how
-                                                would you like them sent to you?
-                                            </div>
-                                            <div class="small text-gray-500">Jae Chun · 1d</div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img
-                                                class="rounded-circle"
-                                                src="img/undraw_profile_3.svg"
-                                                alt="..."
-                                            />
-                                            <div class="status-indicator bg-warning"></div>
-                                        </div>
-                                        <div>
-                                            <div class="text-truncate">
-                                                Last month's report looks great, I am very happy with
-                                                the progress so far, keep up the good work!
-                                            </div>
-                                            <div class="small text-gray-500">
-                                                Morgan Alvarez · 2d
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img
-                                                class="rounded-circle"
-                                                src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                                alt="..."
-                                            />
-                                            <div class="status-indicator bg-success"></div>
-                                        </div>
-                                        <div>
-                                            <div class="text-truncate">
-                                                Am I a good boy? The reason I ask is because someone
-                                                told me that people say this to all dogs, even if they
-                                                aren't good...
-                                            </div>
-                                            <div class="small text-gray-500">
-                                                Chicken the Dog · 2w
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a
-                                        class="dropdown-item text-center small text-gray-500"
-                                        href="#"
-                                    >
-                                        Read More Messages
-                                    </a>
-                                </div>
-                            </li>
-
                             <div class="topbar-divider d-none d-sm-block"></div>
                             {/* <li class="nav-item dropdown no-arrow"> */}
                             <span
@@ -407,28 +193,28 @@ function AdminDonHang(props) {
                                     width="100%"
                                     cellspacing="0"
                                 >
-                                    <thead>
+                                    <thead style={{ fontSize: "13px" }}>
                                         <tr>
                                             <th>Id</th>
                                             <th>Tên người nhận</th>
-                                            <th>Số điện thoại</th>
+                                            <th style={{ minWidth: "120px" }}>Số điện thoại</th>
                                             <th>Địa chỉ</th>
                                             <th>Tổng tiền</th>
-                                            <th>PTTT</th>
+                                            <th style={{ minWidth: "110px" }}>PTTT</th>
                                             <th>Ngày đặt</th>
                                             <th>Ghi chú</th>
                                             <th>Trạng thái</th>
                                             <th>Hành động</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style={{ fontSize: "13px" }}>
                                         {dataDonHang.map((item, i) => (
                                             <tr>
                                                 <td>{item.id}</td>
                                                 <td>{item.ten_nguoi_nhan}</td>
                                                 <td>{item.sdt_nguoi_nhan}</td>
                                                 <td>{item.diachi}</td>
-                                                <td>{item.tongtien}</td>
+                                                <td>{item.tongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                                 <td>{item.phuongthucthanhtoan === 0 ? "Tiền mặt" : "Chuyển khoản"}</td>
                                                 <td>{moment(item.ngaydat).format('DD/MM/YYYY')}</td>
                                                 <td>{item.ghichu}</td>
@@ -437,41 +223,47 @@ function AdminDonHang(props) {
                                                     : item.trangthai === 1
                                                         ? "Đã xác nhận"
                                                         : item.trangthai === 2
-                                                            ? "Đang thực hiện"
-                                                            : "Đã hoàn thành"}</td>
-                                                <td style={{ textAlign: "center", maxWidth: "154px" }}>
-                                                    <button
-                                                        type="button"
-                                                        class="btn btn-success"
-                                                        style={{ minWidth: "130px" }}
-                                                        // onClick={NextStatus}
-                                                        onClick={() => NextStatus(item.trangthai, item.id)}
-                                                    >
-                                                        Xác nhận
-                                                    </button>
+                                                            ? "Đang chuẩn bị hàng"
+                                                            : "Đang giao"}</td>
+                                                <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                     <button
                                                         class="btn btn-info"
                                                         data-toggle="modal"
                                                         data-target="#exampleModal"
-                                                        style={{ minWidth: "130px" }}
+                                                        style={{ minWidth: "140px", fontSize: "13px" }}
                                                         id={item.id} onClick={handleShow}
                                                     >
                                                         Xem đơn
                                                     </button>
                                                     <button
+                                                        type="button"
+                                                        class="btn btn-success"
+                                                        style={{ minWidth: "140px", fontSize: "13px" }}
+                                                        // onClick={NextStatus}
+                                                        onClick={() => NextStatus(item.trangthai, item.id)}
+                                                    >
+                                                        {item.trangthai === 0
+                                                            ? "Xác nhận đơn"
+                                                            : item.trangthai === 1
+                                                                ? "Đang chuẩn bị"
+                                                                : item.trangthai === 2
+                                                                    ? "Đang giao"
+                                                                    : "Giao thành công"}
+                                                    </button>
+                                                    {/* <button
                                                         class="btn btn-danger"
                                                         data-toggle="modal"
                                                         data-target="#logoutModal"
-                                                        style={{ minWidth: "130px" }}
+                                                        style={{ minWidth: "100px", fontSize: "13px" }}
                                                         onClick={() => BackStatus(item.trangthai, item.id)}
                                                     >
                                                         Hoàn tác
-                                                    </button>
+                                                    </button> */}
                                                     <button
                                                         class="btn btn-danger"
                                                         data-toggle="modal"
                                                         data-target="#logoutModal"
-                                                        style={{ minWidth: "130px" }}
+                                                        style={{ minWidth: "140px", fontSize: "13px" }}
                                                         onClick={() => huydonhang(item.id)}
                                                     >
                                                         Hủy đơn
@@ -495,7 +287,7 @@ function AdminDonHang(props) {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                        Chi tiết đơn hàng {localStorage.getItem("idCartDetail")}
+                        Chi tiết đơn hàng
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -516,14 +308,14 @@ function AdminDonHang(props) {
                                     <td>{i + 1}</td>
                                     <td>{item.ten}</td>
                                     <td>{item.id_sp}</td>
-                                    <td>{item.gia}</td>
+                                    <td>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                     <td>{item.soluong}</td>
-                                    <td>{item.thanhtien}</td>
+                                    <td>{item.thanhtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <div style={{ display: "flex", justifyContent: "flex-end" }}>Tổng tiền: {tong}</div>
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>Tổng tiền: {tong.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
                 </Modal.Body>
             </Modal>
         </div >

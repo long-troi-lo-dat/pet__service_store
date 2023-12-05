@@ -6,6 +6,9 @@ import Contact from "../pages/Contact";
 import Detail from "../pages/detail";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import ForgetPassword from "../pages/Forgetpass";
+import OTPInput from "../pages/OTPinput";
+import Resetpassword from "../pages/Resetpassword";
 import Register from "../pages/register";
 import Service from "../pages/Service";
 import Shop from "../pages/Shop";
@@ -17,7 +20,7 @@ import UserDetailEdit from "../pages/userdetailedit";
 import DetailPet from "../pages/detailpet";
 
 // import adminDonHang from "../pages/QuanLyAdmin/qldonhang";
-import thongke from "../pages/QuanLyChiNhanh/thongke";
+import Thongke from "../pages/QuanLyAdmin/thongke";
 import AdminIndex from "../pages/QuanLyAdmin/index"
 import AdminBinhLuan from "../pages/QuanLyAdmin/binhluan";
 import AdminDichVu from "../pages/QuanLyAdmin/dichvu";
@@ -47,6 +50,9 @@ const publicRoutes = [
   { path: "/blog", component: Blog },
   { path: "/booking", component: Booking },
   { path: "/login", component: Login },
+  { path: "/forget-password", component: ForgetPassword },
+  { path: "/OTPInput", component: OTPInput },
+  { path: "/Resetpassword", component: Resetpassword },
   { path: "/register", component: Register },
   { path: "/detail/:id", component: Detail },
   { path: "/detailpet/:id", component: DetailPet },
@@ -56,7 +62,7 @@ const publicRoutes = [
   { path: "/userdetailedit/:id", component: UserDetailEdit },
   // { path: "/admin/admindonhang", component: adminDonHang },
 
-  { path: "/employee/thongke", component: thongke },
+  { path: "/employee/thongke", component: Thongke },
   { path: "/employee/index", component: AdminIndex },
   { path: "/employee/binhluan", component: AdminBinhLuan },
   { path: "/employee/dichvu", component: AdminDichVu },

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../assets/css/register.css";
 import "../assets/css/global.css";
 import logoRegister from "../assets/img/image-register.png";
+import logoRegisterfun from "../assets/img/dangky.png";
 import { useNavigate } from "react-router-dom";
 import validation from "../components/Validate/registervalidate";
 import axios from 'axios'
@@ -59,7 +60,7 @@ function Register(props) {
         className="container flex py-20 justify-center w-full box-border "
       >
         <div className="image ">
-          <img src={logoRegister} alt="" width="413px" height="606px" />
+          <img src={logoRegisterfun} alt="" width="413px" height="606px" style={{ paddingRight: "30px" }} />
         </div>
         <div
           style={{
