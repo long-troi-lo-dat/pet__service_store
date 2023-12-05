@@ -3,6 +3,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const route = require("./src/routes/index")
 const db = require("./src/db/dbConfig");
+const bodyParser = require('body-parser');
+const nodemailer = require("nodemailer");
+const readline = require('readline');
 let router = express.Router();
 // let $ = require('jquery');
 // const request = require('request');
@@ -106,7 +109,7 @@ app.get('/AdminDichVu', (req, res) => {
   });
 });
 app.get('/AdminThuCung', (req, res) => {
-  const sql = 'SELECT * FROM thucung';
+  const sql = 'select thucung.*, giongloai.ten as tengiongloai from thucung INNER JOIN giongloai on thucung.id_gl = giongloai.id_gl order by thucung.id';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -127,7 +130,7 @@ app.get('/AdminDonHang', (req, res) => {
   });
 });
 app.get('/AdminDatLich', (req, res) => {
-  const sql = 'SELECT * FROM donhangdichvu';
+  const sql = 'SELECT * FROM donhangdichvu order by ngay and thoigian DESC';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -137,6 +140,20 @@ app.get('/ChiNhanh/DatLich', (req, res) => {
   const chinhanh = req.query.chinhanh
   const sql = 'SELECT * FROM donhangdichvu where id_chinhanh=? and not trangthai=3';
   db.query(sql, [chinhanh], (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/nhanvienchinhanh2', (req, res) => {
+  const sql = 'SELECT * FROM nguoidung where id_chinhanh=2';
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/nhanvienchinhanh3', (req, res) => {
+  const sql = 'SELECT * FROM nguoidung where id_chinhanh=3';
+  db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
@@ -175,6 +192,66 @@ app.get('/DichVu2/DonHang/:id', (req, res) => {
 });
 app.post('/selectnhanvien', (req, res) => {
   const sql = `UPDATE donhangdichvu SET nhanvien='${req.body.nhanvien}' WHERE id='${req.body.id}'`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongkechinhanh1', (req, res) => {
+  const sql = `select * From donhangdichvu where id_chinhanh=2 and trangthai=3`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongkechinhanh2', (req, res) => {
+  const sql = `select * From donhangdichvu where id_chinhanh=3`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/tongdonhoanthanhchinhanh1', (req, res) => {
+  const sql = `SELECT COUNT(*) FROM donhang where id_chinhanh=2 and trangthai=3`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/tongdonchuahoanthanhchinhanh1', (req, res) => {
+  const sql = `SELECT COUNT(*) FROM donhang where id_chinhanh=2 and trangthai<3`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/tongdonhoanthanhchinhanh2', (req, res) => {
+  const sql = `select * From donhangdichvu where id_chinhanh=3`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/tongdonchuahoanthanhchinhanh2', (req, res) => {
+  const sql = `select * From donhangdichvu where id_chinhanh=3 and trangthai<3`;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -226,7 +303,7 @@ app.post('/backstatusdh', (req, res) => {
 app.get('/xoadonhang', (req, res) => {
   const receivedData = req.query.id;
   const sql = "DELETE FROM `donhang` WHERE id = ?";
-  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -236,7 +313,7 @@ app.get('/xoadonhang', (req, res) => {
 app.get('/detaildonhang', (req, res) => {
   const receivedData = req.query.data;
   const sql = "SELECT donhangchitiet.id_dhct,donhangchitiet.id_sp,donhangchitiet.thanhtien,donhangchitiet.soluong,donhangchitiet.id_dh,sanpham.ten,sanpham.gia   FROM`donhangchitiet`   INNER JOIN `sanpham` ON donhangchitiet.id_sp = sanpham.id_sp   WHERE donhangchitiet.id_dh = ? ";
-  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -295,7 +372,7 @@ app.post('/addthucung', (req, res) => {
 app.get('/xoadichvu', (req, res) => {
   const receivedData = req.query.id;
   const sql = "DELETE FROM `dichvu` WHERE id = ?";
-  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -305,7 +382,7 @@ app.get('/xoadichvu', (req, res) => {
 app.get('/xoasanpham', (req, res) => {
   const receivedData = req.query.id;
   const sql = "DELETE FROM `sanpham` WHERE id = ?";
-  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -315,7 +392,7 @@ app.get('/xoasanpham', (req, res) => {
 app.get('/xoathucung', (req, res) => {
   const receivedData = req.query.id;
   const sql = "DELETE FROM `thucung` WHERE id = ?";
-  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -382,6 +459,24 @@ app.get('/userdetail/:id', (req, res) => {
     return res.json(data)
   })
 })
+app.post('/updatethongtin', (req, res) => {
+  const values = [
+    req.body.hoTen,
+    req.body.anhdaidien,
+    req.body.sdt,
+    req.body.diachi,
+    req.body.id_user
+  ]
+  const sql = `UPDATE nguoidung SET hoTen=?,anhdaidien=?,sdt=?,diachi=? WHERE id_user=?`;
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+
 
 app.get('/donhanguser/:id', (req, res) => {
   const id = req.params.id;
@@ -398,7 +493,17 @@ app.get('/detaildatlichuser', (req, res) => {
   const receivedData = req.query.data;
   const receivedIdUser = req.query.iduser;
   const sql = "SELECT * FROM `donhangdichvu` WHERE id=? and id_user =?";
-  db.query(sql, [receivedData, receivedIdUser], (err, data) => { // Pass the value in an array
+  db.query(sql, [receivedData, receivedIdUser], (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.get('/detaildatlich', (req, res) => {
+  const receivedData = req.query.data;
+  const sql = "SELECT * FROM `donhangdichvu` WHERE id=?";
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -408,7 +513,7 @@ app.get('/detaildatlichuser', (req, res) => {
 app.get('/detaildonhanguser', (req, res) => {
   const receivedData = req.query.data;
   const sql = "SELECT donhangchitiet.id_dhct,donhangchitiet.id_sp,donhangchitiet.thanhtien,donhangchitiet.soluong,donhangchitiet.id_dh,sanpham.ten,sanpham.gia   FROM`donhangchitiet`   INNER JOIN `sanpham` ON donhangchitiet.id_sp = sanpham.id_sp   WHERE donhangchitiet.id_dh = ?";
-  db.query(sql, [receivedData], (err, data) => { // Pass the value in an array
+  db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -587,6 +692,112 @@ router.post('/create_payment_url', function (req, res, next) {
   res.redirect(vnpUrl)
 });
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'dghousepetshop115@gmail.com',
+    pass: 'vuem nuln cmxh bzqv',
+  },
+});
+
+const otpStorage = {};
+
+app.post('/forgot_password', (req, res) => {
+  const { email } = req.body;
+
+  // Validate email (you may want to add more robust validation)
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  // Generate and store OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  otpStorage[email] = otp;
+
+  // Send OTP via email
+  const mailOptions = {
+    from: 'dghousepetshop115@gmail.com',
+    to: email,
+    subject: "DGHOUSE PET SHOP KHÔI PHỤC MẬT KHẨU",
+    html: `<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - OTP Email Template</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+  <div style="margin:50px auto;width:70%;padding:20px 0">
+    <div style="border-bottom:1px solid #eee">
+      <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Koding 101</a>
+    </div>
+    <p style="font-size:1.1em">Hi,</p>
+    <p>Thank you for choosing Koding 101. Use the following OTP to complete your Password Recovery Procedure. OTP is valid for 5 minutes</p>
+    <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
+    <p style="font-size:0.9em;">Regards,<br />Koding 101</p>
+    <hr style="border:none;border-top:1px solid #eee" />
+    <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+      <p>Koding 101 Inc</p>
+      <p>1600 Amphitheatre Parkway</p>
+      <p>California</p>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  
+</body>
+</html>`,
+  };
+
+  try {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Lỗi gửi OTP qua email:', error);
+        return res.status(500).json({ error: 'Lỗi gửi OTP qua email' });
+      }
+
+      console.log('Email gửi thành công:', info);
+      res.status(200).json({ message: 'OTP đã được gửi thành công' });
+    });
+  } catch (error) {
+    console.error('Lỗi không mong muốn:', error);
+    res.status(500).json({ error: 'Lỗi không mong muốn' });
+  }
+});
+
+app.post('/verify-otp', (req, res) => {
+  const { emailFromLocal, otp } = req.body;
+
+  console.log(emailFromLocal, otp);
+
+  // Validate email and OTP
+  if (!emailFromLocal || !otp) {
+    return res.status(400).json({ error: 'Email and OTP are required' });
+  }
+
+  // Verify OTP
+  if (otpStorage[emailFromLocal] === otp) {
+    // Clear OTP after successful verification
+    delete otpStorage[emailFromLocal];
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } else {
+    res.status(401).json({ error: 'Invalid OTP' });
+  }
+});
+
+app.post('/doimatkhau', (req, res) => {
+  const sql = `UPDATE nguoidung SET matkhau='${req.body.password}' WHERE email='${req.body.emailFromLocal}'`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
 // Khởi động máy chủ
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

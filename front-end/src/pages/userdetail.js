@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import moment from 'moment';
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function UserDetail(props) {
     const id = localStorage.getItem("id_user")
@@ -15,6 +16,8 @@ function UserDetail(props) {
     const [dataBookingDetail, setDataBookingDetail] = useState([]);
 
     // const handleCloseConfirm = () => setConfirm(false);
+    const navigate = useNavigate();
+
 
     let tong = 0;
     const mappedArray = dataCartDetail.map((item, i) => {
@@ -29,6 +32,7 @@ function UserDetail(props) {
         setConfirm(true)
         localStorage.setItem("idBookingDetail", e.currentTarget.id)
     };
+
     const huydonhang = () => {
         axios.get(`http://localhost:8000/huydonhang?id=${localStorage.getItem("idCartDetail")}`)
             .then((response) => {
@@ -49,8 +53,6 @@ function UserDetail(props) {
             });
         window.location.reload()
     }
-
-    // const handleClose = () => setShow(false);
 
     const handleShowCart = async (e) => {
         setShowCart(true)
@@ -106,13 +108,6 @@ function UserDetail(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        // axios.get(`http://localhost:8000/donhanguser/${id}`)
-        //     .then((response) => {
-        //         setDataCart(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.error('error fetching data :', error);
-        //     });
     }, [id]);
 
 
@@ -121,15 +116,16 @@ function UserDetail(props) {
             <Navbar />
             <div class="container-fluid">
                 <div class="container-content rounded bg-white mt-5 mb-5">
-                    <div class="row bg-light">
+                    <div class="row bg-light py-3">
                         {dataUser.map((item, i) => (
                             <div class="col-md-4">
                                 <div class="d-flex flex-column px-5">
-                                    <img class="rounded-circle mt-5 d-flex" alt="" style={{ margin: "auto" }} width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
-                                    <div class="text-black-50">Họ tên: <span class="font-weight-bold text-black">{item.hoTen}</span></div>
-                                    <div class="text-black-50">Số điện thoại: <span class="font-weight-bold text-black">{item.sdt}</span></div>
-                                    <div class="text-black-50">Email: <span class="font-weight-bold text-black">{item.email}</span></div>
-                                    <div class="text-black-50">Mật khẩu: <span class="font-weight-bold text-black">{item.matkhau}</span></div>
+                                    <img class="rounded-circle mt-5 d-flex" alt="" style={{ margin: "auto" }} width="150px" src={!item.anhdaidien ? "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" : item.anhdaidien} />
+                                    <div class="text-black-50" ><span class="font-weight-bold text-black">{item.hoTen}</span></div>
+                                    <div class="text-black-50" ><span class="font-weight-bold text-black">{item.sdt}</span></div>
+                                    <div class="text-black-50" ><span class="font-weight-bold text-black">{item.email}</span></div>
+                                    <div class="text-black-50 mt-3" style={{ margin: "auto" }}><button class="btn btn-success" onClick={() => navigate(`/userdetailedit/${item.id_user}`)} style={{ minWidth: "190px" }}>Chỉnh sửa thông tin</button></div>
+                                    <div class="text-black-50 mt-3" style={{ margin: "auto" }}><button class="btn btn-success" onClick={() => navigate(`/userdetailedit/${item.id_user}`)} style={{ minWidth: "190px" }}>Thay đổi mật khẩu</button></div>
                                 </div>
                             </div>
                         ))}
@@ -139,7 +135,7 @@ function UserDetail(props) {
                                 <div style={{ display: "flex", justifyContent: "space-around", paddingTop: "15px" }}>
                                     <button onClick={xemdonhang} style={{ minWidth: "180px", backgroundColor: "rgb(34, 42, 99)", color: "white", borderRadius: "3px", padding: "5px 0" }}>Đơn hàng</button>
                                     <button onClick={xemdatlich} style={{ minWidth: "180px", backgroundColor: "rgb(34, 42, 99)", color: "white", borderRadius: "3px" }}>Đặt lịch</button>
-                                    <button style={{ minWidth: "180px", backgroundColor: "rgb(34, 42, 99)", color: "white", borderRadius: "3px" }}>Đơn đã hoàn thành</button>
+                                    {/* <button style={{ minWidth: "180px", backgroundColor: "rgb(34, 42, 99)", color: "white", borderRadius: "3px" }}>Đơn đã hoàn thành</button> */}
                                 </div>
                                 <div class="card-body">
                                     <table class="table" id="dataTable" width="100%" cellspacing="0">
@@ -153,16 +149,21 @@ function UserDetail(props) {
                                                     <th>Trạng thái</th>
                                                     <th>Hành dộng</th>
                                                 </tr>)
-                                                :
-                                                (<tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Thời gian</th>
-                                                    <th>Dịch vụ</th>
-                                                    <th>Địa điểm</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Hành dộng</th>
-                                                </tr>)
+                                                : localStorage.getItem("choose") === "Booking" ?
+                                                    (<tr>
+                                                        <th>Mã đơn</th>
+                                                        <th>Thời gian</th>
+                                                        <th>Dịch vụ</th>
+                                                        <th>Địa điểm</th>
+                                                        <th>Tổng tiền</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Hành dộng</th>
+                                                    </tr>)
+                                                    :
+                                                    (
+                                                        // <tr></tr>
+                                                        <></>
+                                                    )
                                             }
                                         </thead>
                                         <tbody>
@@ -175,7 +176,7 @@ function UserDetail(props) {
                                                             {item.diachi}
                                                         </td>
                                                         <td>
-                                                            {item.tongtien}
+                                                            {item.tongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                                                         </td>
                                                         <td>
                                                             {item.trangthai === 0
@@ -222,7 +223,7 @@ function UserDetail(props) {
                                                                     : ""}
                                                         </td>
                                                         <td>
-                                                            {item.tongtien}
+                                                            {item.tongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                                                         </td>
                                                         <td>
                                                             {item.trangthai === 0
@@ -287,14 +288,14 @@ function UserDetail(props) {
                                     <tr>
                                         <td>{i + 1}</td>
                                         <td>{item.ten}</td>
-                                        <td>{item.gia}</td>
+                                        <td>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                         <td>{item.soluong}</td>
-                                        <td>{item.thanhtien}</td>
+                                        <td>{item.thanhtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>Tổng tiền: {tong}</div>
+                        <div style={{ display: "flex", justifyContent: "flex-end" }}>Tổng tiền: {tong.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
                     </Modal.Body>
                 </Modal>
                 <Modal

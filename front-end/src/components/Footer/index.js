@@ -1,88 +1,65 @@
 import React from "react";
+import LogoHeader from "../../assets/logo-1.png";
 
 function Footer(props) {
   return (
     <footer
       style={{
         width: "100%",
-        backgroundColor: "black",
+        backgroundColor: "White",
       }}
     >
       <div class="tillefinal">
         Hotline hỗ trợ 24/7 của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc
-        của bạn | 0825478781
+        của bạn | 0123-456-789
       </div>
       <div class="relative mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
-          <div class="mb-6 md:mb-0">
+          <div class="mb-6 md:mb-0" style={{ maxWidth: "400px", textAlign: "justify" }}>
             <a href="https://flowbite.com/" class="flex items-center">
-              <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                class="h-8 mr-3"
-                alt="FlowBite Logo"
-              />
               <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Flowbite
+                <img src={LogoHeader} alt="" />
               </span>
             </a>
+            <span style={{ fontSize: "13px" }}>
+              DG House ra đời với mong muốn mang lại cho khách hàng sự chuyên nghiệp, uy tín mang nét đẹp hoa mỹ mà chúng tôi đem lại sự trải nghiệm tốt nhất cho thú cưng của chúng ta. Với nhiều năm kinh nghiệm trong ngành dịch vụ thú cưng bao gồm: Spa thú cưng, Khách sạn thú cưng, Dịch vụ thú cưng tại nhà,…
+            </span>
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
-              <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Resources
-              </h2>
-              <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                <li class="mb-4">
-                  <a href="https://flowbite.com/" class="hover:underline">
-                    Flowbite
-                  </a>
+              <h3 style={{}}>
+                Dịch vụ
+              </h3>
+              <ul style={{ fontSize: "13px", paddingTop: "30px" }}>
+                <li class="mb-2">
+                  Spa chuẩn thú cưng 5 sao
                 </li>
-                <li>
-                  <a href="https://tailwindcss.com/" class="hover:underline">
-                    Tailwind CSS
-                  </a>
+                <li class="mb-2">
+                  Dịch vụ cắt tỉa lông
                 </li>
-              </ul>
-            </div>
-            <div>
-              <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Follow us
-              </h2>
-              <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                <li class="mb-4">
-                  <a
-                    href="https://github.com/themesberg/flowbite"
-                    class="hover:underline "
-                  >
-                    Github
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://discord.gg/4eeurUVvTy"
-                    class="hover:underline"
-                  >
-                    Discord
-                  </a>
+                <li class="mb-2">
+                  Dịch vụ hotel thú cưng
                 </li>
               </ul>
             </div>
             <div>
-              <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Legal
-              </h2>
-              <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                <li class="mb-4">
-                  <a href="#" class="hover:underline">
-                    Privacy Policy
-                  </a>
+              <h3>
+                Truy cập
+              </h3>
+              <ul style={{ fontSize: "13px", paddingTop: "30px" }}>
+                <li class="mb-2">
+                  Trang chủ
                 </li>
-                <li>
-                  <a href="#" class="hover:underline">
-                    Terms &amp; Conditions
-                  </a>
+                <li class="mb-2">
+                  Giới thiệu về DG House
+                </li>
+                <li class="mb-2">
+                  Chia sẻ kiến thức và kinh nghiệm
                 </li>
               </ul>
+            </div>
+            <div>
+              <img src="https://petservicehcm.com/wp-content/uploads/elementor/thumbs/logo-da-thong-bao-voi-bo-cong-thuong-padvnpwxkd4ns4kthip3kg525b8ulnril0e7c2qa3s.png" alt="" />
             </div>
           </div>
         </div>
@@ -90,12 +67,9 @@ function Footer(props) {
         <div class="sm:flex sm:items-center sm:justify-between">
           <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
-            <a href="https://flowbite.com/" class="hover:underline">
-              Flowbite™
-            </a>
             . All Rights Reserved.
           </span>
-          <div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
+          <div class="flex space-x-5 sm:justify-center sm:mt-0">
             <a
               href="#"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
@@ -191,7 +165,8 @@ function Footer(props) {
         </div>
       </div>
     </footer>
-  );
+  )
 }
+
 
 export default Footer;

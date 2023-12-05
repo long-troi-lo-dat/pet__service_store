@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoLogin from "../assets/img/image-login.png";
+import logoLoginfun from "../assets/img/dangnhap.png";
 import validation from "../components/Validate/loginvalidate";
 import axios from 'axios';
 import Navbar from "../components/Navbar";
@@ -42,26 +43,22 @@ function Login(props) {
               if (res.data[0].vaitro === 0) {
                 localStorage.setItem("vaitro", res.data[0].vaitro)
                 localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("header", 0)
                 localStorage.setItem("login", "yes")
                 navigate("/")
               } else if (res.data[0].vaitro === 1) {
                 localStorage.setItem("vaitro", res.data[0].vaitro)
                 localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("header", 1)
                 localStorage.setItem("login", "yes")
                 navigate("/employee/index")
               } else if (res.data[0].vaitro === 2) {
                 localStorage.setItem("vaitro", res.data[0].vaitro)
                 localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("header", 1)
                 localStorage.setItem("login", "yes")
                 localStorage.setItem("chinhanh", res.data[0].chinhanh)
                 navigate("/QuanLyChiNhanh/index")
               } else if (res.data[0].vaitro === 5) {
                 localStorage.setItem("vaitro", res.data[0].vaitro)
                 localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("header", 1)
                 localStorage.setItem("login", "yes")
                 localStorage.setItem("chinhanh", res.data[0].chinhanh)
                 navigate("/NhanVienDichVu/index")
@@ -74,6 +71,8 @@ function Login(props) {
         )
     }
   };
+
+
   return (
     <>
       <Navbar />
@@ -84,7 +83,7 @@ function Login(props) {
         className="container flex py-20 justify-center w-full box-border "
       >
         <div className="image ">
-          <img src={logoLogin} alt="image" width="413px" height="606px" />
+          <img src={logoLoginfun} alt="image" width="413px" height="606px" style={{ paddingRight: "30px" }} />
         </div>
         <div
           style={{
@@ -148,7 +147,7 @@ function Login(props) {
               {errors.password && <span className="text-danger">{errors.password}</span>}
             </div>
             <div className="text-right ">
-              <span className="text-blue-600 cursor-pointer underline">Quên mật khẩu</span>
+              <span className="text-blue-600 cursor-pointer underline"><span onClick={() => navigate("/forget-password")}>Quên mật khẩu</span></span>
             </div>
 
             <button

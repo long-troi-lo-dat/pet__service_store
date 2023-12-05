@@ -250,9 +250,9 @@ function QuanLyChiNhanhDatLich(props) {
                                                     >
                                                         <option value="0" selected>
                                                             {item.nhanvien === 10
-                                                                ? "Nguyễn Thị Quế Anh"
+                                                                ? "Đậu Quang Thái"
                                                                 : item.nhanvien === 11
-                                                                    ? "Quàng Thị Trà My"
+                                                                    ? "Tinh Hữu Từ"
                                                                     : item.nhanvien === 12
                                                                         ? "Ngô Tấn Biên"
                                                                         : item.nhanvien === 13
@@ -263,14 +263,13 @@ function QuanLyChiNhanhDatLich(props) {
                                                         </option>
                                                         {item.id_chinhanh === 3 ?
                                                             <>
-
                                                                 <option value="13">Hồ Nhất Huy</option>
                                                                 <option value="14">Trần Anh Vũ</option>
                                                             </>
                                                             : item.id_chinhanh === 2 ?
                                                                 <>
-                                                                    <option value="10">Nguyễn Thị Quế Anh</option>
-                                                                    <option value="11">Quàng Thị Trà My</option>
+                                                                    <option value="10">Đậu Quang Thái</option>
+                                                                    <option value="11">Tinh Hữu Từ</option>
                                                                     <option value="12">Ngô Tấn Biên</option>
                                                                 </>
                                                                 :
@@ -292,8 +291,10 @@ function QuanLyChiNhanhDatLich(props) {
                                                     : item.trangthai === 1
                                                         ? "Đã xác nhận"
                                                         : item.trangthai === 2
-                                                            ? "Đang thực hiện"
-                                                            : "Đã hoàn thành"}
+                                                            ? "Đang chuẩn bị hàng"
+                                                            : item.trangthai === 3
+                                                                ? "Đang vận chuyển"
+                                                                : "Đã hoàn thành"}
                                                 </td>
                                                 <td>
                                                     <button

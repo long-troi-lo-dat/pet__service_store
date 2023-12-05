@@ -7,6 +7,7 @@ import { Layout, Menu } from 'antd'
 import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
 import Dropdown from 'react-bootstrap/Dropdown';
+import moment from "moment";
 const { Header, Sider } = Layout;
 
 function AdminThuCung(props) {
@@ -347,14 +348,19 @@ function AdminThuCung(props) {
                                     id="dataTable"
                                     width="100%"
                                     cellspacing="0"
+                                    style={{ fontSize: "13px" }}
                                 >
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Tên người nhận</th>
-                                            <th>Nơi nhận</th>
-                                            <th>tổng tiền</th>
-                                            <th>Nhân viên</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Tên</th>
+                                            <th>Giới tính</th>
+                                            <th>Giống loài</th>
+                                            <th>Giá</th>
+                                            <th>Ngày sinh</th>
+                                            <th>Tiêm phòng</th>
+                                            <th>Mô tả</th>
                                             <th>Hành dộng</th>
                                         </tr>
                                     </thead>
@@ -362,10 +368,17 @@ function AdminThuCung(props) {
                                         {dataThuCung.map((item, i) => (
                                             <tr>
                                                 <td>{item.id}</td>
-                                                <td>Huy Hồ Hồ Hồ</td>
-                                                <td>100 Điện Biên Phủ</td>
-                                                <td>600.000đ</td>
-                                                <td>Vũ Luân</td>
+                                                <td><img src={item.hinhanh} alt="" width="100px" /></td>
+                                                <td>{item.ten}</td>
+                                                <td>{item.gioitinh === 0 ?
+                                                    "Chưa biết"
+                                                    : item.gioitinh === 1 ?
+                                                        "Đực"
+                                                        : "Cái"}
+                                                </td>
+                                                <td>{item.tengiongloai}</td>
+                                                <td>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                                                <td>{moment(item.dob).format('DD/MM/YYYY')}</td>
                                                 <td>
                                                     <button
                                                         type="button"
