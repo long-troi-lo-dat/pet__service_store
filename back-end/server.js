@@ -338,11 +338,11 @@ app.get('/thongke/dichvu/nhanvien/roi', (req, res) => {
   }
   )
 })
-app.get('/thongke/dichvu/nhanvien/chua', (req, res) => {
+app.get('/thongke/dichvu/nhanvien/chua/test', (req, res) => {
   // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
-  const sql = `SELECT nhanvien, MONTH(ngay) as thang, COUNT(*) AS so_don_hang 
+  const sql = `SELECT nhanvien, Day(ngay) as ngaydat, COUNT(*) AS so_don_hang 
   FROM donhangdichvu where trangthai<3
-  GROUP BY nhanvien, MONTH(ngay)`
+  GROUP BY nhanvien, Day(ngay) order by ngaydat`
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -351,6 +351,27 @@ app.get('/thongke/dichvu/nhanvien/chua', (req, res) => {
   }
   )
 })
+app.get('/thongke/dichvu/nhanvien/chua', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const today = new Date();
+  const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+  const sql = `
+    SELECT nhanvien, DAY(ngay) as ngaydat, MONTH(ngay) as thang, COUNT(*) AS so_don_hang
+    FROM donhangdichvu
+    WHERE trangthai < 3
+      AND ngay BETWEEN CURDATE() AND DATE_ADD(LAST_DAY(CURDATE()), INTERVAL 1 DAY)
+    GROUP BY nhanvien, ngay, thang;
+  `;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+
 app.get('/thongke/dichvu/tongtien', (req, res) => {
   // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
   const sql = `SELECT MONTH(ngay) as thang, SUM(tongtien) AS tong_tien_thang
