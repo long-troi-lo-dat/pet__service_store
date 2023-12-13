@@ -230,71 +230,218 @@ function AdminDatLich(props) {
             .catch(error => {
                 console.error("Error fetching data:", error);
             });
-        axios.get("http://localhost:8000/thongke/dichvu/nhanvien/chua")
-            .then(response => {
+        // axios.get("http://localhost:8000/thongke/dichvu/nhanvien/chua/test")
+        //     .then(response => {
+        //         const data = response.data;
+
+        //         console.log(data, "data trả về của thống kê dịch vụ nhân viên")
+
+        //         const currentMonth = new Date().getMonth() + 1; // Lưu ý: Tháng trong JavaScript là 0-indexed
+
+        //         // const categories = Array.from({ length: 5 }, (_, index) => {
+        //         //     const month = currentMonth - 2 + index;
+        //         //     const adjustedMonth = (month + 12) % 12 || 12;
+        //         //     return `Tháng ${adjustedMonth}`;
+        //         // });
+        //         const currentDay = new Date().getDate();
+        //         const daysToShow = 8; // Ngày hiện tại và 7 ngày kế tiếp
+        //         const categories = Array.from({ length: daysToShow }, (_, index) => {
+        //             const day = currentDay + index;
+        //             return `${day}/${currentMonth}`;
+        //         });
+        //         const seriesData = Array.from({ length: 5 }, (_, index) => {
+        //             const nhanvienData = data.filter(item => item.nhanvien === index + 10);
+
+        //             return {
+        //                 name: (() => {
+        //                     let ten;
+        //                     switch (index + 10) {
+        //                         case 10:
+        //                             ten = "Đậu Quang Thái";
+        //                             break;
+        //                         case 11:
+        //                             ten = "Tinh Hữu Từ";
+        //                             break;
+        //                         case 12:
+        //                             ten = "Ngô Tấn Biên";
+        //                             break;
+        //                         case 13:
+        //                             ten = "Hồ Nhất Huy";
+        //                             break;
+        //                         case 14:
+        //                             ten = "Trần Anh Vũ";
+        //                             break;
+        //                         default:
+        //                             ten = "Không xác định";
+        //                     }
+        //                     return ten;
+        //                 })(),
+        //                 data: categories.map(category => {
+        //                     const monthIndex = parseInt(category.split(" ")[1]) - 1;
+        //                     const monthData = nhanvienData.find(item => item.thang === monthIndex + 1);
+        //                     return monthData ? monthData.so_don_hang : 0;
+        //                 }),
+        //             };
+        //         });
+        //         const updatedState = {
+        //             options: {
+        //                 chart: {
+        //                     id: "basic-bar",
+        //                 },
+        //                 xaxis: {
+        //                     categories: categories,
+        //                 },
+        //             },
+        //             series: seriesData
+        //         };
+
+        //         setStateDonHangChua(updatedState);
+        //     })
+        //     .catch(error => {
+        //         console.error("Error fetching data:", error);
+        //     });
+        axios
+            .get('http://localhost:8000/thongke/dichvu/nhanvien/chua/test')
+            .then((response) => {
                 const data = response.data;
 
-                console.log(data, "data trả về của thống kê dịch vụ nhân viên")
+                const currentMonth = new Date().getMonth() + 1;
+                const currentDay = new Date().getDate();
+                const daysToShow = 11;
 
-                const currentMonth = new Date().getMonth() + 1; // Lưu ý: Tháng trong JavaScript là 0-indexed
-
-                const categories = Array.from({ length: 5 }, (_, index) => {
-                    const month = currentMonth - 2 + index;
-                    const adjustedMonth = (month + 12) % 12 || 12;
-                    return `Tháng ${adjustedMonth}`;
-                });
+                const categories = Array.from(
+                    { length: daysToShow },
+                    (_, index) => currentDay + index
+                ).map((day) => `${day}/${currentMonth}`);
 
                 const seriesData = Array.from({ length: 5 }, (_, index) => {
-                    const nhanvienData = data.filter(item => item.nhanvien === index + 10);
+                    const nhanvienData = data.filter(
+                        (item) => item.nhanvien === index + 10
+                    );
 
                     return {
                         name: (() => {
                             let ten;
                             switch (index + 10) {
                                 case 10:
-                                    ten = "Đậu Quang Thái";
+                                    ten = 'Đậu Quang Thái';
                                     break;
                                 case 11:
-                                    ten = "Tinh Hữu Từ";
+                                    ten = 'Tinh Hữu Từ';
                                     break;
                                 case 12:
-                                    ten = "Ngô Tấn Biên";
+                                    ten = 'Ngô Tấn Biên';
                                     break;
                                 case 13:
-                                    ten = "Hồ Nhất Huy";
+                                    ten = 'Hồ Nhất Huy';
                                     break;
                                 case 14:
-                                    ten = "Trần Anh Vũ";
+                                    ten = 'Trần Anh Vũ';
                                     break;
                                 default:
-                                    ten = "Không xác định";
+                                    ten = 'Không xác định';
                             }
                             return ten;
                         })(),
-                        data: categories.map(category => {
-                            const monthIndex = parseInt(category.split(" ")[1]) - 1;
-                            const monthData = nhanvienData.find(item => item.thang === monthIndex + 1);
-                            return monthData ? monthData.so_don_hang : 0;
+                        data: categories.map((category) => {
+                            const dayIndex = parseInt(category.split('/')[0]) - 1;
+                            const monthIndex = currentMonth - 1;
+                            const dayData = nhanvienData.find(
+                                (item) => item.ngaydat === dayIndex + 1
+                            );
+                            return dayData ? dayData.so_don_hang : 0;
                         }),
                     };
                 });
+
                 const updatedState = {
                     options: {
                         chart: {
-                            id: "basic-bar",
+                            id: 'basic-bar',
                         },
                         xaxis: {
                             categories: categories,
                         },
                     },
-                    series: seriesData
+                    series: seriesData,
                 };
 
                 setStateDonHangChua(updatedState);
             })
-            .catch(error => {
-                console.error("Error fetching data:", error);
+            .catch((error) => {
+                console.error('Error fetching data:', error);
             });
+        // axios.get("http://localhost:8000/thongke/dichvu/nhanvien/chua")
+        //     .then(response => {
+        //         const data = response.data;
+
+        //         console.log(data, "data trả về của thống kê dịch vụ nhân viên");
+
+        //         const today = new Date();
+        //         const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+        //         const categories = Array.from({ length: lastDayOfMonth - today.getDate() + 1 }, (_, index) => {
+        //             const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() + index);
+        //             const formattedDate = `${date.getDate()} ${date.getMonth() + 1}`;
+        //             return formattedDate;
+        //         });
+
+        //         const seriesData = Array.from({ length: 5 }, (_, index) => {
+        //             const nhanvienData = data.filter(item => item.nhanvien === index + 10);
+
+        //             return {
+        //                 name: (() => {
+        //                     let ten;
+        //                     switch (index + 10) {
+        //                         case 10:
+        //                             ten = "Đậu Quang Thái";
+        //                             break;
+        //                         case 11:
+        //                             ten = "Tinh Hữu Từ";
+        //                             break;
+        //                         case 12:
+        //                             ten = "Ngô Tấn Biên";
+        //                             break;
+        //                         case 13:
+        //                             ten = "Hồ Nhất Huy";
+        //                             break;
+        //                         case 14:
+        //                             ten = "Trần Anh Vũ";
+        //                             break;
+        //                         default:
+        //                             ten = "Không xác định";
+        //                     }
+        //                     return ten;
+        //                 })(),
+        //                 data: categories.map(category => {
+        //                     const dateParts = category.split(" ");
+        //                     const day = parseInt(dateParts[0]);
+        //                     const month = parseInt(dateParts[1]) - 1;
+        //                     const dayData = nhanvienData.find(item => item.ngaydat === day && item.thang === month + 1);
+        //                     return dayData ? dayData.so_don_hang : 0;
+        //                 }),
+        //             };
+        //         });
+
+        //         const updatedState = {
+        //             options: {
+        //                 chart: {
+        //                     id: "basic-bar",
+        //                 },
+        //                 xaxis: {
+        //                     categories: categories,
+        //                 },
+        //             },
+        //             series: seriesData,
+        //         };
+
+        //         setStateDonHangChua(updatedState);
+        //     })
+        //     .catch(error => {
+        //         console.error("Error fetching data:", error);
+        //     });
+
+
     }, []);
 
     const LogoutSubmit = () => {
@@ -425,11 +572,11 @@ function AdminDatLich(props) {
                                     </div>
 
                                     <div class="col-7 d-flex justify-content-between">
-                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(10) }}>Đậu Quang Thái</button>
-                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(11) }}>Tinh Hữu Từ</button>
-                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(12) }}>Ngô Tấn Biên</button>
-                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(13) }}>Hồ Nhất Huy</button>
-                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(14) }}>Trần Anh Vũ</button>
+                                        <button class="btn" style={{ color: "white", backgroundColor: "rgb(0, 143, 251)" }} onClick={() => { chonlocdonhang(10) }}>Đậu Quang Thái</button>
+                                        <button class="btn" style={{ color: "white", backgroundColor: "rgb(0, 227, 150)" }} onClick={() => { chonlocdonhang(11) }}>Tinh Hữu Từ</button>
+                                        <button class="btn" style={{ color: "white", backgroundColor: "rgb(254, 176, 25)" }} onClick={() => { chonlocdonhang(12) }}>Ngô Tấn Biên</button>
+                                        <button class="btn" style={{ color: "white", backgroundColor: "rgb(255, 69, 96)" }} onClick={() => { chonlocdonhang(13) }}>Hồ Nhất Huy</button>
+                                        <button class="btn" style={{ color: "white", backgroundColor: "rgb(119, 93, 208)" }} onClick={() => { chonlocdonhang(14) }}>Trần Anh Vũ</button>
                                     </div>
                                 </div>
                                 <table
