@@ -27,16 +27,17 @@ function Register(props) {
   };
 
   const handleRegisterSubmit = async (event) => {
-    setErrors(validation(formData))
+    // setErrors(validation(formData))
 
-    const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
+    // const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
 
     const validateName = formData.hoten
     const validateSdt = formData.sdt
     const validateEmail = formData.email
     const validatePassword = formData.password
 
-    if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && password_pattern.test(validatePassword)) {
+    // if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && password_pattern.test(validatePassword)) {
+    if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && validatePassword !== "") {
       await axios.post('http://localhost:8000/signup', formData)
         .then(
           res => {
@@ -104,7 +105,7 @@ function Register(props) {
                   backgroundColor: "#D9D9D9",
                 }}
                 class="border  p-2 w-full rounded-3xl  "
-                type="text"
+                type="telephone"
                 onChange={handleChangeInput}
               />
               {errors.sdt && <span className="text-danger">{errors.sdt}</span>}

@@ -19,17 +19,22 @@ function Booking(props) {
   var iduser = localStorage.getItem("id_user")
 
   const handleBookingSubmit = async (event) => {
-    setFormData(formData);
-    await axios
-      .post("http://localhost:8000/bookingservice", formData)
-      .then((res) => {
-        console.log(res.data);
-        setTimeout(() => {
-          navigate("/success");
-        }, 1000);
-      })
-      .catch((err) => console.log(err));
+    if (formData.hoten !== "") {
+      await axios
+        .post("http://localhost:8000/bookingservice", formData)
+        .then((res) => {
+          console.log(res.data);
+          // window.location.reload()
+          // setTimeout(() => {
+          //   navigate("/success");
+          // }, 1000);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log("oasdgnoasidgnoasdghoiasdhgo")
+    }
   };
+  console.log(formData)
   return (
     <>
       <Navbar />
@@ -59,12 +64,14 @@ function Booking(props) {
                         name="dichvu"
                         onChange={handleChangeInput}
                       >
-                        <option>Vui lòng chọn dịch vụ</option>
+                        {/* <option>Vui lòng chọn dịch vụ</option> */}
                         <option value="1">Dịch vụ spa cho thú cưng <span>( 500.000đ )</span></option>
                         <option value="2">Dịch vụ cắt tỉa lông cho thú cưng<span>( 300.000đ )</span></option>
                         <option value="3">Khám chữa bệnh tại cơ sở <span>( 120.000đ )</span></option>
-                        <option value="4">Hotel thú cưng <span>( 100.000đ / 1 ngày )</span></option>
-                        <option value="5" disabled>
+                        <option value="5">Combo 1 Tắm rửa và cắt tỉa lông <span>( 800.000đ )</span></option>
+                        <option value="6">Combo 2 Tắm rửa, cắt tỉa lông, khám chữa bệnh tại cơ sở <span>( 962.000đ )</span></option>
+                        <option value="4" disabled>Hotel thú cưng <span>( 100.000đ / 1 ngày )</span></option>
+                        <option value="7" disabled>
                           Dịch vụ tắm thú cưng - Mèo (Sắp ra mắt)
                         </option>
                       </select>
@@ -80,7 +87,7 @@ function Booking(props) {
                         id="chinhanh"
                         onChange={handleChangeInput}
                       >
-                        <option>Vui lòng chi nhánh gần nhất</option>
+                        {/* <option>Vui lòng chi nhánh gần nhất</option> */}
                         <option value="2">Tòa nhà QTSC9 (toà T), đường Tô Ký, phường Tân Chánh Hiệp, quận 12, TP HCM.</option>
                         <option value="3">778/B1 Nguyễn Kiệm, phường 04, quận Phú Nhuận, TP HCM</option>
                       </select>
@@ -181,10 +188,10 @@ function Booking(props) {
                         name="loai"
                         onChange={handleChangeInput}
                       >
-                        <option selected>Vui lòng chọn loài vật</option>
+                        {/* <option selected>Vui lòng chọn loài vật</option> */}
                         <option value="Chó">Chó</option>
-                        <option value="Mèo">Mèo</option>
-                        <option value="Others">Khác</option>
+                        {/* <option value="Mèo">Mèo</option>
+                        <option value="Others">Khác</option> */}
                       </select>
                     </div>
                     <div class="col-12">

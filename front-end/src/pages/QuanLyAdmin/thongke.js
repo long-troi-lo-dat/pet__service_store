@@ -1,28 +1,78 @@
 import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../src/assets/css/sb-admin-2.min.css";
+import { BsBank, BsCart, BsCartFill, BsEmojiLaughing, BsListCheck, BsListTask, BsUniversalAccess } from "react-icons/bs";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
+import Chart from "react-apexcharts";
 const { Sider } = Layout;
 
 function Thongke(props) {
-    const [openProfile, setOpenProfile] = useState([])
     const [dataUser, setDataUser] = useState([])
-    const [dataCart, setDataCart] = useState([])
-    const [dataBooking, setDataBooking] = useState([])
-    const [dataBookingmot, setDataBooking1] = useState([])
-    const [dataBookinghai, setDataBooking2] = useState([])
-    const [tongdonCN1, setTongdonCN1] = useState([])
-    const [tongdonCN2, setTongdonCN2] = useState([])
-    const [tongdonCHTCN1, setTongdonCHTCN1] = useState([])
-    const [tongdonCHTCN2, setTongdonCHTCN2] = useState([])
+    const [openProfile, setOpenProfile] = useState(false)
+
+    //thống kê
+    // const [state, setState] = useState({
+    //     options: {
+    //         chart: {
+    //             id: "basic-bar"
+    //         },
+    //         xaxis: {
+    //             categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    //             // categories: []
+    //         }
+    //     },
+    //     series: [
+    //         {
+    //             name: "series-1",
+    //             data: [1]
+    //         },
+    //         {
+    //             name: "series-2",
+    //             data: [3]
+    //         },
+    //         {
+    //             name: "series-3",
+    //             data: [2]
+    //         }
+    //     ]
+    // })
+    const [stateDonHang, setStateDonHang] = useState({
+        options: {
+            chart: {
+                id: "basic-bar",
+            },
+            xaxis: {
+                categories: [],
+            },
+        },
+        series: [],
+    });
+    const [stateTongTien, setStateTongTien] = useState({
+        options: {
+            chart: {
+                id: "basic-bar",
+            },
+            xaxis: {
+                categories: [],
+            },
+        },
+        series: [],
+    });
+    const [dataTKTN, setDataTKTN] = useState([])
+    const [dataTKTT, setDataTKTT] = useState([])
+    const [dataChuaXacNhan, setDataChuaXacNhan] = useState([])
+    const [dataDaHoanThanh, setDataDaHoanThanh] = useState([])
+    const [dataNewRegister, setDataNewRegister] = useState([])
+    const [dataDHDVChuaHoanThanh, setDataDHDVChuaHoanThanh] = useState([])
+    //
 
     const id = localStorage.getItem("id_user")
     const navigate = useNavigate();
+
+    const currentMonth = (new Date()).getMonth() + 1;
 
     const LogoutSubmit = () => {
         localStorage.setItem("header", 0)
@@ -40,80 +90,174 @@ function Thongke(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/AdminDonHang`)
+        axios.get(`http://localhost:8000/thongke/donhang/theongay`)
             .then((response) => {
-                setDataCart(response.data);
+                setDataTKTN(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/AdminDatLich`)
+        axios.get(`http://localhost:8000/thongke/donhang/theothang`)
             .then((response) => {
-                setDataBooking(response.data);
+                setDataTKTT(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongkechinhanh1`)
+        axios.get(`http://localhost:8000/thongke/donhang/chuaxacnhan`)
             .then((response) => {
-                setDataBooking1(response.data);
+                setDataChuaXacNhan(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongkechinhanh2`)
+        axios.get(`http://localhost:8000/thongke/donhang/dahoanthanh`)
             .then((response) => {
-                setDataBooking2(response.data);
+                setDataDaHoanThanh(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/tongdonhoanthanhchinhanh1`)
+        axios.get(`http://localhost:8000/thongke/newregister`)
             .then((response) => {
-                setTongdonCN1(response.data);
+                setDataNewRegister(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/tongdonhoanthanhchinhanh2`)
+        axios.get(`http://localhost:8000/thongke/datlich/chuahoanthanh`)
             .then((response) => {
-                setTongdonCN1(response.data);
+                setDataDHDVChuaHoanThanh(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/tongdonchuahoanthanhchinhanh1`)
-            .then((response) => {
-                setTongdonCHTCN2(response.data);
+        axios.get("http://localhost:8000/thongke/dichvu/nhanvien/roi")
+            .then(response => {
+                const data = response.data;
+
+                console.log(data, "data trả về của thống kê dịch vụ nhân viên")
+
+                const currentMonth = new Date().getMonth() + 1; // Lưu ý: Tháng trong JavaScript là 0-indexed
+
+                const categories = Array.from({ length: 5 }, (_, index) => {
+                    const month = currentMonth - 2 + index;
+                    const adjustedMonth = (month + 12) % 12 || 12;
+                    return `Tháng ${adjustedMonth}`;
+                });
+
+                const seriesData = Array.from({ length: 5 }, (_, index) => {
+                    const nhanvienData = data.filter(item => item.nhanvien === index + 10);
+
+                    return {
+                        name: (() => {
+                            let ten;
+                            switch (index + 10) {
+                                case 10:
+                                    ten = "Đậu Quang Thái";
+                                    break;
+                                case 11:
+                                    ten = "Tinh Hữu Từ";
+                                    break;
+                                case 12:
+                                    ten = "Ngô Tấn Biên";
+                                    break;
+                                case 13:
+                                    ten = "Hồ Nhất Huy";
+                                    break;
+                                case 14:
+                                    ten = "Trần Anh Vũ";
+                                    break;
+                                default:
+                                    ten = "Không xác định";
+                            }
+                            return ten;
+                        })(),
+                        data: categories.map(category => {
+                            const monthIndex = parseInt(category.split(" ")[1]) - 1;
+                            const monthData = nhanvienData.find(item => item.thang === monthIndex + 1);
+                            return monthData ? monthData.so_don_hang : 0;
+                        }),
+                    };
+                });
+                const updatedState = {
+                    options: {
+                        chart: {
+                            id: "basic-bar",
+                        },
+                        xaxis: {
+                            categories: categories,
+                        },
+                    },
+                    series: seriesData
+                };
+
+                setStateDonHang(updatedState);
             })
-            .catch((error) => {
-                console.error('error fetching data :', error);
+            .catch(error => {
+                console.error("Error fetching data:", error);
             });
-        axios.get(`http://localhost:8000/tongdonchuahoanthanhchinhanh2`)
-            .then((response) => {
-                setTongdonCHTCN2(response.data);
+        axios.get("http://localhost:8000/thongke/dichvu/tongtien")
+            .then(response => {
+                const data = response.data;
+
+                console.log(data, "data trả về của thống kê tổng tiền dịch vụ");
+
+                const currentMonth = new Date().getMonth() + 1; // Lưu ý: Tháng trong JavaScript là 0-indexed
+
+                const categories = Array.from({ length: 5 }, (_, index) => {
+                    const month = currentMonth - 2 + index;
+                    const adjustedMonth = (month + 12) % 12 || 12;
+                    return `Tháng ${adjustedMonth}`;
+                });
+
+                // In ra mảng categories để kiểm tra
+                console.log(categories);
+
+                const seriesData = [
+                    {
+                        name: "Tổng tiền", // Tên của series
+                        data: categories.map(category => {
+                            const monthIndex = parseInt(category.split(" ")[1]) - 1;
+                            const tongTienData = data.find(item => item.thang === monthIndex + 1);
+
+                            return {
+                                x: category,
+                                y: tongTienData ? parseFloat(tongTienData.tong_tien_thang) : 0,
+                            };
+                        }),
+                    },
+                ];
+
+                const updatedState = {
+                    options: {
+                        chart: {
+                            id: "basic-line", // Thay đổi id của chart thành "basic-line" để chuyển sang kiểu biểu đồ line
+                        },
+                        xaxis: {
+                            categories: categories,
+                        },
+                    },
+                    series: seriesData
+                };
+
+                setStateTongTien(updatedState);
             })
-            .catch((error) => {
-                console.error('error fetching data :', error);
+            .catch(error => {
+                console.error("Error fetching data:", error);
             });
+
     }, []);
 
-    let tongCart = 0;
-    const cartMappedArray = dataCart.map((item, i) => {
-        tongCart += item.tongtien
-    })
-    let tongBooking = 0;
-    const bookingMappedArray = dataCart.map((item, i) => {
-        tongBooking += item.tongtien
-    })
-    let tongBooking1 = 0;
-    const booking1Map = dataBookingmot.map((item, i) => {
-        tongBooking1 += item.tongtien
-    })
-    let tongBooking2 = 0;
-    const booking2Map = dataBookinghai.map((item, i) => {
-        tongBooking2 += item.tongtien
-    })
+    // const generateRandomColors = count => {
+    //     const colors = [];
+    //     for (let i = 0; i < count; i++) {
+    //         const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    //         colors.push(color);
+    //     }
+    //     return colors;
+    // };
+
     return (
         <div id="wrapper">
             <Layout>
@@ -188,78 +332,95 @@ function Thongke(props) {
                         </ul>
                     </nav>
                     <div class="container-fluid row">
-                        {/* <div class="col-xl-12">
+                        <div class="col-xl-3">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Đơn hàng chưa xác nhận</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style={{ fontSize: "13px" }}>
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Tên người nhận</th>
-                                                <th>tổng tiền</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Huy Hồ Hồ Hồ</td>
-                                                <td>{tongBooking}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div style={{ display: "flex", justifyContent: "space-around" }}>
+                                        <span style={{ padding: "5px" }}><BsCart fontSize={52} /></span>
+                                        {dataChuaXacNhan.map((item, i) => (
+                                            <span style={{ lineHeight: "64px", fontSize: "13px", minWidth: "220px" }}>Còn {item.donhangchuaxacnhan} đơn hàng cần xác nhận</span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        </div> */}
-                        <div class="col-xl-6">
+                        </div>
+                        <div class="col-xl-3">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê chi nhánh 1</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Doanh thu tháng {currentMonth}</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style={{ fontSize: "13px" }}>
-                                        <thead>
-                                            <tr>
-                                                <th>Số đơn chưa xong</th>
-                                                <th>Số đơn đã xong</th>
-                                                <th>tổng tiền</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>2</td>
-                                                <td>{tongBooking1.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div style={{ display: "flex", justifyContent: "space-around" }}>
+                                        <span style={{ padding: "5px" }}><BsBank fontSize={52} /></span>
+                                        {dataTKTT.map((item, i) => (
+                                            <span style={{ lineHeight: "64px", fontSize: "13px", minWidth: "220px" }}>
+                                                {item.sumtongtien ? item.sumtongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' }) : 'N/A'}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Số người đăng ký mới</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div style={{ display: "flex", justifyContent: "space-around" }}>
+                                        <span style={{ padding: "5px" }}><BsUniversalAccess fontSize={52} /></span>
+                                        {dataNewRegister.map((item, i) => (
+                                            <span style={{ lineHeight: "64px", fontSize: "13px", minWidth: "220px" }}>Có <span style={{ color: "green" }}>{item.so_nguoi_dang_ky_moi}</span> người mới trong tháng này</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Số lịch đặt mới</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div style={{ display: "flex", justifyContent: "space-around" }}>
+                                        <span style={{ padding: "5px" }}><BsListTask fontSize={52} /></span>
+                                        {dataDHDVChuaHoanThanh.map((item, i) => (
+                                            <span style={{ lineHeight: "64px", fontSize: "13px", minWidth: "220px" }}>Còn <span style={{ color: "green" }}>{item.datlichchuahoanthanh}</span> đơn dịch vụ chưa xong</span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê chi nhánh 2</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê đơn hàng đã hoàn thành của từng nhân viên</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style={{ fontSize: "13px" }}>
-                                        <thead>
-                                            <tr>
-                                                <th>Số đơn chưa xong</th>
-                                                <th>Số đơn đã xong</th>
-                                                <th>tổng tiền</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>1</td>
-                                                <td>{tongBooking2.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <Chart
+                                        options={stateDonHang.options}
+                                        series={stateDonHang.series}
+                                        type="bar"
+                                        width="500"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê tổng doanh thu đặt lịch của 2 chi nhánh</h6>
+                                </div>
+                                <div class="card-body">
+                                    <Chart
+                                        options={stateTongTien.options}
+                                        series={stateTongTien.series}
+                                        type="line"
+                                        width="500"
+                                    />
                                 </div>
                             </div>
                         </div>

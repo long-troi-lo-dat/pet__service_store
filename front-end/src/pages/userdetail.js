@@ -125,7 +125,7 @@ function UserDetail(props) {
                                     <div class="text-black-50" ><span class="font-weight-bold text-black">{item.sdt}</span></div>
                                     <div class="text-black-50" ><span class="font-weight-bold text-black">{item.email}</span></div>
                                     <div class="text-black-50 mt-3" style={{ margin: "auto" }}><button class="btn btn-success" onClick={() => navigate(`/userdetailedit/${item.id_user}`)} style={{ minWidth: "190px" }}>Chỉnh sửa thông tin</button></div>
-                                    <div class="text-black-50 mt-3" style={{ margin: "auto" }}><button class="btn btn-success" onClick={() => navigate(`/userdetailedit/${item.id_user}`)} style={{ minWidth: "190px" }}>Thay đổi mật khẩu</button></div>
+                                    <div class="text-black-50 mt-3" style={{ margin: "auto" }}><button class="btn btn-success" onClick={() => navigate(`/changepassword/${item.id_user}`)} style={{ minWidth: "190px" }}>Thay đổi mật khẩu</button></div>
                                 </div>
                             </div>
                         ))}

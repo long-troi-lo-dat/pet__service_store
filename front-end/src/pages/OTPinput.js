@@ -3,42 +3,26 @@ import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FiMapPin, FiPhone, FiUser } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
 
 function OTPInput() {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const [message, setMessage] = useState('');
     const navigate = useNavigate()
-    // useEffect(() => {
-
-    //     axios.get(`http://localhost:8000/userdetail?id=${localStorage.getItem("id_user")}`)
-    //         .then((response) => {
-    //             setEmail(response.data.email);
-    //             console.log(email, "data user")
-    //         })
-    //         .catch((error) => {
-    //             console.error('error fetching data :', error);
-    //         });
-    // }, []);
-
-    // function onPaste(event) {
-    //     event.preventDefault()  // ✅
-    //     const pasted = event.clipboardData.getData("text/plain")
-    //     setOtp(pasted.split("").slice(0, otp.length))
-    // }
-
-    // function update(index) {
-    //     return event =>
-    //         setOtp([
-    //             ...otp.slice(0, index),
-    //             event.target.value,
-    //             ...otp.slice(index + 1)
-    //         ])
-    // }
 
     var emailFromLocal = localStorage.getItem("EmailUserForget");
 
-    console.log(otp)
+    const SendOTPNotify = () => toast.success('Đã gửi OTP về email, vui lòng kiểm tra', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     const handleVerifyOTP = async () => {
         try {
@@ -52,6 +36,12 @@ function OTPInput() {
             return error
         }
     };
+
+    useEffect(() => {
+        return () => {
+            SendOTPNotify()
+        }
+    }, []);
 
     return (
         <>
@@ -227,6 +217,18 @@ function OTPInput() {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </>
     )
 }

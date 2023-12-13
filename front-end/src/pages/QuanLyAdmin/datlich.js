@@ -9,6 +9,7 @@ import imglogo from "../../assets/logo-1.png"
 import Dropdown from 'react-bootstrap/Dropdown';
 import moment from "moment";
 import { Modal } from "react-bootstrap";
+import Chart from "react-apexcharts";
 const { Header, Sider } = Layout;
 
 function AdminDatLich(props) {
@@ -24,6 +25,40 @@ function AdminDatLich(props) {
     const [dataNhanVien1, setdataNhanVien1] = useState([])
     const [dataNhanVien2, setdataNhanVien2] = useState([])
     const [selectNhanVien, setSelectNhanVien] = useState([])
+    const [stateDonHang, setStateDonHang] = useState({
+        options: {
+            chart: {
+                id: "basic-bar",
+            },
+            xaxis: {
+                categories: [],
+            },
+        },
+        series: [],
+    });
+    const [stateDonHangChua, setStateDonHangChua] = useState({
+        options: {
+            chart: {
+                id: "basic-bar",
+            },
+            xaxis: {
+                categories: [],
+            },
+        },
+        series: [],
+    });
+    const [stateTongTien, setStateTongTien] = useState({
+        options: {
+            chart: {
+                id: "basic-bar",
+            },
+            xaxis: {
+                categories: [],
+            },
+        },
+        series: [],
+    });
+    const currentDay = (new Date()).getDate();
 
     const NextStatus = async (trangthai, id) => {
         axios.post(`http://localhost:8000/nextstatus`, {
@@ -67,6 +102,27 @@ function AdminDatLich(props) {
             })
     };
 
+    const chonlocdonhang = (idNhanVien) => {
+        axios.get(`http://localhost:8000/employee/nhanvien/${idNhanVien}`)
+            .then((response) => {
+                setdataDatLich(response.data)
+                console.log(dataDatLich)
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
+    const chonlocdatlich = (trangthai) => {
+        axios.get(`http://localhost:8000/employee/datlich/${trangthai}`)
+            .then((response) => {
+                setdataDatLich(response.data)
+                console.log(dataDatLich)
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
+
     const handleShow = async (e) => {
         setShow(true)
         localStorage.setItem("idCartDetail", e.currentTarget.id)
@@ -108,6 +164,136 @@ function AdminDatLich(props) {
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
+            });
+        axios.get("http://localhost:8000/thongke/dichvu/nhanvien/roi")
+            .then(response => {
+                const data = response.data;
+
+                console.log(data, "data trả về của thống kê dịch vụ nhân viên")
+
+                const currentMonth = new Date().getMonth() + 1; // Lưu ý: Tháng trong JavaScript là 0-indexed
+
+                const categories = Array.from({ length: 5 }, (_, index) => {
+                    const month = currentMonth - 2 + index;
+                    const adjustedMonth = (month + 12) % 12 || 12;
+                    return `Tháng ${adjustedMonth}`;
+                });
+
+                const seriesData = Array.from({ length: 5 }, (_, index) => {
+                    const nhanvienData = data.filter(item => item.nhanvien === index + 10);
+
+                    return {
+                        name: (() => {
+                            let ten;
+                            switch (index + 10) {
+                                case 10:
+                                    ten = "Đậu Quang Thái";
+                                    break;
+                                case 11:
+                                    ten = "Tinh Hữu Từ";
+                                    break;
+                                case 12:
+                                    ten = "Ngô Tấn Biên";
+                                    break;
+                                case 13:
+                                    ten = "Hồ Nhất Huy";
+                                    break;
+                                case 14:
+                                    ten = "Trần Anh Vũ";
+                                    break;
+                                default:
+                                    ten = "Không xác định";
+                            }
+                            return ten;
+                        })(),
+                        data: categories.map(category => {
+                            const monthIndex = parseInt(category.split(" ")[1]) - 1;
+                            const monthData = nhanvienData.find(item => item.thang === monthIndex + 1);
+                            return monthData ? monthData.so_don_hang : 0;
+                        }),
+                    };
+                });
+                const updatedState = {
+                    options: {
+                        chart: {
+                            id: "basic-bar",
+                        },
+                        xaxis: {
+                            categories: categories,
+                        },
+                    },
+                    series: seriesData
+                };
+
+                setStateDonHang(updatedState);
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+            });
+        axios.get("http://localhost:8000/thongke/dichvu/nhanvien/chua")
+            .then(response => {
+                const data = response.data;
+
+                console.log(data, "data trả về của thống kê dịch vụ nhân viên")
+
+                const currentMonth = new Date().getMonth() + 1; // Lưu ý: Tháng trong JavaScript là 0-indexed
+
+                const categories = Array.from({ length: 5 }, (_, index) => {
+                    const month = currentMonth - 2 + index;
+                    const adjustedMonth = (month + 12) % 12 || 12;
+                    return `Tháng ${adjustedMonth}`;
+                });
+
+                const seriesData = Array.from({ length: 5 }, (_, index) => {
+                    const nhanvienData = data.filter(item => item.nhanvien === index + 10);
+
+                    return {
+                        name: (() => {
+                            let ten;
+                            switch (index + 10) {
+                                case 10:
+                                    ten = "Đậu Quang Thái";
+                                    break;
+                                case 11:
+                                    ten = "Tinh Hữu Từ";
+                                    break;
+                                case 12:
+                                    ten = "Ngô Tấn Biên";
+                                    break;
+                                case 13:
+                                    ten = "Hồ Nhất Huy";
+                                    break;
+                                case 14:
+                                    ten = "Trần Anh Vũ";
+                                    break;
+                                default:
+                                    ten = "Không xác định";
+                            }
+                            return ten;
+                        })(),
+                        data: categories.map(category => {
+                            const monthIndex = parseInt(category.split(" ")[1]) - 1;
+                            const monthData = nhanvienData.find(item => item.thang === monthIndex + 1);
+                            return monthData ? monthData.so_don_hang : 0;
+                        }),
+                    };
+                });
+                const updatedState = {
+                    options: {
+                        chart: {
+                            id: "basic-bar",
+                        },
+                        xaxis: {
+                            categories: categories,
+                        },
+                    },
+                    series: seriesData
+                };
+
+                setStateDonHangChua(updatedState);
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
             });
     }, []);
 
@@ -192,12 +378,60 @@ function AdminDatLich(props) {
                             </div>}
                         </ul>
                     </nav>
+                    <div class="container-fluid row">
+                        <div class="col-xl-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê phân chia đơn hàng ngày {currentDay} của từng nhân viên</h6>
+                                </div>
+                                <div class="card-body">
+                                    <Chart
+                                        options={stateDonHangChua.options}
+                                        series={stateDonHangChua.series}
+                                        type="bar"
+                                        width="500"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê đơn hàng đã hoàn thành của từng nhân viên</h6>
+                                </div>
+                                <div class="card-body">
+                                    <Chart
+                                        options={stateDonHang.options}
+                                        series={stateDonHang.series}
+                                        type="bar"
+                                        width="500"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Quản lý đặt lịch</h1>
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-body">
+                                <div class="d-flex justify-content-between mb-4">
+                                    {/* <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1> */}
+                                    <div class="col-4 d-flex justify-content-between">
+                                        <button class="btn btn-primary" onClick={() => { chonlocdatlich("chuaphancong") }}>Chưa phân công</button>
+                                        <button class="btn btn-primary" onClick={() => { chonlocdatlich("dangthuchien") }}>Đang thực hiện</button>
+                                        <button class="btn btn-primary" onClick={() => { chonlocdatlich("dahoanthanh") }}>Đã hoàn thành</button>
+                                    </div>
+
+                                    <div class="col-7 d-flex justify-content-between">
+                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(10) }}>Đậu Quang Thái</button>
+                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(11) }}>Tinh Hữu Từ</button>
+                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(12) }}>Ngô Tấn Biên</button>
+                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(13) }}>Hồ Nhất Huy</button>
+                                        <button class="btn btn-primary" onClick={() => { chonlocdonhang(14) }}>Trần Anh Vũ</button>
+                                    </div>
+                                </div>
                                 <table
                                     class="table table-bordered"
                                     id="dataTable"

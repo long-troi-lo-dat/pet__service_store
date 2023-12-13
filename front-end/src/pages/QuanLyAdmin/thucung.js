@@ -18,6 +18,7 @@ function AdminThuCung(props) {
     const [dataUser, setDataUser] = useState([])
     const [dataThuCung, setDataThuCung] = useState([])
     const [openProfile, setOpenProfile] = useState(false)
+    
     const handleNavigate = async () => {
         navigate("/")
         localStorage.setItem("header", 0)

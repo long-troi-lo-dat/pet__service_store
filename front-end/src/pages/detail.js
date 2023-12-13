@@ -23,16 +23,13 @@ function Detail(props) {
         "https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Dog-512.png",
         "https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Rabbit-512.png",
         "https://www.iconfinder.com/icons/586750/animal_avatar_frog_user_picture_account_icon",
-        "",
     ]
 
     const params = useParams();
     const id = params.id
 
     const [datadetail, setDataDetail] = useState([]);
-    const [datadetailPet, setDataDetailPet] = useState([]);
     const [dataBinhLuan, setDataBinhluan] = useState([]);
-    const [datadcungloai, setDatacungloai] = useState([]);
     const [formBLData, setFormData] = useState({
         initialFormData,
         idsp: id
@@ -43,7 +40,7 @@ function Detail(props) {
         setFormData({ ...formBLData, [name]: value });
     };
 
-    const handleRegisterSubmit = async (event) => {
+    const handleCommentSubmit = async (event) => {
         const validateName = formBLData.hoten
         const validateNoidung = formBLData.noidung
 
@@ -52,6 +49,7 @@ function Detail(props) {
                 .then(
                     res => {
                         console.log(res)
+                        window.location.reload()
                     }
                 )
                 .catch(
@@ -65,13 +63,6 @@ function Detail(props) {
         axios.get(`http://localhost:8000/detail/${id}`)
             .then((response) => {
                 setDataDetail(response.data);
-            })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
-        axios.get(`http://localhost:8000/detailpet/${id}`)
-            .then((response) => {
-                setDataDetailPet(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
@@ -206,9 +197,9 @@ function Detail(props) {
         // </>
         <>
             <Navbar />
-            <section class="py-5">
-                <div class="container">
-                    {datadetail.map((item, i) => (
+            <section class=" border-top py-4" >
+                <div class="" style={{ marginTop: "50px" }}>
+                    {datadetail.map((item, i) => {
                         // <div class="container px-4 px-lg-5 my-5">
                         //     <div class="row gx-4 gx-lg-5 align-items-center">
                         //         <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src={item.hinhanh} alt="..." /></div>
@@ -230,34 +221,34 @@ function Detail(props) {
                         //         </div>
                         //     </div>
                         // </div>
-                        <div class="row gx-5">
-                            <aside class="col-lg-6">
-                                <div class="rounded-4 mb-3 d-flex justify-content-center">
-                                    <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp">
-                                        <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={item.hinhanh} />
-                                    </a>
-                                </div>
-                            </aside>
-                            <main class="col-lg-6">
-                                <div class="ps-lg-3">
-                                    <h4 class="h2 title text-dark">
-                                        {item.ten} <br />
-                                    </h4>
-                                    <div class="d-flex my-3">
-                                        <span class="text-muted">Còn lại {item.soluong} sản phẩm trong kho</span>
-                                        {/* <span class="text-success ms-2">Trong kho</span> */}
-                                    </div>
+                        if (item.id_dm === 6) {
+                            return (
+                                <div class="row gx-5">
+                                    <aside class="col-lg-6">
+                                        <div class="rounded-4 mb-3 d-flex justify-content-center">
+                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={item.hinhanh} alt="" />
+                                        </div>
+                                    </aside>
+                                    <main class="col-lg-6">
+                                        <div class="ps-lg-3">
+                                            <h4 class="h2 title text-dark">
+                                                {item.ten} <br />
+                                            </h4>
+                                            <div class="d-flex my-3">
+                                                <span class="text-muted">Còn lại {item.soluong} sản phẩm trong kho</span>
+                                                {/* <span class="text-success ms-2">Trong kho</span> */}
+                                            </div>
 
-                                    <div class="mb-3">
-                                        <span class="h3">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
-                                        <span class="h4 text-muted">/một gói</span>
-                                    </div>
+                                            <div class="mb-3">
+                                                <span class="h3">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                                                <span class="h4 text-muted">/một gói</span>
+                                            </div>
 
-                                    <p className="h5">
-                                        {item.mota}
-                                    </p>
+                                            <p className="h5">
+                                                {item.mota}
+                                            </p>
 
-                                    {/* <div class="row">
+                                            {/* <div class="row">
                                         <dt class="col-3">Type:</dt>
                                         <dd class="col-9">Regular</dd>
 
@@ -271,10 +262,10 @@ function Detail(props) {
                                         <dd class="col-9">Reebook</dd>
                                     </div> */}
 
-                                    {/* <hr /> */}
+                                            {/* <hr /> */}
 
-                                    <div class="row mb-4">
-                                        {/* <div class="col-md-4 col-6">
+                                            <div class="row mb-4">
+                                                {/* <div class="col-md-4 col-6">
                                             <label class="mb-2">Size</label>
                                             <select class="form-select border border-secondary" style={{ height: "35px" }}>
                                                 <option>Small</option>
@@ -282,31 +273,103 @@ function Detail(props) {
                                                 <option>Large</option>
                                             </select>
                                         </div> */}
-                                        <div class="col-md-4 col-6 mb-3">
-                                            <label class="mb-2 d-block">Quantity</label>
-                                            <div class="input-group mb-3" style={{ width: "170px" }}>
-                                                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-                                                    -
-                                                </button>
-                                                <input type="text" class="form-control text-center border border-secondary" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-                                                    +
-                                                </button>
+                                                <div class="col-md-4 col-6 mb-3">
+                                                    <label class="mb-2 d-block">Quantity</label>
+                                                    <div class="input-group mb-3" style={{ width: "170px" }}>
+                                                        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                                            -
+                                                        </button>
+                                                        <input type="text" class="form-control text-center border border-secondary" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                                                        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <button class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Thêm vào giỏ hàng </button>
                                         </div>
-                                    </div>
-                                    <button class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Thêm vào giỏ hàng </button>
+                                    </main>
                                 </div>
-                            </main>
-                        </div>
-                    ))}
+                            )
+                        } else {
+                            return (
+                                <div class="row gx-5" style={{}}>
+                                    <aside class="col-lg-6">
+                                        <div class="rounded-4 mb-3 d-flex justify-content-center">
+                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={item.hinhanh} alt="" />
+                                        </div>
+                                    </aside>
+                                    <main class="col-lg-6">
+                                        <div class="ps-lg-3">
+                                            <h4 class="h2 title text-dark">
+                                                {item.ten} <br />
+                                            </h4>
+                                            <div class="d-flex my-3">
+                                                <span class="text-muted">Còn lại {item.soluong} sản phẩm trong kho</span>
+                                                {/* <span class="text-success ms-2">Trong kho</span> */}
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <span class="h3">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                                                {/* <span class="h4 text-muted"> / một gói</span> */}
+                                            </div>
+
+                                            {/* <p className="h5">
+                                                {item.mota}
+                                            </p> */}
+
+                                            {/* <div class="row">
+                                        <dt class="col-3">Type:</dt>
+                                        <dd class="col-9">Regular</dd>
+
+                                        <dt class="col-3">Color</dt>
+                                        <dd class="col-9">Brown</dd>
+
+                                        <dt class="col-3">Material</dt>
+                                        <dd class="col-9">Cotton, Jeans</dd>
+
+                                        <dt class="col-3">Brand</dt>
+                                        <dd class="col-9">Reebook</dd>
+                                    </div> */}
+
+                                            {/* <hr /> */}
+
+                                            <div class="row mb-4">
+                                                {/* <div class="col-md-4 col-6">
+                                            <label class="mb-2">Size</label>
+                                            <select class="form-select border border-secondary" style={{ height: "35px" }}>
+                                                <option>Small</option>
+                                                <option>Medium</option>
+                                                <option>Large</option>
+                                            </select>
+                                        </div> */}
+                                                <div class="col-md-4 col-6 mb-3">
+                                                    <label class="mb-2 d-block">Số lượng</label>
+                                                    <div class="input-group mb-3" style={{ width: "170px" }}>
+                                                        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                                            -
+                                                        </button>
+                                                        <input type="text" class="form-control text-center border border-secondary" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                                                        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Thêm vào giỏ hàng </button>
+                                        </div>
+                                    </main>
+                                </div>
+                            )
+                        }
+                    })}
                 </div>
             </section>
             <section class="bg-light border-top py-4">
                 <div class="container">
                     <div class="row gx-4">
-                        <div class="col-lg-8 mb-4">
-                            <div class="border rounded-2 px-3 py-2 bg-white">
+                        <div class="col-lg-12 mb-4">
+                            <div class=" px-3 py-2 bg-white" style={{ borderRadius: "20px", boxShadow: "0px 0px 15px -9px rgba(0,0,0,0.5)" }}>
                                 {/* <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
                                     <li class="nav-item d-flex" role="presentation">
                                         <a class="nav-link d-flex align-items-center justify-content-center w-100 active" id="ex1-tab-1" data-mdb-toggle="pill" href="#ex1-pills-1" role="tab" aria-controls="ex1-pills-1" aria-selected="true">Specification</a>
@@ -338,7 +401,7 @@ function Detail(props) {
                                             <label for="inputNoidung" className='py-2'>Nội dung</label>
                                             <textarea class="form-control" id="inputNoidung" rows="3" placeholder='Gửi nội dung bình luận . . . ' name="noidung" onChange={handleChangeInput}></textarea>
                                         </div>
-                                        <button type="button" onClick={handleRegisterSubmit} class="btn btn-success mt-3 py-2" style={{ backgroundColor: "#198754" }}>Gửi bình luận</button>
+                                        <button type="button" onClick={handleCommentSubmit} class="btn btn-success mt-3 py-2" style={{ backgroundColor: "#198754", marginBottom: "20px" }}>Gửi bình luận</button>
                                         {/* <div class="col-12 col-md-6">
                                                 <ul class="list-unstyled mb-0">
                                                     <li><i class="fas fa-check text-success me-2"></i>Some great feature name here</li>
@@ -354,47 +417,31 @@ function Detail(props) {
                                                     <li><i class="fas fa-check text-success me-2"></i>Modern style and design</li>
                                                 </ul>
                                             </div> */}
-                                        <div className='px-3'>
-                                            {dataBinhLuan.map((bl, i) => (
-                                                <div class="row border mt-3 mb-2 py-2">
-                                                    <div className='col-md-2 ps-5'>
-                                                        {/* <img src={} alt="" style={{ height: "100px" }} /> */}
-                                                        {/* {randomItem && <p>Random Item: {randomItem}</p>} */}
-                                                        {/* {randomItem && <img src={randomItem} alt="Random" />} */}
-                                                        <img src={imageUserComment[1]} alt="" />
-                                                        {/* {randomImageUrl && <img src={randomImageUrl} alt="Random" />} */}
+                                        <div className=''>
+                                            {dataBinhLuan.map((bl, i) => {
+                                                // Chọn ngẫu nhiên một index từ 0 đến độ dài của mảng imageUserComment
+                                                const randomIndex = Math.floor(Math.random() * imageUserComment.length);
+                                                // Lấy ảnh đại diện tương ứng với index đã chọn
+                                                const randomAvatar = imageUserComment[randomIndex];
+
+                                                return (
+                                                    <div className="border" style={{ display: "flex", padding: "10px", lineHeight: "80px", marginBottom: "5px" }}>
+                                                        <div style={{ marginRight: "15px" }}>
+                                                            <img src={randomAvatar} alt="" style={{ maxWidth: "50px" }} />
+                                                        </div>
+                                                        <div className=''>
+                                                            <h5 className='h5'>{bl.hoten}</h5>
+                                                            <h6 className='h6'>{bl.noidung}</h6>
+                                                        </div>
                                                     </div>
-                                                    <div className='col-md-10 py-4'>
-                                                        <h5 className='h5'>{bl.hoten}</h5>
-                                                        <h6 className='h6'>{bl.noidung}</h6>
-                                                    </div>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
                                         </div>
-                                    </div>
-                                    <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                                        Tab content or sample information now <br />
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                        officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    </div>
-                                    <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
-                                        Another tab content or sample information now <br />
-                                        Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                        mollit anim id est laborum.
-                                    </div>
-                                    <div class="tab-pane fade mb-2" id="ex1-pills-4" role="tabpanel" aria-labelledby="ex1-tab-4">
-                                        Some other tab content or sample information now <br />
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                        officia deserunt mollit anim id est laborum.
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        {/* <div class="col-lg-4">
                             <div class="px-0 border rounded-2 shadow-0">
                                 <div class="card">
                                     <div class="card-body">
@@ -447,7 +494,7 @@ function Detail(props) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section >
