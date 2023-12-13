@@ -1,13 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Resetpassword() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
 
     var emailFromLocal = localStorage.getItem("EmailUserForget");
+
+    const SendOTPNotify = () => toast.success('Xác nhận thành công', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     const doimatkhau = () => {
         axios.post(`http://localhost:8000/doimatkhau`, { emailFromLocal, password })
@@ -32,6 +44,12 @@ function Resetpassword() {
             })
     }
 
+    useEffect(() => {
+        return () => {
+            SendOTPNotify()
+        }
+    }, []);
+
     return (
         <>
             <Navbar />
@@ -54,6 +72,18 @@ function Resetpassword() {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </>
     )
 }

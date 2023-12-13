@@ -16,6 +16,17 @@ const Notify = () => toast.success('Đặt hàng thành công', {
   theme: "light",
 });
 
+const quantityNotify = () => toast.error('Số lượng còn lại của sản phẩm không đủ', {
+  position: "bottom-left",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+});
+
 function Cart({ setShowCart, cart, setCart }) {
 
   const [tongtien, setTongTien] = useState(0)
@@ -42,13 +53,40 @@ function Cart({ setShowCart, cart, setCart }) {
     setShowCart(false)
   }
 
+  // const thaydoisoluong = (sanpham, sl) => {
+  //   const idx = cart.indexOf(sanpham);
+  //   const arr = [...cart];
+  //   arr[idx].amount += sl
+  //   if (arr[idx].amount === 0) arr[idx].amount = 1;
+  //   setCart([...arr]);
+  // }
   const thaydoisoluong = (sanpham, sl) => {
     const idx = cart.indexOf(sanpham);
     const arr = [...cart];
-    arr[idx].amount += sl
-    if (arr[idx].amount === 0) arr[idx].amount = 1;
+
+    // Check if the available quantity is greater than 0 before updating the amount
+    if (sanpham.soluong > 0) {
+      const updatedAmount = arr[idx].amount + sl;
+
+      // Ensure the amount is at least 1
+      if (updatedAmount < 1) {
+        arr[idx].amount = 1;
+      } else if (updatedAmount <= sanpham.soluong) {
+        // Check if the updated amount does not exceed the available quantity
+        arr[idx].amount = updatedAmount;
+      } else {
+        console.error('Số lượng vượt quá giới hạn');
+        quantityNotify(); // Assuming you have a quantityNotify function for notifications
+        return;
+      }
+    } else {
+      console.error('Sản phẩm đã hết hàng');
+      quantityNotify(); // Assuming you have a quantityNotify function for notifications
+      return;
+    }
+
     setCart([...arr]);
-  }
+  };
   const removeProduct = (sanpham) => {
     const arr = cart.filter(sp => sp.id_sp !== sanpham.id_sp);
     setCart([...arr])

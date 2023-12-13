@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const route = require("./src/routes/index")
 const db = require("./src/db/dbConfig");
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 const nodemailer = require("nodemailer");
 const readline = require('readline');
 let router = express.Router();
@@ -29,37 +30,61 @@ app.get('/', (re, res) => {
 //api crud
 //api shop
 app.get('/shop', (req, res) => {
-  const sql = 'SELECT * FROM sanpham ORDER by ngaythem DESC';
+  const sql = 'SELECT * FROM sanpham ORDER BY id_dm ASC, ngaythem DESC ';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
 });
-app.get('/shop100', (req, res) => {
-  const sql = 'SELECT * FROM sanpham where gia<100000 ORDER by ngaythem DESC';
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-app.get('/shopduoi500', (req, res) => {
-  const sql = 'SELECT * FROM sanpham where gia<500000 ORDER by ngaythem DESC';
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-app.get('/shoptren500', (req, res) => {
-  const sql = 'SELECT * FROM sanpham where gia>100000 ORDER by ngaythem DESC';
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-app.get('/petshop', (req, res) => {
-  const sql = 'SELECT * FROM thucung';
-  db.query(sql, (err, data) => {
-    if (err) return res.json('Error');
+
+// app.get('/shop/:category/:detail/:price', (req, res) => {
+//   const category = req.params.category
+//   const idgl = req.params.detail
+//   const price = req.params.price
+//   var catesql = `id_dm=${category}`
+//   var detailsql = `1`
+//   if (idgl !== 0) {
+//     detailsql = `id_gl=${idgl}`
+//   }
+//   var pricesql = `1`
+//   if (price !== 0) {
+//     pricesql = `gia<${price}`
+//   }
+
+//   // const sql = `SELECT * FROM sanpham where ${catesql} and ${detailsql} ORDER BY id_dm ASC, ngaythem DESC `;
+//   const sql = `SELECT * FROM sanpham WHERE ${catesql} and ${detailsql} and ${pricesql} ORDER BY id_dm ASC, ngaythem DESC`;
+//   db.query(sql, (err, data) => {
+//     if (err) return res.json(err);
+//     return res.json(data);
+//   });
+// });
+app.get('/shop/:category/:detail/:price', (req, res) => {
+  const category = req.params.category;
+  const idgl = req.params.detail;
+  const price = req.params.price;
+
+  // Set conditions for filtering
+  const catesql = `id_dm = ?`;
+  const detailsql = idgl !== '0' ? `id_gl = ?` : null;
+  const pricesql = price !== '0'
+    ? (parseInt(price) > 200000 ? 'gia > ?' : 'gia < ?')
+    : null;
+
+  const params = [category];
+  if (detailsql) params.push(idgl);
+  if (pricesql) params.push(parseInt(price));
+
+  const conditions = [catesql, detailsql, pricesql].filter((condition) => condition !== null).join(' AND ');
+
+  const sql = `SELECT * FROM sanpham WHERE ${conditions} ORDER BY id_dm ASC, ngaythem DESC`;
+
+  // Execute the query with parameters
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    console.log(sql, params, "query result");
     return res.json(data);
   });
 });
@@ -71,14 +96,17 @@ app.get('/detail/:id', (req, res) => {
     return res.json(data);
   });
 });
-app.get('/detailpet/:id', (req, res) => {
-  const sql = 'SELECT * FROM thucung WHERE id = ?';
-  const id = req.params.id;
-  db.query(sql, [id], (err, data) => {
-    if (err) return res.json('Error');
-    return res.json(data);
-  });
-});
+
+
+
+
+
+
+
+
+
+
+
 app.get('/binhluan/:id', (req, res) => {
   const sql = 'SELECT * FROM binhluan where anHien=0 and id_sp= ?';
   const id = req.params.id;
@@ -95,8 +123,19 @@ app.get('/AdminBinhLuan', (req, res) => {
   });
 });
 app.get('/AdminSanPham', (req, res) => {
-  const sql = 'SELECT * FROM sanpham';
+  const sql = 'SELECT * FROM sanpham order by ngaythem desc';
   db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/shop/:category', (req, res) => {
+  const iddm = req.params.category;
+  let sql = 'SELECT * FROM sanpham ORDER BY ngaythem DESC';
+  if (iddm !== '0') {
+    sql = 'SELECT * FROM sanpham WHERE id_dm=? ORDER BY ngaythem DESC';
+  }
+  db.query(sql, iddm, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
@@ -123,14 +162,53 @@ app.get('/AdminNguoiDung', (req, res) => {
   });
 });
 app.get('/AdminDonHang', (req, res) => {
-  const sql = 'SELECT * FROM donhang';
+  const sql = 'SELECT * FROM donhang where trangthai<4';
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/AdminDonHangThanhCong', (req, res) => {
+  const sql = 'SELECT * FROM donhang where trangthai=4';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
 });
 app.get('/AdminDatLich', (req, res) => {
-  const sql = 'SELECT * FROM donhangdichvu order by ngay and thoigian DESC';
+  const sql = 'SELECT * FROM donhangdichvu order by ngay desc , thoigian desc';
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/nhanvien/:idnhanvien', (req, res) => {
+  const value = req.params.idnhanvien
+  const sql = 'SELECT * FROM donhangdichvu where nhanvien=? order by ngay desc , thoigian desc';
+  db.query(sql, value, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/datlich/chuaphancong', (req, res) => {
+  const value = req.params.donhang
+  const sql = 'SELECT * FROM donhangdichvu where nhanvien=1 order by ngay desc , thoigian desc';
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/datlich/dangthuchien', (req, res) => {
+  const value = req.params.donhang
+  const sql = 'SELECT * FROM donhangdichvu where trangthai<3 order by ngay desc , thoigian desc';
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/datlich/dahoanthanh', (req, res) => {
+  const value = req.params.donhang
+  const sql = 'SELECT * FROM donhangdichvu where trangthai=3 order by ngay desc , thoigian desc';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -200,8 +278,12 @@ app.post('/selectnhanvien', (req, res) => {
   }
   )
 })
-app.get('/thongkechinhanh1', (req, res) => {
-  const sql = `select * From donhangdichvu where id_chinhanh=2 and trangthai=3`;
+// thống kê doanh thu
+app.get('/thongke/donhang/theongay', (req, res) => {
+  const sql = `SELECT DATE(ngaydat) AS datengaydat, SUM(tongtien) AS tongtien
+  FROM donhang
+  GROUP BY datengaydat
+  ORDER BY datengaydat`
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -210,8 +292,11 @@ app.get('/thongkechinhanh1', (req, res) => {
   }
   )
 })
-app.get('/thongkechinhanh2', (req, res) => {
-  const sql = `select * From donhangdichvu where id_chinhanh=3`;
+app.get('/thongke/donhang/theothang', (req, res) => {
+  const sql = `SELECT MONTH(ngaydat) AS monthngaydat, SUM(tongtien) AS sumtongtien
+  FROM donhang where MONTH(ngaydat) = MONTH(CURDATE())
+  GROUP BY monthngaydat
+  ORDER BY monthngaydat`
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -220,8 +305,8 @@ app.get('/thongkechinhanh2', (req, res) => {
   }
   )
 })
-app.get('/tongdonhoanthanhchinhanh1', (req, res) => {
-  const sql = `SELECT COUNT(*) FROM donhang where id_chinhanh=2 and trangthai=3`;
+app.get('/thongke/donhang/chuaxacnhan', (req, res) => {
+  const sql = `SELECT count(id) as donhangchuaxacnhan FROM donhang WHERE trangthai=0`
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -230,8 +315,8 @@ app.get('/tongdonhoanthanhchinhanh1', (req, res) => {
   }
   )
 })
-app.get('/tongdonchuahoanthanhchinhanh1', (req, res) => {
-  const sql = `SELECT COUNT(*) FROM donhang where id_chinhanh=2 and trangthai<3`;
+app.get('/thongke/donhang/dahoanthanh', (req, res) => {
+  const sql = `SELECT count(id) as donhangdahoanthanh FROM donhang WHERE trangthai=4`
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -240,8 +325,11 @@ app.get('/tongdonchuahoanthanhchinhanh1', (req, res) => {
   }
   )
 })
-app.get('/tongdonhoanthanhchinhanh2', (req, res) => {
-  const sql = `select * From donhangdichvu where id_chinhanh=3`;
+app.get('/thongke/dichvu/nhanvien/roi', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const sql = `SELECT nhanvien, MONTH(ngay) as thang, COUNT(*) AS so_don_hang 
+  FROM donhangdichvu where trangthai=3
+  GROUP BY nhanvien, MONTH(ngay)`
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -250,8 +338,11 @@ app.get('/tongdonhoanthanhchinhanh2', (req, res) => {
   }
   )
 })
-app.get('/tongdonchuahoanthanhchinhanh2', (req, res) => {
-  const sql = `select * From donhangdichvu where id_chinhanh=3 and trangthai<3`;
+app.get('/thongke/dichvu/nhanvien/chua', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const sql = `SELECT nhanvien, MONTH(ngay) as thang, COUNT(*) AS so_don_hang 
+  FROM donhangdichvu where trangthai<3
+  GROUP BY nhanvien, MONTH(ngay)`
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)
@@ -260,6 +351,42 @@ app.get('/tongdonchuahoanthanhchinhanh2', (req, res) => {
   }
   )
 })
+app.get('/thongke/dichvu/tongtien', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const sql = `SELECT MONTH(ngay) as thang, SUM(tongtien) AS tong_tien_thang
+  FROM donhangdichvu
+  GROUP BY MONTH(ngay)`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongke/newregister', (req, res) => {
+  const sql = `SELECT COUNT(id_user) AS so_nguoi_dang_ky_moi FROM nguoidung WHERE MONTH(ngaytao) = MONTH(CURDATE())`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongke/datlich/chuahoanthanh', (req, res) => {
+  const sql = `SELECT count(id) as datlichchuahoanthanh FROM donhangdichvu WHERE trangthai<3`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+
+
+//
 app.post('/nextstatus', (req, res) => {
   const sql = `UPDATE donhangdichvu SET trangthai='${req.body.trangthai + 1}' WHERE id='${req.body.id}'`;
   db.query(sql, (err, data) => {
@@ -335,13 +462,14 @@ app.post('/adddichvu', (req, res) => {
   })
 })
 app.post('/addsanpham', (req, res) => {
-  const sql = "INSERT into `sanpham` (`ten`,`gia`,`hinhanh`,`soluong`,`mota`,`id_dm`) values (?,?,?,?,?,2)";
+  const sql = "INSERT into `sanpham` (`ten`,`gia`,`hinhanh`,`soluong`,`mota`,`id_dm`) values (?,?,?,?,?,?)";
   const values = [
     req.body.ten,
     req.body.gia,
     req.body.hinhanh,
     req.body.soluong,
-    req.body.mota
+    req.body.mota,
+    req.body.iddm
   ]
   db.query(sql, values, (err, data) => {
     if (err) {
@@ -419,35 +547,113 @@ app.post('/binhluan', (req, res) => {
   })
 })
 
-app.post('/signup', (req, res) => {
-  const sql = "INSERT into `nguoidung` (`hoTen`,`sdt`,`email`,`matkhau`,`chinhanh`) values (?,?,?,?,1)";
-  const values = [
-    req.body.hoten,
-    req.body.sdt,
-    req.body.email,
-    req.body.password
-  ]
-  db.query(sql, values, (err, data) => {
-    if (err) {
-      return res.json(err)
+// app.post('/signup', (req, res) => {
+//   const sql = "INSERT into `nguoidung` (`hoTen`,`sdt`,`email`,`matkhau`,`chinhanh`) values (?,?,?,?,1)";
+//   const values = [
+//     req.body.hoten,
+//     req.body.sdt,
+//     req.body.email,
+//     req.body.password
+//   ]
+//   db.query(sql, values, (err, data) => {
+//     if (err) {
+//       return res.json(err)
+//     }
+//     return res.json(data)
+//   })
+// })
+
+app.post('/signup', async (req, res) => {
+  try {
+    // Check if the email already exists in the database
+    const checkEmailQuery = 'SELECT * FROM `nguoidung` WHERE `email` = ?';
+    const emailExists = await new Promise((resolve, reject) => {
+      db.query(checkEmailQuery, [req.body.email], (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data.length > 0);
+        }
+      });
+    });
+
+    if (emailExists) {
+      return res.json({ error: 'Email đã tồn tại trong hệ thống' });
     }
-    return res.json(data)
-  })
-})
+
+    // Hash the user's password using bcrypt
+    // const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // SQL query with hashed password
+    const insertUserQuery = "INSERT INTO `nguoidung` (`hoTen`, `sdt`, `email`, `matkhau`, `chinhanh`) VALUES (?, ?, ?, ?, 1)";
+    const values = [
+      req.body.hoten,
+      req.body.sdt,
+      req.body.email,
+      req.body.password
+      // hashedPassword // Use the hashed password
+    ];
+
+    // Insert the new user into the database
+    db.query(insertUserQuery, values, (err, data) => {
+      if (err) {
+        return res.json({ error: 'Đăng ký thất bại', details: err });
+      }
+
+      // Registration successful
+      return res.json({ success: true, message: 'Đăng ký thành công' });
+    });
+  } catch (error) {
+    return res.json({ error: 'Đăng ký thất bại', details: error.message });
+  }
+});
+
+// app.post('/login', (req, res) => {
+//   const sql = "SELECT * FROM `nguoidung` WHERE `email` = ? AND `matkhau` = ?";
+//   db.query(sql, [req.body.email, req.body.password], (err, data) => {
+//     if (err) {
+//       return res.json(err)
+//     }
+//     if (data.length > 0) {
+//       return res.json(data)
+//     } else {
+//       return res.json("fail")
+//     }
+//   })
+// })
 
 app.post('/login', (req, res) => {
-  const sql = "SELECT * FROM `nguoidung` WHERE `email` = ? AND `matkhau` = ?";
-  db.query(sql, [req.body.email, req.body.password], (err, data) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const sql = "SELECT * FROM `nguoidung` WHERE `email` = ?";
+  db.query(sql, [email], async (err, data) => {
     if (err) {
-      return res.json(err)
+      return res.json(err);
     }
+
     if (data.length > 0) {
-      return res.json(data)
+      const user = data[0];
+      // const passwordMatch = await bcrypt.compare(password, user.matkhau);
+      var passwordMatch = ""
+      if (password === user.matkhau) {
+        passwordMatch = "true"
+      } else {
+        passwordMatch = "false"
+      }
+      if (passwordMatch === "true") {
+        // Mật khẩu trùng khớp, trả về thông tin người dùng
+        return res.json(user);
+      } else {
+        // Mật khẩu không trùng khớp
+        return res.json({ error: "Sai mật khẩu" });
+      }
     } else {
-      return res.json("fail")
+      // Người dùng không tồn tại
+      return res.json({ error: "Người dùng không tồn tại" });
     }
-  })
-})
+  });
+});
 
 app.get('/userdetail/:id', (req, res) => {
   const id = req.params.id;
@@ -475,6 +681,51 @@ app.post('/updatethongtin', (req, res) => {
     return res.json(data)
   }
   )
+})
+
+app.post('/changepassword', async (req, res) => {
+  const oldpassword = req.body.oldpassword;
+  const newpassword = req.body.newpassword
+  const id_user = req.body.id_user
+
+  const sql1 = 'SELECT * FROM NGUOIDUNG WHERE id_user = ?';
+  db.query(sql1, [id_user], async (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+
+    if (data.length === 0) {
+      return res.json({ error: 'User not found' });
+    }
+
+    const user = data[0];
+
+    // const passwordMatch = await bcrypt.compare(user.matkhau, oldpassword);
+    // // const passwordMatch = bcrypt.compareSync("123456", "123456");
+    // console.log(passwordMatch)
+    var passwordMatch = ""
+    if (user.matkhau === oldpassword) {
+      passwordMatch = "true"
+    } else {
+      passwordMatch = "false"
+    }
+    if (passwordMatch === "false") {
+      return res.json({ error: 'Mật khẩu hiện tại không đúng' });
+    }
+    // if (passwordMatch) {
+    //   return res.json({ error: 'Mật khẩu hiện tại không đúng' });
+    // }
+
+    // const hashedNewPassword = await bcrypt.hash(newpassword, 10);
+
+    const sql2 = 'UPDATE nguoidung SET matkhau = ? WHERE id_user = ?';
+    db.query(sql2, [newpassword, id_user], (err, data) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.json(data);
+    });
+  });
 })
 
 
@@ -521,8 +772,62 @@ app.get('/detaildonhanguser', (req, res) => {
   });
 });
 
+// app.post('/bookingservice', (req, res) => {
+//   const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `email`, `ngay` ,`thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`,`tongtien`, `id_dichvu`, `id_user`,`id_chinhanh`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//   var giatien = 0;
+//   if (req.body.dichvu == 1) {
+//     giatien = 500000
+//   }
+//   else if (req.body.dichvu == 2) {
+//     giatien = 300000
+//   }
+//   else if (req.body.dichvu == 3) {
+//     giatien = 120000
+//   }
+//   else if (req.body.dichvu == 5) {
+//     giatien = 800000
+//   }
+//   else if (req.body.dichvu == 6) {
+//     giatien = 962000
+//   }
+//   else {
+//     giatien = 100000
+//   }
+//   const values = [
+//     req.body.hoten,
+//     req.body.sdt,
+//     req.body.email,
+//     req.body.ngay,
+//     req.body.thoigian,
+//     req.body.tenthucung,
+//     req.body.loai,
+//     req.body.thuocgiong,
+//     req.body.tuoi,
+//     req.body.trongluong,
+//     req.body.ghichu,
+//     giatien,
+//     req.body.dichvu,
+//     req.body.iduser,
+//     req.body.chinhanh
+//   ]
+//   db.query(sql, values, (err, data) => {
+//     if (err) {
+//       return res.json(err)
+//     }
+//     return res.json(data)
+//   })
+// })
+
 app.post('/bookingservice', (req, res) => {
-  const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `email`, `ngay` ,`thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`,`tongtien`, `id_dichvu`, `id_user`,`id_chinhanh`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `email`, `ngay` ,`thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`,`trangthai`,`tongtien`,`nhanvien`, `id_dichvu`, `id_user`,`id_chinhanh`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  const randomUserId = Math.floor(Math.random() * (37 - 22 + 1)) + 22;
+  const randomTrangThai = Math.floor(Math.random() * 4);
+  let randomNhanVien = 0;
+  if (req.body.chinhanh == 2) {
+    randomNhanVien = Math.floor(Math.random() * (12 - 10 + 1)) + 10;
+  } else if (req.body.chinhanh == 3) {
+    randomNhanVien = Math.floor(Math.random() * (14 - 13 + 1)) + 13;
+  }
   var giatien = 0;
   if (req.body.dichvu == 1) {
     giatien = 500000
@@ -532,6 +837,12 @@ app.post('/bookingservice', (req, res) => {
   }
   else if (req.body.dichvu == 3) {
     giatien = 120000
+  }
+  else if (req.body.dichvu == 5) {
+    giatien = 800000
+  }
+  else if (req.body.dichvu == 6) {
+    giatien = 962000
   }
   else {
     giatien = 100000
@@ -548,9 +859,11 @@ app.post('/bookingservice', (req, res) => {
     req.body.tuoi,
     req.body.trongluong,
     req.body.ghichu,
+    randomTrangThai,
     giatien,
+    randomNhanVien,
     req.body.dichvu,
-    req.body.iduser,
+    randomUserId,
     req.body.chinhanh
   ]
   db.query(sql, values, (err, data) => {
@@ -560,7 +873,6 @@ app.post('/bookingservice', (req, res) => {
     return res.json(data)
   })
 })
-
 app.get('/huydichvu', (req, res) => {
   const receivedData = req.query.id;
   const sql = "DELETE FROM `donhangdichvu` WHERE id = ?";
@@ -624,6 +936,14 @@ app.post('/dathang', (req, res) => {
           // console.error('Error inserting order details:', err);
           // res.status(500).json({ message: 'Internal Server Error' });
         } else {
+          cart.forEach(item => {
+            const updateSanPhamSql = `UPDATE sanpham SET soluong = soluong - ? WHERE id_sp = ?`;
+            db.query(updateSanPhamSql, [item.amount, item.id_sp], (err, updateResult) => {
+              if (err) {
+                console.error('Error updating product quantity:', err);
+              }
+            });
+          });
           res.status(200).json({ message: 'Order added successfully' });
         }
       });
@@ -732,15 +1052,15 @@ app.post('/forgot_password', (req, res) => {
 <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
   <div style="margin:50px auto;width:70%;padding:20px 0">
     <div style="border-bottom:1px solid #eee">
-      <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Koding 101</a>
+      <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">DG House</a>
     </div>
-    <p style="font-size:1.1em">Hi,</p>
-    <p>Thank you for choosing Koding 101. Use the following OTP to complete your Password Recovery Procedure. OTP is valid for 5 minutes</p>
+    <p style="font-size:1.1em">Xin chào,</p>
+    <p>Cảm ơn bạn vì đã chọn DG House. Dùng mã OTP dưới đây để khôi phục lại mật khẩu của bạn. OTP sẽ tồn tại trong 5 phút</p>
     <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
-    <p style="font-size:0.9em;">Regards,<br />Koding 101</p>
+    <p style="font-size:0.9em;">Trân trọng,<br />DG House</p>
     <hr style="border:none;border-top:1px solid #eee" />
     <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-      <p>Koding 101 Inc</p>
+      <p>DG House Inc</p>
       <p>1600 Amphitheatre Parkway</p>
       <p>California</p>
     </div>

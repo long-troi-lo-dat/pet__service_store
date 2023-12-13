@@ -986,3 +986,21 @@
   color: #fff;
   font-family: Montserrat;
 }
+
+.sold-out {
+  /* Add styles to visually indicate that the product is sold out */
+  opacity: 0.7; /* You can adjust the opacity or add other styling */
+  position: relative;
+}
+
+.sold-out-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff6347; /* Example background color */
+  color: #fff; /* Example text color */
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+}

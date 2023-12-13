@@ -17,6 +17,7 @@ import Success from "../pages/success";
 import Notfound from "../pages/notfound";
 import UserDetail from "../pages/userdetail";
 import UserDetailEdit from "../pages/userdetailedit";
+import ChangePassword from "../pages/changepassword";
 import DetailPet from "../pages/detailpet";
 
 // import adminDonHang from "../pages/QuanLyAdmin/qldonhang";
@@ -27,6 +28,7 @@ import AdminDichVu from "../pages/QuanLyAdmin/dichvu";
 import AdminAddDichVu from "../pages/QuanLyAdmin/adddichvu";
 import AdminSanPham from "../pages/QuanLyAdmin/sanpham";
 import AdminAddSanPham from "../pages/QuanLyAdmin/addsanpham";
+import AdminEditSanPham from "../pages/QuanLyAdmin/editsanpham";
 import AdminThuCung from "../pages/QuanLyAdmin/thucung";
 import AdminAddThuCung from "../pages/QuanLyAdmin/addthucung";
 import AdminDonHang from "../pages/QuanLyAdmin/donhang";
@@ -60,6 +62,7 @@ const publicRoutes = [
   { path: "/success", component: Success },
   { path: "/userdetail/:id", component: UserDetail },
   { path: "/userdetailedit/:id", component: UserDetailEdit },
+  { path: "/changepassword/:id", component: ChangePassword },
   // { path: "/admin/admindonhang", component: adminDonHang },
 
   { path: "/employee/thongke", component: Thongke },
@@ -69,6 +72,7 @@ const publicRoutes = [
   { path: "/employee/adddichvu", component: AdminAddDichVu },
   { path: "/employee/sanpham", component: AdminSanPham },
   { path: "/employee/addsanpham", component: AdminAddSanPham },
+  { path: "/employee/editsanpham", component: AdminEditSanPham },
   { path: "/employee/thucung", component: AdminThuCung },
   { path: "/employee/addthucung", component: AdminAddThuCung },
   { path: "/employee/donhang", component: AdminDonHang },

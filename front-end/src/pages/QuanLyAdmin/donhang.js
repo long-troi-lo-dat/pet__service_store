@@ -18,6 +18,7 @@ function AdminDonHang(props) {
 
     const [dataUser, setDataUser] = useState([])
     const [dataDonHang, setdataDonHang] = useState([])
+    const [dataDonHangThanhCong, setdataDonHangThanhCong] = useState([])
     const [openProfile, setOpenProfile] = useState(false)
     const [show, setShow] = useState(false);
     const [dataDonHangChiTiet, setDataDonHangChiTiet] = useState([]);
@@ -93,6 +94,14 @@ function AdminDonHang(props) {
         axios.get(`http://localhost:8000/AdminDonHang`)
             .then((response) => {
                 setdataDonHang(response.data);
+                // console.log(dataUser, "data user")
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+        axios.get(`http://localhost:8000/AdminDonHangThanhCong`)
+            .then((response) => {
+                setdataDonHangThanhCong(response.data);
                 // console.log(dataUser, "data user")
             })
             .catch((error) => {
@@ -224,7 +233,9 @@ function AdminDonHang(props) {
                                                         ? "Đã xác nhận"
                                                         : item.trangthai === 2
                                                             ? "Đang chuẩn bị hàng"
-                                                            : "Đang giao"}</td>
+                                                            : item.trangthai === 3
+                                                                ? "Đang giao hàng"
+                                                                : "thành công"}</td>
                                                 <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                     <button
                                                         class="btn btn-info"
@@ -272,6 +283,73 @@ function AdminDonHang(props) {
                                             </tr>
                                         ))}
                                     </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Đơn đã hoàn thành</h1>
+                        </div>
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <table
+                                    class="table table-bordered"
+                                    id="dataTable"
+                                    width="100%"
+                                    cellspacing="0"
+                                    style={{ fontSize: "13px" }}
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Tên người nhận</th>
+                                            <th style={{ minWidth: "120px" }}>Số điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Tổng tiền</th>
+                                            <th style={{ minWidth: "110px" }}>PTTT</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Ghi chú</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {dataDonHangThanhCong.map((item, i) => (
+                                            <tr>
+                                                <td>{item.id}</td>
+                                                <td>{item.ten_nguoi_nhan}</td>
+                                                <td>{item.sdt_nguoi_nhan}</td>
+                                                <td>{item.diachi}</td>
+                                                <td>{item.tongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                                                <td>{item.phuongthucthanhtoan === 0 ? "Tiền mặt" : "Chuyển khoản"}</td>
+                                                <td>{moment(item.ngaydat).format('DD/MM/YYYY')}</td>
+                                                <td>{item.ghichu}</td>
+                                                <td>{item.trangthai === 0
+                                                    ? "Chờ xác nhận"
+                                                    : item.trangthai === 1
+                                                        ? "Đã xác nhận"
+                                                        : item.trangthai === 2
+                                                            ? "Đang chuẩn bị hàng"
+                                                            : item.trangthai === 3
+                                                                ? "Đang giao hàng"
+                                                                : "thành công"}</td>
+                                                <td style={{ textAlign: "center", maxWidth: "154px", }}>
+                                                    <button
+                                                        class="btn btn-info"
+                                                        data-toggle="modal"
+                                                        data-target="#exampleModal"
+                                                        style={{ minWidth: "140px", fontSize: "13px" }}
+                                                        id={item.id} onClick={handleShow}
+                                                    >
+                                                        Xem đơn
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                    <td>
+                                    </td>
                                 </table>
                             </div>
                         </div>

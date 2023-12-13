@@ -7,6 +7,7 @@ function Footer(props) {
       style={{
         width: "100%",
         backgroundColor: "White",
+        marginTop: "50px"
       }}
     >
       <div class="tillefinal">

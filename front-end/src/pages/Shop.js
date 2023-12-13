@@ -6,11 +6,31 @@ import "../assets/css/shop2.css"
 import axios from "axios";
 import Cart from "./cart";
 import Navbar from "../components/Navbar";
-import { Pagination, Table } from 'antd';
+import { Menu, Pagination, Table } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Notify = () => toast.success('Thêm vào giỏ hàng thành công', {
+  position: "bottom-left",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+});
+const IssetInCartNotify = () => toast.error('Thú cưng chỉ được thêm 1 sản phẩm', {
+  position: "bottom-left",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+});
+const quantityNotify = () => toast.error('Số lượng còn lại của sản phẩm không đủ', {
   position: "bottom-left",
   autoClose: 5000,
   hideProgressBar: false,
@@ -37,10 +57,77 @@ function Shop() {
   //   setCart([...arr]);
   // }
 
+  // const onAddToCartHandler = (item) => {
+  //   if (cart.some(cartItem => cartItem.id_sp === item.id_sp)) return null;
+  //   const updatedCart = [...cart, { ...item, amount: 1 }];
+  //   setCart(updatedCart);
+  // };
+
+  // const onAddToCartHandler = (item) => {
+  //   // Kiểm tra nếu sản phẩm có id_dm=6 và đã tồn tại trong cart, không thực hiện thêm mới
+  //   if (item.id_dm === 6 && cart.some(cartItem => cartItem.id_sp === item.id_sp)) {
+  //     console.error('Sản phẩm đã tồn tại trong giỏ hàng');
+  //     FailNotify()
+  //     return;
+  //   }
+
+  //   const updatedCart = cart.map(cartItem => {
+  //     if (cartItem.id_sp === item.id_sp) {
+  //       return { ...cartItem, amount: cartItem.amount + 1 };
+  //     }
+  //     return cartItem;
+  //   });
+
+  //   if (!updatedCart.some(cartItem => cartItem.id_sp === item.id_sp)) {
+  //     // Nếu sản phẩm chưa tồn tại trong cart, thêm mới với amount là 1
+  //     updatedCart.push({ ...item, amount: 1 });
+  //   }
+  //   Notify()
+
+  //   setCart(updatedCart);
+  // };
   const onAddToCartHandler = (item) => {
-    if (cart.some(cartItem => cartItem.id_sp === item.id_sp)) return null;
-    const updatedCart = [...cart, { ...item, amount: 1 }];
-    setCart(updatedCart);
+
+    if (localStorage.getItem('login') === 'no') {
+      // Display a modal indicating that the user needs to log in
+      // showLoginModal();
+      return;
+    }
+
+    // Kiểm tra nếu sản phẩm có id_dm=6 và đã tồn tại trong cart, không thực hiện thêm mới
+    if (item.id_dm === 6 && cart.some(cartItem => cartItem.id_sp === item.id_sp)) {
+      console.error('Sản phẩm đã tồn tại trong giỏ hàng');
+      IssetInCartNotify();
+      return;
+    }
+
+    const existingCartItem = cart.find(cartItem => cartItem.id_sp === item.id_sp);
+    const availableQuantity = item.soluong;
+
+    if (existingCartItem) {
+      // Nếu sản phẩm đã tồn tại trong cart, kiểm tra số lượng còn lại
+      const newAmount = existingCartItem.amount + 1;
+      if (newAmount <= availableQuantity) {
+        const updatedCart = cart.map(cartItem =>
+          cartItem.id_sp === item.id_sp ? { ...cartItem, amount: newAmount } : cartItem
+        );
+        Notify();
+        setCart(updatedCart);
+      } else {
+        console.error('Số lượng vượt quá giới hạn');
+        quantityNotify();
+      }
+    } else {
+      // Nếu sản phẩm chưa tồn tại trong cart, thêm mới với amount là 1 nếu còn hàng
+      if (availableQuantity > 0) {
+        const updatedCart = [...cart, { ...item, amount: 1 }];
+        Notify();
+        setCart(updatedCart);
+      } else {
+        console.error('Sản phẩm đã hết hàng');
+        quantityNotify();
+      }
+    }
   };
 
   const fetchData = (value) => {
@@ -58,8 +145,17 @@ function Shop() {
     fetchData(value)
   }
 
-  const phanloai = (event) => {
-    axios.get(`http://localhost:8000/${event}`)
+  // const phanloai = (event) => {
+  //   axios.get(`http://localhost:8000/${event}`)
+  //     .then((response) => {
+  //       setData(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.error('error fetching data :', error);
+  //     });
+  // }
+  const phanloaidanhmuc = (category, detail, price) => {
+    axios.get(`http://localhost:8000/shop/${category}/${detail}/${price}`)
       .then((response) => {
         setData(response.data)
       })
@@ -104,52 +200,113 @@ function Shop() {
             <div className="flex justify-content-end">
               <label htmlFor="search-form">
                 <div class="d-flex form-inputs">
-                  <i class="fas fa-search" style={{ lineHeight: "35px", marginRight: "5px" }}></i>
-                  <input class="form-control" style={{ marginRight: "19.9px", width: "290px" }} type="text" placeholder="Search any product..." value={input} onChange={(e) => handleChange(e.target.value)} />
+                  {/* <i class="fas fa-search" style={{ lineHeight: "35px", marginRight: "5px" }}></i> */}
+                  {/* <input class="form-control" style={{ marginRight: "19.9px", width: "290px" }} type="text" placeholder="Search any product..." value={input} onChange={(e) => handleChange(e.target.value)} /> */}
+                  <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={input} onChange={(e) => handleChange(e.target.value)} />
+                    {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
+                  </form>
                 </div>
-                <div class="d-flex flex-column bg-light" style={{ marginTop: "10px", marginLeft: "21px", position: "absolute", zIndex: "10", width: "290px", maxHeight: "300px", overflowY: "scroll", border: "1px solid #333" }}>
+                {results.length > 0 && <div class="d-flex flex-column bg-light" style={{ marginTop: "10px", position: "absolute", zIndex: "10", width: "310px", maxHeight: "300px", overflowY: "scroll", padding: "8px" }}>
                   {results.map((item, id) => (
-                    <div class="d-flex" style={{ marginBottom: "6px" }}>
+                    <div class="d-flex" style={{ marginBottom: "6px", width: "100%" }}>
                       <img src={item.hinhanh} width="100px" height="60px" alt="" />
                       <a href={"/detail/" + item.id_sp} class="btn btn-info" style={{ border: "none", backgroundColor: "white", color: "black", fontSize: "12px", textAlign: "left", fontWeight: "600" }}>{item.ten}</a>
                     </div>
                   ))}
-                </div>
+                </div>}
               </label>
             </div>
           </div >
         }
         <div class="container-content">
-          <div className="row g-2">
+          <div className="row" style={{ justifyContent: "space-around" }}>
             {!isShowCart &&
               (
                 <>
                   <div className="product-left">
-                    <ul class="list-group mb-3">
+                    {/* <ul class="list-group mb-3">
                       <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Thực phẩm chức năng</li>
                       <li class="list-group-item" onClick={() => phanloai("shop100")}>Dưới 100.000đ</li>
                       <li class="list-group-item" onClick={() => phanloai("shopduoi500")}>Dưới 500.000đ</li>
                       <li class="list-group-item" onClick={() => phanloai("shoptren500")}>Trên 500.000đ</li>
-                    </ul>
+                    </ul> */}
+                    <Menu mode="inline" style={{ display: "flex", flexDirection: "column", gap: "15px", fontSize: "1rem", position: "relative", border: "1px solid #e5e7eb", color: "black" }}>
+                      <div className="logo" style={{ borderBottom: "1px solid #e5e7eb" }}>
+                        <h3 style={{ margin: "0 20px", paddingBottom: "15px" }}>Danh mục</h3>
+                      </div>
+                      <Menu.SubMenu key="thucung" title="Thú cưng">
+                        <Menu.Item key='thucung-0'><button onClick={() => phanloaidanhmuc(6, 0, 0)}>Tất cả giống loài</button></Menu.Item>
+                        <Menu.Item key='thucung-1'><button onClick={() => phanloaidanhmuc(6, 1, 0)}>Alaska</button></Menu.Item>
+                        <Menu.Item key='thucung-2'><button onClick={() => phanloaidanhmuc(6, 2, 0)}>Pug</button></Menu.Item>
+                        <Menu.Item key='thucung-3'><button onClick={() => phanloaidanhmuc(6, 3, 0)}>Shiba</button></Menu.Item>
+                        <Menu.Item key='thucung-4'><button onClick={() => phanloaidanhmuc(6, 4, 0)}>Poodle</button></Menu.Item>
+                        <Menu.Item key='thucung-5'><button onClick={() => phanloaidanhmuc(6, 5, 0)}>Samoyed</button></Menu.Item>
+                      </Menu.SubMenu>
+                      <Menu.SubMenu key="thucan" title="Thức ăn">
+                        <Menu.Item key='thucan-0'><button onClick={() => phanloaidanhmuc(2, 0, 0)}>Tất cả thức ăn</button></Menu.Item>
+                        <Menu.Item key='thucan-1'><button onClick={() => phanloaidanhmuc(2, 0, 100000)}>Dưới 100.000đ</button></Menu.Item>
+                        <Menu.Item key='thucan-2'><button onClick={() => phanloaidanhmuc(2, 0, 200000)}>Dưới 200.000đ</button></Menu.Item>
+                        <Menu.Item key='thucan-3'><button onClick={() => phanloaidanhmuc(2, 0, 300000)}>Trên 200.000đ</button></Menu.Item>
+                      </Menu.SubMenu>
+                      <Menu.SubMenu key="dochoi" title="Đồ chơi">
+                        <Menu.Item key='dochoi-0'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Tất cả đồ chơi</button></Menu.Item>
+                        <Menu.Item key='dochoi-1'><button onClick={() => phanloaidanhmuc(1, 0, 50000)}>Dưới 50.000đ</button></Menu.Item>
+                        <Menu.Item key='dochoi-2'><button onClick={() => phanloaidanhmuc(1, 0, 100000)}>Dưới 100.000đ</button></Menu.Item>
+                      </Menu.SubMenu>
+                      <Menu.SubMenu key="phukien" title="Phụ kiện thú cưng">
+                        <Menu.Item key='phukien-0'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Tất cả phụ kiện</button></Menu.Item>
+                        <Menu.Item key='phukien-1'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Dưới 100.000đ</button></Menu.Item>
+                        <Menu.Item key='phukien-2'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Dưới 200.000đ</button></Menu.Item>
+                      </Menu.SubMenu>
+                      <Menu.SubMenu key="chamsocsuckhoe" title="Chăm sóc sức khỏe">
+                        <Menu.Item key='chamsocsuckhoe-1'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Thực phẩm chức năng</button></Menu.Item>
+                        <Menu.Item key='chamsocsuckhoe-2'><button onClick={() => phanloaidanhmuc(5, 0, 0)}>Sản phẩm điều trị</button></Menu.Item>
+                      </Menu.SubMenu>
+                    </Menu>
                   </div>
                   <div className="product-right pr-0">
                     <div className="row">
                       {data.map((item, i) => {
-                        return (
-                          <div key={i} className="col-lg-4 col-md-12 mb-4">
-                            <div class="card" style={{ width: "18rem" }}>
-                              {/* <img src={img1} class="card-img-top" alt="..." /> */}
-                              <a href={"/detail/" + item.id_sp}><img src={item.hinhanh} class="card-img-top" alt="..." /></a>
-                              {/* <img src={img1} class="card-img-top" alt="..." /> */}
-                              <div class="card-body">
-                                <h5 class="card-title" style={{ minHeight: "72px" }}>{item.ten}</h5>
-                                <h5 class="card-title">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
-                                <button href={"/detail/" + item.id_sp} class="btn btn-info card-link">Chi tiết</button>
-                                <button onClick={() => { onAddToCartHandler(item); Notify() }} class="btn btn-success card-link" >Thêm vào giỏ</button>
+                        const isSoldOut = item.soluong === 0;
+                        if (item.soluong !== 0) {
+                          return (
+                            <div key={i} className="col-lg-3 col-md-12 mb-4">
+                              <div className={`card ${isSoldOut ? 'sold-out' : ''}`} style={{ width: '' }}>
+                                <a href={`/detail/${item.id_sp}`}>
+                                  <img
+                                    src={item.hinhanh}
+                                    style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
+                                    className="card-img-top"
+                                    alt="..."
+                                  />
+                                </a>
+                                <div className="card-body">
+                                  <div className="card-title" style={{ minHeight: '72px', fontSize: '16px' }}>
+                                    {item.ten}
+                                  </div>
+                                  <div className="card-title" style={{ fontSize: '16px' }}>
+                                    {item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                  </div>
+                                  <a href={`/detail/${item.id_sp}`} className="btn btn-info" style={{ minWidth: '164px' }}>
+                                    Chi tiết
+                                  </a>
+                                  {!isSoldOut && (
+                                    <button onClick={() => { onAddToCartHandler(item) }} className="btn btn-success" style={{ minWidth: '164px' }}>
+                                      Thêm vào giỏ
+                                    </button>
+                                  )}
+                                  {isSoldOut && (
+                                    <button className="btn btn-danger disabled" style={{ minWidth: '164px' }}>
+                                      Hết hàng
+                                    </button>
+                                  )}
+                                  {/* {isSoldOut && <div className="sold-out-label">Sold Out</div>} */}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        )
+                          )
+                        }
                       })}
 
                       {/* <Pagination defaultCurrent={1} total={50} /> */}

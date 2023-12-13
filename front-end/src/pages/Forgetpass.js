@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { FiMapPin, FiPhone, FiUser } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 export default function ForgetPassword() {
     const navigate = useNavigate()
@@ -20,6 +21,7 @@ export default function ForgetPassword() {
             setMessage('Email không tồn tại, vui lòng thử lại email khác.');
         }
     };
+
 
     return (
         <>

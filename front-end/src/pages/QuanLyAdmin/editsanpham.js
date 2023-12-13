@@ -6,7 +6,7 @@ import imglogo from "../../assets/logo-1.png"
 import axios from "axios";
 const { Sider } = Layout;
 
-function AdminAddSanPham(props) {
+function AdminEditSanPham(props) {
     const [openProfile, setOpenProfile] = useState(false)
     const [dataUser, setDataUser] = useState([])
     const [formData, setFormData] = useState({
@@ -409,4 +409,4 @@ function AdminAddSanPham(props) {
         </div >
     )
 }
-export default AdminAddSanPham;
+export default AdminEditSanPham;

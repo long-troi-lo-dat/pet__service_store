@@ -16,62 +16,119 @@ function Login(props) {
   const [formData, setFormData] = useState(initialFormData);
   // const [userData, setUserData] = useState()
   const [errors, setErrors] = useState({})
-
+  const [message, setMessage] = useState("")
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // const handleLoginSubmit = (event) => {
+  //   // event.preventDefault();
+  //   const validateEmail = formData.email
+  //   const validatePassword = formData.password
+  //   setErrors(validation(formData))
+  //   if (validateEmail !== "" && validatePassword !== "") {
+  //     axios.post('http://localhost:8000/login', formData)
+  //       .then(
+  //         res => {
+  //           if (Array.isArray(res.data) && res.data.length > 0) {
+  //             console.log(res.data);
+  //             console.log(res.data[0].vaitro);
+
+  //             const user = res.data[0];
+
+  //             if (user.vaitro === 0) {
+  //               // Handle user with vaitro 0
+  //               // ...
+  //             } else if (user.vaitro === 1) {
+  //               // Handle user with vaitro 1
+  //               // ...
+  //             } else if (user.vaitro === 2) {
+  //               // Handle user with vaitro 2
+  //               // ...
+  //             } else if (user.vaitro === 5) {
+  //               // Handle user with vaitro 5
+  //               // ...
+  //             }
+  //           } else {
+  //             setMessage("Sai mật khẩu");
+  //           }
+  //           // if (res.data === "fail") {
+  //           //   setMessage("Sai mật khẩu")
+  //           // } else {
+  //           //   console.log(res.data)
+  //           //   console.log(res.data[0].vaitro);
+  //           //   if (res.data[0].vaitro === 0) {
+  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
+  //           //     localStorage.setItem("id_user", res.data[0].id_user)
+  //           //     localStorage.setItem("login", "yes")
+  //           //     navigate("/")
+  //           //   } else if (res.data[0].vaitro === 1) {
+  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
+  //           //     localStorage.setItem("id_user", res.data[0].id_user)
+  //           //     localStorage.setItem("login", "yes")
+  //           //     navigate("/employee/index")
+  //           //   } else if (res.data[0].vaitro === 2) {
+  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
+  //           //     localStorage.setItem("id_user", res.data[0].id_user)
+  //           //     localStorage.setItem("login", "yes")
+  //           //     localStorage.setItem("chinhanh", res.data[0].chinhanh)
+  //           //     navigate("/QuanLyChiNhanh/index")
+  //           //   } else if (res.data[0].vaitro === 5) {
+  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
+  //           //     localStorage.setItem("id_user", res.data[0].id_user)
+  //           //     localStorage.setItem("login", "yes")
+  //           //     localStorage.setItem("chinhanh", res.data[0].chinhanh)
+  //           //     navigate("/NhanVienDichVu/index")
+  //           //   }
+  //           // }
+  //         }
+  //       )
+  //       .catch(
+  //         err => console.log(err)
+  //       )
+  //   }
+  // };
+
   const handleLoginSubmit = (event) => {
-    // event.preventDefault();
-    const validateEmail = formData.email
-    const validatePassword = formData.password
-    setErrors(validation(formData))
+    event.preventDefault();
+    const validateEmail = formData.email;
+    const validatePassword = formData.password;
+    setErrors(validation(formData));
+
     if (validateEmail !== "" && validatePassword !== "") {
       axios.post('http://localhost:8000/login', formData)
-        .then(
-          res => {
-            if (res.data === "fail") {
-              alert("Tài khoản không tồn tại!")
-            } else {
-              console.log(res.data)
-              console.log(res.data[0].vaitro);
-              // console.log(res.data)
-              // console.log(typeof res.data.vaitro);
-              // console.log(res.data.vaitro)
-              // console.log(res.data.id_user)
-              if (res.data[0].vaitro === 0) {
-                localStorage.setItem("vaitro", res.data[0].vaitro)
-                localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("login", "yes")
-                navigate("/")
-              } else if (res.data[0].vaitro === 1) {
-                localStorage.setItem("vaitro", res.data[0].vaitro)
-                localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("login", "yes")
-                navigate("/employee/index")
-              } else if (res.data[0].vaitro === 2) {
-                localStorage.setItem("vaitro", res.data[0].vaitro)
-                localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("login", "yes")
-                localStorage.setItem("chinhanh", res.data[0].chinhanh)
-                navigate("/QuanLyChiNhanh/index")
-              } else if (res.data[0].vaitro === 5) {
-                localStorage.setItem("vaitro", res.data[0].vaitro)
-                localStorage.setItem("id_user", res.data[0].id_user)
-                localStorage.setItem("login", "yes")
-                localStorage.setItem("chinhanh", res.data[0].chinhanh)
-                navigate("/NhanVienDichVu/index")
-              }
+        .then((res) => {
+          const responseData = res.data;
+
+          if (responseData.error) {
+            // Login failed, display error message
+            setMessage(responseData.error);
+          } else {
+            // Login successful, handle user role
+            const user = responseData;
+
+            localStorage.setItem("vaitro", user.vaitro);
+            localStorage.setItem("id_user", user.id_user);
+            localStorage.setItem("login", "yes");
+
+            // Handle redirection based on user role
+            if (user.vaitro === 0) {
+              navigate("/");
+            } else if (user.vaitro === 1) {
+              navigate("/employee/index");
+            } else if (user.vaitro === 2) {
+              localStorage.setItem("chinhanh", user.chinhanh);
+              navigate("/QuanLyChiNhanh/index");
+            } else if (user.vaitro === 5) {
+              localStorage.setItem("chinhanh", user.chinhanh);
+              navigate("/NhanVienDichVu/index");
             }
           }
-        )
-        .catch(
-          err => console.log(err)
-        )
+        })
+        .catch((err) => console.log(err));
     }
   };
-
 
   return (
     <>
@@ -144,7 +201,7 @@ function Login(props) {
                 name="password"
                 onChange={handleChangeInput}
               />
-              {errors.password && <span className="text-danger">{errors.password}</span>}
+              {message && <span className="text-danger">{message}</span>}
             </div>
             <div className="text-right ">
               <span className="text-blue-600 cursor-pointer underline"><span onClick={() => navigate("/forget-password")}>Quên mật khẩu</span></span>
