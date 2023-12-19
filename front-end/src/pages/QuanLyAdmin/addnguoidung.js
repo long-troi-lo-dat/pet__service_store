@@ -6,16 +6,19 @@ import imglogo from "../../assets/logo-1.png"
 import axios from "axios";
 const { Sider } = Layout;
 
-function AdminAddSanPham(props) {
+function AdminAddNguoiDung(props) {
     const [openProfile, setOpenProfile] = useState(false)
     const [dataUser, setDataUser] = useState([])
     const [formData, setFormData] = useState({
-        ten: "",
-        gia: "",
-        hinhanh: "",
-        soluong: "",
+        hoTen: "",
+        anhdaidien: "",
+        sdt: "",
+        email: "",
+        matkhau: "",
+        diachi: "",
         mota: "",
-        iddm: ""
+        chinhanh: "",
+        vaitro: ""
     });
 
     const id = localStorage.getItem("id_user")
@@ -33,10 +36,10 @@ function AdminAddSanPham(props) {
     };
 
     const handleSubmit = (event) => {
-        axios.post("http://localhost:8000/addsanpham", formData)
+        axios.post("http://localhost:8000/addnguoidung", formData)
             .then((res) => {
                 console.log(res.data);
-                navigate("/employee/sanpham")
+                navigate("/employee/nguoidung")
             })
             .catch((err) => console.log(err));
     };
@@ -131,10 +134,10 @@ function AdminAddSanPham(props) {
                     </nav>
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Thêm mới sản phẩm</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Thêm mới nhân viên</h1>
                         </div>
                         <div class="card shadow mb-4">
-                            <div class="card-body">
+                            {/* <div class="card-body">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Tên sản phẩm</label>
@@ -194,6 +197,70 @@ function AdminAddSanPham(props) {
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary" onClick={handleSubmit}>Thêm mới</button>
+                            </div> */}
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Họ và tên</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="hoTen" onChange={handleChangeInput} /></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Số điện thoại</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="sdt" onChange={handleChangeInput} /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label class="labels">Ảnh đại diện</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="anhdaidien" onChange={handleChangeInput} placeholder="Copy paste link hình vào đây" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Email</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="email" onChange={handleChangeInput} /></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Mật khẩu</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="password" class="form-control" name="matkhau" onChange={handleChangeInput} /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Địa chỉ</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="diachi" onChange={handleChangeInput} /></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Mô tả</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="mota" onChange={handleChangeInput} /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Chi nhánh</label><div style={{ display: "flex", lineHeight: "38px" }}>
+                                            <select
+                                                class="form-select form-control"
+                                                aria-label="Default select example"
+                                                name="chinhanh"
+                                                id="chinhanh"
+                                                onChange={handleChangeInput}
+                                            >
+                                                <option disabled selected>Vui lòng chi nhánh làm việc</option>
+                                                <option value="2">Tòa nhà QTSC9 (toà T), đường Tô Ký, phường Tân Chánh Hiệp, quận 12, TP HCM.</option>
+                                                <option value="3">778/B1 Nguyễn Kiệm, phường 04, quận Phú Nhuận, TP HCM</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="labels">Vai trò</label><div style={{ display: "flex", lineHeight: "38px" }}>
+                                            <select
+                                                class="form-select form-control"
+                                                aria-label="Default select example"
+                                                name="vaitro"
+                                                id="vaitro"
+                                                onChange={handleChangeInput}
+                                            >
+                                                <option disabled selected>Vui lòng vai trò</option>
+                                                <option value="2">Quản lý chi nhánh</option>
+                                                <option value="5">Nhân viên dịch vụ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center"><button type="submit" class="btn btn-primary" onClick={handleSubmit}>Thêm mới</button></div>
                             </div>
                         </div>
                     </div>
@@ -202,4 +269,4 @@ function AdminAddSanPham(props) {
         </div >
     )
 }
-export default AdminAddSanPham;
+export default AdminAddNguoiDung;

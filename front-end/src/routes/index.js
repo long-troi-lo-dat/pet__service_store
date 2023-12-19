@@ -29,8 +29,8 @@ import AdminAddDichVu from "../pages/QuanLyAdmin/adddichvu";
 import AdminSanPham from "../pages/QuanLyAdmin/sanpham";
 import AdminAddSanPham from "../pages/QuanLyAdmin/addsanpham";
 import AdminEditSanPham from "../pages/QuanLyAdmin/editsanpham";
+import AdminAddNguoiDung from "../pages/QuanLyAdmin/addnguoidung";
 import AdminThuCung from "../pages/QuanLyAdmin/thucung";
-import AdminAddThuCung from "../pages/QuanLyAdmin/addthucung";
 import AdminDonHang from "../pages/QuanLyAdmin/donhang";
 import AdminDatLich from "../pages/QuanLyAdmin/datlich";
 import AdminNguoiDung from "../pages/QuanLyAdmin/nguoidung";
@@ -73,8 +73,8 @@ const publicRoutes = [
   { path: "/employee/sanpham", component: AdminSanPham },
   { path: "/employee/addsanpham", component: AdminAddSanPham },
   { path: "/employee/editsanpham", component: AdminEditSanPham },
+  { path: "/employee/addnguoidung", component: AdminAddNguoiDung },
   { path: "/employee/thucung", component: AdminThuCung },
-  { path: "/employee/addthucung", component: AdminAddThuCung },
   { path: "/employee/donhang", component: AdminDonHang },
   { path: "/employee/datlich", component: AdminDatLich },
   { path: "/employee/nguoidung", component: AdminNguoiDung },

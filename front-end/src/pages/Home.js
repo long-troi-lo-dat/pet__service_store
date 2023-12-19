@@ -50,11 +50,11 @@ export default function Home() {
             <span> D G HOUSE</span>
           </p>
           <h1 className="py-8 text-6xl italic leading-tight" style={{ WebkitTextStrokeWidth: '2px', WebkitTextStrokeColor: '101A5F' }}>
-            DỊCH VỤ THÚ CƯNG
-            <span className="font-extrabold stroke-[#101A5F] stroke-2 ">
+            HỆ THỐNG DỊCH VỤ THÚ CƯNG
+            {/* <span className="font-extrabold stroke-[#101A5F] stroke-2 ">
               {" "}
               TẠI NHÀ
-            </span>
+            </span> */}
           </h1>
           <p className="text-2xl font-light">
             <span className="font-bold">UY TÍN HÀNG ĐẦU </span>TẠI HỒ CHÍ MINH

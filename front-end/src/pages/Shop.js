@@ -46,9 +46,24 @@ function Shop() {
   const [input, setInput] = useState("")
   const [results, setResults] = useState([])
   const [cart, setCart] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
 
   const [isShowCart, setShowCart] = useState(false)
 
+
+  const filterProducts = (value) => {
+    const filtered = data.filter((product) => {
+      return value && product.ten && product.ten.toLowerCase().includes(value);
+    });
+    setFilteredProducts(filtered);
+  };
+
+  const handleChange = (event) => {
+    const value = event.target.value.toLowerCase();
+    setSearchInput(value);
+    filterProducts(value);
+  };
   // const onAddToCartHandler = (item) => {
   //   if (cart.indexOf(item) !== -1) return null;
   //   const arr = [...cart];
@@ -130,20 +145,20 @@ function Shop() {
     }
   };
 
-  const fetchData = (value) => {
-    fetch("http://localhost:8000/shop")
-      .then((response) => response.json())
-      .then((json) => {
-        const results = json.filter((sp) => {
-          return value && sp && sp.ten && sp.ten.toLowerCase().includes(value)
-        })
-        setResults(results)
-      })
-  }
-  const handleChange = (value) => {
-    setInput(value)
-    fetchData(value)
-  }
+  // const fetchData = (value) => {
+  //   fetch("http://localhost:8000/shop")
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       const results = json.filter((sp) => {
+  //         return value && sp && sp.ten && sp.ten.toLowerCase().includes(value)
+  //       })
+  //       setResults(results)
+  //     })
+  // }
+  // const handleChange = (value) => {
+  //   setInput(value)
+  //   fetchData(value)
+  // }
 
   // const phanloai = (event) => {
   //   axios.get(`http://localhost:8000/${event}`)
@@ -203,18 +218,24 @@ function Shop() {
                   {/* <i class="fas fa-search" style={{ lineHeight: "35px", marginRight: "5px" }}></i> */}
                   {/* <input class="form-control" style={{ marginRight: "19.9px", width: "290px" }} type="text" placeholder="Search any product..." value={input} onChange={(e) => handleChange(e.target.value)} /> */}
                   <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={input} onChange={(e) => handleChange(e.target.value)} />
+                    <input class="form-control mr-sm-2"
+                      type="search"
+                      placeholder="Tìm kiếm sản phẩm"
+                      aria-label="Search"
+                      value={searchInput}
+                      onChange={handleChange}
+                      id="searchInput" />
                     {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
                   </form>
                 </div>
-                {results.length > 0 && <div class="d-flex flex-column bg-light" style={{ marginTop: "10px", position: "absolute", zIndex: "10", width: "310px", maxHeight: "300px", overflowY: "scroll", padding: "8px" }}>
+                {/* {results.length > 0 && <div class="d-flex flex-column bg-light" style={{ marginTop: "10px", position: "absolute", zIndex: "10", width: "310px", maxHeight: "300px", overflowY: "scroll", padding: "8px" }}>
                   {results.map((item, id) => (
                     <div class="d-flex" style={{ marginBottom: "6px", width: "100%" }}>
                       <img src={item.hinhanh} width="100px" height="60px" alt="" />
                       <a href={"/detail/" + item.id_sp} class="btn btn-info" style={{ border: "none", backgroundColor: "white", color: "black", fontSize: "12px", textAlign: "left", fontWeight: "600" }}>{item.ten}</a>
                     </div>
                   ))}
-                </div>}
+                </div>} */}
               </label>
             </div>
           </div >
@@ -267,12 +288,12 @@ function Shop() {
                   </div>
                   <div className="product-right pr-0">
                     <div className="row">
-                      {data.map((item, i) => {
-                        const isSoldOut = item.soluong === 0;
-                        if (item.soluong !== 0) {
+                      {filteredProducts.length > 0 ? (
+                        filteredProducts.map((item, i) => {
                           return (
-                            <div key={i} className="col-lg-3 col-md-12 mb-4">
-                              <div className={`card ${isSoldOut ? 'sold-out' : ''}`} style={{ width: '' }}>
+                            <div key={i} className="col-lg-3 col-md-12 mb-4" >
+                              <div className="card" style={{ position: "relative", overflow: "hidden" }}>
+                                {item.soluong === 0 ? <div class="sold_out" >Hết hàng</div> : ""}
                                 <a href={`/detail/${item.id_sp}`}>
                                   <img
                                     src={item.hinhanh}
@@ -281,8 +302,8 @@ function Shop() {
                                     alt="..."
                                   />
                                 </a>
-                                <div className="card-body">
-                                  <div className="card-title" style={{ minHeight: '72px', fontSize: '16px' }}>
+                                <div className="card-body" style={{ borderTop: "1px solid #e5e7eb" }}>
+                                  <div className="card-title" style={{ minHeight: '96px', fontSize: '16px' }}>
                                     {item.ten}
                                   </div>
                                   <div className="card-title" style={{ fontSize: '16px' }}>
@@ -291,24 +312,60 @@ function Shop() {
                                   <a href={`/detail/${item.id_sp}`} className="btn btn-info" style={{ minWidth: '164px' }}>
                                     Chi tiết
                                   </a>
-                                  {!isSoldOut && (
-                                    <button onClick={() => { onAddToCartHandler(item) }} className="btn btn-success" style={{ minWidth: '164px' }}>
-                                      Thêm vào giỏ
-                                    </button>
-                                  )}
-                                  {isSoldOut && (
-                                    <button className="btn btn-danger disabled" style={{ minWidth: '164px' }}>
-                                      Hết hàng
-                                    </button>
-                                  )}
+                                  <button onClick={() => { onAddToCartHandler(item) }} className="btn btn-success" style={{ minWidth: '164px' }}>
+                                    Thêm vào giỏ
+                                  </button>
                                   {/* {isSoldOut && <div className="sold-out-label">Sold Out</div>} */}
                                 </div>
                               </div>
                             </div>
                           )
-                        }
-                      })}
-
+                          // }
+                        })
+                      ) : (
+                        data.map((item, i) => {
+                          // const isSoldOut = item.soluong === 0;
+                          // var soldOut = ""
+                          // if (item.soluong === 0) {
+                          //   soldOut = '<div class="sold_out" >Hết hàng</div>'
+                          // }
+                          // if (item.soluong !== 0) {
+                          return (
+                            item.anhien === 0 ?
+                              <div key={i} className={item.soluong === 0 ? 'col-lg-3 col-md-12 mb-4 sold_out_product' : 'col-lg-3 col-md-12 mb-4'}>
+                                <div className="card" style={{ position: "relative", overflow: "hidden" }}>
+                                  {/* <img src="http://www.savoy-sharm.com/media-room/images/hi-res/king-bed-room-accommodation-savoy-luxury-5-stars-accommodation-sharm-el-sheikh.jpg" alt="" /> */}
+                                  {item.soluong === 0 ? <div class="sold_out" >Tạm hết hàng</div> : ""}
+                                  <a href={`/detail/${item.id_sp}`}>
+                                    <img
+                                      src={item.hinhanh}
+                                      style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
+                                      className="card-img-top"
+                                      alt="..."
+                                    />
+                                  </a>
+                                  <div className="card-body" style={{ borderTop: "1px solid #e5e7eb" }}>
+                                    <div className="card-title" style={{ minHeight: '96px', fontSize: '16px' }}>
+                                      {item.ten}
+                                    </div>
+                                    <div className="card-title" style={{ fontSize: '16px' }}>
+                                      {item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                    </div>
+                                    <a href={`/detail/${item.id_sp}`} className="btn btn-info" style={{ minWidth: '164px' }}>
+                                      Chi tiết
+                                    </a>
+                                    <button onClick={() => { onAddToCartHandler(item) }} className={item.soluong === 0 ? "btn btn-success disabled" : "btn btn-success"} style={{ minWidth: '164px' }}>
+                                      Thêm vào giỏ
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              :
+                              ""
+                          )
+                          // }
+                        })
+                      )}
                       {/* <Pagination defaultCurrent={1} total={50} /> */}
                     </div>
                   </div>

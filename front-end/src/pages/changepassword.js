@@ -50,7 +50,7 @@ function ChangePassword(props) {
                 // Reset error message if the request is successful
                 setMessageError("");
                 setTimeout(() => {
-                    navigate("/success");
+                    navigate(`/userdetail/${localStorage.getItem("id_user")}`);
                 }, 1000);
             }
 
@@ -96,12 +96,16 @@ function ChangePassword(props) {
                                     </div>
                                     {messageError && <span style={{ color: "red" }}>{messageError}</span>}
                                 </div>
-                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" onClick={handleChangePassword}>Đổi mật khẩu</button></div>
+                                <div class="mt-5 text-center">
+                                    <button class="btn btn-danger profile-button" type="button" onClick={() => { navigate(`/userdetail/${localStorage.getItem("id_user")}`) }}>Hủy thay đổi</button>
+                                    <button style={{ margin: "0 15px" }}></button>
+                                    <button class="btn btn-success profile-button" type="button" onClick={handleChangePassword}>Đổi mật khẩu</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 ))}
-            </div>
+            </div >
         </>
     );
 }
