@@ -294,7 +294,7 @@ function Thongke(props) {
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
                             <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}>Thống kê</Menu.Item>
+                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                     </Menu>
                 </Sider>
             </Layout>
@@ -303,6 +303,7 @@ function Thongke(props) {
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                         <ul class="navbar-nav ml-auto">
                             <div class="topbar-divider d-none d-sm-block"></div>
+                            {/* <li class="nav-item dropdown no-arrow"> */}
                             <span
                                 class="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
@@ -324,9 +325,10 @@ function Thongke(props) {
                             </span>
                             {openProfile && <div className="flex flex-col" style={{ position: "absolute", top: "70px", right: "50px", width: "150px", padding: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
                                 <ul className="flex flex-col gap-4">
-                                    <li>Profile</li>
-                                    <li>Setting</li>
-                                    <li><span onClick={() => LogoutSubmit()}>Logout</span></li>
+                                    <li><span>Thông tin cá nhân</span></li>
+                                    <li><span onClick={() => navigate("/employee/index")}>Trang chủ Admin</span></li>
+                                    <li><span onClick={() => navigate("/")}>Trang chủ User</span></li>
+                                    <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
                                 </ul>
                             </div>}
                         </ul>

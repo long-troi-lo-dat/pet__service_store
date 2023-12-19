@@ -64,10 +64,6 @@ function AdminDichVu(props) {
                             <Menu.Item key='dichvu-1'><a href="/employee/adddichvu">Thêm mới</a></Menu.Item>
                             <Menu.Item key='dichvu-2'><a href="/employee/dichvu">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.SubMenu key="thucung" title="Thú cưng">
-                            <Menu.Item key='thucung-1'><a href="/employee/addthucung">Thêm mới</a></Menu.Item>
-                            <Menu.Item key='thucung-2'><a href="/employee/thucung">Danh sách</a></Menu.Item>
-                        </Menu.SubMenu>
                         <Menu.SubMenu key="sanpham" title="Sản phẩm">
                             <Menu.Item key='sanpham-1'><a href="/employee/addsanpham">Thêm mới</a></Menu.Item>
                             <Menu.Item key='sanpham-2'><a href="/employee/sanpham">Danh sách</a></Menu.Item>
@@ -85,7 +81,7 @@ function AdminDichVu(props) {
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
                             <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}>Thống kê</Menu.Item>
+                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                     </Menu>
                 </Sider>
             </Layout>
@@ -116,16 +112,17 @@ function AdminDichVu(props) {
                             </span>
                             {openProfile && <div className="flex flex-col" style={{ position: "absolute", top: "70px", right: "50px", width: "150px", padding: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
                                 <ul className="flex flex-col gap-4">
-                                    <li>Profile</li>
-                                    <li>Setting</li>
-                                    <li><span onClick={() => LogoutSubmit()}>Logout</span></li>
+                                    <li><span>Thông tin cá nhân</span></li>
+                                    <li><span onClick={() => navigate("/employee/index")}>Trang chủ Admin</span></li>
+                                    <li><span onClick={() => navigate("/")}>Trang chủ User</span></li>
+                                    <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
                                 </ul>
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid">
+                    <div class="container-fluid" style={{ fontSize: "15px" }}>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Danh sách dịch vụ</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Quản lý dịch vụ</h1>
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-body">
@@ -149,22 +146,24 @@ function AdminDichVu(props) {
                                             <tr>
                                                 <td>{item.id_dv}</td>
                                                 <td>{item.ten}</td>
-                                                <td>{item.gia}</td>
+                                                <td>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                                 <td>{item.mota}</td>
-                                                <td>
+                                                <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                     <button
-                                                        class="btn btn-danger btn-circle"
-                                                        data-toggle="modal"
-                                                        data-target="#logoutModal"
-                                                    >
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <button
-                                                        class="btn btn-info btn-circle"
+                                                        class="btn btn-danger"
                                                         data-toggle="modal"
                                                         data-target="#exampleModal"
+                                                        style={{ minWidth: "140px", fontSize: "13px" }}
                                                     >
-                                                        <i class="fas fa-info-circle"></i>
+                                                        Ẩn dịch vụ
+                                                    </button>
+                                                    <button
+                                                        class="btn btn-info"
+                                                        data-toggle="modal"
+                                                        data-target="#exampleModal"
+                                                        style={{ minWidth: "140px", fontSize: "13px" }}
+                                                    >
+                                                        Sửa dịch vụ
                                                     </button>
                                                 </td>
                                             </tr>

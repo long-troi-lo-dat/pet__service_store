@@ -7,6 +7,7 @@ import { Layout, Menu } from 'antd'
 import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
 import Dropdown from 'react-bootstrap/Dropdown';
+import { CSVLink } from "react-csv";
 import moment from "moment";
 import { Modal } from "react-bootstrap";
 import Chart from "react-apexcharts";
@@ -47,6 +48,7 @@ function AdminDatLich(props) {
         },
         series: [],
     });
+    const [stateDonHangChuaExport, setStateDonHangChuaExport] = useState([])
     const [stateTongTien, setStateTongTien] = useState({
         options: {
             chart: {
@@ -301,7 +303,7 @@ function AdminDatLich(props) {
         //         console.error("Error fetching data:", error);
         //     });
         axios
-            .get('http://localhost:8000/thongke/dichvu/nhanvien/chua/test')
+            .get('http://localhost:8000/thongke/dichvu/nhanvien/chua')
             .then((response) => {
                 const data = response.data;
 
@@ -365,12 +367,24 @@ function AdminDatLich(props) {
                     },
                     series: seriesData,
                 };
-
                 setStateDonHangChua(updatedState);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
+        // axios.get("http://localhost:8000/thongke/dichvu/nhanvien/chua/test")
+        //     .then(response => {
+        //         const data = response.data
+        //         const dataJson = data.json()
+        //         setStateDonHangChuaExport(dataJson)
+        //         console.log(stateDonHangChuaExport, "oasingoaisdgoiasgnoasdig")
+        //     })
+        const getDataDatLich = async () => {
+            const userreq = await fetch("http://localhost:8000/thongke/dichvu/nhanvien/chua")
+            const userres = await userreq.json()
+            setStateDonHangChuaExport(userres)
+        }
+        getDataDatLich()
         // axios.get("http://localhost:8000/thongke/dichvu/nhanvien/chua")
         //     .then(response => {
         //         const data = response.data;
@@ -486,7 +500,7 @@ function AdminDatLich(props) {
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
                             <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}>Thống kê</Menu.Item>
+                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                     </Menu>
                 </Sider>
             </Layout>
@@ -494,7 +508,6 @@ function AdminDatLich(props) {
                 <div id="content">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                         <ul class="navbar-nav ml-auto">
-
                             <div class="topbar-divider d-none d-sm-block"></div>
                             {/* <li class="nav-item dropdown no-arrow"> */}
                             <span
@@ -518,9 +531,10 @@ function AdminDatLich(props) {
                             </span>
                             {openProfile && <div className="flex flex-col" style={{ position: "absolute", top: "70px", right: "50px", width: "150px", padding: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
                                 <ul className="flex flex-col gap-4">
-                                    <li>Profile</li>
-                                    <li>Setting</li>
-                                    <li><span onClick={() => LogoutSubmit()}>Logout</span></li>
+                                    <li><span>Thông tin cá nhân</span></li>
+                                    <li><span onClick={() => navigate("/employee/index")}>Trang chủ Admin</span></li>
+                                    <li><span onClick={() => navigate("/")}>Trang chủ User</span></li>
+                                    <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
                                 </ul>
                             </div>}
                         </ul>
@@ -529,9 +543,10 @@ function AdminDatLich(props) {
                         <div class="col-xl-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê phân chia đơn hàng ngày {currentDay} của từng nhân viên</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê phân chia đơn hàng 10 ngày tới của từng nhân viên</h6>
                                 </div>
                                 <div class="card-body">
+                                    <CSVLink data={stateDonHangChuaExport} filename="thongke-donhang-10ngaytoi-nhanvien" className="btn btn-success">Xuất bảng excel</CSVLink>
                                     <Chart
                                         options={stateDonHangChua.options}
                                         series={stateDonHangChua.series}
@@ -544,7 +559,7 @@ function AdminDatLich(props) {
                         <div class="col-xl-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê đơn hàng đã hoàn thành của từng nhân viên</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê đơn hàng đã hoàn thành tháng 12 của từng nhân viên</h6>
                                 </div>
                                 <div class="card-body">
                                     <Chart
@@ -563,15 +578,15 @@ function AdminDatLich(props) {
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between mb-4">
+                                <div class="d-flex justify-content-around mb-4">
                                     {/* <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1> */}
-                                    <div class="col-4 d-flex justify-content-between">
+                                    <div class="col-5 d-flex justify-content-around">
                                         <button class="btn btn-primary" onClick={() => { chonlocdatlich("chuaphancong") }}>Chưa phân công</button>
                                         <button class="btn btn-primary" onClick={() => { chonlocdatlich("dangthuchien") }}>Đang thực hiện</button>
                                         <button class="btn btn-primary" onClick={() => { chonlocdatlich("dahoanthanh") }}>Đã hoàn thành</button>
                                     </div>
-
-                                    <div class="col-7 d-flex justify-content-between">
+                                    <div style={{ border: "1px solid #333" }}></div>
+                                    <div class="col-7 d-flex justify-content-around">
                                         <button class="btn" style={{ color: "white", backgroundColor: "rgb(0, 143, 251)" }} onClick={() => { chonlocdonhang(10) }}>Đậu Quang Thái</button>
                                         <button class="btn" style={{ color: "white", backgroundColor: "rgb(0, 227, 150)" }} onClick={() => { chonlocdonhang(11) }}>Tinh Hữu Từ</button>
                                         <button class="btn" style={{ color: "white", backgroundColor: "rgb(254, 176, 25)" }} onClick={() => { chonlocdonhang(12) }}>Ngô Tấn Biên</button>

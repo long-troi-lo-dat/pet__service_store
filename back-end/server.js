@@ -161,8 +161,20 @@ app.get('/AdminNguoiDung', (req, res) => {
     return res.json(data);
   });
 });
+app.get('/quanlynguoidung/:cate', (req, res) => {
+  const cate = req.params.cate
+  var cateText = "not vaitro=0"
+  if (cate == 0) {
+    cateText = "vaitro=0"
+  }
+  const sql = `SELECT * FROM nguoidung where ${cateText}`;
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
 app.get('/AdminDonHang', (req, res) => {
-  const sql = 'SELECT * FROM donhang where trangthai<4';
+  const sql = 'SELECT * FROM donhang where trangthai<4 order by ngaydat desc';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -176,7 +188,7 @@ app.get('/AdminDonHangThanhCong', (req, res) => {
   });
 });
 app.get('/AdminDatLich', (req, res) => {
-  const sql = 'SELECT * FROM donhangdichvu order by ngay desc , thoigian desc';
+  const sql = 'SELECT * FROM donhangdichvu where trangthai<3 order by ngay desc , thoigian desc';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -338,9 +350,9 @@ app.get('/thongke/dichvu/nhanvien/roi', (req, res) => {
   }
   )
 })
-app.get('/thongke/dichvu/nhanvien/chua/test', (req, res) => {
+app.get('/thongke/dichvu/nhanvien/chua', (req, res) => {
   // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
-  const sql = `SELECT nhanvien, Day(ngay) as ngaydat, COUNT(*) AS so_don_hang 
+  const sql = `SELECT MONTH(ngay) as thangdat, Day(ngay) as ngaydat,nhanvien, COUNT(*) AS so_don_hang 
   FROM donhangdichvu where trangthai<3
   GROUP BY nhanvien, Day(ngay) order by ngaydat`
   db.query(sql, (err, data) => {
@@ -351,26 +363,7 @@ app.get('/thongke/dichvu/nhanvien/chua/test', (req, res) => {
   }
   )
 })
-app.get('/thongke/dichvu/nhanvien/chua', (req, res) => {
-  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
-  const today = new Date();
-  const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
-  const sql = `
-    SELECT nhanvien, DAY(ngay) as ngaydat, MONTH(ngay) as thang, COUNT(*) AS so_don_hang
-    FROM donhangdichvu
-    WHERE trangthai < 3
-      AND ngay BETWEEN CURDATE() AND DATE_ADD(LAST_DAY(CURDATE()), INTERVAL 1 DAY)
-    GROUP BY nhanvien, ngay, thang;
-  `;
-  db.query(sql, (err, data) => {
-    if (err) {
-      return res.json(err)
-    }
-    return res.json(data)
-  }
-  )
-})
 
 app.get('/thongke/dichvu/tongtien', (req, res) => {
   // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
@@ -460,7 +453,7 @@ app.get('/xoadonhang', (req, res) => {
 });
 app.get('/detaildonhang', (req, res) => {
   const receivedData = req.query.data;
-  const sql = "SELECT donhangchitiet.id_dhct,donhangchitiet.id_sp,donhangchitiet.thanhtien,donhangchitiet.soluong,donhangchitiet.id_dh,sanpham.ten,sanpham.gia   FROM`donhangchitiet`   INNER JOIN `sanpham` ON donhangchitiet.id_sp = sanpham.id_sp   WHERE donhangchitiet.id_dh = ? ";
+  const sql = "SELECT donhangchitiet.id_dhct,sanpham.hinhanh,donhangchitiet.id_sp,donhangchitiet.thanhtien,donhangchitiet.soluong,donhangchitiet.id_dh,sanpham.ten,sanpham.gia   FROM`donhangchitiet`   INNER JOIN `sanpham` ON donhangchitiet.id_sp = sanpham.id_sp   WHERE donhangchitiet.id_dh = ? ";
   db.query(sql, [receivedData], (err, data) => {
     if (err) {
       return res.json(err);
@@ -469,7 +462,7 @@ app.get('/detaildonhang', (req, res) => {
   });
 });
 app.post('/adddichvu', (req, res) => {
-  const sql = "INSERT into `dichvu` (`ten`,`gia`,`mota`,`id_dm`) values (?,?,?,3)";
+  const sql = "INSERT into `dichvu` (`ten`,`gia`,`mota`) values (?,?,?)";
   const values = [
     req.body.ten,
     req.body.gia,
@@ -499,17 +492,18 @@ app.post('/addsanpham', (req, res) => {
     return res.json(data)
   })
 })
-app.post('/addthucung', (req, res) => {
-  const sql = "INSERT into `thucung` (`ten`,`gioitinh`,`id_gl`,`gia`,`dob`,`hinhanh`,`tiemphong`,`mota`,`id_dm`) values (?,?,?,?,?,?,?,?,1)";
+app.post('/addnguoidung', (req, res) => {
+  const sql = "INSERT into `nguoidung` (`hoTen`,`anhdaidien`,`sdt`,`email`,`matkhau`,`diachi`,`mota`,`chinhanh`,`vaitro`) values (?,?,?,?,?,?,?,?,?)";
   const values = [
-    req.body.ten,
-    req.body.gioitinh,
-    req.body.id_gl,
-    req.body.gia,
-    req.body.dob,
-    req.body.hinhanh,
-    req.body.tiemphong,
+    req.body.hoTen,
+    req.body.anhdaidien,
+    req.body.sdt,
+    req.body.email,
+    req.body.matkhau,
+    req.body.diachi,
     req.body.mota,
+    req.body.chinhanh,
+    req.body.vaitro
   ]
   db.query(sql, values, (err, data) => {
     if (err) {
@@ -528,10 +522,40 @@ app.get('/xoadichvu', (req, res) => {
     return res.json(data);
   });
 });
-app.get('/xoasanpham', (req, res) => {
-  const receivedData = req.query.id;
-  const sql = "DELETE FROM `sanpham` WHERE id = ?";
-  db.query(sql, [receivedData], (err, data) => {
+app.post('/ansanpham/:id', (req, res) => {
+  const receivedData = req.params.id;
+  const sql = "UPDATE `sanpham` SET `anhien`='1' WHERE id_sp=?";
+  db.query(sql, receivedData, (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.post('/hiensanpham/:id', (req, res) => {
+  const receivedData = req.params.id;
+  const sql = "UPDATE `sanpham` SET `anhien`='0' WHERE id_sp=?";
+  db.query(sql, receivedData, (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.post('/anbinhluan/:id', (req, res) => {
+  const receivedData = req.params.id;
+  const sql = "UPDATE `binhluan` SET `anHien`='1' WHERE id=?";
+  db.query(sql, receivedData, (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+app.post('/hienbinhluan/:id', (req, res) => {
+  const receivedData = req.params.id;
+  const sql = "UPDATE `binhluan` SET `anHien`='0' WHERE id=?";
+  db.query(sql, receivedData, (err, data) => {
     if (err) {
       return res.json(err);
     }
@@ -675,11 +699,22 @@ app.post('/login', (req, res) => {
     }
   });
 });
-
+app.get('/userdetailedit/:id', (req, res) => {
+  const id = req.params.id;
+  // const sql = "SELECT * FROM `nguoidung` WHERE id_user = ?";
+  const sql = "SELECT hoTen,anhdaidien,sdt,diachi FROM `nguoidung` WHERE id_user = ?";
+  db.query(sql, id, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
 app.get('/userdetail/:id', (req, res) => {
   const id = req.params.id;
-  const sql = "SELECT *FROM `nguoidung` WHERE id_user = ?";
-  db.query(sql, [id], (err, data) => {
+  // const sql = "SELECT * FROM `nguoidung` WHERE id_user = ?";
+  const sql = "SELECT * FROM `nguoidung` WHERE id_user = ?";
+  db.query(sql, id, (err, data) => {
     if (err) {
       return res.json(err)
     }
@@ -692,9 +727,8 @@ app.post('/updatethongtin', (req, res) => {
     req.body.anhdaidien,
     req.body.sdt,
     req.body.diachi,
-    req.body.id_user
   ]
-  const sql = `UPDATE nguoidung SET hoTen=?,anhdaidien=?,sdt=?,diachi=? WHERE id_user=?`;
+  const sql = `UPDATE nguoidung SET hoTen=?,anhdaidien=?,sdt=?,diachi=? WHERE id_user= ${req.body.id_user}`;
   db.query(sql, values, (err, data) => {
     if (err) {
       return res.json(err)
@@ -793,62 +827,8 @@ app.get('/detaildonhanguser', (req, res) => {
   });
 });
 
-// app.post('/bookingservice', (req, res) => {
-//   const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `email`, `ngay` ,`thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`,`tongtien`, `id_dichvu`, `id_user`,`id_chinhanh`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//   var giatien = 0;
-//   if (req.body.dichvu == 1) {
-//     giatien = 500000
-//   }
-//   else if (req.body.dichvu == 2) {
-//     giatien = 300000
-//   }
-//   else if (req.body.dichvu == 3) {
-//     giatien = 120000
-//   }
-//   else if (req.body.dichvu == 5) {
-//     giatien = 800000
-//   }
-//   else if (req.body.dichvu == 6) {
-//     giatien = 962000
-//   }
-//   else {
-//     giatien = 100000
-//   }
-//   const values = [
-//     req.body.hoten,
-//     req.body.sdt,
-//     req.body.email,
-//     req.body.ngay,
-//     req.body.thoigian,
-//     req.body.tenthucung,
-//     req.body.loai,
-//     req.body.thuocgiong,
-//     req.body.tuoi,
-//     req.body.trongluong,
-//     req.body.ghichu,
-//     giatien,
-//     req.body.dichvu,
-//     req.body.iduser,
-//     req.body.chinhanh
-//   ]
-//   db.query(sql, values, (err, data) => {
-//     if (err) {
-//       return res.json(err)
-//     }
-//     return res.json(data)
-//   })
-// })
-
 app.post('/bookingservice', (req, res) => {
-  const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `email`, `ngay` ,`thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`,`trangthai`,`tongtien`,`nhanvien`, `id_dichvu`, `id_user`,`id_chinhanh`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  const randomUserId = Math.floor(Math.random() * (37 - 22 + 1)) + 22;
-  const randomTrangThai = Math.floor(Math.random() * 4);
-  let randomNhanVien = 0;
-  if (req.body.chinhanh == 2) {
-    randomNhanVien = Math.floor(Math.random() * (12 - 10 + 1)) + 10;
-  } else if (req.body.chinhanh == 3) {
-    randomNhanVien = Math.floor(Math.random() * (14 - 13 + 1)) + 13;
-  }
+  const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `email`, `ngay` ,`thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`,`tongtien`, `id_dichvu`, `id_user`,`id_chinhanh`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   var giatien = 0;
   if (req.body.dichvu == 1) {
     giatien = 500000
@@ -880,11 +860,9 @@ app.post('/bookingservice', (req, res) => {
     req.body.tuoi,
     req.body.trongluong,
     req.body.ghichu,
-    randomTrangThai,
     giatien,
-    randomNhanVien,
     req.body.dichvu,
-    randomUserId,
+    req.body.iduser,
     req.body.chinhanh
   ]
   db.query(sql, values, (err, data) => {
@@ -894,6 +872,62 @@ app.post('/bookingservice', (req, res) => {
     return res.json(data)
   })
 })
+
+// app.post('/bookingservice', (req, res) => {
+//   const sql = "INSERT INTO `donhangdichvu` (`hoten`, `sodienthoai`, `email`, `ngay` ,`thoigian`, `tenthucung`, `loai`, `thuocgiong`, `sotuoi`, `trongluong`, `ghichu`,`trangthai`,`tongtien`,`nhanvien`, `id_dichvu`, `id_user`,`id_chinhanh`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//   const randomUserId = Math.floor(Math.random() * (37 - 22 + 1)) + 22;
+//   const randomTrangThai = Math.floor(Math.random() * 4);
+//   let randomNhanVien = 0;
+//   if (req.body.chinhanh == 2) {
+//     randomNhanVien = Math.floor(Math.random() * (12 - 10 + 1)) + 10;
+//   } else if (req.body.chinhanh == 3) {
+//     randomNhanVien = Math.floor(Math.random() * (14 - 13 + 1)) + 13;
+//   }
+//   var giatien = 0;
+//   if (req.body.dichvu == 1) {
+//     giatien = 500000
+//   }
+//   else if (req.body.dichvu == 2) {
+//     giatien = 300000
+//   }
+//   else if (req.body.dichvu == 3) {
+//     giatien = 120000
+//   }
+//   else if (req.body.dichvu == 5) {
+//     giatien = 800000
+//   }
+//   else if (req.body.dichvu == 6) {
+//     giatien = 962000
+//   }
+//   else {
+//     giatien = 100000
+//   }
+//   const values = [
+//     req.body.hoten,
+//     req.body.sdt,
+//     req.body.email,
+//     req.body.ngay,
+//     req.body.thoigian,
+//     req.body.tenthucung,
+//     req.body.loai,
+//     req.body.thuocgiong,
+//     req.body.tuoi,
+//     req.body.trongluong,
+//     req.body.ghichu,
+//     randomTrangThai,
+//     giatien,
+//     randomNhanVien,
+//     req.body.dichvu,
+//     randomUserId,
+//     req.body.chinhanh
+//   ]
+//   db.query(sql, values, (err, data) => {
+//     if (err) {
+//       return res.json(err)
+//     }
+//     return res.json(data)
+//   })
+// })
 app.get('/huydichvu', (req, res) => {
   const receivedData = req.query.id;
   const sql = "DELETE FROM `donhangdichvu` WHERE id = ?";
@@ -942,14 +976,14 @@ app.get('/xemdatlich', (req, res) => {
 app.post('/dathang', (req, res) => {
   const { hoten, sodienthoai, diachi, ghichu, id_user, cart } = req.body;
   const tongtien = cart.reduce((total, item) => total + item.gia * item.amount, 0)
-  const donhangSql = `INSERT INTO donhang (ten_nguoi_nhan, sdt_nguoi_nhan, diachi,tongtien, id_user,ghichu) VALUES (?, ?, ?, ?, ?, ?)`;
+  const donhangSql = `INSERT INTO donhang(ten_nguoi_nhan, sdt_nguoi_nhan, diachi, tongtien, id_user, ghichu) VALUES(?, ?, ?, ?, ?, ?)`;
   db.query(donhangSql, [hoten, sodienthoai, diachi, tongtien, id_user, ghichu], (err, result) => {
     if (err) {
       console.log("don hang")
       return res.json(err);
     } else {
       const madh = result.insertId;
-      const donhangchitietSql = `INSERT INTO donhangchitiet (id_dh, id_sp, soluong, thanhtien) VALUES ?`;
+      const donhangchitietSql = `INSERT INTO donhangchitiet(id_dh, id_sp, soluong, thanhtien) VALUES ? `;
       const thongtincanthiet = cart.map(item => [madh, item.id_sp, item.amount, item.gia * item.amount]);
       db.query(donhangchitietSql, [thongtincanthiet], (err, result) => {
         if (err) {
@@ -958,7 +992,7 @@ app.post('/dathang', (req, res) => {
           // res.status(500).json({ message: 'Internal Server Error' });
         } else {
           cart.forEach(item => {
-            const updateSanPhamSql = `UPDATE sanpham SET soluong = soluong - ? WHERE id_sp = ?`;
+            const updateSanPhamSql = `UPDATE sanpham SET soluong = soluong - ? WHERE id_sp = ? `;
             db.query(updateSanPhamSql, [item.amount, item.id_sp], (err, updateResult) => {
               if (err) {
                 console.error('Error updating product quantity:', err);
@@ -1060,37 +1094,37 @@ app.post('/forgot_password', (req, res) => {
     from: 'dghousepetshop115@gmail.com',
     to: email,
     subject: "DGHOUSE PET SHOP KHÔI PHỤC MẬT KHẨU",
-    html: `<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - OTP Email Template</title>
-  
+    html: `< !DOCTYPE html >
+    <html lang="en" >
+      <head>
+        <meta charset="UTF-8">
+          <title>CodePen - OTP Email Template</title>
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
-  <div style="margin:50px auto;width:70%;padding:20px 0">
-    <div style="border-bottom:1px solid #eee">
-      <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">DG House</a>
-    </div>
-    <p style="font-size:1.1em">Xin chào,</p>
-    <p>Cảm ơn bạn vì đã chọn DG House. Dùng mã OTP dưới đây để khôi phục lại mật khẩu của bạn. OTP sẽ tồn tại trong 5 phút</p>
-    <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
-    <p style="font-size:0.9em;">Trân trọng,<br />DG House</p>
-    <hr style="border:none;border-top:1px solid #eee" />
-    <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-      <p>DG House Inc</p>
-      <p>1600 Amphitheatre Parkway</p>
-      <p>California</p>
-    </div>
-  </div>
-</div>
-<!-- partial -->
-  
-</body>
-</html>`,
+
+      </head>
+      <body>
+        <!-- partial:index.partial.html -->
+        <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+          <div style="margin:50px auto;width:70%;padding:20px 0">
+            <div style="border-bottom:1px solid #eee">
+              <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">DG House</a>
+            </div>
+            <p style="font-size:1.1em">Xin chào,</p>
+            <p>Cảm ơn bạn vì đã chọn DG House. Dùng mã OTP dưới đây để khôi phục lại mật khẩu của bạn. OTP sẽ tồn tại trong 5 phút</p>
+            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
+            <p style="font-size:0.9em;">Trân trọng,<br />DG House</p>
+            <hr style="border:none;border-top:1px solid #eee" />
+            <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+              <p>DG House Inc</p>
+              <p>1600 Amphitheatre Parkway</p>
+              <p>California</p>
+            </div>
+          </div>
+        </div>
+        <!-- partial -->
+
+      </body>
+    </html>`,
   };
 
   try {
@@ -1130,7 +1164,7 @@ app.post('/verify-otp', (req, res) => {
 });
 
 app.post('/doimatkhau', (req, res) => {
-  const sql = `UPDATE nguoidung SET matkhau='${req.body.password}' WHERE email='${req.body.emailFromLocal}'`;
+  const sql = `UPDATE nguoidung SET matkhau = '${req.body.password}' WHERE email = '${req.body.emailFromLocal}'`;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err)

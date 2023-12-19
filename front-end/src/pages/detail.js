@@ -305,13 +305,16 @@ function Detail(props) {
                                                 {item.ten} <br />
                                             </h4>
                                             <div class="d-flex my-3">
-                                                <span class="text-muted">Còn lại {item.soluong} sản phẩm trong kho</span>
+                                                {item.soluong === 0 ?
+                                                    <span class="text-muted">Sản phẩm tạm hết hàng</span>
+                                                    :
+                                                    <span class="text-muted">Còn lại {item.soluong} sản phẩm trong kho</span>
+                                                }
                                                 {/* <span class="text-success ms-2">Trong kho</span> */}
                                             </div>
 
                                             <div class="mb-3">
                                                 <span class="h3">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
-                                                {/* <span class="h4 text-muted"> / một gói</span> */}
                                             </div>
 
                                             {/* <p className="h5">
@@ -343,20 +346,28 @@ function Detail(props) {
                                                 <option>Large</option>
                                             </select>
                                         </div> */}
-                                                <div class="col-md-4 col-6 mb-3">
-                                                    <label class="mb-2 d-block">Số lượng</label>
-                                                    <div class="input-group mb-3" style={{ width: "170px" }}>
-                                                        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-                                                            -
-                                                        </button>
-                                                        <input type="text" class="form-control text-center border border-secondary" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                                        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-                                                            +
-                                                        </button>
+                                                {item.soluong === 0 ?
+                                                    ""
+                                                    :
+                                                    <div class="col-md-4 col-6 mb-3">
+                                                        <label class="mb-2 d-block">Số lượng</label>
+                                                        <div class="input-group mb-3" style={{ width: "170px" }}>
+                                                            <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                                                -
+                                                            </button>
+                                                            <input type="text" class="form-control text-center border border-secondary" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                                                            <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                                                +
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                }
                                             </div>
-                                            <button class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Thêm vào giỏ hàng </button>
+                                            {item.soluong === 0 ?
+                                                <button class="btn btn-primary shadow-0 disabled"> <i class="me-1 fa fa-shopping-basket"></i> Sản phẩm tạm hết hàng </button>
+                                                :
+                                                <button class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Thêm vào giỏ hàng </button>
+                                            }
                                         </div>
                                     </main>
                                 </div>
@@ -504,75 +515,66 @@ function Detail(props) {
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         <div class="col mb-5">
                             <div class="card h-100">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src="https://www.petmart.vn/wp-content/uploads/2012/08/pate-cho-cho-nuoc-sot-vi-thit-ga-pedigree-pouch-chicken-300x300.jpg" alt="..." />
                                 <div class="card-body p-4">
                                     <div class="text-center">
-                                        <h5 class="fw-bolder">Fancy Product</h5>
-                                        $40.00 - $80.00
+                                        <h5 class="fw-bolder">Pate mozzi cho mèo</h5>
+                                        150.000đ
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col mb-5">
                             <div class="card h-100">
                                 <div class="badge bg-dark text-white position-absolute" style={{ top: "0.5rem", right: "0.5rem" }}>Sale</div>
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src="https://www.petmart.vn/wp-content/uploads/2019/04/pate-cho-cho-vi-thit-bo-tron-rau-cu-iris-chicken-beef-vegetable-300x300.jpg" alt="..." />
                                 <div class="card-body p-4">
                                     <div class="text-center">
-                                        <h5 class="fw-bolder">Special Item</h5>
-                                        <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <h5 class="fw-bolder">Pate Meowow cho mèo (3 vị)</h5>
+                                        {/* <div class="d-flex justify-content-center small text-warning mb-2">
                                             <div class="bi-star-fill"></div>
                                             <div class="bi-star-fill"></div>
                                             <div class="bi-star-fill"></div>
                                             <div class="bi-star-fill"></div>
                                             <div class="bi-star-fill"></div>
-                                        </div>
-                                        <span class="text-muted text-decoration-line-through">$20.00</span>
-                                        $18.00
+                                        </div> */}
+                                        150.000đ
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col mb-5">
                             <div class="card h-100">
                                 <div class="badge bg-dark text-white position-absolute" style={{ top: "0.5rem", right: "0.5rem" }}>Sale</div>
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src="https://www.petmart.vn/wp-content/uploads/2016/09/duong-long-cho-cho-poodle-vegebrand-poodle-hair-beauty-300x300.jpg" alt="..." />
                                 <div class="card-body p-4">
                                     <div class="text-center">
-                                        <h5 class="fw-bolder">Sale Item</h5>
-                                        <span class="text-muted text-decoration-line-through">$50.00</span>
-                                        $25.00
+                                        <h5 class="fw-bolder">Hạt Reflex cho mèo adult 1,5kg-Gà</h5>
+                                        527.000đ
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col mb-5">
                             <div class="card h-100">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src="https://www.petmart.vn/wp-content/uploads/2020/11/thuc-an-cho-cho-poodle-mkb-all-life-stages-formula-nutrition-300x300.jpg" alt="..." />
                                 <div class="card-body p-4">
                                     <div class="text-center">
-                                        <h5 class="fw-bolder">Popular Item</h5>
-                                        <div class="d-flex justify-content-center small text-warning mb-2">
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                        </div>
-                                        $40.00
+                                        <h5 class="fw-bolder">Hạt Royal Canin Hair&Skin 2kg</h5>
+                                        556.000đ
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>

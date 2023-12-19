@@ -51,6 +51,28 @@ function AdminSanPham(props) {
         filterProducts(value);
     };
 
+
+    const handleAnSp = (id) => {
+        axios.post(`http://localhost:8000/ansanpham/${id}`)
+            .then((response) => {
+                console.log("ẩn thành công")
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
+    const handleHienSp = (id) => {
+        axios.post(`http://localhost:8000/hiensanpham/${id}`)
+            .then((response) => {
+                console.log("hiện thành công")
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
+
     useEffect(() => {
         axios.get(`http://localhost:8000/userdetail/${id}`)
             .then((response) => {
@@ -92,10 +114,6 @@ function AdminSanPham(props) {
                             <Menu.Item key='dichvu-1'><a href="/employee/adddichvu">Thêm mới</a></Menu.Item>
                             <Menu.Item key='dichvu-2'><a href="/employee/dichvu">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.SubMenu key="thucung" title="Thú cưng">
-                            <Menu.Item key='thucung-1'><a href="/employee/addthucung">Thêm mới</a></Menu.Item>
-                            <Menu.Item key='thucung-2'><a href="/employee/thucung">Danh sách</a></Menu.Item>
-                        </Menu.SubMenu>
                         <Menu.SubMenu key="sanpham" title="Sản phẩm">
                             <Menu.Item key='sanpham-1'><a href="/employee/addsanpham">Thêm mới</a></Menu.Item>
                             <Menu.Item key='sanpham-2'><a href="/employee/sanpham">Danh sách</a></Menu.Item>
@@ -113,7 +131,7 @@ function AdminSanPham(props) {
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
                             <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}>Thống kê</Menu.Item>
+                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                     </Menu>
                 </Sider>
             </Layout>
@@ -121,8 +139,8 @@ function AdminSanPham(props) {
                 <div id="content">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                         <ul class="navbar-nav ml-auto">
-                            {/* <li class="nav-item dropdown no-arrow"> */}
                             <div class="topbar-divider d-none d-sm-block"></div>
+                            {/* <li class="nav-item dropdown no-arrow"> */}
                             <span
                                 class="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
@@ -144,19 +162,17 @@ function AdminSanPham(props) {
                             </span>
                             {openProfile && <div className="flex flex-col" style={{ position: "absolute", top: "70px", right: "50px", width: "150px", padding: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
                                 <ul className="flex flex-col gap-4">
-                                    <li>Profile</li>
-                                    <li>Setting</li>
-                                    <li><span onClick={() => LogoutSubmit()}>Logout</span></li>
+                                    <li><span>Thông tin cá nhân</span></li>
+                                    <li><span onClick={() => navigate("/employee/index")}>Trang chủ Admin</span></li>
+                                    <li><span onClick={() => navigate("/")}>Trang chủ User</span></li>
+                                    <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
                                 </ul>
                             </div>}
                         </ul>
                     </nav>
-                    {/* <div class="container-fluid">
-                       
-                    </div> */}
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Quản lý sản phẩm</h1>
                         </div>
 
                         <div class="card shadow mb-4">
@@ -184,7 +200,8 @@ function AdminSanPham(props) {
                                                 aria-describedby="basic-addon2"
                                                 value={searchInput}
                                                 onChange={handleChange}
-                                                id="searchInput" style={{
+                                                id="searchInput"
+                                                style={{
                                                     width: "400px"
                                                 }}
                                             />
@@ -209,6 +226,7 @@ function AdminSanPham(props) {
                                                 <th>Ngày thêm sp</th>
                                                 <th>SL còn</th>
                                                 <th>Mô tả</th>
+                                                <th>Ẩn / Hiện</th>
                                                 <th>Hành động</th>
                                             </tr>
                                         </thead>
@@ -222,22 +240,35 @@ function AdminSanPham(props) {
                                                     <td>{moment(item.ngaythem).format('DD/MM/YYYY')}</td>
                                                     <td>{item.soluong}</td>
                                                     <td>{item.mota}</td>
-                                                    <td style={{ maxWidth: "120.54px" }}>
-                                                        <button
-                                                            class="btn btn-danger"
-                                                            data-toggle="modal"
-                                                            data-target="#logoutModal"
-                                                            style={{ minWidth: "87.525px" }}
-                                                        >
-                                                            Ẩn
-                                                        </button>
+                                                    <td style={{ textAlign: "center", maxWidth: "154px", }}>
+                                                        {item.anhien === 0 ?
+                                                            <button
+                                                                class="btn btn-danger"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal"
+                                                                style={{ minWidth: "140px", fontSize: "13px" }}
+                                                                onClick={() => handleAnSp(item.id_sp)}
+                                                            >
+                                                                Ẩn sản phẩm
+                                                            </button>
+                                                            :
+                                                            <button
+                                                                class="btn btn-success"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal"
+                                                                style={{ minWidth: "140px", fontSize: "13px" }}
+                                                                onClick={() => handleHienSp(item.id_sp)}
+                                                            >
+                                                                Hiện sản phẩm
+                                                            </button>
+                                                        }
                                                         <button
                                                             class="btn btn-info"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
-                                                            style={{ minWidth: "87.525px" }}
+                                                            style={{ minWidth: "140px", fontSize: "13px" }}
                                                         >
-                                                            Sửa
+                                                            Sửa sản phẩm
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -261,6 +292,7 @@ function AdminSanPham(props) {
                                                 <th>Ngày thêm sp</th>
                                                 <th>SL còn</th>
                                                 <th>Mô tả</th>
+                                                <th>Ẩn / Hiện</th>
                                                 <th>Hành động</th>
                                             </tr>
                                         </thead>
@@ -274,22 +306,36 @@ function AdminSanPham(props) {
                                                     <td>{moment(item.ngaythem).format('DD/MM/YYYY')}</td>
                                                     <td>{item.soluong}</td>
                                                     <td>{item.mota}</td>
-                                                    <td style={{ maxWidth: "120.54px" }}>
-                                                        <button
-                                                            class="btn btn-danger"
-                                                            data-toggle="modal"
-                                                            data-target="#logoutModal"
-                                                            style={{ minWidth: "87.525px" }}
-                                                        >
-                                                            Ẩn
-                                                        </button>
+                                                    <td>{item.anhien === 0 ? "Đang hiện" : "Đang ẩn"}</td>
+                                                    <td style={{ textAlign: "center", maxWidth: "154px", }}>
+                                                        {item.anhien === 0 ?
+                                                            <button
+                                                                class="btn btn-danger"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal"
+                                                                style={{ minWidth: "140px", fontSize: "13px" }}
+                                                                onClick={() => handleAnSp(item.id_sp)}
+                                                            >
+                                                                Ẩn sản phẩm
+                                                            </button>
+                                                            :
+                                                            <button
+                                                                class="btn btn-success"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal"
+                                                                style={{ minWidth: "140px", fontSize: "13px" }}
+                                                                onClick={() => handleHienSp(item.id_sp)}
+                                                            >
+                                                                Hiện sản phẩm
+                                                            </button>
+                                                        }
                                                         <button
                                                             class="btn btn-info"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
-                                                            style={{ minWidth: "87.525px" }}
+                                                            style={{ minWidth: "140px", fontSize: "13px" }}
                                                         >
-                                                            Sửa
+                                                            Sửa sản phẩm
                                                         </button>
                                                     </td>
                                                 </tr>

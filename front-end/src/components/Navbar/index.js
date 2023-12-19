@@ -104,6 +104,7 @@ function Navbar({ setShowCart }) {
                   {openProfile && <div className="flex flex-col" style={{ color: "black", position: "absolute", top: "35px", right: "0px", width: "200px", paddingTop: "15px", paddingLeft: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
                     <ul className="flex flex-col gap-4">
                       <li><span onClick={() => { navigate(`/userdetail/${id}}`); setOpenProfile((prev) => !prev) }}>Thông tin tài khoản</span></li>
+                      {localStorage.getItem("vaitro") == 1 ? <li><span onClick={() => { navigate(`/employee/index`); setOpenProfile((prev) => !prev) }}>Trang admin</span></li> : ""}
                       <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
                     </ul>
                   </div>}

@@ -77,12 +77,14 @@ function AdminDonHang(props) {
         axios.get(`http://localhost:8000/detaildonhang?data=${e.currentTarget.id}`)
             .then((response) => {
                 setDataDonHangChiTiet(response.data);
+                console.log(dataDonHangChiTiet)
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
     };
     useEffect(() => {
+        console.log(dataDonHangChiTiet)
         axios.get(`http://localhost:8000/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
@@ -152,7 +154,7 @@ function AdminDonHang(props) {
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
                             <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}>Thống kê</Menu.Item>
+                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                     </Menu>
                 </Sider>
             </Layout>
@@ -183,9 +185,10 @@ function AdminDonHang(props) {
                             </span>
                             {openProfile && <div className="flex flex-col" style={{ position: "absolute", top: "70px", right: "50px", width: "150px", padding: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
                                 <ul className="flex flex-col gap-4">
-                                    <li>Profile</li>
-                                    <li>Setting</li>
-                                    <li><span onClick={() => LogoutSubmit()}>Logout</span></li>
+                                    <li><span>Thông tin cá nhân</span></li>
+                                    <li><span onClick={() => navigate("/employee/index")}>Trang chủ Admin</span></li>
+                                    <li><span onClick={() => navigate("/")}>Trang chủ User</span></li>
+                                    <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
                                 </ul>
                             </div>}
                         </ul>
@@ -373,6 +376,7 @@ function AdminDonHang(props) {
                         <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>Hình ảnh</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Mã sản phẩm</th>
                                 <th>Giá</th>
@@ -384,6 +388,7 @@ function AdminDonHang(props) {
                             {dataDonHangChiTiet.map((item, i) => (
                                 <tr>
                                     <td>{i + 1}</td>
+                                    <td><img src={item.hinhanh} alt="" width="100px" /></td>
                                     <td>{item.ten}</td>
                                     <td>{item.id_sp}</td>
                                     <td>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>

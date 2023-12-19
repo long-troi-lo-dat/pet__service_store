@@ -108,6 +108,14 @@ function UserDetail(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
+
+        axios.get(`http://localhost:8000/xemdathang?id=${id}`)
+            .then((response) => {
+                setDataCart(response.data)
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
     }, [id]);
 
 
@@ -201,7 +209,8 @@ function UserDetail(props) {
                                                             }
                                                         </td>
                                                     </tr>
-                                                )) :
+                                                ))
+                                                :
                                                 dataCart.map((item, i) => (
                                                     <tr>
                                                         <td>{item.id}</td>
