@@ -34,6 +34,7 @@ function Resetpassword() {
                             localStorage.setItem("vaitro", vaitro);
                             localStorage.setItem("id_user", id_user);
                             localStorage.setItem("login", "yes");
+                            navigate("/")
                         }
                     )
                     .catch(
