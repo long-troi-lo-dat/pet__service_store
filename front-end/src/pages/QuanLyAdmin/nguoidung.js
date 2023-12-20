@@ -33,6 +33,27 @@ function AdminNguoiDung(props) {
             });
     }
 
+    const handleVohieuhoa = (iduser) => {
+        axios.post(`http://localhost:8000/vohieuhoa/${iduser}`)
+            .then((response) => {
+                console.log("thanh cong")
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
+    const handleKichhoat = (iduser) => {
+        axios.post(`http://localhost:8000/kichhoat/${iduser}`)
+            .then((response) => {
+                console.log("thanh cong")
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }
+
     useEffect(() => {
         axios.get(`http://localhost:8000/userdetail/${id}`)
             .then((response) => {
@@ -73,10 +94,6 @@ function AdminNguoiDung(props) {
                             <Menu.Item key='dichvu-1'><a href="/employee/adddichvu">Thêm mới</a></Menu.Item>
                             <Menu.Item key='dichvu-2'><a href="/employee/dichvu">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.SubMenu key="thucung" title="Thú cưng">
-                            <Menu.Item key='thucung-1'><a href="/employee/addthucung">Thêm mới</a></Menu.Item>
-                            <Menu.Item key='thucung-2'><a href="/employee/thucung">Danh sách</a></Menu.Item>
-                        </Menu.SubMenu>
                         <Menu.SubMenu key="sanpham" title="Sản phẩm">
                             <Menu.Item key='sanpham-1'><a href="/employee/addsanpham">Thêm mới</a></Menu.Item>
                             <Menu.Item key='sanpham-2'><a href="/employee/sanpham">Danh sách</a></Menu.Item>
@@ -84,17 +101,36 @@ function AdminNguoiDung(props) {
                         <Menu.SubMenu key="binhluan" title="Bình luận">
                             <Menu.Item key='binhluan-1'><a href="/employee/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.SubMenu key="nguoidung" title="Người dùng">
-                            <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
-                            <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
-                        </Menu.SubMenu>
+                        {localStorage.getItem("vaitro") == 1 ?
+                            <Menu.SubMenu key="nguoidung" title="Người dùng">
+                                <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
+                                <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
+                            </Menu.SubMenu>
+                            :
+                            ""
+                        }
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
+                            {localStorage.getItem("vaitro") == 1 ?
+                                <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
+                                : localStorage.getItem("vaitro") == 2 ?
+                                    <Menu.Item key='donhang-2'><a href="/QuanLyChiNhanh/donhang">Danh sách</a></Menu.Item>
+                                    : <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
+                            }
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
-                            <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
+                            {localStorage.getItem("vaitro") == 1 ?
+                                <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
+                                : localStorage.getItem("vaitro") == 2 ?
+                                    <Menu.Item key='datlich-2'><a href="/QuanLyChiNhanh/datlich">Danh sách</a></Menu.Item>
+                                    : <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
+                            }
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
+                        {localStorage.getItem("vaitro") == 1 ?
+                            <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
+                            : localStorage.getItem("vaitro") == 2 ?
+                                <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/QuanLyChiNhanh/thongke">Thống kê</a></Menu.Item>
+                                : <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
+                        }
                     </Menu>
                 </Sider>
             </Layout>
@@ -159,6 +195,7 @@ function AdminNguoiDung(props) {
                                             <th>Số điện thoại</th>
                                             <th>Email</th>
                                             <th>Mô tả</th>
+                                            <th>Vô hiệu hóa</th>
                                             <th>Hành dộng</th>
                                         </tr>
                                     </thead>
@@ -170,15 +207,29 @@ function AdminNguoiDung(props) {
                                                 <td>{item.sdt}</td>
                                                 <td>{item.email}</td>
                                                 <td>{item.mota}</td>
+                                                <td>{item.vohieuhoa === 1 ? "Đang bị vô hiệu hóa" : "Không bị vô hiệu hóa"}</td>
                                                 <td style={{ textAlign: "center", maxWidth: "154px", }}>
-                                                    <button
-                                                        class="btn btn-danger"
-                                                        data-toggle="modal"
-                                                        data-target="#exampleModal"
-                                                        style={{ minWidth: "140px", fontSize: "13px" }}
-                                                    >
-                                                        Vô hiệu hóa
-                                                    </button>
+                                                    {item.vohieuhoa === 1 ?
+                                                        <button
+                                                            class="btn btn-success"
+                                                            data-toggle="modal"
+                                                            data-target="#exampleModal"
+                                                            style={{ minWidth: "140px", fontSize: "13px" }}
+                                                            onClick={() => handleKichhoat(item.id_user)}
+                                                        >
+                                                            Kích hoạt
+                                                        </button>
+                                                        :
+                                                        <button
+                                                            class="btn btn-danger"
+                                                            data-toggle="modal"
+                                                            data-target="#exampleModal"
+                                                            style={{ minWidth: "140px", fontSize: "13px" }}
+                                                            onClick={() => handleVohieuhoa(item.id_user)}
+                                                        >
+                                                            Vô hiệu hóa
+                                                        </button>
+                                                    }
                                                 </td>
                                             </tr>
                                         ))}

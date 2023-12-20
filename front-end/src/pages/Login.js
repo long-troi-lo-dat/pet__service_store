@@ -119,7 +119,7 @@ function Login(props) {
               navigate("/employee/index");
             } else if (user.vaitro === 2) {
               localStorage.setItem("chinhanh", user.chinhanh);
-              navigate("/QuanLyChiNhanh/index");
+              navigate("/employee/index");
             } else if (user.vaitro === 5) {
               localStorage.setItem("chinhanh", user.chinhanh);
               navigate("/NhanVienDichVu/index");

@@ -23,8 +23,6 @@ function AdminDatLich(props) {
     const [dataDatLich, setdataDatLich] = useState([])
     const [openProfile, setOpenProfile] = useState(false)
     const [dataCartDetail, setDataCartDetail] = useState([]);
-    const [dataNhanVien1, setdataNhanVien1] = useState([])
-    const [dataNhanVien2, setdataNhanVien2] = useState([])
     const [selectNhanVien, setSelectNhanVien] = useState([])
     const [stateDonHang, setStateDonHang] = useState({
         options: {
@@ -149,20 +147,6 @@ function AdminDatLich(props) {
         axios.get(`http://localhost:8000/AdminDatLich`)
             .then((response) => {
                 setdataDatLich(response.data);
-            })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
-        axios.get(`http://localhost:8000/nhanvienchinhanh2`)
-            .then((response) => {
-                setdataNhanVien1(response.data);
-            })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            });
-        axios.get(`http://localhost:8000/nhanvienchinhanh3`)
-            .then((response) => {
-                setdataNhanVien2(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
@@ -479,10 +463,6 @@ function AdminDatLich(props) {
                             <Menu.Item key='dichvu-1'><a href="/employee/adddichvu">Thêm mới</a></Menu.Item>
                             <Menu.Item key='dichvu-2'><a href="/employee/dichvu">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.SubMenu key="thucung" title="Thú cưng">
-                            <Menu.Item key='thucung-1'><a href="/employee/addthucung">Thêm mới</a></Menu.Item>
-                            <Menu.Item key='thucung-2'><a href="/employee/thucung">Danh sách</a></Menu.Item>
-                        </Menu.SubMenu>
                         <Menu.SubMenu key="sanpham" title="Sản phẩm">
                             <Menu.Item key='sanpham-1'><a href="/employee/addsanpham">Thêm mới</a></Menu.Item>
                             <Menu.Item key='sanpham-2'><a href="/employee/sanpham">Danh sách</a></Menu.Item>
@@ -490,17 +470,36 @@ function AdminDatLich(props) {
                         <Menu.SubMenu key="binhluan" title="Bình luận">
                             <Menu.Item key='binhluan-1'><a href="/employee/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        <Menu.SubMenu key="nguoidung" title="Người dùng">
-                            <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
-                            <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
-                        </Menu.SubMenu>
+                        {localStorage.getItem("vaitro") == 1 ?
+                            <Menu.SubMenu key="nguoidung" title="Người dùng">
+                                <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
+                                <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
+                            </Menu.SubMenu>
+                            :
+                            ""
+                        }
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
+                            {localStorage.getItem("vaitro") == 1 ?
+                                <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
+                                : localStorage.getItem("vaitro") == 2 ?
+                                    <Menu.Item key='donhang-2'><a href="/QuanLyChiNhanh/donhang">Danh sách</a></Menu.Item>
+                                    : <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
+                            }
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
-                            <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
+                            {localStorage.getItem("vaitro") == 1 ?
+                                <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
+                                : localStorage.getItem("vaitro") == 2 ?
+                                    <Menu.Item key='datlich-2'><a href="/QuanLyChiNhanh/datlich">Danh sách</a></Menu.Item>
+                                    : <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
+                            }
                         </Menu.SubMenu>
-                        <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
+                        {localStorage.getItem("vaitro") == 1 ?
+                            <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
+                            : localStorage.getItem("vaitro") == 2 ?
+                                <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/QuanLyChiNhanh/thongke">Thống kê</a></Menu.Item>
+                                : <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
+                        }
                     </Menu>
                 </Sider>
             </Layout>
@@ -693,7 +692,7 @@ function AdminDatLich(props) {
                                                 <td style={{ maxWidth: "160px" }}>
                                                     <button class="btn btn-info" data-toggle="modal"
                                                         data-target="#exampleModal" id={item.id} onClick={handleShow}
-                                                        style={{ fontSize: "13px", minWidth: "130px" }}
+                                                        style={{ fontSize: "13px", minWidth: "140px" }}
                                                     >
                                                         Xem đơn
                                                     </button>
@@ -702,7 +701,7 @@ function AdminDatLich(props) {
                                                         class="btn btn-success"
                                                         // onClick={NextStatus}
                                                         onClick={() => NextStatus(item.trangthai, item.id)}
-                                                        style={{ fontSize: "13px", minWidth: "130px" }}
+                                                        style={{ fontSize: "13px", minWidth: "140px" }}
                                                     >
                                                         {item.trangthai === 0
                                                             ? "Đã xác nhận"
@@ -717,7 +716,7 @@ function AdminDatLich(props) {
                                                         data-toggle="modal"
                                                         data-target="#logoutModal"
                                                         onClick={() => BackStatus(item.trangthai, item.id)}
-                                                        style={{ fontSize: "13px", minWidth: "130px" }}
+                                                        style={{ fontSize: "13px", minWidth: "140px" }}
                                                     >
                                                         Hoàn tác
                                                     </button>
