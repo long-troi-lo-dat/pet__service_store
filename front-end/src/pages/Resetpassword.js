@@ -28,9 +28,12 @@ function Resetpassword() {
                 axios.post('http://localhost:8000/login', { email: emailFromLocal, password: password })
                     .then(
                         res => {
-                            localStorage.setItem("vaitro", res.data[0].vaitro)
-                            localStorage.setItem("id_user", res.data[0].id_user)
-                            localStorage.setItem("login", "yes")
+                            const vaitro = res.data.vaitro;
+                            const id_user = res.data.id_user;
+
+                            localStorage.setItem("vaitro", vaitro);
+                            localStorage.setItem("id_user", id_user);
+                            localStorage.setItem("login", "yes");
                             navigate("/")
                         }
                     )
