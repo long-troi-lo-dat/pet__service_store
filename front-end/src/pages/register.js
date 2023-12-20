@@ -18,7 +18,10 @@ const initialFormData = {
 function Register(props) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialFormData);
-
+  const [listError, setListError] = useState("")
+  const [listError1, setListError1] = useState("")
+  const [listError2, setListError2] = useState("")
+  const [listError3, setListError3] = useState("")
   const [errors, setErrors] = useState({})
 
   const handleChangeInput = (event) => {
@@ -27,14 +30,32 @@ function Register(props) {
   };
 
   const handleRegisterSubmit = async (event) => {
-    // setErrors(validation(formData))
-
-    // const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
 
     const validateName = formData.hoten
     const validateSdt = formData.sdt
     const validateEmail = formData.email
     const validatePassword = formData.password
+
+    if (validateName == "") {
+      setListError("Không được để trống họ tên")
+    } else {
+      setListError("")
+    }
+    if (validateSdt == "") {
+      setListError1("Không được để trống số điện thoại")
+    } else {
+      setListError1("")
+    }
+    if (validateEmail == "") {
+      setListError2("Không được để trống email")
+    } else {
+      setListError2("")
+    }
+    if (validatePassword == "") {
+      setListError3("Không được để trống mật khẩu")
+    } else {
+      setListError3("")
+    }
 
     // if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && password_pattern.test(validatePassword)) {
     if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && validatePassword !== "") {
@@ -91,7 +112,8 @@ function Register(props) {
                 type="text"
                 onChange={handleChangeInput}
               />
-              {errors.hoten && <span className="text-danger">{errors.hoten}</span>}
+              {/* {errors.hoten && <span className="text-danger">{errors.hoten}</span>} */}
+              {listError && <span className="text-danger">{listError}</span>}
             </div>
 
             <div class="mb-4">
@@ -108,7 +130,8 @@ function Register(props) {
                 type="telephone"
                 onChange={handleChangeInput}
               />
-              {errors.sdt && <span className="text-danger">{errors.sdt}</span>}
+              {/* {errors.sdt && <span className="text-danger">{errors.sdt}</span>} */}
+              {listError1 && <span className="text-danger">{listError1}</span>}
             </div>
 
             <div class="mb-4">
@@ -125,7 +148,8 @@ function Register(props) {
                 type="email"
                 onChange={handleChangeInput}
               />
-              {errors.email && <span className="text-danger">{errors.email}</span>}
+              {/* {errors.email && <span className="text-danger">{errors.email}</span>} */}
+              {listError2 && <span className="text-danger">{listError2}</span>}
             </div>
 
             <div class="mb-4">
@@ -142,7 +166,8 @@ function Register(props) {
                 type="password"
                 onChange={handleChangeInput}
               />
-              {errors.password && <span className="text-danger">{errors.password}</span>}
+              {/* {errors.password && <span className="text-danger">{errors.password}</span>} */}
+              {listError3 && <span className="text-danger">{listError3}</span>}
             </div>
 
             <button
