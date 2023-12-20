@@ -35,9 +35,10 @@ import AdminDonHang from "../pages/QuanLyAdmin/donhang";
 import AdminDatLich from "../pages/QuanLyAdmin/datlich";
 import AdminNguoiDung from "../pages/QuanLyAdmin/nguoidung";
 
-import QuanLyChiNhanhIndex from "../pages/QuanLyChiNhanh/index"
+// import QuanLyChiNhanhIndex from "../pages/QuanLyChiNhanh/index"
 import QuanLyChiNhanhDonHang from "../pages/QuanLyChiNhanh/donhang";
 import QuanLyChiNhanhDatLich from "../pages/QuanLyChiNhanh/datlich";
+import ThongkeChinhanh from "../pages/QuanLyChiNhanh/thongke";
 
 import NhanVienDichVu from "../pages/QuanLyDichVu/index"
 import NhanVienDichVuDatLich from "../pages/QuanLyDichVu/datlich"
@@ -79,9 +80,10 @@ const publicRoutes = [
   { path: "/employee/datlich", component: AdminDatLich },
   { path: "/employee/nguoidung", component: AdminNguoiDung },
 
-  { path: "/QuanLyChiNhanh/index", component: QuanLyChiNhanhIndex },
+  // { path: "/employee/index", component: AdminIndex },
   { path: "/QuanLyChiNhanh/donhang", component: QuanLyChiNhanhDonHang },
   { path: "/QuanLyChiNhanh/datlich", component: QuanLyChiNhanhDatLich },
+  { path: "/QuanLyChiNhanh/thongke", component: ThongkeChinhanh },
 
   { path: "/NhanVienDichVu/index", component: NhanVienDichVu },
   { path: "/NhanVienDichVu/datlich", component: NhanVienDichVuDatLich },

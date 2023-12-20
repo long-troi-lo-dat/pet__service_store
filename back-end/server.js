@@ -173,6 +173,26 @@ app.get('/quanlynguoidung/:cate', (req, res) => {
     return res.json(data);
   });
 });
+app.post('/vohieuhoa/:iduser', (req, res) => {
+  const sql = `UPDATE nguoidung SET vohieuhoa=1 WHERE id_user= ${req.params.iduser}`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.post('/kichhoat/:iduser', (req, res) => {
+  const sql = `UPDATE nguoidung SET vohieuhoa=0 WHERE id_user= ${req.params.iduser}`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
 app.get('/AdminDonHang', (req, res) => {
   const sql = 'SELECT * FROM donhang where trangthai<4 order by ngaydat desc';
   db.query(sql, (err, data) => {
@@ -194,10 +214,16 @@ app.get('/AdminDatLich', (req, res) => {
     return res.json(data);
   });
 });
-app.get('/employee/nhanvien/:idnhanvien', (req, res) => {
-  const value = req.params.idnhanvien
-  const sql = 'SELECT * FROM donhangdichvu where nhanvien=? order by ngay desc , thoigian desc';
-  db.query(sql, value, (err, data) => {
+app.get('/AdminDatLich/:chinhanh', (req, res) => {
+  const sql = `SELECT * FROM donhangdichvu where trangthai<3 and id_chinhanh=${req.params.chinhanh} order by ngay desc , thoigian desc`;
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/nhanvien/:chinhanh/:idnhanvien', (req, res) => {
+  const sql = `SELECT * FROM donhangdichvu where nhanvien=${req.params.idnhanvien} and id_chinhanh=${req.params.chinhanh} order by ngay desc , thoigian desc`;
+  db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
@@ -226,24 +252,34 @@ app.get('/employee/datlich/dahoanthanh', (req, res) => {
     return res.json(data);
   });
 });
+app.get('/employee/nhanvien/:chinhanh/datlich/chuaphancong', (req, res) => {
+  const value = req.params.chinhanh
+  const sql = `SELECT * FROM donhangdichvu where nhanvien=1 and id_chinhanh=${req.params.chinhanh} order by ngay desc , thoigian desc`;
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/nhanvien/:chinhanh/datlich/dangthuchien', (req, res) => {
+  const value = req.params.chinhanh
+  const sql = `SELECT * FROM donhangdichvu where trangthai<3 and id_chinhanh=${req.params.chinhanh} order by ngay desc , thoigian desc`;
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+app.get('/employee/nhanvien/:chinhanh/datlich/dahoanthanh', (req, res) => {
+  const value = req.params.chinhanh
+  const sql = `SELECT * FROM donhangdichvu where trangthai=3 and id_chinhanh=${req.params.chinhanh} order by ngay desc , thoigian desc`;
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
 app.get('/ChiNhanh/DatLich', (req, res) => {
   const chinhanh = req.query.chinhanh
   const sql = 'SELECT * FROM donhangdichvu where id_chinhanh=? and not trangthai=3';
   db.query(sql, [chinhanh], (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-app.get('/nhanvienchinhanh2', (req, res) => {
-  const sql = 'SELECT * FROM nguoidung where id_chinhanh=2';
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-app.get('/nhanvienchinhanh3', (req, res) => {
-  const sql = 'SELECT * FROM nguoidung where id_chinhanh=3';
-  db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
@@ -267,7 +303,7 @@ app.get('/NhanVien/DichVu', (req, res) => {
 app.get('/NhanVien/DatLich', (req, res) => {
   const chinhanh = req.query.chinhanh
   const nhanvien = req.query.nhanvien
-  const sql = 'SELECT * FROM donhangdichvu where id_chinhanh=? and nhanvien=?';
+  const sql = 'SELECT * FROM donhangdichvu where id_chinhanh=? and nhanvien=? order by ngay desc , thoigian desc';
   db.query(sql, [chinhanh, nhanvien], (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -337,10 +373,57 @@ app.get('/thongke/donhang/dahoanthanh', (req, res) => {
   }
   )
 })
+app.get('/thongke/donhang/nhanvien/:nhanvien/dahoanthanh', (req, res) => {
+  const sql = `SELECT count(id) as donhangdahoanthanh FROM donhangdichvu WHERE trangthai=3 and nhanvien=${req.params.nhanvien}`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongke/donhang/nhanvien/:nhanvien/tongdanhthu', (req, res) => {
+  const sql = `SELECT SUM(tongtien) AS tong_tien_thang FROM donhangdichvu WHERE trangthai=3 and nhanvien=${req.params.nhanvien}`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
 app.get('/thongke/dichvu/nhanvien/roi', (req, res) => {
   // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
   const sql = `SELECT nhanvien, MONTH(ngay) as thang, COUNT(*) AS so_don_hang 
   FROM donhangdichvu where trangthai=3
+  GROUP BY nhanvien, MONTH(ngay)`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+
+app.get('/thongke/:chinhanh/dichvu/nhanvien/roi', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const sql = `SELECT nhanvien, MONTH(ngay) as thang, COUNT(*) AS so_don_hang 
+  FROM donhangdichvu where trangthai=3 and id_chinhanh=${req.params.chinhanh}
+  GROUP BY nhanvien, MONTH(ngay)`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongke/chinhanh/:chinhanh/dichvu/nhanvien/roi', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const sql = `SELECT nhanvien, MONTH(ngay) as thang, COUNT(*) AS so_don_hang 
+  FROM donhangdichvu where trangthai=3 and id_chinhanh=${req.params.chinhanh}
   GROUP BY nhanvien, MONTH(ngay)`
   db.query(sql, (err, data) => {
     if (err) {
@@ -364,11 +447,50 @@ app.get('/thongke/dichvu/nhanvien/chua', (req, res) => {
   )
 })
 
+app.get('/thongke/chinhanh/:chinhanh/dichvu/nhanvien/chua', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const sql = `SELECT MONTH(ngay) as thangdat, Day(ngay) as ngaydat,nhanvien, COUNT(*) AS so_don_hang 
+  FROM donhangdichvu where trangthai<3 and id_chinhanh=${req.params.chinhanh}
+  GROUP BY nhanvien, Day(ngay) order by ngaydat`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongke/chinhanh/dichvu/nhanvien/:nhanvien/chua', (req, res) => {
+  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
+  const sql = `SELECT MONTH(ngay) as thangdat, Day(ngay) as ngaydat,nhanvien, COUNT(*) AS so_don_hang 
+  FROM donhangdichvu where trangthai<3 and nhanvien=${req.params.nhanvien}
+  GROUP BY nhanvien, Day(ngay) order by ngaydat`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+
 
 app.get('/thongke/dichvu/tongtien', (req, res) => {
   // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
   const sql = `SELECT MONTH(ngay) as thang, SUM(tongtien) AS tong_tien_thang
   FROM donhangdichvu
+  GROUP BY MONTH(ngay)`
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err)
+    }
+    return res.json(data)
+  }
+  )
+})
+app.get('/thongke/dichvu/:chinhanh/tongtien', (req, res) => {
+  const sql = `SELECT MONTH(ngay) as thang, SUM(tongtien) AS tong_tien_thang
+  FROM donhangdichvu where id_chinhanh=${req.params.chinhanh}
   GROUP BY MONTH(ngay)`
   db.query(sql, (err, data) => {
     if (err) {
@@ -688,7 +810,13 @@ app.post('/login', (req, res) => {
       }
       if (passwordMatch === "true") {
         // Mật khẩu trùng khớp, trả về thông tin người dùng
-        return res.json(user);
+        if (user.vohieuhoa === 0) {
+          // Account is not disabled, return user information
+          return res.json(user);
+        } else {
+          // Account is disabled
+          return res.json({ error: `Tài khoản đã bị vô hiệu hóa! Vui lòng liên hệ 0901 660 002 để biết thêm thông tin chi tiết` });
+        }
       } else {
         // Mật khẩu không trùng khớp
         return res.json({ error: "Sai mật khẩu" });
@@ -699,6 +827,7 @@ app.post('/login', (req, res) => {
     }
   });
 });
+
 app.get('/userdetailedit/:id', (req, res) => {
   const id = req.params.id;
   // const sql = "SELECT * FROM `nguoidung` WHERE id_user = ?";

@@ -24,10 +24,10 @@ function Booking(props) {
         .post("http://localhost:8000/bookingservice", formData)
         .then((res) => {
           console.log(res.data);
-          // window.location.reload()
-          // setTimeout(() => {
-          //   navigate("/success");
-          // }, 1000);
+          window.location.reload()
+          setTimeout(() => {
+            navigate("/success");
+          }, 1000);
         })
         .catch((err) => console.log(err));
     } else {
