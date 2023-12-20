@@ -10,6 +10,16 @@ import { Menu, Pagination, Table } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const unLogin = () => toast.error('Vui lòng đăng nhập!!', {
+  position: "bottom-left",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+});
 const Notify = () => toast.success('Thêm vào giỏ hàng thành công', {
   position: "bottom-left",
   autoClose: 5000,
@@ -64,48 +74,13 @@ function Shop() {
     setSearchInput(value);
     filterProducts(value);
   };
-  // const onAddToCartHandler = (item) => {
-  //   if (cart.indexOf(item) !== -1) return null;
-  //   const arr = [...cart];
-  //   item.amount = 1;
-  //   arr.push(item);
-  //   setCart([...arr]);
-  // }
 
-  // const onAddToCartHandler = (item) => {
-  //   if (cart.some(cartItem => cartItem.id_sp === item.id_sp)) return null;
-  //   const updatedCart = [...cart, { ...item, amount: 1 }];
-  //   setCart(updatedCart);
-  // };
-
-  // const onAddToCartHandler = (item) => {
-  //   // Kiểm tra nếu sản phẩm có id_dm=6 và đã tồn tại trong cart, không thực hiện thêm mới
-  //   if (item.id_dm === 6 && cart.some(cartItem => cartItem.id_sp === item.id_sp)) {
-  //     console.error('Sản phẩm đã tồn tại trong giỏ hàng');
-  //     FailNotify()
-  //     return;
-  //   }
-
-  //   const updatedCart = cart.map(cartItem => {
-  //     if (cartItem.id_sp === item.id_sp) {
-  //       return { ...cartItem, amount: cartItem.amount + 1 };
-  //     }
-  //     return cartItem;
-  //   });
-
-  //   if (!updatedCart.some(cartItem => cartItem.id_sp === item.id_sp)) {
-  //     // Nếu sản phẩm chưa tồn tại trong cart, thêm mới với amount là 1
-  //     updatedCart.push({ ...item, amount: 1 });
-  //   }
-  //   Notify()
-
-  //   setCart(updatedCart);
-  // };
   const onAddToCartHandler = (item) => {
 
     if (localStorage.getItem('login') === 'no') {
       // Display a modal indicating that the user needs to log in
       // showLoginModal();
+      unLogin()
       return;
     }
 
