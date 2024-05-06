@@ -53,35 +53,25 @@ function Cart({ setShowCart, cart, setCart }) {
     setShowCart(false)
   }
 
-  // const thaydoisoluong = (sanpham, sl) => {
-  //   const idx = cart.indexOf(sanpham);
-  //   const arr = [...cart];
-  //   arr[idx].amount += sl
-  //   if (arr[idx].amount === 0) arr[idx].amount = 1;
-  //   setCart([...arr]);
-  // }
   const thaydoisoluong = (sanpham, sl) => {
     const idx = cart.indexOf(sanpham);
     const arr = [...cart];
 
-    // Check if the available quantity is greater than 0 before updating the amount
     if (sanpham.soluong > 0) {
       const updatedAmount = arr[idx].amount + sl;
 
-      // Ensure the amount is at least 1
       if (updatedAmount < 1) {
         arr[idx].amount = 1;
       } else if (updatedAmount <= sanpham.soluong) {
-        // Check if the updated amount does not exceed the available quantity
         arr[idx].amount = updatedAmount;
       } else {
         console.error('Số lượng vượt quá giới hạn');
-        quantityNotify(); // Assuming you have a quantityNotify function for notifications
+        quantityNotify();
         return;
       }
     } else {
       console.error('Sản phẩm đã hết hàng');
-      quantityNotify(); // Assuming you have a quantityNotify function for notifications
+      quantityNotify();
       return;
     }
 
@@ -108,7 +98,6 @@ function Cart({ setShowCart, cart, setCart }) {
         setTimeout(() => {
           navigate('/success')
         }, 400);
-        // Notify()
       })
       .catch((err) => console.log(err));
   };

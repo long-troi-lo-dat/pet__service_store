@@ -110,7 +110,8 @@ function Navbar({ setShowCart }) {
                   </div>}
                 </li>
                 {/* <CartButton setShowCart={setShowCart} /> */}
-                <button onClick={onShowCartHandler}><FiShoppingCart size={24} color="white" /></button>
+                {/* <button onClick={onShowCartHandler}><FiShoppingCart size={24} color="white" /></button> */}
+                <CartButton />
               </div>
             </div >
             <div

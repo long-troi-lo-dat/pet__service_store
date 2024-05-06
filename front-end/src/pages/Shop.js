@@ -251,9 +251,9 @@ function Shop() {
                         <Menu.Item key='dochoi-2'><button onClick={() => phanloaidanhmuc(1, 0, 100000)}>Dưới 100.000đ</button></Menu.Item>
                       </Menu.SubMenu>
                       <Menu.SubMenu key="phukien" title="Phụ kiện thú cưng">
-                        <Menu.Item key='phukien-0'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Tất cả phụ kiện</button></Menu.Item>
-                        <Menu.Item key='phukien-1'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Dưới 100.000đ</button></Menu.Item>
-                        <Menu.Item key='phukien-2'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Dưới 200.000đ</button></Menu.Item>
+                        <Menu.Item key='phukien-0'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Tất cả phụ kiện</button></Menu.Item>
+                        <Menu.Item key='phukien-1'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Dưới 100.000đ</button></Menu.Item>
+                        <Menu.Item key='phukien-2'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Dưới 200.000đ</button></Menu.Item>
                       </Menu.SubMenu>
                       <Menu.SubMenu key="chamsocsuckhoe" title="Chăm sóc sức khỏe">
                         <Menu.Item key='chamsocsuckhoe-1'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Thực phẩm chức năng</button></Menu.Item>

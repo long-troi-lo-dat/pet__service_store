@@ -809,9 +809,7 @@ app.post('/login', (req, res) => {
         passwordMatch = "false"
       }
       if (passwordMatch === "true") {
-        // Mật khẩu trùng khớp, trả về thông tin người dùng
         if (user.vohieuhoa === 0) {
-          // Account is not disabled, return user information
           return res.json(user);
         } else {
           // Account is disabled

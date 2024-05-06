@@ -1,16 +1,9 @@
 import React from 'react';
 import './style/service.css';
 import backgroundImg from "../assets/img/images-service/background.jpg";
-import img1 from "../assets/img/images-service/1.jpg"
-import img2 from "../assets/img/images-service/2.jpg"
-import img3 from "../assets/img/images-service/3.jpg"
-import img4 from "../assets/img/images-service/4.jpg"
-import img5 from "../assets/img/images-service/5.jpg"
-import img6 from "../assets/img/images-service/6.jpg"
-import img7 from "../assets/img/images-service/7.jpg"
-import img8 from "../assets/img/images-service/8.jpg"
-import img9 from "../assets/img/images-service/9.jpg"
 import Navbar from '../components/Navbar';
+import Cart from './cart';
+
 function Service(props) {
     return (
         <>
@@ -31,7 +24,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img1}
+                                    src={require("../assets/img/images-service/1.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
@@ -55,7 +48,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img2}
+                                    src={require("../assets/img/images-service/2.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
@@ -79,7 +72,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img3}
+                                    src={require("../assets/img/images-service/3.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
@@ -103,7 +96,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img4}
+                                    src={require("../assets/img/images-service/4.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
@@ -127,7 +120,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img5}
+                                    src={require("../assets/img/images-service/5.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
@@ -151,7 +144,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img7}
+                                    src={require("../assets/img/images-service/6.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
@@ -175,7 +168,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img6}
+                                    src={require("../assets/img/images-service/7.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
@@ -199,7 +192,7 @@ function Service(props) {
                         <div class="sv__littleprd1 mb-5">
                             <div class="sv__coverimg">
                                 <img
-                                    src={img8}
+                                    src={require("../assets/img/images-service/8.jpg")}
                                     alt=""
                                     class="w-full h-full"
                                 />
