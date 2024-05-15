@@ -22,7 +22,7 @@ const formBooking = {
 
 const GlobalState = ({ children }) => {
   const [shouldScroll, setShouldScroll] = useState(false);
-
+  const [cart, setCart] = useState([])
   const [formData, setFormData] = useState({ formBooking, iduser: iduser });
 
   const [addressFormData, setAddressFormData] = useState({
@@ -40,7 +40,9 @@ const GlobalState = ({ children }) => {
         shouldScroll,
         setShouldScroll,
         formData,
-        setFormData
+        setFormData,
+        cart,
+        setCart
       }}
     >
       {children}

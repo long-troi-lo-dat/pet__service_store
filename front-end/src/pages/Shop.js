@@ -9,6 +9,8 @@ import Navbar from "../components/Navbar";
 import { Menu, Pagination, Table } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
+import { GlobalContext } from "../Context";
 
 const unLogin = () => toast.error('Vui lòng đăng nhập!!', {
   position: "bottom-left",
@@ -52,10 +54,10 @@ const quantityNotify = () => toast.error('Số lượng còn lại của sản p
 });
 
 function Shop() {
+  const { cart, setCart } = useContext(GlobalContext)
   const [data, setData] = useState([]);
   const [input, setInput] = useState("")
   const [results, setResults] = useState([])
-  const [cart, setCart] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 
@@ -120,30 +122,6 @@ function Shop() {
     }
   };
 
-  // const fetchData = (value) => {
-  //   fetch("http://localhost:8000/shop")
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const results = json.filter((sp) => {
-  //         return value && sp && sp.ten && sp.ten.toLowerCase().includes(value)
-  //       })
-  //       setResults(results)
-  //     })
-  // }
-  // const handleChange = (value) => {
-  //   setInput(value)
-  //   fetchData(value)
-  // }
-
-  // const phanloai = (event) => {
-  //   axios.get(`http://localhost:8000/${event}`)
-  //     .then((response) => {
-  //       setData(response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.error('error fetching data :', error);
-  //     });
-  // }
   const phanloaidanhmuc = (category, detail, price) => {
     axios.get(`http://localhost:8000/shop/${category}/${detail}/${price}`)
       .then((response) => {
@@ -232,12 +210,12 @@ function Shop() {
                         <h3 style={{ margin: "0 20px", paddingBottom: "15px" }}>Danh mục</h3>
                       </div>
                       <Menu.SubMenu key="thucung" title="Thú cưng">
-                        <Menu.Item key='thucung-0'><button onClick={() => phanloaidanhmuc(6, 0, 0)}>Tất cả giống loài</button></Menu.Item>
-                        <Menu.Item key='thucung-1'><button onClick={() => phanloaidanhmuc(6, 1, 0)}>Alaska</button></Menu.Item>
-                        <Menu.Item key='thucung-2'><button onClick={() => phanloaidanhmuc(6, 2, 0)}>Pug</button></Menu.Item>
-                        <Menu.Item key='thucung-3'><button onClick={() => phanloaidanhmuc(6, 3, 0)}>Shiba</button></Menu.Item>
-                        <Menu.Item key='thucung-4'><button onClick={() => phanloaidanhmuc(6, 4, 0)}>Poodle</button></Menu.Item>
-                        <Menu.Item key='thucung-5'><button onClick={() => phanloaidanhmuc(6, 5, 0)}>Samoyed</button></Menu.Item>
+                        <Menu.Item key='thucung-0'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Tất cả giống loài</button></Menu.Item>
+                        <Menu.Item key='thucung-1'><button onClick={() => phanloaidanhmuc(1, 1, 0)}>Phốc sóc</button></Menu.Item>
+                        <Menu.Item key='thucung-2'><button onClick={() => phanloaidanhmuc(1, 2, 0)}>Corgi chân lùn</button></Menu.Item>
+                        <Menu.Item key='thucung-3'><button onClick={() => phanloaidanhmuc(1, 3, 0)}>Alasa</button></Menu.Item>
+                        <Menu.Item key='thucung-4'><button onClick={() => phanloaidanhmuc(1, 4, 0)}>Shiba</button></Menu.Item>
+                        <Menu.Item key='thucung-5'><button onClick={() => phanloaidanhmuc(1, 5, 0)}>Husky</button></Menu.Item>
                       </Menu.SubMenu>
                       <Menu.SubMenu key="thucan" title="Thức ăn">
                         <Menu.Item key='thucan-0'><button onClick={() => phanloaidanhmuc(2, 0, 0)}>Tất cả thức ăn</button></Menu.Item>
@@ -245,19 +223,18 @@ function Shop() {
                         <Menu.Item key='thucan-2'><button onClick={() => phanloaidanhmuc(2, 0, 200000)}>Dưới 200.000đ</button></Menu.Item>
                         <Menu.Item key='thucan-3'><button onClick={() => phanloaidanhmuc(2, 0, 300000)}>Trên 200.000đ</button></Menu.Item>
                       </Menu.SubMenu>
-                      <Menu.SubMenu key="dochoi" title="Đồ chơi">
-                        <Menu.Item key='dochoi-0'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Tất cả đồ chơi</button></Menu.Item>
-                        <Menu.Item key='dochoi-1'><button onClick={() => phanloaidanhmuc(1, 0, 50000)}>Dưới 50.000đ</button></Menu.Item>
-                        <Menu.Item key='dochoi-2'><button onClick={() => phanloaidanhmuc(1, 0, 100000)}>Dưới 100.000đ</button></Menu.Item>
-                      </Menu.SubMenu>
-                      <Menu.SubMenu key="phukien" title="Phụ kiện thú cưng">
-                        <Menu.Item key='phukien-0'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Tất cả phụ kiện</button></Menu.Item>
-                        <Menu.Item key='phukien-1'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Dưới 100.000đ</button></Menu.Item>
-                        <Menu.Item key='phukien-2'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Dưới 200.000đ</button></Menu.Item>
-                      </Menu.SubMenu>
                       <Menu.SubMenu key="chamsocsuckhoe" title="Chăm sóc sức khỏe">
-                        <Menu.Item key='chamsocsuckhoe-1'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Thực phẩm chức năng</button></Menu.Item>
-                        <Menu.Item key='chamsocsuckhoe-2'><button onClick={() => phanloaidanhmuc(5, 0, 0)}>Sản phẩm điều trị</button></Menu.Item>
+                        <Menu.Item key='chamsocsuckhoe-1'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Dinh dưỡng</button></Menu.Item>
+                      </Menu.SubMenu>
+                      <Menu.SubMenu key="phukien" title="Phụ kiện">
+                        <Menu.Item key='phukien-0'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Tất cả phụ kiện</button></Menu.Item>
+                        <Menu.Item key='phukien-1'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Dưới 100.000đ</button></Menu.Item>
+                        <Menu.Item key='phukien-2'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Dưới 200.000đ</button></Menu.Item>
+                      </Menu.SubMenu>
+                      <Menu.SubMenu key="dochoi" title="Đồ chơi">
+                        <Menu.Item key='dochoi-0'><button onClick={() => phanloaidanhmuc(5, 0, 0)}>Tất cả đồ chơi</button></Menu.Item>
+                        <Menu.Item key='dochoi-5'><button onClick={() => phanloaidanhmuc(5, 0, 50000)}>Dưới 50.000đ</button></Menu.Item>
+                        <Menu.Item key='dochoi-2'><button onClick={() => phanloaidanhmuc(5, 0, 100000)}>Dưới 100.000đ</button></Menu.Item>
                       </Menu.SubMenu>
                     </Menu>
                   </div>
@@ -271,7 +248,7 @@ function Shop() {
                                 {item.soluong === 0 ? <div class="sold_out" >Hết hàng</div> : ""}
                                 <a href={`/detail/${item.id_sp}`}>
                                   <img
-                                    src={item.hinhanh}
+                                    src={`${process.env.REACT_APP_URL_API_LOCAL}/${item.hinhanh}.webp`}
                                     style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
                                     className="card-img-top"
                                     alt="..."
@@ -313,7 +290,7 @@ function Shop() {
                                   {item.soluong === 0 ? <div class="sold_out" >Tạm hết hàng</div> : ""}
                                   <a href={`/detail/${item.id_sp}`}>
                                     <img
-                                      src={item.hinhanh}
+                                      src={`${process.env.REACT_APP_URL_API_LOCAL}/${item.hinhanh}.webp`}
                                       style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
                                       className="card-img-top"
                                       alt="..."
@@ -346,9 +323,6 @@ function Shop() {
                   </div>
                 </>
               )
-            }
-            {isShowCart &&
-              <Cart setShowCart={setShowCart} cart={cart} setCart={setCart} />
             }
             <ToastContainer
               position="bottom-left"

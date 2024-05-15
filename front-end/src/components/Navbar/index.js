@@ -15,9 +15,6 @@ import Shop from "../../pages/Shop";
 import CartButton from "../../pages/CartButton";
 
 function Navbar({ setShowCart }) {
-  const onShowCartHandler = () => {
-    setShowCart(true)
-  }
   const { setShouldScroll } = useContext(GlobalContext);
   const navLinkStyle = {
     fontFamily: "Montserrat, sans-serif",
@@ -109,9 +106,10 @@ function Navbar({ setShowCart }) {
                     </ul>
                   </div>}
                 </li>
+                <Link to="/cart"><FiShoppingCart size={24} color="white" /></Link>
                 {/* <CartButton setShowCart={setShowCart} /> */}
                 {/* <button onClick={onShowCartHandler}><FiShoppingCart size={24} color="white" /></button> */}
-                <CartButton />
+                {/* <CartButton /> */}
               </div>
             </div >
             <div

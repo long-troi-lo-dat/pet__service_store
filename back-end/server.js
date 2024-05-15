@@ -19,6 +19,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('./images'))
 
 
 app.use("/api", route)
@@ -30,7 +31,7 @@ app.get('/', (re, res) => {
 //api crud
 //api shop
 app.get('/shop', (req, res) => {
-  const sql = 'SELECT * FROM sanpham ORDER BY id_dm ASC, ngaythem DESC ';
+  const sql = 'SELECT * FROM sanpham ORDER BY id_dm DESC, ngaythem DESC ';
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -1218,7 +1219,7 @@ app.post('/forgot_password', (req, res) => {
 
   // Send OTP via email
   const mailOptions = {
-    from: 'dghousepetshop115@gmail.com',
+    from: 'Dghousepetshop115@gmail.com',
     to: email,
     subject: "DGHOUSE PET SHOP KHÔI PHỤC MẬT KHẨU",
     html: `< !DOCTYPE html >

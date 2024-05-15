@@ -63,7 +63,6 @@ function Detail(props) {
         axios.get(`http://localhost:8000/detail/${id}`)
             .then((response) => {
                 setDataDetail(response.data);
-                console.log(response.data,"aosdngoaisdngoiadngoasidngoasidgnod")
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
