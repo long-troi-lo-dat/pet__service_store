@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import "../assets/css/shop.css";
-// import "../assets/css/global.css";
 import "../assets/css/shop2.css"
-// import img1 from "../assets/img_pet/4.jpg";
 import axios from "axios";
-import Cart from "./cart";
 import Navbar from "../components/Navbar";
-import { Menu, Pagination, Table } from 'antd';
+import { Menu } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from "react";

@@ -18,7 +18,6 @@ import Notfound from "../pages/notfound";
 import UserDetail from "../pages/userdetail";
 import UserDetailEdit from "../pages/userdetailedit";
 import ChangePassword from "../pages/changepassword";
-import DetailPet from "../pages/detailpet";
 
 // import adminDonHang from "../pages/QuanLyAdmin/qldonhang";
 import Thongke from "../pages/QuanLyAdmin/thongke";
@@ -58,7 +57,6 @@ const publicRoutes = [
   { path: "/Resetpassword", component: Resetpassword },
   { path: "/register", component: Register },
   { path: "/detail/:id", component: Detail },
-  { path: "/detailpet/:id", component: DetailPet },
   { path: "/cart", component: Cart },
   { path: "/success", component: Success },
   { path: "/userdetail/:id", component: UserDetail },

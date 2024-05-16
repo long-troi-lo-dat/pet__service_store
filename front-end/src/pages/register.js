@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "../assets/css/register.css";
 import "../assets/css/global.css";
-import logoRegister from "../assets/img/image-register.png";
 import logoRegisterfun from "../assets/img/dangky.png";
 import { useNavigate } from "react-router-dom";
-import validation from "../components/Validate/registervalidate";
 import axios from 'axios'
 import Navbar from "../components/Navbar";
 
@@ -22,7 +20,6 @@ function Register(props) {
   const [listError1, setListError1] = useState("")
   const [listError2, setListError2] = useState("")
   const [listError3, setListError3] = useState("")
-  const [errors, setErrors] = useState({})
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -36,28 +33,27 @@ function Register(props) {
     const validateEmail = formData.email
     const validatePassword = formData.password
 
-    if (validateName == "") {
+    if (validateName === "") {
       setListError("Không được để trống họ tên")
     } else {
       setListError("")
     }
-    if (validateSdt == "") {
+    if (validateSdt === "") {
       setListError1("Không được để trống số điện thoại")
     } else {
       setListError1("")
     }
-    if (validateEmail == "") {
+    if (validateEmail === "") {
       setListError2("Không được để trống email")
     } else {
       setListError2("")
     }
-    if (validatePassword == "") {
+    if (validatePassword === "") {
       setListError3("Không được để trống mật khẩu")
     } else {
       setListError3("")
     }
 
-    // if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && password_pattern.test(validatePassword)) {
     if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && validatePassword !== "") {
       await axios.post('http://localhost:8000/signup', formData)
         .then(

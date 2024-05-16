@@ -74,7 +74,7 @@ function Detail(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-    }, []);
+    }, [id]);
 
     // var randomImage = imageUserComment[Math.floor(Math.random() * imageUserComment.length)];
     return (
@@ -226,7 +226,7 @@ function Detail(props) {
                                 <div class="row gx-5">
                                     <aside class="col-lg-6">
                                         <div class="rounded-4 mb-3 d-flex justify-content-center">
-                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={item.hinhanh} alt="" />
+                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={process.env.REACT_APP_URL_API_LOCAL + "/" + item.hinhanh + ".webp"} alt="" />
                                         </div>
                                     </aside>
                                     <main class="col-lg-6">
@@ -430,13 +430,11 @@ function Detail(props) {
                                             </div> */}
                                         <div className=''>
                                             {dataBinhLuan.map((bl, i) => {
-                                                // Chọn ngẫu nhiên một index từ 0 đến độ dài của mảng imageUserComment
                                                 const randomIndex = Math.floor(Math.random() * imageUserComment.length);
-                                                // Lấy ảnh đại diện tương ứng với index đã chọn
                                                 const randomAvatar = imageUserComment[randomIndex];
 
                                                 return (
-                                                    <div className="border" style={{ display: "flex", padding: "10px", lineHeight: "80px", marginBottom: "5px" }}>
+                                                    <div key={bl.id} className="border" style={{ display: "flex", padding: "10px", lineHeight: "80px", marginBottom: "5px" }}>
                                                         <div style={{ marginRight: "15px" }}>
                                                             <img src={randomAvatar} alt="" style={{ maxWidth: "50px" }} />
                                                         </div>
@@ -452,60 +450,6 @@ function Detail(props) {
                                 </div>
                             </div>
                         </div>
-                        {/* <div class="col-lg-4">
-                            <div class="px-0 border rounded-2 shadow-0">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Similar items</h5>
-                                        <div class="d-flex mb-3">
-                                            <a href="#" class="me-3">
-                                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/8.webp" style={{ minWidth: "96px", height: "96px" }} class="img-md img-thumbnail" />
-                                            </a>
-                                            <div class="info">
-                                                <a href="#" class="nav-link mb-1">
-                                                    Rucksack Backpack Large <br />
-                                                    Line Mounts
-                                                </a>
-                                                <strong class="text-dark"> $38.90</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mb-3">
-                                            <a href="#" class="me-3">
-                                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/9.webp" style={{ minWidth: "96px", height: "96px" }} class="img-md img-thumbnail" />
-                                            </a>
-                                            <div class="info">
-                                                <a href="#" class="nav-link mb-1">
-                                                    Summer New Men's Denim <br />
-                                                    Jeans Shorts
-                                                </a>
-                                                <strong class="text-dark"> $29.50</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mb-3">
-                                            <a href="#" class="me-3">
-                                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp" style={{ minWidth: "96px", height: "96px" }} class="img-md img-thumbnail" />
-                                            </a>
-                                            <div class="info">
-                                                <a href="#" class="nav-link mb-1"> T-shirts with multiple colors, for men and lady </a>
-                                                <strong class="text-dark"> $120.00</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex">
-                                            <a href="#" class="me-3">
-                                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/11.webp" style={{ minWidth: "96px", height: "96px" }} class="img-md img-thumbnail" />
-                                            </a>
-                                            <div class="info">
-                                                <a href="#" class="nav-link mb-1"> Blazer Suit Dress Jacket for Men, Blue color </a>
-                                                <strong class="text-dark"> $339.90</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </section >
@@ -523,7 +467,7 @@ function Detail(props) {
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>
@@ -545,7 +489,7 @@ function Detail(props) {
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>
@@ -560,7 +504,7 @@ function Detail(props) {
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>
@@ -574,7 +518,7 @@ function Detail(props) {
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Xem chi tiết</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/#">Xem chi tiết</a></div>
                                 </div>
                             </div>
                         </div>

@@ -8,16 +8,16 @@ import Navbar from '../components/Navbar';
 import { useContext } from 'react';
 import { GlobalContext } from '../Context';
 
-const Notify = () => toast.success('Đặt hàng thành công', {
-  position: "bottom-left",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: "light",
-});
+// const Notify = () => toast.success('Đặt hàng thành công', {
+//   position: "bottom-left",
+//   autoClose: 5000,
+//   hideProgressBar: false,
+//   closeOnClick: true,
+//   pauseOnHover: true,
+//   draggable: true,
+//   progress: undefined,
+//   theme: "light",
+// });
 
 const quantityNotify = () => toast.error('Số lượng còn lại của sản phẩm không đủ', {
   position: "bottom-left",
@@ -38,7 +38,6 @@ function Cart() {
     hoten: "",
     sodienthoai: "",
     diachi: "",
-    // tongtien: cart.reduce((total, item) => total + item.gia * item.amount, 0),
     ghichu: "",
     id_user: localStorage.getItem("id_user"),
     cart: cart
@@ -53,7 +52,7 @@ function Cart() {
 
   useEffect(() => {
     tinhtongtien()
-  }, [cart])
+  }, [])
 
   const thaydoisoluong = (sanpham, sl) => {
     const idx = cart.indexOf(sanpham);

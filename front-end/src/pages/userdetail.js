@@ -15,14 +15,10 @@ function UserDetail(props) {
     const [dataCartDetail, setDataCartDetail] = useState([]);
     const [dataBookingDetail, setDataBookingDetail] = useState([]);
 
-    // const handleCloseConfirm = () => setConfirm(false);
     const navigate = useNavigate();
 
 
     let tong = 0;
-    const mappedArray = dataCartDetail.map((item, i) => {
-        tong += item.thanhtien
-    })
 
     const handleShowCartConfirm = (e) => {
         setConfirm(true)

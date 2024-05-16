@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
-// import notFound from "../assets/img/404notfound.png"
-function Notfound(props) {
+
+function Notfound() {
     return (
         <>
             <Navbar />
