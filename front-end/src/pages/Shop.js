@@ -128,7 +128,7 @@ function Shop() {
       });
   }
   useEffect(() => {
-    console.log(cart);
+    console.log(cart, "cart");
 
     axios.get(`/shop`)
       .then((response) => {
@@ -244,7 +244,7 @@ function Shop() {
                                 {item.soluong === 0 ? <div class="sold_out" >Hết hàng</div> : ""}
                                 <a href={`/detail/${item.id_sp}`}>
                                   <img
-                                    src={`/${item.hinhanh}.webp`}
+                                    src={`${process.env.REACT_APP_URL_API}/${item.hinhanh}.webp`}
                                     style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
                                     className="card-img-top"
                                     alt="..."
@@ -286,7 +286,7 @@ function Shop() {
                                   {item.soluong === 0 ? <div class="sold_out" >Tạm hết hàng</div> : ""}
                                   <a href={`/detail/${item.id_sp}`}>
                                     <img
-                                      src={`/${item.hinhanh}.webp`}
+                                      src={`${process.env.REACT_APP_URL_API}/${item.hinhanh}.webp`}
                                       style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
                                       className="card-img-top"
                                       alt="..."

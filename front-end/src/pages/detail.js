@@ -226,7 +226,7 @@ function Detail(props) {
                                 <div class="row gx-5">
                                     <aside class="col-lg-6">
                                         <div class="rounded-4 mb-3 d-flex justify-content-center">
-                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={process.env.REACT_APP_URL_API_LOCAL + "/" + item.hinhanh + ".webp"} alt="" />
+                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={process.env.REACT_APP_URL_API + "/" + item.hinhanh + ".webp"} alt="" />
                                         </div>
                                     </aside>
                                     <main class="col-lg-6">
@@ -296,7 +296,7 @@ function Detail(props) {
                                 <div class="row gx-5" style={{}}>
                                     <aside class="col-lg-6">
                                         <div class="rounded-4 mb-3 d-flex justify-content-center">
-                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={process.env.REACT_APP_URL_API_LOCAL + "/" + item.hinhanh + ".webp"} alt="" />
+                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={process.env.REACT_APP_URL_API + "/" + item.hinhanh + ".webp"} alt="" />
                                         </div>
                                     </aside>
                                     <main class="col-lg-6">

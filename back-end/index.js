@@ -17,20 +17,17 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
-const BaseURL = process.env.REACT_APP_URL_LOCAL
+const BaseURL = process.env.REACT_APP_URL
 app.use(cors({
   origin: BaseURL,
   credentials: true
 }));
 
-app.use(express.static('./images'))
+
 app.use(express.json());
+app.use(express.static('./images'))
 
 app.use(express.urlencoded({ extended: false }))
-
-app.use(express.json());
-app.use(express.static('./images'))
-
 
 app.use("/api", route)
 

@@ -196,7 +196,7 @@ function Booking(props) {
                     </div>
                     <div class="col-12">
                       <label for="thuocgiong" class="form-label">
-                        Thuộc giống loài <span className="text-danger">*</span>
+                        Thuộc giống loài
                       </label>
                       <input
                         type="text"
