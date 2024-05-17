@@ -17,16 +17,31 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
-app.use(cors());
+const BaseURL = process.env.REACT_APP_URL_LOCAL
+app.use(cors({
+  origin: BaseURL,
+  credentials: true
+}));
+
+app.use(express.static('./images'))
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }))
+
 app.use(express.json());
 app.use(express.static('./images'))
 
 
 app.use("/api", route)
 
-app.get('/', (re, res) => {
-  return res.json("abc");
-})
+app.get('/', function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  res.send('Welcome you, admin');
+});
 
 //api crud
 //api shop
