@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import axios from '../axios';
 import { useNavigate, useParams } from "react-router-dom";
 
 function UserDetailEdit(props) {
@@ -17,7 +17,7 @@ function UserDetailEdit(props) {
         const editInputvalue = { hoTen: editUser.hoTen, anhdaidien: editUser.anhdaidien, sdt: editUser.sdt, diachi: editUser.diachi, id_user: localStorage.getItem("id_user") };
         console.log(editInputvalue);
         await axios
-            .post("http://localhost:8000/updatethongtin", editInputvalue)
+            .post("/updatethongtin", editInputvalue)
             .then((res) => {
                 console.log(res.data);
                 setTimeout(() => {
@@ -28,7 +28,7 @@ function UserDetailEdit(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setEditUser(response.data);
             })

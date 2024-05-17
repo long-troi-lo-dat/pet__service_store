@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined } from '@ant-design/icons'
@@ -23,7 +23,7 @@ function AdminDonHang(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
                 // console.log(dataUser, "data user")

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import axios from "axios";
+import axios from '../../axios';
 const { Sider } = Layout;
 
 
@@ -31,7 +31,7 @@ function AdminAddDichVu(props) {
     };
 
     const handleSubmit = (event) => {
-        axios.post("http://localhost:8000/adddichvu", formData)
+        axios.post("/adddichvu", formData)
             .then((res) => {
                 console.log(res.data);
                 navigate("/employee/dichvu")

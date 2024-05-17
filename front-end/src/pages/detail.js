@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../assets/css/detail.css';
 import '../assets/css/global1.css';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../axios';
 import Navbar from '../components/Navbar';
 // import facebook from '../assets/img/facebook.png';
 // import twitter from '../assets/img/twitter.png';
@@ -45,7 +45,7 @@ function Detail(props) {
         const validateNoidung = formBLData.noidung
 
         if (validateName !== "" && validateNoidung !== "") {
-            await axios.post('http://localhost:8000/binhluan', formBLData)
+            await axios.post(`/binhluan`, formBLData)
                 .then(
                     res => {
                         console.log(res)
@@ -60,14 +60,14 @@ function Detail(props) {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/detail/${id}`)
+        axios.get(`/detail/${id}`)
             .then((response) => {
                 setDataDetail(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/binhluan/${id}`)
+        axios.get(`/binhluan/${id}`)
             .then((response) => {
                 setDataBinhluan(response.data);
             })
@@ -296,7 +296,7 @@ function Detail(props) {
                                 <div class="row gx-5" style={{}}>
                                     <aside class="col-lg-6">
                                         <div class="rounded-4 mb-3 d-flex justify-content-center">
-                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={item.hinhanh} alt="" />
+                                            <img style={{ maxWidth: "100%", maxHeight: "50vh", margin: "auto" }} class="rounded-4 fit" src={process.env.REACT_APP_URL_API_LOCAL + "/" + item.hinhanh + ".webp"} alt="" />
                                         </div>
                                     </aside>
                                     <main class="col-lg-6">

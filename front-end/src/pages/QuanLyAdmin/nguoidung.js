@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined } from '@ant-design/icons'
@@ -19,7 +19,7 @@ function AdminNguoiDung(props) {
     const [cate, setCate] = useState("Nhân viên")
 
     const handleCate = (cate) => {
-        axios.get(`http://localhost:8000/quanlynguoidung/${cate}`)
+        axios.get(`/quanlynguoidung/${cate}`)
             .then((response) => {
                 setDataNguoiDung(response.data);
                 if (cate == 0) {
@@ -34,7 +34,7 @@ function AdminNguoiDung(props) {
     }
 
     const handleVohieuhoa = (iduser) => {
-        axios.post(`http://localhost:8000/vohieuhoa/${iduser}`)
+        axios.post(`/vohieuhoa/${iduser}`)
             .then((response) => {
                 console.log("thanh cong")
                 window.location.reload()
@@ -44,7 +44,7 @@ function AdminNguoiDung(props) {
             });
     }
     const handleKichhoat = (iduser) => {
-        axios.post(`http://localhost:8000/kichhoat/${iduser}`)
+        axios.post(`/kichhoat/${iduser}`)
             .then((response) => {
                 console.log("thanh cong")
                 window.location.reload()
@@ -55,14 +55,14 @@ function AdminNguoiDung(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/quanlynguoidung/1`)
+        axios.get(`/quanlynguoidung/1`)
             .then((response) => {
                 setDataNguoiDung(response.data);
                 // console.log(dataUser, "data user")

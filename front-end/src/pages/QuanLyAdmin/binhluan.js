@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
@@ -23,7 +23,7 @@ function AdminBinhLuan(props) {
         localStorage.setItem("header", 0)
     }
     const handleAnBL = (id) => {
-        axios.post(`http://localhost:8000/anbinhluan/${id}`)
+        axios.post(`/anbinhluan/${id}`)
             .then((response) => {
                 console.log("ẩn thành công")
                 window.location.reload();
@@ -33,7 +33,7 @@ function AdminBinhLuan(props) {
             });
     }
     const handleHienBL = (id) => {
-        axios.post(`http://localhost:8000/hienbinhluan/${id}`)
+        axios.post(`/hienbinhluan/${id}`)
             .then((response) => {
                 console.log("hiện thành công")
                 window.location.reload();
@@ -44,7 +44,7 @@ function AdminBinhLuan(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
                 // console.log(dataUser, "data user")
@@ -52,7 +52,7 @@ function AdminBinhLuan(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/AdminBinhLuan`)
+        axios.get(`/AdminBinhLuan`)
             .then((response) => {
                 setDataBinhLuan(response.data);
                 // console.log(dataUser, "data user")

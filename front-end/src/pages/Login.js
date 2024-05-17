@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logoLogin from "../assets/img/image-login.png";
 import logoLoginfun from "../assets/img/dangnhap.png";
 import validation from "../components/Validate/loginvalidate";
-import axios from 'axios';
+import axios from '../axios';
 import Navbar from "../components/Navbar";
 
 const initialFormData = {
@@ -22,73 +22,6 @@ function Login(props) {
     setFormData({ ...formData, [name]: value });
   };
 
-  // const handleLoginSubmit = (event) => {
-  //   // event.preventDefault();
-  //   const validateEmail = formData.email
-  //   const validatePassword = formData.password
-  //   setErrors(validation(formData))
-  //   if (validateEmail !== "" && validatePassword !== "") {
-  //     axios.post('http://localhost:8000/login', formData)
-  //       .then(
-  //         res => {
-  //           if (Array.isArray(res.data) && res.data.length > 0) {
-  //             console.log(res.data);
-  //             console.log(res.data[0].vaitro);
-
-  //             const user = res.data[0];
-
-  //             if (user.vaitro === 0) {
-  //               // Handle user with vaitro 0
-  //               // ...
-  //             } else if (user.vaitro === 1) {
-  //               // Handle user with vaitro 1
-  //               // ...
-  //             } else if (user.vaitro === 2) {
-  //               // Handle user with vaitro 2
-  //               // ...
-  //             } else if (user.vaitro === 5) {
-  //               // Handle user with vaitro 5
-  //               // ...
-  //             }
-  //           } else {
-  //             setMessage("Sai mật khẩu");
-  //           }
-  //           // if (res.data === "fail") {
-  //           //   setMessage("Sai mật khẩu")
-  //           // } else {
-  //           //   console.log(res.data)
-  //           //   console.log(res.data[0].vaitro);
-  //           //   if (res.data[0].vaitro === 0) {
-  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
-  //           //     localStorage.setItem("id_user", res.data[0].id_user)
-  //           //     localStorage.setItem("login", "yes")
-  //           //     navigate("/")
-  //           //   } else if (res.data[0].vaitro === 1) {
-  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
-  //           //     localStorage.setItem("id_user", res.data[0].id_user)
-  //           //     localStorage.setItem("login", "yes")
-  //           //     navigate("/employee/index")
-  //           //   } else if (res.data[0].vaitro === 2) {
-  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
-  //           //     localStorage.setItem("id_user", res.data[0].id_user)
-  //           //     localStorage.setItem("login", "yes")
-  //           //     localStorage.setItem("chinhanh", res.data[0].chinhanh)
-  //           //     navigate("/QuanLyChiNhanh/index")
-  //           //   } else if (res.data[0].vaitro === 5) {
-  //           //     localStorage.setItem("vaitro", res.data[0].vaitro)
-  //           //     localStorage.setItem("id_user", res.data[0].id_user)
-  //           //     localStorage.setItem("login", "yes")
-  //           //     localStorage.setItem("chinhanh", res.data[0].chinhanh)
-  //           //     navigate("/NhanVienDichVu/index")
-  //           //   }
-  //           // }
-  //         }
-  //       )
-  //       .catch(
-  //         err => console.log(err)
-  //       )
-  //   }
-  // };
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
@@ -97,7 +30,7 @@ function Login(props) {
     setErrors(validation(formData));
 
     if (validateEmail !== "" && validatePassword !== "") {
-      axios.post('http://localhost:8000/login', formData)
+      axios.post(`/login`, formData)
         .then((res) => {
           const responseData = res.data;
 

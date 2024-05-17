@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu, Modal } from 'antd'
 import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
@@ -40,7 +40,7 @@ function NhanVienDichVuDatLich(props) {
     var idNhanVien = localStorage.getItem("id_user")
 
     const chonlocdatlich = (trangthai) => {
-        axios.get(`http://localhost:8000/employee/datlich/${trangthai}`)
+        axios.get(`/employee/datlich/${trangthai}`)
             .then((response) => {
                 setdataDatLich(response.data)
                 console.log(dataDatLich)
@@ -53,7 +53,7 @@ function NhanVienDichVuDatLich(props) {
     const handleShow = async (e) => {
         setShow(true)
         localStorage.setItem("idCartDetail", e.currentTarget.id)
-        axios.get(`http://localhost:8000/detaildatlich?data=${e.currentTarget.id}`)
+        axios.get(`/detaildatlich?data=${e.currentTarget.id}`)
             .then((response) => {
                 setDataCartDetail(response.data);
                 // console.log(dataUser, "data user")
@@ -64,7 +64,7 @@ function NhanVienDichVuDatLich(props) {
     };
 
     const NextStatus = async (trangthai, id) => {
-        axios.post(`http://localhost:8000/nextstatus`, {
+        axios.post(`/nextstatus`, {
             trangthai: trangthai,
             id: id
         })
@@ -78,7 +78,7 @@ function NhanVienDichVuDatLich(props) {
     };
 
     const BackStatus = async (trangthai, id) => {
-        axios.post(`http://localhost:8000/backstatus`, {
+        axios.post(`/backstatus`, {
             trangthai: trangthai,
             id: id
         })
@@ -92,28 +92,28 @@ function NhanVienDichVuDatLich(props) {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/thongke/donhang/nhanvien/${localStorage.getItem("id_user")}/tongdanhthu`)
+        axios.get(`/thongke/donhang/nhanvien/${localStorage.getItem("id_user")}/tongdanhthu`)
             .then((response) => {
                 setDoanhthu(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/donhang/nhanvien/${localStorage.getItem("id_user")}/dahoanthanh`)
+        axios.get(`/thongke/donhang/nhanvien/${localStorage.getItem("id_user")}/dahoanthanh`)
             .then((response) => {
                 setTongdon(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/NhanVien/DatLich?chinhanh=${chinhanh}&&nhanvien=${idNhanVien}`)
+        axios.get(`/NhanVien/DatLich?chinhanh=${chinhanh}&&nhanvien=${idNhanVien}`)
             .then((response) => {
                 setdataDatLich(response.data);
             })
@@ -121,7 +121,7 @@ function NhanVienDichVuDatLich(props) {
                 console.error('error fetching data :', error);
             });
         axios
-            .get(`http://localhost:8000/thongke/chinhanh/dichvu/nhanvien/${localStorage.getItem("id_user")}/chua`)
+            .get(`/thongke/chinhanh/dichvu/nhanvien/${localStorage.getItem("id_user")}/chua`)
             .then((response) => {
                 const data = response.data;
 

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import '../assets/css/global3.css';
@@ -93,7 +93,7 @@ function Cart() {
     console.log(formData)
   };
   const handleSubmit = (event) => {
-    axios.post("http://localhost:8000/dathang", formData)
+    axios.post("/dathang", formData)
       .then((res) => {
         console.log(res.data);
         setTimeout(() => {

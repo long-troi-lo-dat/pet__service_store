@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import axios from '../axios';
 import Navbar from '../components/Navbar';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FiMapPin, FiPhone, FiUser } from 'react-icons/fi';
@@ -26,7 +26,7 @@ function OTPInput() {
 
     const handleVerifyOTP = async () => {
         try {
-            await axios.post('http://localhost:8000/verify-otp', { emailFromLocal, otp });
+            await axios.post(`/verify-otp`, { emailFromLocal, otp });
             setMessage('OTP verified successfully. Proceed to reset your password.');
             // Redirect or show reset password form
             console.log(message)

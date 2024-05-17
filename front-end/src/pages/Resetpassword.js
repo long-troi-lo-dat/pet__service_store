@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import axios from '../axios';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -22,10 +22,10 @@ function Resetpassword() {
     });
 
     const doimatkhau = () => {
-        axios.post(`http://localhost:8000/doimatkhau`, { emailFromLocal, password })
+        axios.post(`/doimatkhau`, { emailFromLocal, password })
             .then((response) => {
                 console.log(response.data)
-                axios.post('http://localhost:8000/login', { email: emailFromLocal, password: password })
+                axios.post(`/login`, { email: emailFromLocal, password: password })
                     .then(
                         res => {
                             const vaitro = res.data.vaitro;

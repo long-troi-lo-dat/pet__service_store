@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
@@ -33,7 +33,7 @@ function AdminDonHang(props) {
     }
 
     const NextStatus = async (trangthai, id) => {
-        axios.post(`http://localhost:8000/nextstatusdh`, {
+        axios.post(`/nextstatusdh`, {
             trangthai: trangthai,
             id: id
         })
@@ -47,7 +47,7 @@ function AdminDonHang(props) {
     };
 
     const BackStatus = async (trangthai, id) => {
-        axios.post(`http://localhost:8000/backstatusdh`, {
+        axios.post(`/backstatusdh`, {
             trangthai: trangthai,
             id: id
         })
@@ -61,7 +61,7 @@ function AdminDonHang(props) {
     };
 
     const huydonhang = (item) => {
-        axios.get(`http://localhost:8000/xoadonhang?id=${item}}`)
+        axios.get(`/xoadonhang?id=${item}}`)
             .then((response) => {
                 return response.data
             })
@@ -74,7 +74,7 @@ function AdminDonHang(props) {
     const handleShow = async (e) => {
         setShow(true)
         // localStorage.setItem("idCartDetail", e.currentTarget.id)
-        axios.get(`http://localhost:8000/detaildonhang?data=${e.currentTarget.id}`)
+        axios.get(`/detaildonhang?data=${e.currentTarget.id}`)
             .then((response) => {
                 setDataDonHangChiTiet(response.data);
                 console.log(dataDonHangChiTiet)
@@ -85,7 +85,7 @@ function AdminDonHang(props) {
     };
     useEffect(() => {
         console.log(dataDonHangChiTiet)
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
                 // console.log(dataUser, "data user")
@@ -93,7 +93,7 @@ function AdminDonHang(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/AdminDonHang`)
+        axios.get(`/AdminDonHang`)
             .then((response) => {
                 setdataDonHang(response.data);
                 // console.log(dataUser, "data user")
@@ -101,7 +101,7 @@ function AdminDonHang(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/AdminDonHangThanhCong`)
+        axios.get(`/AdminDonHangThanhCong`)
             .then((response) => {
                 setdataDonHangThanhCong(response.data);
                 // console.log(dataUser, "data user")

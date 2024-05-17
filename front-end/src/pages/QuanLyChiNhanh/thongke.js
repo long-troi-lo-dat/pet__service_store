@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { BsBank, BsCart, BsCartFill, BsEmojiLaughing, BsListCheck, BsListTask, BsUniversalAccess } from "react-icons/bs";
 import { Layout, Menu } from 'antd'
@@ -83,56 +83,56 @@ function ThongkeChinhanh(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/donhang/theongay`)
+        axios.get(`/thongke/donhang/theongay`)
             .then((response) => {
                 setDataTKTN(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/donhang/theothang`)
+        axios.get(`/thongke/donhang/theothang`)
             .then((response) => {
                 setDataTKTT(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/donhang/chuaxacnhan`)
+        axios.get(`/thongke/donhang/chuaxacnhan`)
             .then((response) => {
                 setDataChuaXacNhan(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/donhang/dahoanthanh`)
+        axios.get(`/thongke/donhang/dahoanthanh`)
             .then((response) => {
                 setDataDaHoanThanh(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/newregister`)
+        axios.get(`/thongke/newregister`)
             .then((response) => {
                 setDataNewRegister(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/datlich/chuahoanthanh`)
+        axios.get(`/thongke/datlich/chuahoanthanh`)
             .then((response) => {
                 setDataDHDVChuaHoanThanh(response.data);
             })
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/thongke/chinhanh/${localStorage.getItem("chinhanh")}/dichvu/nhanvien/roi`)
+        axios.get(`/thongke/chinhanh/${localStorage.getItem("chinhanh")}/dichvu/nhanvien/roi`)
             .then(response => {
                 const data = response.data;
 
@@ -207,7 +207,7 @@ function ThongkeChinhanh(props) {
             .catch(error => {
                 console.error("Error fetching data:", error);
             });
-        axios.get(`http://localhost:8000/thongke/dichvu/${localStorage.getItem("chinhanh")}/tongtien`)
+        axios.get(`/thongke/dichvu/${localStorage.getItem("chinhanh")}/tongtien`)
             .then(response => {
                 const data = response.data;
 

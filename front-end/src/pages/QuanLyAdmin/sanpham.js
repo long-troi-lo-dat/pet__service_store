@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
@@ -28,7 +28,7 @@ function AdminSanPham(props) {
     }
 
     const phanloaidanhmuc = (category) => {
-        axios.get(`http://localhost:8000/employee/shop/${category}`)
+        axios.get(`/employee/shop/${category}`)
             .then((response) => {
                 setDataSanPham(response.data)
                 console.log(dataSanPham)
@@ -53,7 +53,7 @@ function AdminSanPham(props) {
 
 
     const handleAnSp = (id) => {
-        axios.post(`http://localhost:8000/ansanpham/${id}`)
+        axios.post(`/ansanpham/${id}`)
             .then((response) => {
                 console.log("ẩn thành công")
                 window.location.reload();
@@ -63,7 +63,7 @@ function AdminSanPham(props) {
             });
     }
     const handleHienSp = (id) => {
-        axios.post(`http://localhost:8000/hiensanpham/${id}`)
+        axios.post(`/hiensanpham/${id}`)
             .then((response) => {
                 console.log("hiện thành công")
                 window.location.reload();
@@ -74,7 +74,7 @@ function AdminSanPham(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
                 // console.log(dataUser, "data user")
@@ -82,7 +82,7 @@ function AdminSanPham(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/AdminSanPham`)
+        axios.get(`/AdminSanPham`)
             .then((response) => {
                 setDataSanPham(response.data);
                 // console.log(dataUser, "data user")

@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useContext, useState } from "react";
+import axios from '../axios';
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../Context";
 import Navbar from "../components/Navbar";
@@ -21,7 +21,7 @@ function Booking(props) {
   const handleBookingSubmit = async (event) => {
     if (formData.hoten !== "") {
       await axios
-        .post("http://localhost:8000/bookingservice", formData)
+        .post("/bookingservice", formData)
         .then((res) => {
           console.log(res.data);
           window.location.reload()

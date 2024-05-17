@@ -1,6 +1,6 @@
 export const getProductList = async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/product');
+    const response = await fetch('/api/product');
     if (!response.ok) {
       throw new Error('Fail to fetch');
     }

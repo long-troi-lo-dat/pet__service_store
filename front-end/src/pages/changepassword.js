@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import axios from '../axios';
 import { useNavigate } from "react-router-dom";
 
 function ChangePassword(props) {
@@ -37,7 +37,7 @@ function ChangePassword(props) {
                 return;
             }
 
-            const response = await axios.post("http://localhost:8000/changepassword", formData);
+            const response = await axios.post("/changepassword", formData);
 
             console.log(response.data);
 
@@ -61,7 +61,7 @@ function ChangePassword(props) {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
             })

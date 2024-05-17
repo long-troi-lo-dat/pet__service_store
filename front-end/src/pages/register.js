@@ -55,7 +55,7 @@ function Register(props) {
     }
 
     if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && validatePassword !== "") {
-      await axios.post('http://localhost:8000/signup', formData)
+      await axios.post(`/signup`, formData)
         .then(
           res => {
             console.log(res)

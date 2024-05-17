@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 // import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
 import moment from "moment";
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 
 function AdminThuCung(props) {
 
@@ -25,7 +24,7 @@ function AdminThuCung(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
                 // console.log(dataUser, "data user")
@@ -33,7 +32,7 @@ function AdminThuCung(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-        axios.get(`http://localhost:8000/AdminThuCung`)
+        axios.get(`/AdminThuCung`)
             .then((response) => {
                 setDataThuCung(response.data);
                 // console.log(dataUser, "data user")

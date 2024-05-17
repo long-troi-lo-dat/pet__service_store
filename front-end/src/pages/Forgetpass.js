@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from 'axios';
-import Navbar from '../components/Navbar';
+import axios from '../axios';
 import { FiMapPin, FiPhone, FiUser } from 'react-icons/fi';
-import { toast } from 'react-toastify';
 
 export default function ForgetPassword() {
     const navigate = useNavigate()
@@ -13,7 +11,7 @@ export default function ForgetPassword() {
 
     const handleForgotPassword = async () => {
         try {
-            await axios.post('http://localhost:8000/forgot_password', { email });
+            await axios.post(`/forgot_password`, { email });
             setMessage('OTP sent to your email. Check your inbox.');
             localStorage.setItem("EmailUserForget", email)
             navigate("/OTPinput")

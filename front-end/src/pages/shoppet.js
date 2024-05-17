@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/shop2.css"
-import axios from "axios";
+import axios from '../axios';
 import Navbar from "../components/Navbar";
 
 function ShopPet(props) {
   const [dataPet, setDataPet] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8000/petshop`)
+    axios.get(`/petshop`)
       .then((response) => {
         setDataPet(response.data);
       })

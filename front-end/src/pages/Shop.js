@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/shop2.css"
-import axios from "axios";
+import axios from '../axios';
 import Navbar from "../components/Navbar";
 import { Menu } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
@@ -119,7 +119,7 @@ function Shop() {
   };
 
   const phanloaidanhmuc = (category, detail, price) => {
-    axios.get(`http://localhost:8000/shop/${category}/${detail}/${price}`)
+    axios.get(`/shop/${category}/${detail}/${price}`)
       .then((response) => {
         setData(response.data)
       })
@@ -130,7 +130,7 @@ function Shop() {
   useEffect(() => {
     console.log(cart);
 
-    axios.get(`http://localhost:8000/shop`)
+    axios.get(`/shop`)
       .then((response) => {
         setData(response.data);
         // console.log(dataUser, "data user")
@@ -244,7 +244,7 @@ function Shop() {
                                 {item.soluong === 0 ? <div class="sold_out" >Hết hàng</div> : ""}
                                 <a href={`/detail/${item.id_sp}`}>
                                   <img
-                                    src={`${process.env.REACT_APP_URL_API_LOCAL}/${item.hinhanh}.webp`}
+                                    src={`/${item.hinhanh}.webp`}
                                     style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
                                     className="card-img-top"
                                     alt="..."
@@ -286,7 +286,7 @@ function Shop() {
                                   {item.soluong === 0 ? <div class="sold_out" >Tạm hết hàng</div> : ""}
                                   <a href={`/detail/${item.id_sp}`}>
                                     <img
-                                      src={`${process.env.REACT_APP_URL_API_LOCAL}/${item.hinhanh}.webp`}
+                                      src={`/${item.hinhanh}.webp`}
                                       style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
                                       className="card-img-top"
                                       alt="..."

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../axios';
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import moment from 'moment';
@@ -30,7 +30,7 @@ function UserDetail(props) {
     };
 
     const huydonhang = () => {
-        axios.get(`http://localhost:8000/huydonhang?id=${localStorage.getItem("idCartDetail")}`)
+        axios.get(`/huydonhang?id=${localStorage.getItem("idCartDetail")}`)
             .then((response) => {
                 return response.data
             })
@@ -40,7 +40,7 @@ function UserDetail(props) {
         window.location.reload()
     }
     const huydatlich = () => {
-        axios.get(`http://localhost:8000/huydichvu?id=${localStorage.getItem("idBookingDetail")}`)
+        axios.get(`/huydichvu?id=${localStorage.getItem("idBookingDetail")}`)
             .then((response) => {
                 return response.data
             })
@@ -53,7 +53,7 @@ function UserDetail(props) {
     const handleShowCart = async (e) => {
         setShowCart(true)
         localStorage.setItem("idCartDetail", e.currentTarget.id)
-        axios.get(`http://localhost:8000/detaildonhanguser?data=${e.currentTarget.id}`)
+        axios.get(`/detaildonhanguser?data=${e.currentTarget.id}`)
             .then((response) => {
                 setDataCartDetail(response.data);
             })
@@ -65,7 +65,7 @@ function UserDetail(props) {
     const handleShowBooking = async (e) => {
         setShowBooking(true)
         localStorage.setItem("idBookingDetail", e.currentTarget.id)
-        axios.get(`http://localhost:8000/detaildatlichuser?data=${e.currentTarget.id}&&iduser=${localStorage.getItem("id_user")}`)
+        axios.get(`/detaildatlichuser?data=${e.currentTarget.id}&&iduser=${localStorage.getItem("id_user")}`)
             .then((response) => {
                 setDataBookingDetail(response.data);
             })
@@ -76,7 +76,7 @@ function UserDetail(props) {
 
     const xemdonhang = () => {
         localStorage.setItem("choose", "Cart")
-        axios.get(`http://localhost:8000/xemdathang?id=${id}`)
+        axios.get(`/xemdathang?id=${id}`)
             .then((response) => {
                 setDataCart(response.data)
             })
@@ -87,7 +87,7 @@ function UserDetail(props) {
 
     const xemdatlich = () => {
         localStorage.setItem("choose", "Booking")
-        axios.get(`http://localhost:8000/xemdatlich?id=${id}`)
+        axios.get(`/xemdatlich?id=${id}`)
             .then((response) => {
                 setDataCart(response.data)
             })
@@ -97,7 +97,7 @@ function UserDetail(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/userdetail/${id}`)
+        axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
             })
@@ -105,7 +105,7 @@ function UserDetail(props) {
                 console.error('error fetching data :', error);
             });
 
-        axios.get(`http://localhost:8000/xemdathang?id=${id}`)
+        axios.get(`/xemdathang?id=${id}`)
             .then((response) => {
                 setDataCart(response.data)
             })
