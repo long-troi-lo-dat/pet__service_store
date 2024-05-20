@@ -49,27 +49,6 @@ app.get('/shop', (req, res) => {
   });
 });
 
-// app.get('/shop/:category/:detail/:price', (req, res) => {
-//   const category = req.params.category
-//   const idgl = req.params.detail
-//   const price = req.params.price
-//   var catesql = `id_dm=${category}`
-//   var detailsql = `1`
-//   if (idgl !== 0) {
-//     detailsql = `id_gl=${idgl}`
-//   }
-//   var pricesql = `1`
-//   if (price !== 0) {
-//     pricesql = `gia<${price}`
-//   }
-
-//   // const sql = `SELECT * FROM sanpham where ${catesql} and ${detailsql} ORDER BY id_dm ASC, ngaythem DESC `;
-//   const sql = `SELECT * FROM sanpham WHERE ${catesql} and ${detailsql} and ${pricesql} ORDER BY id_dm ASC, ngaythem DESC`;
-//   db.query(sql, (err, data) => {
-//     if (err) return res.json(err);
-//     return res.json(data);
-//   });
-// });
 app.get('/shop/:category/:detail/:price', (req, res) => {
   const category = req.params.category;
   const idgl = req.params.detail;
