@@ -745,7 +745,6 @@ app.post('/binhluan', (req, res) => {
 
 app.post('/signup', async (req, res) => {
   try {
-    // Check if the email already exists in the database
     const checkEmailQuery = 'SELECT * FROM `nguoidung` WHERE `email` = ?';
     const emailExists = await new Promise((resolve, reject) => {
       db.query(checkEmailQuery, [req.body.email], (err, data) => {
@@ -760,27 +759,19 @@ app.post('/signup', async (req, res) => {
     if (emailExists) {
       return res.json({ error: 'Email đã tồn tại trong hệ thống' });
     }
-
-    // Hash the user's password using bcrypt
-    // const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-    // SQL query with hashed password
     const insertUserQuery = "INSERT INTO `nguoidung` (`hoTen`, `sdt`, `email`, `matkhau`, `chinhanh`) VALUES (?, ?, ?, ?, 1)";
     const values = [
       req.body.hoten,
       req.body.sdt,
       req.body.email,
       req.body.password
-      // hashedPassword // Use the hashed password
     ];
 
-    // Insert the new user into the database
     db.query(insertUserQuery, values, (err, data) => {
       if (err) {
         return res.json({ error: 'Đăng ký thất bại', details: err });
       }
 
-      // Registration successful
       return res.json({ success: true, message: 'Đăng ký thành công' });
     });
   } catch (error) {
