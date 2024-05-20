@@ -52,8 +52,6 @@ const quantityNotify = () => toast.error('Số lượng còn lại của sản p
 function Shop() {
   const { cart, setCart } = useContext(GlobalContext)
   const [data, setData] = useState([]);
-  const [input, setInput] = useState("")
-  const [results, setResults] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
 import { CSVLink } from "react-csv";
 import moment from "moment";
-import { Modal } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 import Chart from "react-apexcharts";
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 
 function QuanLyChiNhanhDatLich(props) {
 
@@ -48,7 +47,7 @@ function QuanLyChiNhanhDatLich(props) {
     });
     const [stateDonHangChuaExport, setStateDonHangChuaExport] = useState([])
 
-    const currentDay = (new Date()).getDate();
+    // const currentDay = (new Date()).getDate();
 
     const NextStatus = async (trangthai, id) => {
         axios.post(`/nextstatus`, {
@@ -242,7 +241,7 @@ function QuanLyChiNhanhDatLich(props) {
 
                 let seriesData;
 
-                if (localStorage.getItem("chinhanh") == 2) {
+                if (localStorage.getItem("chinhanh") === 2) {
                     seriesData = Array.from({ length: validNhanVienIds.length }, (_, index) => {
                         const nhanvienData = data.filter(
                             (item) => item.nhanvien === validNhanVienIds[index]
@@ -275,7 +274,7 @@ function QuanLyChiNhanhDatLich(props) {
                             }),
                         };
                     });
-                } else if (localStorage.getItem("chinhanh") == 3) {
+                } else if (localStorage.getItem("chinhanh") === 3) {
                     seriesData = Array.from({ length: validNhanVienIds.length }, (_, index) => {
                         const nhanvienData = data.filter(
                             (item) => item.nhanvien === validNhanVienIds[index]
@@ -348,7 +347,7 @@ function QuanLyChiNhanhDatLich(props) {
 
                 let seriesData;
 
-                if (localStorage.getItem("chinhanh") == 2) {
+                if (localStorage.getItem("chinhanh") === 2) {
                     seriesData = Array.from({ length: validNhanVienIds.length }, (_, index) => {
                         const nhanvienData = data.filter(
                             (item) => item.nhanvien === validNhanVienIds[index]
@@ -381,7 +380,7 @@ function QuanLyChiNhanhDatLich(props) {
                             }),
                         };
                     });
-                } else if (localStorage.getItem("chinhanh") == 3) {
+                } else if (localStorage.getItem("chinhanh") === 3) {
                     seriesData = Array.from({ length: validNhanVienIds.length }, (_, index) => {
                         const nhanvienData = data.filter(
                             (item) => item.nhanvien === validNhanVienIds[index]
@@ -440,7 +439,7 @@ function QuanLyChiNhanhDatLich(props) {
         }
         getDataDatLich()
 
-    }, []);
+    }, [id]);
 
     const LogoutSubmit = () => {
         localStorage.setItem("id_user", 0)
@@ -470,7 +469,7 @@ function QuanLyChiNhanhDatLich(props) {
                         <Menu.SubMenu key="binhluan" title="Bình luận">
                             <Menu.Item key='binhluan-1'><a href="/employee/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.SubMenu key="nguoidung" title="Người dùng">
                                 <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
                                 <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
@@ -479,24 +478,24 @@ function QuanLyChiNhanhDatLich(props) {
                             ""
                         }
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='donhang-2'><a href="/QuanLyChiNhanh/donhang">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='datlich-2'><a href="/QuanLyChiNhanh/datlich">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
-                            : localStorage.getItem("vaitro") == 2 ?
+                            : localStorage.getItem("vaitro") === 2 ?
                                 <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/QuanLyChiNhanh/thongke">Thống kê</a></Menu.Item>
                                 : <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                         }
@@ -587,7 +586,7 @@ function QuanLyChiNhanhDatLich(props) {
                                     <div style={{ border: "1px solid #333" }}></div>
                                     <div class="col-7 d-flex justify-content-around">
 
-                                        {localStorage.getItem("chinhanh") == 2 ?
+                                        {localStorage.getItem("chinhanh") === 2 ?
                                             <>
                                                 <button class="btn" style={{ color: "white", backgroundColor: "rgb(0, 143, 251)" }} onClick={() => { chonlocdonhang(10) }}>Đậu Quang Thái</button>
                                                 <button class="btn" style={{ color: "white", backgroundColor: "rgb(0, 227, 150)" }} onClick={() => { chonlocdonhang(11) }}>Tinh Hữu Từ</button>

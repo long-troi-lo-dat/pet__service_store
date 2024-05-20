@@ -60,7 +60,7 @@ function AdminAddNguoiDung(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-    }, []);
+    }, [id]);
     return (
         <div id="wrapper">
             <Layout>
@@ -83,7 +83,7 @@ function AdminAddNguoiDung(props) {
                         <Menu.SubMenu key="binhluan" title="Bình luận">
                             <Menu.Item key='binhluan-1'><a href="/employee/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.SubMenu key="nguoidung" title="Người dùng">
                                 <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
                                 <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
@@ -92,24 +92,24 @@ function AdminAddNguoiDung(props) {
                             ""
                         }
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='donhang-2'><a href="/QuanLyChiNhanh/donhang">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='datlich-2'><a href="/QuanLyChiNhanh/datlich">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
-                            : localStorage.getItem("vaitro") == 2 ?
+                            : localStorage.getItem("vaitro") === 2 ?
                                 <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/QuanLyChiNhanh/thongke">Thống kê</a></Menu.Item>
                                 : <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                         }

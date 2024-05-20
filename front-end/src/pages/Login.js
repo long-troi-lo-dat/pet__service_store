@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logoLogin from "../assets/img/image-login.png";
 import logoLoginfun from "../assets/img/dangnhap.png";
 import validation from "../components/Validate/loginvalidate";
 import axios from '../axios';
@@ -73,7 +72,7 @@ function Login(props) {
         className="container flex py-20 justify-center w-full box-border "
       >
         <div className="image ">
-          <img src={logoLoginfun} alt="image" width="413px" height="606px" style={{ paddingRight: "30px" }} />
+          <img src={logoLoginfun} alt="" width="413px" height="606px" style={{ paddingRight: "30px" }} />
         </div>
         <div
           style={{

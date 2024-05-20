@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
 import moment from "moment";
-import { Modal } from "react-bootstrap";
-const { Header, Sider } = Layout;
+import Modal from 'react-bootstrap/Modal';
+const { Sider } = Layout;
 
 function AdminDonHang(props) {
 
@@ -24,13 +23,9 @@ function AdminDonHang(props) {
     const [dataDonHangChiTiet, setDataDonHangChiTiet] = useState([]);
 
     let tong = 0;
-    const mappedArray = dataDonHangChiTiet.map((item, i) => {
-        tong += item.thanhtien
-    })
-    const handleNavigate = async () => {
-        navigate("/")
-        localStorage.setItem("header", 0)
-    }
+    // const mappedArray = dataDonHangChiTiet.map((item, i) => {
+    //     tong += item.thanhtien
+    // })
 
     const NextStatus = async (trangthai, id) => {
         axios.post(`/nextstatusdh`, {
@@ -46,19 +41,19 @@ function AdminDonHang(props) {
             })
     };
 
-    const BackStatus = async (trangthai, id) => {
-        axios.post(`/backstatusdh`, {
-            trangthai: trangthai,
-            id: id
-        })
-            .then((response) => {
-                console.log(response.data)
-                window.location.reload()
-            })
-            .catch((error) => {
-                console.error('error fetching data :', error);
-            })
-    };
+    // const BackStatus = async (trangthai, id) => {
+    //     axios.post(`/backstatusdh`, {
+    //         trangthai: trangthai,
+    //         id: id
+    //     })
+    //         .then((response) => {
+    //             console.log(response.data)
+    //             window.location.reload()
+    //         })
+    //         .catch((error) => {
+    //             console.error('error fetching data :', error);
+    //         })
+    // };
 
     const huydonhang = (item) => {
         axios.get(`/xoadonhang?id=${item}}`)
@@ -84,7 +79,6 @@ function AdminDonHang(props) {
             });
     };
     useEffect(() => {
-        console.log(dataDonHangChiTiet)
         axios.get(`/userdetail/${id}`)
             .then((response) => {
                 setDataUser(response.data);
@@ -109,7 +103,7 @@ function AdminDonHang(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-    }, []);
+    }, [id]);
 
     const LogoutSubmit = () => {
         localStorage.setItem("header", 0)
@@ -140,7 +134,7 @@ function AdminDonHang(props) {
                         <Menu.SubMenu key="binhluan" title="Bình luận">
                             <Menu.Item key='binhluan-1'><a href="/employee/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.SubMenu key="nguoidung" title="Người dùng">
                                 <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
                                 <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
@@ -149,24 +143,24 @@ function AdminDonHang(props) {
                             ""
                         }
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='donhang-2'><a href="/QuanLyChiNhanh/donhang">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='datlich-2'><a href="/QuanLyChiNhanh/datlich">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
-                            : localStorage.getItem("vaitro") == 2 ?
+                            : localStorage.getItem("vaitro") === 2 ?
                                 <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/QuanLyChiNhanh/thongke">Thống kê</a></Menu.Item>
                                 : <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                         }

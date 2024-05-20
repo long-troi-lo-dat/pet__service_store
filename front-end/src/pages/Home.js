@@ -1,13 +1,9 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useContext, useEffect } from "react";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
-// import required modules
-import { Pagination } from "swiper/modules";
 
 import ImageSlide from "../assets/img/image-removebg-preview.png";
 import ImageService from "../assets/img/img.png";
@@ -22,11 +18,6 @@ import ImageBanner from "../assets/img/anusha-barwa-ppKcYi1CXcI-unsplash-removeb
 import "../assets/css/shop.css";
 import { GlobalContext } from "../Context";
 import Navbar from "../components/Navbar";
-
-const links = [
-  { name: "Xem thêm", href: "#" },
-  { name: "Online Booking", href: "#" },
-];
 
 export default function Home() {
   const { shouldScroll, setShouldScroll } = useContext(GlobalContext);

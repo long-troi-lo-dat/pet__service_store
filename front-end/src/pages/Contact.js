@@ -83,12 +83,12 @@ function Contact(props) {
                     </div>
 
                     <div class="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85322.97044067287!2d106.58329504167578!3d10.825381860147075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zSOG7kyBDaMOtIE1pbmgsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1695492615910!5m2!1svi!2s" style={{ height: "600px", width: "1350px" }}></iframe>
+                        <iframe title="myFrame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85322.97044067287!2d106.58329504167578!3d10.825381860147075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zSOG7kyBDaMOtIE1pbmgsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1695492615910!5m2!1svi!2s" style={{ height: "600px", width: "1350px" }}></iframe>
                     </div>
                 </div>
             </div>
         </>
-    );
+    )
 }
 
 export default Contact;

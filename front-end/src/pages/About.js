@@ -13,7 +13,7 @@ import Image8 from "../assets/img/images-about/image8.png";
 import Navbar from "../components/Navbar";
 
 function About(props) {
-  const [comment, setComment] = useState(0)
+  const [comment] = useState(0)
 
   return (
     <>
@@ -29,7 +29,7 @@ function About(props) {
           <img
             src={imageAbout}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            alt="Image-banner"
+            alt=""
           />
           <div className="absolute inset-0 flex items-center justify-center text-center">
             <p className="text-white text-7xl font-bold">
@@ -86,7 +86,7 @@ function About(props) {
                   thú cưng, Khách sạn thú cưng, Dịch vụ dắt chó đi dạo,…
                 </h2>
               </div>
-              <img src={imageMain} className="w-full" />
+              <img src={imageMain} className="w-full" alt="" />
               <h1 className="py-5 text-center text-xl text-blue-600 font-medium underline">
                 Địa chỉ : Công Viên Phần Mềm Quang Trung, Quận 12
               </h1>
@@ -97,8 +97,8 @@ function About(props) {
                 HOUSE với tin thần trách nhiệm, cởi mở với Slogan “Để thú
                 cưng của bạn được chỉn chu nhất”.
               </p>
-              <img src={dogImage} className="w-full " />
-              <img src={catImage} className="w-full " />
+              <img src={dogImage} className="w-full " alt="" />
+              <img src={catImage} className="w-full " alt="" />
               <p className="py-6">
                 Cam kết mang lại cho quý khách dịch vụ với chất lượng tốt nhất
                 và mức chi phí hợp lý.
@@ -137,7 +137,7 @@ function About(props) {
                 >
                   Cung cấp các sản phẩm – phụ kiện dành cho thú cưng
                 </p>
-                <img src={Image4} className="w-full" />
+                <img src={Image4} className="w-full" alt="" />
                 <p
                   style={{
                     color: "#3858BB",
@@ -146,7 +146,7 @@ function About(props) {
                 >
                   Cung cấp các sản phẩm – phụ kiện dành cho thú cưng
                 </p>
-                <img src={Image5} className="w-full" />
+                <img src={Image5} className="w-full" alt="" />
                 <p
                   style={{
                     color: "#3858BB",
@@ -156,9 +156,9 @@ function About(props) {
                   Khách sạn thú cưng
                 </p>
 
-                <img src={Image6} className="w-full" />
-                <img src={Image7} className="w-full" />
-                <img src={Image8} className="w-full" />
+                <img src={Image6} className="w-full" alt="" />
+                <img src={Image7} className="w-full" alt="" />
+                <img src={Image8} className="w-full" alt="" />
                 <p>
                   Chúng tôi đem đến cho thú cưng của bạn một sự chăm sóc với
                   tình thương yêu, tinh thần trách nhiệm, và sự thông hiểu tâm

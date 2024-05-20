@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
 import moment from "moment";
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 
 function AdminBinhLuan(props) {
 
@@ -18,10 +17,7 @@ function AdminBinhLuan(props) {
     const [dataUser, setDataUser] = useState([])
     const [dataBinhLuan, setDataBinhLuan] = useState([])
     const [openProfile, setOpenProfile] = useState(false)
-    const handleNavigate = async () => {
-        navigate("/")
-        localStorage.setItem("header", 0)
-    }
+
     const handleAnBL = (id) => {
         axios.post(`/anbinhluan/${id}`)
             .then((response) => {
@@ -60,7 +56,7 @@ function AdminBinhLuan(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-    }, []);
+    }, [id]);
 
     const LogoutSubmit = () => {
         localStorage.setItem("header", 0)
@@ -91,7 +87,7 @@ function AdminBinhLuan(props) {
                         <Menu.SubMenu key="binhluan" title="Bình luận">
                             <Menu.Item key='binhluan-1'><a href="/employee/binhluan">Danh sách</a></Menu.Item>
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.SubMenu key="nguoidung" title="Người dùng">
                                 <Menu.Item key='nguoidung-1'><a href="/employee/addnguoidung">Thêm mới</a></Menu.Item>
                                 <Menu.Item key='nguoidung-2'><a href="/employee/nguoidung">Danh sách</a></Menu.Item>
@@ -100,24 +96,24 @@ function AdminBinhLuan(props) {
                             ""
                         }
                         <Menu.SubMenu key='donhang' title="Đơn hàng">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='donhang-2'><a href="/QuanLyChiNhanh/donhang">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='donhang-2'><a href="/employee/donhang">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
                         <Menu.SubMenu key='datlich' title="Đặt lịch">
-                            {localStorage.getItem("vaitro") == 1 ?
+                            {localStorage.getItem("vaitro") === 1 ?
                                 <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
-                                : localStorage.getItem("vaitro") == 2 ?
+                                : localStorage.getItem("vaitro") === 2 ?
                                     <Menu.Item key='datlich-2'><a href="/QuanLyChiNhanh/datlich">Danh sách</a></Menu.Item>
                                     : <Menu.Item key='datlich-2'><a href="/employee/datlich">Danh sách</a></Menu.Item>
                             }
                         </Menu.SubMenu>
-                        {localStorage.getItem("vaitro") == 1 ?
+                        {localStorage.getItem("vaitro") === 1 ?
                             <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
-                            : localStorage.getItem("vaitro") == 2 ?
+                            : localStorage.getItem("vaitro") === 2 ?
                                 <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/QuanLyChiNhanh/thongke">Thống kê</a></Menu.Item>
                                 : <Menu.Item key="Thống kê" icon={<AreaChartOutlined />}><a href="/employee/thongke">Thống kê</a></Menu.Item>
                         }

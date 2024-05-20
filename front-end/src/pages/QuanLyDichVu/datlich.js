@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu, Modal } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
 import moment from "moment";
 import { CSVLink } from "react-csv";
 import Chart from "react-apexcharts";
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 
 function NhanVienDichVuDatLich(props) {
 
@@ -24,7 +22,7 @@ function NhanVienDichVuDatLich(props) {
     const [openProfile, setOpenProfile] = useState(false)
     const [doanhthu, setDoanhthu] = useState([])
     const [tongdon, setTongdon] = useState([])
-    const [stateDonHangChuaExport, setStateDonHangChuaExport] = useState([])
+    const [stateDonHangChuaExport] = useState([])
     const [stateDonHangChua, setStateDonHangChua] = useState({
         options: {
             chart: {
@@ -187,7 +185,7 @@ function NhanVienDichVuDatLich(props) {
                 console.error('Error fetching data:', error);
             });
 
-    }, []);
+    }, [id, chinhanh, idNhanVien]);
 
     const LogoutSubmit = () => {
         localStorage.setItem("header", 0)

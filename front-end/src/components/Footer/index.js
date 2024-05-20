@@ -72,7 +72,7 @@ function Footer(props) {
           </span>
           <div class="flex space-x-5 sm:justify-center sm:mt-0">
             <a
-              href="#"
+              href="/#"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
@@ -91,7 +91,7 @@ function Footer(props) {
               <span class="sr-only">Facebook page</span>
             </a>
             <a
-              href="#"
+              href="/#"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
@@ -106,7 +106,7 @@ function Footer(props) {
               <span class="sr-only">Discord community</span>
             </a>
             <a
-              href="#"
+              href="/#"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
@@ -125,7 +125,7 @@ function Footer(props) {
               <span class="sr-only">Twitter page</span>
             </a>
             <a
-              href="#"
+              href="/#"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
@@ -144,7 +144,7 @@ function Footer(props) {
               <span class="sr-only">GitHub account</span>
             </a>
             <a
-              href="#"
+              href="/#"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg

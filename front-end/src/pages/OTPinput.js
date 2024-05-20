@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../axios';
-import Navbar from '../components/Navbar';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FiMapPin, FiPhone, FiUser } from 'react-icons/fi';
 import { ToastContainer, toast } from 'react-toastify';
 
 function OTPInput() {
-    const [email, setEmail] = useState('');
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const [message, setMessage] = useState('');
     const navigate = useNavigate()

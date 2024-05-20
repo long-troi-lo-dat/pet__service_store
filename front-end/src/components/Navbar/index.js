@@ -1,18 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoHeader from "../../assets/logo-1.png";
 import {
   FiPhone,
   FiShoppingCart,
-  FiSearch,
   FiMapPin,
   FiSend,
   FiUser
 } from "react-icons/fi";
 import { GlobalContext } from "../../Context";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Shop from "../../pages/Shop";
-import CartButton from "../../pages/CartButton";
 
 function Navbar({ setShowCart }) {
   const { setShouldScroll } = useContext(GlobalContext);
@@ -101,7 +97,7 @@ function Navbar({ setShowCart }) {
                   {openProfile && <div className="flex flex-col" style={{ color: "black", position: "absolute", top: "35px", right: "0px", width: "200px", paddingTop: "15px", paddingLeft: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
                     <ul className="flex flex-col gap-4">
                       <li><span onClick={() => { navigate(`/userdetail/${id}}`); setOpenProfile((prev) => !prev) }}>Thông tin tài khoản</span></li>
-                      {localStorage.getItem("vaitro") == 1 ? <li><span onClick={() => { navigate(`/employee/index`); setOpenProfile((prev) => !prev) }}>Trang admin</span></li> : ""}
+                      {localStorage.getItem("vaitro") === 1 ? <li><span onClick={() => { navigate(`/employee/index`); setOpenProfile((prev) => !prev) }}>Trang admin</span></li> : ""}
                       <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
                     </ul>
                   </div>}

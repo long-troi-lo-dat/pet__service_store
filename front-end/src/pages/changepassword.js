@@ -76,7 +76,7 @@ function ChangePassword(props) {
                 {dataUser.map((item, i) => (
                     <div class="row">
                         <div class="col-md-3 border-right">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src={item.anhdaidien ? item.anhdaidien : "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"} />
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src={item.anhdaidien ? item.anhdaidien : "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"} alt="" />
                                 <span class="font-weight-bold">{item.hoTen}</span>
                                 <span class="text-black-50">{item.email}</span>
                             </div>

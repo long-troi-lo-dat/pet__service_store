@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate, useParams } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import axios from '../../axios';
 import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
-import { AreaChartOutlined, BarsOutlined } from '@ant-design/icons'
+import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import Dropdown from 'react-bootstrap/Dropdown';
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 
 function NhanVienDichVu(props) {
 
@@ -16,10 +15,6 @@ function NhanVienDichVu(props) {
 
     const [dataUser, setDataUser] = useState([])
     const [openProfile, setOpenProfile] = useState(false)
-    const handleNavigate = async () => {
-        navigate("/")
-        localStorage.setItem("header", 0)
-    }
 
     useEffect(() => {
         axios.get(`/userdetail/${id}`)
@@ -38,7 +33,7 @@ function NhanVienDichVu(props) {
             .catch((error) => {
                 console.error('error fetching data :', error);
             });
-    }, []);
+    }, [id]);
 
     const LogoutSubmit = () => {
         localStorage.setItem("header", 0)
@@ -88,7 +83,7 @@ function NhanVienDichVu(props) {
                             <li class="nav-item dropdown no-arrow d-sm-none">
                                 <a
                                     class="nav-link dropdown-toggle"
-                                    href="#"
+                                    href="/#"
                                     id="searchDropdown"
                                     role="button"
                                     data-toggle="dropdown"
@@ -122,7 +117,7 @@ function NhanVienDichVu(props) {
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a
                                     class="nav-link dropdown-toggle"
-                                    href="#"
+                                    href="/#"
                                     id="alertsDropdown"
                                     role="button"
                                     data-toggle="dropdown"
@@ -137,7 +132,7 @@ function NhanVienDichVu(props) {
                                     aria-labelledby="alertsDropdown"
                                 >
                                     <h6 class="dropdown-header">Alerts Center</h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="mr-3">
                                             <div class="icon-circle bg-primary">
                                                 <i class="fas fa-file-alt text-white"></i>
@@ -150,7 +145,7 @@ function NhanVienDichVu(props) {
                                             </span>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="mr-3">
                                             <div class="icon-circle bg-success">
                                                 <i class="fas fa-donate text-white"></i>
@@ -161,7 +156,7 @@ function NhanVienDichVu(props) {
                                             $290.29 has been deposited into your account!
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="mr-3">
                                             <div class="icon-circle bg-warning">
                                                 <i class="fas fa-exclamation-triangle text-white"></i>
@@ -175,7 +170,7 @@ function NhanVienDichVu(props) {
                                     </a>
                                     <a
                                         class="dropdown-item text-center small text-gray-500"
-                                        href="#"
+                                        href="/#"
                                     >
                                         Show All Alerts
                                     </a>
@@ -184,7 +179,7 @@ function NhanVienDichVu(props) {
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a
                                     class="nav-link dropdown-toggle"
-                                    href="#"
+                                    href="/#"
                                     id="messagesDropdown"
                                     role="button"
                                     data-toggle="dropdown"
@@ -199,7 +194,7 @@ function NhanVienDichVu(props) {
                                     aria-labelledby="messagesDropdown"
                                 >
                                     <h6 class="dropdown-header">Message Center</h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -218,7 +213,7 @@ function NhanVienDichVu(props) {
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -235,7 +230,7 @@ function NhanVienDichVu(props) {
                                             <div class="small text-gray-500">Jae Chun · 1d</div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -254,7 +249,7 @@ function NhanVienDichVu(props) {
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -276,7 +271,7 @@ function NhanVienDichVu(props) {
                                     </a>
                                     <a
                                         class="dropdown-item text-center small text-gray-500"
-                                        href="#"
+                                        href="/#"
                                     >
                                         Read More Messages
                                     </a>

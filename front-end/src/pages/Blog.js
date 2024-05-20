@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import './style/style.css';
 import imagebanner from '../assets/img/images-blog/image 3.png';
 import info1 from '../assets/img/images-blog/Rectangle 103.png';
@@ -8,10 +8,8 @@ import info4 from '../assets/img/images-blog/Rectangle 118.png';
 import info5 from '../assets/img/images-blog/Rectangle 124.png';
 import info6 from '../assets/img/images-blog/Rectangle 134.png';
 import info7 from '../assets/img/images-blog/Rectangle 136.png';
-import info8 from '../assets/img/images-blog/Rectangle 138.png';
 import Navbar from "../components/Navbar";
 function Blog(props) {
-    const [comment, setComment] = useState(0)
     return (
         <>
             <Navbar />

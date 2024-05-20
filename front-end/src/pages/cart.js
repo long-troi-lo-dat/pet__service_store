@@ -52,7 +52,7 @@ function Cart() {
 
   useEffect(() => {
     tinhtongtien()
-  }, [])
+  })
 
   const thaydoisoluong = (sanpham, sl) => {
     const idx = cart.indexOf(sanpham);

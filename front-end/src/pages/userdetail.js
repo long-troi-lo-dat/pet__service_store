@@ -1,6 +1,7 @@
 import axios from '../axios';
 import React, { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import moment from 'moment';
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
