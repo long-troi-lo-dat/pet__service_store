@@ -39,7 +39,7 @@ app.get('/', function (req, res) {
   res.send('Welcome you, admin');
 });
 
-//api crud
+
 //api shop
 app.get('/shop', (req, res) => {
   const sql = 'SELECT * FROM sanpham ORDER BY id_dm DESC, ngaythem DESC ';

@@ -54,7 +54,7 @@ function Register(props) {
       setListError3("")
     }
 
-    if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "" && validatePassword !== "") {
+    if (validateName !== "" && validateSdt !== "" && validateEmail !== "" && validatePassword !== "") {
       await axios.post(`/signup`, formData)
         .then(
           res => {
