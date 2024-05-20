@@ -40,7 +40,7 @@ jobs:
       run: |
         cd back-end
         npm install
-        npm run prop
+        npm run prod
 
     - name: Deploy back-end
       # if: ${{ contains(github.event.head_commit.modified, 'back-end/') }}
