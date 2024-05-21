@@ -36,20 +36,23 @@ jobs:
         target: "${{ secrets.FRONTEND_DEPLOY_PATH  }}"
         strip_components: 2
 
-    - name: Install dependencies and build back-end
-      # if: ${{ contains(github.event.head_commit.modified, 'back-end/') }}
-      run: |
-        cd back-end
-        npm install
-        npm run prod
-
     - name: Deploy back-end
       # if: ${{ contains(github.event.head_commit.modified, 'back-end/') }}
-      uses: appleboy/scp-action@v0.1.7
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
         password: ${{ secrets.SERVER_PASSWORD }}
         port: ${{ secrets.SSH_PORT }}
-        source: "back-end/dist/*,back-end/Images"
-        target: "${{ secrets.BACKEND_DEPLOY_PATH  }}"
+        script: |
+          if ! [ -d "pet_service_store" ] || [ -z "$(ls -A pet_service_store)" ]; then
+              cd /home/dghouse1/api.dghouse.shop
+              git clone --no-checkout https://github.com/username/repo.git
+              cd pet_service_store
+              git sparse-checkout init --cone
+              git sparse-checkout set back-end
+              git checkout
+          fi
+          source /home/dghouse1/nodevenv/api.dghouse.shop/20/bin/activate
+          cd /home/dghouse1/api.dghouse.shop/pet_service_store/back-end
+          npm install
