@@ -26,7 +26,7 @@ jobs:
 
     - name: Deploy front-end
       # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
-      uses: appleboy/scp-action@master
+      uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
@@ -34,6 +34,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         source: "front-end/build/*"
         target: "${{ secrets.FRONTEND_DEPLOY_PATH  }}"
+        strip_components: 2
 
     - name: Install dependencies and build back-end
       # if: ${{ contains(github.event.head_commit.modified, 'back-end/') }}
