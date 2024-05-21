@@ -53,6 +53,6 @@ jobs:
               git sparse-checkout set back-end
               git checkout
           fi
-          source /home/dghouse1/nodevenv/api.dghouse.shop/20/bin/activate
+          source /home/dghouse1/nodevenv/api.dghouse.shop/pet_service_store/back-end/20/bin/activate
           cd /home/dghouse1/api.dghouse.shop/pet_service_store/back-end
           npm install
