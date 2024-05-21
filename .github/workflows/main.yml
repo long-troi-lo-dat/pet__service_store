@@ -47,7 +47,7 @@ jobs:
         script: |
           if ! [ -d "pet_service_store" ] || [ -z "$(ls -A pet_service_store)" ]; then
               cd /home/dghouse1/api.dghouse.shop
-              git clone --no-checkout https://github.com/username/repo.git
+              git clone --no-checkout https://github.com/long-troi-lo-dat/pet_service_store.git
               cd pet_service_store
               git sparse-checkout init --cone
               git sparse-checkout set back-end
