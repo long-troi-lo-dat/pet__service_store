@@ -17,23 +17,23 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@master
    
-    # - name: Install dependencies and build front-end
-    #   # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
-    #   run: |
-    #     cd front-end
-    #     npm install
-    #     npm run build
+    - name: Install dependencies and build front-end
+      # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
+      run: |
+        cd front-end
+        npm install
+        npm run build
 
-    # - name: Deploy front-end
-    #   # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
-    #   uses: appleboy/scp-action@master
-    #   with:
-    #     host: ${{ secrets.SERVER_HOST }}
-    #     username: ${{ secrets.SERVER_USER }}
-    #     password: ${{ secrets.SERVER_PASSWORD }}
-    #     port: ${{ secrets.SSH_PORT }}
-    #     source: "front-end/build/*"
-    #     target: "${{ secrets.FRONTEND_DEPLOY_PATH  }}"
+    - name: Deploy front-end
+      # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: ${{ secrets.SSH_PORT }}
+        source: "front-end/build/*"
+        target: "${{ secrets.FRONTEND_DEPLOY_PATH  }}"
 
     - name: Install dependencies and build back-end
       # if: ${{ contains(github.event.head_commit.modified, 'back-end/') }}

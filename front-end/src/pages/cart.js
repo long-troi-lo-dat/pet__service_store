@@ -140,33 +140,37 @@ function Cart() {
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm trong giỏ hàng</h6>
                 </div>
-                <div class="card-body">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                      <tr>
-                        <th style={{}}>Hình ảnh</th>
-                        <th style={{ width: "100px" }}>Tên sản phẩm</th>
-                        <th style={{ width: "100px" }}>Giá</th>
-                        <th style={{ width: "100px" }}>Số lượng</th>
-                        <th style={{ width: "140px" }}>Thành tiền</th>
-                        <th>Xóa</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cart ? (cart.map((item, i) => (
+                {cart.length > 0 ?
+                  <div class="card-body">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
                         <tr>
-                          <td style={{}}><img src={process.env.REACT_APP_URL_API_LOCAL + "/" + item.hinhanh + ".webp"} alt='img' /></td>
-                          <td style={{}}>{item.ten}</td>
-                          <td style={{}}>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                          <td style={{ textAlign: "center" }}><div><button onClick={() => thaydoisoluong(item, -1)}>-</button><input type="text" style={{ width: "100%" }} value={item.amount} readOnly={true} className='text-center' /><button onClick={() => thaydoisoluong(item, 1)}>+</button></div></td>
-                          <td style={{}}>{(item.gia * item.amount).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                          <td><button onClick={() => removeProduct(item)}>Xóa</button></td>
+                          <th style={{}}>Hình ảnh</th>
+                          <th style={{ width: "100px" }}>Tên sản phẩm</th>
+                          <th style={{ width: "100px" }}>Giá</th>
+                          <th style={{ width: "100px" }}>Số lượng</th>
+                          <th style={{ width: "140px" }}>Thành tiền</th>
+                          <th>Xóa</th>
                         </tr>
-                      ))) : ""}
-                    </tbody>
-                  </table>
-                  <div>Tổng số tiền: {tongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
-                </div>
+                      </thead>
+                      <tbody>
+                        {cart ? (cart.map((item, i) => (
+                          <tr>
+                            <td style={{}}><img src={process.env.REACT_APP_URL_API_LOCAL + "/" + item.hinhanh + ".webp"} alt='img' /></td>
+                            <td style={{}}>{item.ten}</td>
+                            <td style={{}}>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                            <td style={{ textAlign: "center" }}><div><button onClick={() => thaydoisoluong(item, -1)}>-</button><input type="text" style={{ width: "100%" }} value={item.amount} readOnly={true} className='text-center' /><button onClick={() => thaydoisoluong(item, 1)}>+</button></div></td>
+                            <td style={{}}>{(item.gia * item.amount).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                            <td><button onClick={() => removeProduct(item)}>Xóa</button></td>
+                          </tr>
+                        ))) : ""}
+                      </tbody>
+                    </table>
+                    <div>Tổng số tiền: {tongtien.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
+                  </div>
+                  :
+                  <div class="card-body">Chưa có sản phẩm trong giỏ hàng</div>
+                }
               </div>
             </div>
           </div>

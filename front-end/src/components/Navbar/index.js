@@ -77,7 +77,7 @@ function Navbar({ setShowCart }) {
                 className="flex items-center space-x-4 ml-10"
               >
                 <FiPhone size={24} color="white" />
-                <span style={{ marginLeft: "8px" }}>0123-456-789</span>
+                <span style={{ marginLeft: "8px" }}>077 766 3476</span>
                 <FiMapPin size={24} color="white" />
                 <span style={{ marginLeft: "8px" }}>
                   Công viên phần mềm quang trung
