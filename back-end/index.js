@@ -16,7 +16,7 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
-const BaseURL = process.env.REACT_APP_URL
+const BaseURL = process.env.PUBLIC_URL
 app.use(cors({
   origin: BaseURL,
   credentials: true
