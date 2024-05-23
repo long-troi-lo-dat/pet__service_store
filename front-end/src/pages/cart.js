@@ -90,13 +90,13 @@ function Cart() {
       ...formData,
       [name]: value
     })
-    console.log(formData)
   };
   const handleSubmit = (event) => {
     axios.post("/dathang", formData)
       .then((res) => {
         console.log(res.data);
         setTimeout(() => {
+          cart = [];
           navigate('/success')
         }, 400);
       })
@@ -156,7 +156,7 @@ function Cart() {
                       <tbody>
                         {cart ? (cart.map((item, i) => (
                           <tr>
-                            <td style={{}}><img src={process.env.REACT_APP_URL_API_LOCAL + "/" + item.hinhanh + ".webp"} alt='img' /></td>
+                            <td style={{}}><img src={process.env.REACT_APP_URL_API + "/" + item.hinhanh + ".webp"} alt='img' /></td>
                             <td style={{}}>{item.ten}</td>
                             <td style={{}}>{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                             <td style={{ textAlign: "center" }}><div><button onClick={() => thaydoisoluong(item, -1)}>-</button><input type="text" style={{ width: "100%" }} value={item.amount} readOnly={true} className='text-center' /><button onClick={() => thaydoisoluong(item, 1)}>+</button></div></td>
