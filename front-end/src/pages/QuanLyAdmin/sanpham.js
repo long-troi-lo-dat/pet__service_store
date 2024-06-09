@@ -276,14 +276,15 @@ function AdminSanPham(props) {
                                                                 Hiện sản phẩm
                                                             </button>
                                                         }
-                                                        <button
+                                                        <a
                                                             class="btn btn-info"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
                                                             style={{ minWidth: "140px", fontSize: "13px" }}
+                                                            href="/employee/editsanpham"
                                                         >
                                                             Sửa sản phẩm
-                                                        </button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -343,14 +344,15 @@ function AdminSanPham(props) {
                                                                 Hiện sản phẩm
                                                             </button>
                                                         }
-                                                        <button
+                                                        <a
                                                             class="btn btn-info"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
                                                             style={{ minWidth: "140px", fontSize: "13px" }}
+                                                            href={"/employee/editsanpham/" + item.id_sp}
                                                         >
                                                             Sửa sản phẩm
-                                                        </button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             ))}

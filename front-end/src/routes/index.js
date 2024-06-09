@@ -71,7 +71,7 @@ const publicRoutes = [
   { path: "/employee/adddichvu", component: AdminAddDichVu },
   { path: "/employee/sanpham", component: AdminSanPham },
   { path: "/employee/addsanpham", component: AdminAddSanPham },
-  { path: "/employee/editsanpham", component: AdminEditSanPham },
+  { path: "/employee/editsanpham/:id", component: AdminEditSanPham },
   { path: "/employee/addnguoidung", component: AdminAddNguoiDung },
   { path: "/employee/thucung", component: AdminThuCung },
   { path: "/employee/donhang", component: AdminDonHang },

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
@@ -7,8 +7,10 @@ import axios from '../../axios';
 const { Sider } = Layout;
 
 function AdminEditSanPham(props) {
+    const { id } = useParams();
     const [openProfile, setOpenProfile] = useState(false)
     const [dataUser] = useState([])
+    const [dataproduct, setDataproduct] = useState([])
     const [formData, setFormData] = useState({
         ten: "",
         gia: "",
@@ -32,7 +34,7 @@ function AdminEditSanPham(props) {
     };
 
     const handleSubmit = (event) => {
-        axios.post("/addsanpham", formData)
+        axios.post("/editsanpham", formData)
             .then((res) => {
                 console.log(res.data);
                 navigate("/employee/sanpham")
@@ -47,6 +49,16 @@ function AdminEditSanPham(props) {
         localStorage.setItem("login", "no")
         navigate("/")
     }
+    useEffect(() => {
+        axios.get(`/chitietsanpham/${id}`)
+            .then((response) => {
+                console.log(response.data)
+                setDataproduct(response.data);
+            })
+            .catch((error) => {
+                console.error('error fetching data :', error);
+            });
+    }, [id]);
     return (
         <div id="wrapper">
             <Layout>
@@ -139,7 +151,7 @@ function AdminEditSanPham(props) {
                     </nav>
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Thêm mới sản phẩm</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Sửa sản phẩm</h1>
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-body">
@@ -147,33 +159,34 @@ function AdminEditSanPham(props) {
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Tên sản phẩm</label>
                                         <input type="text" class="form-control" id="inputEmail4"
-                                            placeholder="Tên sản phẩm" name="ten" onChange={handleChangeInput} />
+                                            placeholder="Tên sản phẩm" value={dataproduct.ten} name="ten" onChange={handleChangeInput} />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="gia">Giá</label>
-                                        <input type="text" class="form-control" id="gia" placeholder="Giá" name="gia" onChange={handleChangeInput} />
+                                        <input type="text" class="form-control" id="gia" placeholder="Giá" value={dataproduct.gia} name="gia" onChange={handleChangeInput} />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="img">Url hình ảnh</label>
-                                    <input type="text" class="form-control" id="img" name="hinhanh" placeholder="Copy link url hình ảnh..." onChange={handleChangeInput} />
+                                    <input type="text" class="form-control" id="img" value={dataproduct.hinhanh} name="hinhanh" placeholder="Copy link url hình ảnh..." onChange={handleChangeInput} />
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputAddress2">Số lượng</label>
                                         <input type="text" class="form-control" id="inputAddress2"
-                                            placeholder="Số lượng còn trong kho" name="soluong" onChange={handleChangeInput} />
+                                            placeholder="Số lượng còn trong kho" value={dataproduct.soluong} name="soluong" onChange={handleChangeInput} />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputCity">Mô tả</label>
-                                    <input type="text" class="form-control" id="inputCity" placeholder="Mô tả sản phẩm" name="mota" onChange={handleChangeInput} />
+                                    <input type="text" class="form-control" id="inputCity" placeholder="Mô tả sản phẩm" value={dataproduct.mota} name="mota" onChange={handleChangeInput} />
                                 </div>
                                 <div class="form-group">
                                     <label for="inputIdDM">Danh mục</label>
                                     <select
                                         class="form-select"
                                         aria-label="Default select example"
+                                        value={dataproduct.iddm}
                                         name="iddm"
                                         onChange={handleChangeInput}
                                         style={{ fontSize: "13px" }}
