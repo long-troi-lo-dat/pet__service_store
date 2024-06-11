@@ -8,18 +8,13 @@ const App = () => {
   return (
     <>
       <GlobalState>
-        <section className="">
-          {/* <Navbar/> */}
-          <main className="w-full">
-            <Routes>
-              {publicRoutes.map((item, index) => {
-                const Page = item.component;
-                return <Route key={index} path={item.path} element={<Page />} />;
-              })}
-            </Routes>
-          </main>
-          <Footer />
-        </section>
+        <Routes>
+          {publicRoutes.map((item, index) => {
+            const Page = item.component;
+            return <Route key={index} path={item.path} element={<Page />} />;
+          })}
+        </Routes>
+        <Footer />
       </GlobalState>
     </>
   );

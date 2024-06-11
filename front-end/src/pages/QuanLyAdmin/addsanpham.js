@@ -33,7 +33,7 @@ function AdminAddSanPham(props) {
     };
 
     const handleSubmit = (event) => {
-        axios.post("/addsanpham", formData)
+        axios.post("/api/product", formData)
             .then((res) => {
                 console.log(res.data);
                 navigate("/employee/sanpham")

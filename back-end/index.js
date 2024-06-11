@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const route = require("./src/routes/index");
-const db = require("./src/db/dbConfig");
+const db = require("./src/config/database");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
@@ -25,35 +25,11 @@ app.use(
 );
 
 app.use(express.json());
-app.use(express.static("./Images"));
+app.use(express.static("./uploads/"));
 
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", route);
-
-app.get("/", function (req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-
-  res.send("Welcome you, admin");
-});
-
-//api shop
-app.get("/shop", (req, res) => {
-  const sql = "SELECT * FROM sanpham ORDER BY id_dm DESC, ngaythem DESC ";
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
 
 app.get("/shop/:category/:detail/:price", (req, res) => {
   const category = req.params.category;
@@ -83,14 +59,6 @@ app.get("/shop/:category/:detail/:price", (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
     console.log(sql, params, "query result");
-    return res.json(data);
-  });
-});
-app.get("/detail/:id", (req, res) => {
-  const sql = "SELECT * FROM sanpham WHERE id_sp = ?";
-  const id = req.params.id;
-  db.query(sql, [id], (err, data) => {
-    if (err) return res.json("Error");
     return res.json(data);
   });
 });
@@ -498,9 +466,8 @@ app.get("/thongke/datlich/chuahoanthanh", (req, res) => {
 
 //
 app.post("/nextstatus", (req, res) => {
-  const sql = `UPDATE donhangdichvu SET trangthai='${
-    req.body.trangthai + 1
-  }' WHERE id='${req.body.id}'`;
+  const sql = `UPDATE donhangdichvu SET trangthai='${req.body.trangthai + 1
+    }' WHERE id='${req.body.id}'`;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err);
@@ -509,9 +476,8 @@ app.post("/nextstatus", (req, res) => {
   });
 });
 app.post("/backstatus", (req, res) => {
-  const sql = `UPDATE donhangdichvu SET trangthai='${
-    req.body.trangthai - 1
-  }' WHERE id='${req.body.id}'`;
+  const sql = `UPDATE donhangdichvu SET trangthai='${req.body.trangthai - 1
+    }' WHERE id='${req.body.id}'`;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err);
@@ -520,9 +486,8 @@ app.post("/backstatus", (req, res) => {
   });
 });
 app.post("/nextstatusdh", (req, res) => {
-  const sql = `UPDATE donhang SET trangthai='${
-    req.body.trangthai + 1
-  }' WHERE id='${req.body.id}'`;
+  const sql = `UPDATE donhang SET trangthai='${req.body.trangthai + 1
+    }' WHERE id='${req.body.id}'`;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err);
@@ -531,9 +496,8 @@ app.post("/nextstatusdh", (req, res) => {
   });
 });
 app.post("/backstatusdh", (req, res) => {
-  const sql = `UPDATE donhang SET trangthai='${
-    req.body.trangthai - 1
-  }' WHERE id='${req.body.id}'`;
+  const sql = `UPDATE donhang SET trangthai='${req.body.trangthai - 1
+    }' WHERE id='${req.body.id}'`;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err);
@@ -822,7 +786,6 @@ app.post("/login", (req, res) => {
 
 app.get("/userdetailedit/:id", (req, res) => {
   const id = req.params.id;
-  // const sql = "SELECT * FROM `nguoidung` WHERE id_user = ?";
   const sql =
     "SELECT hoTen,anhdaidien,sdt,diachi FROM `nguoidung` WHERE id_user = ?";
   db.query(sql, id, (err, data) => {
@@ -888,12 +851,6 @@ app.post("/changepassword", async (req, res) => {
     if (passwordMatch === "false") {
       return res.json({ error: "Mật khẩu hiện tại không đúng" });
     }
-    // if (passwordMatch) {
-    //   return res.json({ error: 'Mật khẩu hiện tại không đúng' });
-    // }
-
-    // const hashedNewPassword = await bcrypt.hash(newpassword, 10);
-
     const sql2 = "UPDATE nguoidung SET matkhau = ? WHERE id_user = ?";
     db.query(sql2, [newpassword, id_user], (err, data) => {
       if (err) {
@@ -990,7 +947,7 @@ app.post("/bookingservice", (req, res) => {
     const mailOptions = {
       from: "Dghousepetshop115@gmail.com",
       to: email,
-      subject: "DGHOUSE PET SHOP KHÔI PHỤC MẬT KHẨU",
+      subject: "DGHOUSE PET SHOP XÁC NHẬN ĐƠN HÀNG",
       html: `< !DOCTYPE html >
       <html lang="en" >
         <head>

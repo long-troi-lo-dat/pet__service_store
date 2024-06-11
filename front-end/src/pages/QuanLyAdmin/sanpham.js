@@ -6,7 +6,6 @@ import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
-import { MDBIcon } from 'mdb-react-ui-kit';
 import moment from "moment";
 const { Sider } = Layout;
 
@@ -203,7 +202,6 @@ function AdminSanPham(props) {
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end mb-4 border" style={{ marginLeft: "44%", padding: "5px" }}>
                                     <span style={{ marginRight: "5px" }}>Tìm kiếm sản phẩm ở đây nè</span>
-                                    <MDBIcon fas icon="hand-point-right" style={{ fontSize: "30px", marginRight: "5px" }} />
                                     <form class="form-inline mr-auto navbar-search">
                                         <div class="input-group">
                                             <input
