@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-
+ 
   pull_request:
     branches:
       - main
@@ -14,46 +14,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@master
+    - name: Checkout code
+      uses: actions/checkout@master
+   
+    - name: Install dependencies and build front-end
+      # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
+      run: |
+        cd front-end
+        npm install
+        npm run build
 
-      - name: Install dependencies and build front-end
-        # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
-        run: |
-          cd front-end
+    - name: Deploy front-end
+      # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: ${{ secrets.SSH_PORT }}
+        source: "front-end/build/*"
+        target: "${{ secrets.FRONTEND_DEPLOY_PATH  }}"
+        strip_components: 2
+
+    - name: Deploy back-end
+      # if: ${{ contains(github.event.head_commit.modified, 'back-end/') }}
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          if ! [ -d "pet_service_store" ] || [ -z "$(ls -A pet_service_store)" ]; then
+              cd /home/dghouse1/api.dghouse.shop
+              git clone --no-checkout https://github.com/long-troi-lo-dat/pet_service_store.git
+              cd pet_service_store
+              git sparse-checkout init --cone
+              git sparse-checkout set back-end
+              git checkout
+          fi
+          git pull
+          source /home/dghouse1/nodevenv/api.dghouse.shop/pet_service_store/back-end/20/bin/activate
+          cd /home/dghouse1/api.dghouse.shop/pet_service_store/back-end
           npm install
-          npm run build
-
-      - name: Deploy front-end
-        # if: ${{ contains(github.event.head_commit.modified, 'front-end/') }}
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "front-end/build/*"
-          target: "${{ secrets.FRONTEND_DEPLOY_PATH  }}"
-          strip_components: 2
-
-      - name: Deploy back-end
-        # if: ${{ contains(github.event.head_commit.modified, 'back-end/') }}
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            if ! [ -d "pet_service_store" ] || [ -z "$(ls -A pet_service_store)" ]; then
-                cd /home/dghouse1/api.dghouse.shop
-                git clone --no-checkout https://github.com/long-troi-lo-dat/pet_service_store.git
-                cd pet_service_store
-                git sparse-checkout init --cone
-                git sparse-checkout set back-end
-                git checkout
-            fi
-            git pull
-            source /home/dghouse1/nodevenv/api.dghouse.shop/pet_service_store/back-end/20/bin/activate
-            cd /home/dghouse1/api.dghouse.shop/pet_service_store/back-end
-            npm install
