@@ -36,7 +36,6 @@ app.get("/shop/:category/:detail/:price", (req, res) => {
   const idgl = req.params.detail;
   const price = req.params.price;
 
-  // Set conditions for filtering
   const catesql = `id_dm = ?`;
   const detailsql = idgl !== "0" ? `id_gl = ?` : null;
   const pricesql =
