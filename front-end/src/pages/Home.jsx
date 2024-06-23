@@ -1495,39 +1495,36 @@ export default function Home() {
                 <SwiperSlide>
                   <div class="row ">
                     <div class="col-2">
-                      <Icon icon="ri:double-quotes-l" class="quote-icon text-primary"></Icon>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179m10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179"></path>
+                      </svg>
                     </div>
                     <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
-                      <p class="testimonial-content fs-2">At the core of our practice is the idea that cities are the
-                        incubators of our
-                        greatest achievements, and the best hope for a sustainable future.</p>
-                      <p class="text-black">- Joshima Lin</p>
+                      <p class="testimonial-content fs-2">Mèo vốn là loài vật trung thành tuyệt đối trong tình cảm, vì vậy mèo chính là thú cưng mang lại nguồn năng lực biến ngôi nhà lạnh lẽo thành nơi ấm áp và hạnh phúc.</p>
                     </div>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div class="row ">
                     <div class="col-2">
-                      <Icon icon="ri:double-quotes-l" class="quote-icon text-primary"></Icon>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179m10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179"></path>
+                      </svg>
                     </div>
                     <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
-                      <p class="testimonial-content fs-2">At the core of our practice is the idea that cities are the
-                        incubators of our
-                        greatest achievements, and the best hope for a sustainable future.</p>
-                      <p class="text-black">- Joshima Lin</p>
+                      <p class="testimonial-content fs-2">Chó và mèo đều không thể nói, nhưng chúng có thể nghe và hiểu bạn hơn bất kỳ ai khác.</p>
                     </div>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div class="row ">
                     <div class="col-2">
-                      <Icon icon="ri:double-quotes-l" class="quote-icon text-primary"></Icon>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179m10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179"></path>
+                      </svg>
                     </div>
                     <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
-                      <p class="testimonial-content fs-2">At the core of our practice is the idea that cities are the
-                        incubators of our
-                        greatest achievements, and the best hope for a sustainable future.</p>
-                      <p class="text-black">- Joshima Lin</p>
+                      <p class="testimonial-content fs-2">Những cuộc tình đầu với thú cưng mang lại những kỷ niệm đáng nhớ và những trải nghiệm không thể nào quên. Thú cưng giúp ta hiểu rõ hơn về tình yêu vô điều kiện và sự chia sẻ.</p>
                     </div>
                   </div>
                 </SwiperSlide>

@@ -28,8 +28,8 @@ module.exports = {
       // console.log(sanpham, hinh, "console data")
       db.query("INSERT INTO `sanpham` (`ten`,`gia`,`soluong`,`mota`,`id_dm`) VALUES (?,?,?,?,?,?)", [ten, gia, soluong, mota, id_dm], (err, results) => {
         // INSERT INTO `hinhanh`(`id`, `url`, `id_sanpham`) VALUES ('[value-2]','[value-3]')
-        const resultId = req.
-        db.query("INSERT INTO `hinhanh`(`url`, `id_sanpham`) VALUES (?,?')",[hinh,])
+        // const resultId = req.
+        // db.query("INSERT INTO `hinhanh`(`url`, `id_sanpham`) VALUES (?,?')",[hinh,])
         if (err) {
           return reject(err);
         }

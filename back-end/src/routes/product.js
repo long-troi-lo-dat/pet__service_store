@@ -3,7 +3,7 @@ const router = express.Router();
 const { uploadProductImages } = require("../config/multer")
 
 // import controller 
-const productController = require('../controller/productController');
+const productController = require('../controllers/productController');
 
 // define route for /api/product
 router.get('/', productController.getProducts);

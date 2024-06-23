@@ -585,7 +585,7 @@ app.post("/editsanpham", (req, res) => {
 
 app.post("/addnguoidung", (req, res) => {
   const sql =
-    "INSERT into `nguoidung` (`hoTen`,`anhdaidien`,`sdt`,`email`,`matkhau`,`diachi`,`mota`,`chinhanh`,`vaitro`) values (?,?,?,?,?,?,?,?,?)";
+    "INSERT into `nguoidung` (`hoTen`,`anhdaidien`,`sdt`,`email`,`matkhau`,`diachi`,`mota`,`vaitro`) values (?,?,?,?,?,?,?,?)";
   const values = [
     req.body.hoTen,
     req.body.anhdaidien,
@@ -594,7 +594,6 @@ app.post("/addnguoidung", (req, res) => {
     req.body.matkhau,
     req.body.diachi,
     req.body.mota,
-    req.body.chinhanh,
     req.body.vaitro,
   ];
   db.query(sql, values, (err, data) => {
@@ -678,111 +677,6 @@ app.post("/binhluan", (req, res) => {
   });
 });
 
-// app.post('/signup', (req, res) => {
-//   const sql = "INSERT into `nguoidung` (`hoTen`,`sdt`,`email`,`matkhau`,`chinhanh`) values (?,?,?,?,1)";
-//   const values = [
-//     req.body.hoten,
-//     req.body.sdt,
-//     req.body.email,
-//     req.body.password
-//   ]
-//   db.query(sql, values, (err, data) => {
-//     if (err) {
-//       return res.json(err)
-//     }
-//     return res.json(data)
-//   })
-// })
-
-app.post("/signup", async (req, res) => {
-  try {
-    const checkEmailQuery = "SELECT * FROM `nguoidung` WHERE `email` = ?";
-    const emailExists = await new Promise((resolve, reject) => {
-      db.query(checkEmailQuery, [req.body.email], (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data.length > 0);
-        }
-      });
-    });
-
-    if (emailExists) {
-      return res.json({ error: "Email đã tồn tại trong hệ thống" });
-    }
-    const insertUserQuery =
-      "INSERT INTO `nguoidung` (`hoTen`, `sdt`, `email`, `matkhau`, `chinhanh`) VALUES (?, ?, ?, ?, 1)";
-    const values = [
-      req.body.hoten,
-      req.body.sdt,
-      req.body.email,
-      req.body.password,
-    ];
-
-    db.query(insertUserQuery, values, (err, data) => {
-      if (err) {
-        return res.json({ error: "Đăng ký thất bại", details: err });
-      }
-
-      return res.json({ success: true, message: "Đăng ký thành công" });
-    });
-  } catch (error) {
-    return res.json({ error: "Đăng ký thất bại", details: error.message });
-  }
-});
-
-// app.post('/login', (req, res) => {
-//   const sql = "SELECT * FROM `nguoidung` WHERE `email` = ? AND `matkhau` = ?";
-//   db.query(sql, [req.body.email, req.body.password], (err, data) => {
-//     if (err) {
-//       return res.json(err)
-//     }
-//     if (data.length > 0) {
-//       return res.json(data)
-//     } else {
-//       return res.json("fail")
-//     }
-//   })
-// })
-
-app.post("/login", (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-
-  const sql = "SELECT * FROM `nguoidung` WHERE `email` = ?";
-  db.query(sql, [email], async (err, data) => {
-    if (err) {
-      return res.json(err);
-    }
-
-    if (data.length > 0) {
-      const user = data[0];
-      // const passwordMatch = await bcrypt.compare(password, user.matkhau);
-      var passwordMatch = "";
-      if (password === user.matkhau) {
-        passwordMatch = "true";
-      } else {
-        passwordMatch = "false";
-      }
-      if (passwordMatch === "true") {
-        if (user.vohieuhoa === 0) {
-          return res.json(user);
-        } else {
-          // Account is disabled
-          return res.json({
-            error: `Tài khoản đã bị vô hiệu hóa! Vui lòng liên hệ 0901 660 002 để biết thêm thông tin chi tiết`,
-          });
-        }
-      } else {
-        // Mật khẩu không trùng khớp
-        return res.json({ error: "Sai mật khẩu" });
-      }
-    } else {
-      // Người dùng không tồn tại
-      return res.json({ error: "Người dùng không tồn tại" });
-    }
-  });
-});
 
 app.get("/userdetailedit/:id", (req, res) => {
   const id = req.params.id;
