@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-import { useNavigate } from "react-router-dom";
 import axios from '../axios'
 import Navbar from "../components/Navbar";
 
@@ -10,7 +8,6 @@ const initialFormData = {
 };
 
 function Register(props) {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState(initialFormData);
 
   const handleChangeInput = (event) => {
