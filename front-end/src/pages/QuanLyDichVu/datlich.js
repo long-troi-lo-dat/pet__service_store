@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import axios from '../../axios';
-import "../../../src/assets/css/sb-admin-2.min.css";
+//import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu, Modal } from 'antd'
 import imglogo from "../../assets/logo-1.png"
 import moment from "moment";

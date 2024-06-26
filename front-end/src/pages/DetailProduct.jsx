@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../assets/css/detail.css';
-import '../assets/css/global1.css';
 import { useParams } from 'react-router-dom';
 import axios from '../axios';
 import Navbar from '../components/Navbar';

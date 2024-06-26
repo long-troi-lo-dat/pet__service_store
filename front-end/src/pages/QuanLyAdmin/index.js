@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import axios from '../../axios';
-import "../../../src/assets/css/sb-admin-2.min.css";
+//import "../../../src/assets/css/sb-admin-2.min.css";
 import { Layout, Menu } from 'antd'
 import { AreaChartOutlined } from '@ant-design/icons'
 import imglogo from "../../assets/logo-1.png"
@@ -35,7 +35,7 @@ function AdminIndex(props) {
         navigate("/")
     }
     return (
-        <div id="wrapper">
+        <div id="wrapper" className="d-flex">
             <Layout>
                 <Sider className="sidebar" style={{ color: "#fff" }}>
                     <Menu mode="inline" style={{ height: "100%", display: "flex", flexDirection: "column", gap: "15px", fontSize: "1rem", position: "relative" }}>

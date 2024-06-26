@@ -117,8 +117,8 @@ CSS STRUCTURE:
 
 /* Fonts */
 :root {
-  --body-font: 'Chilanka', cursive;
-  --heading-font: 'Chilanka', cursive;
+  --body-font: Arial;
+  --heading-font: Arial;
   --secondary-font: 'Montserrat', sans-serif;
 }
 
@@ -135,7 +135,7 @@ body {
 
   --bs-light-rgb: 248, 248, 248;
 
-  --bs-font-sans-serif: 'Chilanka', cursive;
+  --bs-font-sans-serif: Arial;
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
@@ -384,6 +384,27 @@ a.categories-item:hover iconify-icon.category-icon {
 }
 
 
+/* banner style */
+.swiper-pagination-bullet {
+  border: 1px solid var(--bs-body-color);
+  background-color: transparent;
+  opacity: 1;
+  width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 15px));
+  height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 15px));
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: var(--bs-body-color);
+  background: var(--bs-body-color);
+}
+
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 8px);
+}
+
+
+
 /* pet clothing */
 .card {
   --bs-card-inner-border-radius: none;
@@ -436,6 +457,7 @@ iconify-icon.quote-icon {
   color: #908F8D;
   line-height: normal;
   letter-spacing: 0.02125rem;
+  text-transform: capitalize;
   border-radius: 0.25rem;
   border: 1px solid rgba(65, 64, 62, 0.20);
   background: #FFF;

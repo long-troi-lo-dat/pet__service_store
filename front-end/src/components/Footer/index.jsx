@@ -11,7 +11,7 @@ function Footer(props) {
         marginBottom: "20px"
       }}
     >
-      <div class="tillefinal" style={{ color: "#41403E", backgroundColor: "#f9f3ec" }}>
+      <div class="tillefinal" style={{ color: "#41403E", backgroundColor: "#f9f3ec", textAlign: "center" }}>
         Hotline hỗ trợ 24/7 của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc
         của bạn | 077 766 3476
       </div>

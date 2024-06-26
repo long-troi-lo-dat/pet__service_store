@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const readline = require("readline");
-var config = require("config");
 let router = express.Router();
 
 dotenv.config();

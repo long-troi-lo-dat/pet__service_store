@@ -1,5 +1,5 @@
 import React from "react";
-import './style/style.css';
+// import './style/style.css';
 import imagebanner from '../assets/img/images-blog/image 3.png';
 import info1 from '../assets/img/images-blog/Rectangle 103.png';
 import info2 from '../assets/img/images-blog/Rectangle 106.png';
