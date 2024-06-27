@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Icon } from '@iconify/react';
@@ -11,11 +11,110 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import Navbar from '../components/Navbar';
 
 import { GlobalContext } from "../Context";
+import axios from "../axios";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const { shouldScroll, setShouldScroll } = useContext(GlobalContext);
+  const [dataAccessories, setDataAccessories] = useState([])
+  const { cart, setCart } = useContext(GlobalContext)
+
+  const unLogin = () => toast.error('Vui lòng đăng nhập!!', {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+  const Notify = () => toast.success('Thêm vào giỏ hàng thành công', {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+  const IssetInCartNotify = () => toast.error('Thú cưng chỉ được thêm 1 sản phẩm', {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+  const quantityNotify = () => toast.error('Số lượng còn lại của sản phẩm không đủ', {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+
+  const onAddToCartHandler = (item) => {
+
+    if (localStorage.getItem('login') === 'no') {
+      // Display a modal indicating that the user needs to log in
+      // showLoginModal();
+      unLogin()
+      return;
+    }
+
+    // Kiểm tra nếu sản phẩm có id_dm=6 và đã tồn tại trong cart, không thực hiện thêm mới
+    if (item.id_dm === 6 && cart.some(cartItem => cartItem.id_sp === item.id_sp)) {
+      console.error('Sản phẩm đã tồn tại trong giỏ hàng');
+      IssetInCartNotify();
+      return;
+    }
+
+    const existingCartItem = cart.find(cartItem => cartItem.id_sp === item.id_sp);
+    const availableQuantity = item.soluong;
+
+    if (existingCartItem) {
+      // Nếu sản phẩm đã tồn tại trong cart, kiểm tra số lượng còn lại
+      const newAmount = existingCartItem.amount + 1;
+      if (newAmount <= availableQuantity) {
+        const updatedCart = cart.map(cartItem =>
+          cartItem.id_sp === item.id_sp ? { ...cartItem, amount: newAmount } : cartItem
+        );
+        Notify();
+        setCart(updatedCart);
+      } else {
+        console.error('Số lượng vượt quá giới hạn');
+        quantityNotify();
+      }
+    } else {
+      // Nếu sản phẩm chưa tồn tại trong cart, thêm mới với amount là 1 nếu còn hàng
+      if (availableQuantity > 0) {
+        const updatedCart = [...cart, { ...item, amount: 1 }];
+        Notify();
+        setCart(updatedCart);
+      } else {
+        console.error('Sản phẩm đã hết hàng');
+        quantityNotify();
+      }
+    }
+  };
 
   useEffect(() => {
+    axios.get(`/api/product/getPetAccessories`)
+      .then((response) => {
+        setDataAccessories(response.data);
+      })
+      .catch((error) => {
+        console.error('error fetching data :', error);
+      });
     if (shouldScroll) {
       const element = document.getElementById("dichvutialong");
       if (element) {
@@ -140,7 +239,7 @@ export default function Home() {
         <div class="container pb-5">
 
           <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
-            <h2 class="display-3 fw-normal">Pet Clothing</h2>
+            <h2 class="display-3 fw-normal">Pet Accessories</h2>
             <div>
               <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                 shop now
@@ -171,7 +270,52 @@ export default function Home() {
             navigation={true}
             modules={[Autoplay, Navigation]}
           >
-            <SwiperSlide>
+            {dataAccessories.map((item, i) => {
+              return (
+                <SwiperSlide>
+                  <div class="z-1 position-absolute rounded-3 px-3 border border-dark-subtle bg-white">
+                    New
+                  </div>
+                  <div class="z-1 position-absolute end-0 rounded-3 bg-white">
+                    <a href="" class="btn border border-dark-subtle btn-outline-heart"><Icon icon="fluent:heart-24-filled" class="fs-5"></Icon></a>
+                  </div>
+                  <div class="card position-relative text-center text-md-start border p-2">
+                    <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + item.hinh} class="img-fluid rounded-4 border-bottom mt-4 bg-image" /></a>
+                    <div class="card-body p-0">
+                      <a href={"/detailproduct/" + item.id_sp}>
+                        <h6 class="card-title pt-4 text-truncate">{item.ten}</h6>
+                      </a>
+
+                      <div class="card-text">
+                        <h5 class="secondary-font text-primary">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
+
+                        <span class="rating secondary-font">
+                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
+                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
+                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
+                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
+                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
+                          {/* 5.0 */}
+                        </span>
+
+                        <div class="d-flex flex-wrap justify-content-center mt-3">
+                          <button onClick={() => { onAddToCartHandler(item) }} class="btn btn-cart px-4 pt-3 pb-3 border">
+                            <h6 class="text-uppercase m-0">Add to Cart</h6>
+                          </button>
+                          {/* <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <Icon icon="fluent:heart-24-filled" class="fs-5"></Icon>
+                          </a> */}
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </SwiperSlide>
+              )
+            })}
+            {/* <SwiperSlide>
               <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
                 New
               </div>
@@ -384,7 +528,7 @@ export default function Home() {
 
                 </div>
               </div>
-            </SwiperSlide>
+            </SwiperSlide> */}
           </Swiper>
         </div>
       </section>
@@ -1145,7 +1289,18 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {/* <section id="service">
         <div class="container py-5 my-5">
           <div class="row g-md-5 pt-4">

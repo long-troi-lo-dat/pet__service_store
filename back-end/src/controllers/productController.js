@@ -27,5 +27,10 @@ module.exports = {
     productModel.delete(req.params.id)
       .then(results => res.json(results))
       .catch(err => res.status(500).send(err));
-  }
+  },
+  getPetAccessories: (req, res) => {
+    productModel.getPetAccessory()
+      .then(results => res.json(results))
+      .catch(err => res.status(500).send(err));
+  },
 };

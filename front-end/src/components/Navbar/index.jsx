@@ -7,7 +7,7 @@ import {
   FiUser
 } from "react-icons/fi";
 
-function Navbar({ setShowCart }) {
+function Navbar() {
 
   const navigate = useNavigate();
   const [openProfile, setOpenProfile] = useState(false)
@@ -50,24 +50,24 @@ function Navbar({ setShowCart }) {
                 </span>
               </div>
               <div style={{ display: "flex", gap: "12px" }}>
-                <li class="dropdown">
-                  {(localStorage.getItem("login") === "yes") ?
-                    <Link>
-                      <FiUser size={24} color="#41403E" onClick={() => setOpenProfile((prev) => !prev)} />
-                    </Link>
-                    :
-                    <Link to="/login">
-                      <FiUser size={24} color="#41403E" />
-                    </Link>
-                  }
-                  {openProfile && <div className="flex flex-col" style={{ color: "black", position: "absolute", top: "35px", right: "0px", width: "200px", paddingTop: "15px", paddingLeft: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
-                    <ul className="flex flex-col gap-4">
-                      <li><span onClick={() => { navigate(`/userdetail/${id}}`); setOpenProfile((prev) => !prev) }}>Thông tin tài khoản</span></li>
-                      {localStorage.getItem("vaitro") === 1 ? <li><span onClick={() => { navigate(`/employee/index`); setOpenProfile((prev) => !prev) }}>Trang admin</span></li> : ""}
-                      <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
-                    </ul>
-                  </div>}
-                </li>
+                {/* <li class="dropdown"> */}
+                {(localStorage.getItem("login") === "yes") ?
+                  <Link>
+                    <FiUser size={24} color="#41403E" onClick={() => setOpenProfile((prev) => !prev)} />
+                  </Link>
+                  :
+                  <Link to="/login">
+                    <FiUser size={24} color="#41403E" />
+                  </Link>
+                }
+                {openProfile && <div className="flex flex-col" style={{ color: "black", position: "absolute", top: "35px", right: "0px", width: "200px", paddingTop: "15px", paddingLeft: "15px", backgroundColor: "white", border: "1px solid #333", zIndex: "100", borderRadius: "8px" }}>
+                  <ul className="flex flex-col gap-4">
+                    <li><span onClick={() => { navigate(`/userdetail/${id}}`); setOpenProfile((prev) => !prev) }}>Thông tin tài khoản</span></li>
+                    {localStorage.getItem("vaitro") === 1 ? <li><span onClick={() => { navigate(`/employee/index`); setOpenProfile((prev) => !prev) }}>Trang admin</span></li> : ""}
+                    <li><span onClick={() => LogoutSubmit()}>Đăng xuất</span></li>
+                  </ul>
+                </div>}
+                {/* </li> */}
                 <Link to="/cart"><FiShoppingCart size={24} color="#41403E" /></Link>
               </div>
             </div>

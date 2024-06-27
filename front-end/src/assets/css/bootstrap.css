@@ -52,6 +52,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
+  --bs-image: #eeebe6;
 }
 
 *,
@@ -95,6 +96,10 @@ hr:not([size]) {
   z-index: 1 !important;
 }
 
+.bg-image {
+  background-color: var(--bs-image) !important;
+}
+
 h6,
 .h6,
 h5,
@@ -108,7 +113,8 @@ h2,
 h1,
 .h1 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */
+  margin-bottom: 0rem;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -3878,6 +3884,47 @@ fieldset:disabled .btn {
   background-color: transparent;
 }
 
+.btn-outline-heart {
+  color: #212529;
+  border-color: #212529;
+}
+
+.btn-outline-heart:hover {
+  color: #bb2d3b;
+  background-color: #212529;
+  border-color: #212529;
+}
+
+.btn-check:focus+.btn-outline-heart,
+.btn-outline-heart:focus {
+  box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.5);
+}
+
+.btn-check:checked+.btn-outline-heart,
+.btn-check:active+.btn-outline-heart,
+.btn-outline-heart:active,
+.btn-outline-heart.active,
+.btn-outline-heart.dropdown-toggle.show {
+  color: #fff;
+  background-color: #212529;
+  border-color: #212529;
+}
+
+.btn-check:checked+.btn-outline-heart:focus,
+.btn-check:active+.btn-outline-heart:focus,
+.btn-outline-heart:active:focus,
+.btn-outline-heart.active:focus,
+.btn-outline-heart.dropdown-toggle.show:focus {
+  box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.5);
+}
+
+.btn-outline-heart:disabled,
+.btn-outline-heart.disabled {
+  color: #212529;
+  background-color: transparent;
+}
+
+
 .btn-outline-dark {
   color: #212529;
   border-color: #212529;
@@ -7538,9 +7585,11 @@ fieldset:disabled .btn {
 }
 
 .text-truncate {
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .vr {

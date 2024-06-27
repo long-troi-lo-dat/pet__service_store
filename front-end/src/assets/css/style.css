@@ -196,7 +196,7 @@ body {
 
 .btn-outline-dark {
   transition: all 0.3s ease-in;
-  padding: 1.2rem 3rem;
+  /* padding: 1.2rem 3rem; */
   letter-spacing: 0.02375rem;
   text-transform: uppercase;
   --bs-btn-color: #41403E;
@@ -419,7 +419,6 @@ a.btn-cart {
 }
 
 a.btn-wishlist {
-
   border-radius: 0.25rem;
   border: 1px solid rgba(65, 64, 62, 0.20);
 }
