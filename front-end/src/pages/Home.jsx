@@ -277,7 +277,7 @@ export default function Home() {
                     New
                   </div>
                   <div class="z-1 position-absolute end-0 rounded-3 bg-white">
-                    <a href="" class="btn border border-dark-subtle btn-outline-heart"><Icon icon="fluent:heart-24-filled" class="fs-5"></Icon></a>
+                    <button class="btn border border-dark-subtle btn-outline-heart"><Icon icon="fluent:heart-24-filled" class="fs-5"></Icon></button>
                   </div>
                   <div class="card position-relative text-center text-md-start border p-2">
                     <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + item.hinh} class="img-fluid rounded-4 border-bottom mt-4 bg-image" /></a>
