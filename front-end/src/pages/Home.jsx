@@ -1,111 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "../axios";
+import { GlobalContext } from "../Context";
+import Navbar from '../components/Navbar';
+import Item from "../components/Item";
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Icon } from '@iconify/react';
-import "swiper/css";
-import 'swiper/css/pagination';
+
 import "../assets/css/bootstrap.css";
 import "../assets/css/style.css"
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
-import Navbar from '../components/Navbar';
-
-import { GlobalContext } from "../Context";
-import axios from "../axios";
-
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "swiper/css";
+import 'swiper/css/pagination';
 
 export default function Home() {
+
   const { shouldScroll, setShouldScroll } = useContext(GlobalContext);
   const [dataAccessories, setDataAccessories] = useState([])
-  const { cart, setCart } = useContext(GlobalContext)
-
-  const unLogin = () => toast.error('Vui lòng đăng nhập!!', {
-    position: "bottom-left",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
-  const Notify = () => toast.success('Thêm vào giỏ hàng thành công', {
-    position: "bottom-left",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
-  const IssetInCartNotify = () => toast.error('Thú cưng chỉ được thêm 1 sản phẩm', {
-    position: "bottom-left",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
-  const quantityNotify = () => toast.error('Số lượng còn lại của sản phẩm không đủ', {
-    position: "bottom-left",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
-
-  const onAddToCartHandler = (item) => {
-
-    if (localStorage.getItem('login') === 'no') {
-      // Display a modal indicating that the user needs to log in
-      // showLoginModal();
-      unLogin()
-      return;
-    }
-
-    // Kiểm tra nếu sản phẩm có id_dm=6 và đã tồn tại trong cart, không thực hiện thêm mới
-    if (item.id_dm === 6 && cart.some(cartItem => cartItem.id_sp === item.id_sp)) {
-      console.error('Sản phẩm đã tồn tại trong giỏ hàng');
-      IssetInCartNotify();
-      return;
-    }
-
-    const existingCartItem = cart.find(cartItem => cartItem.id_sp === item.id_sp);
-    const availableQuantity = item.soluong;
-
-    if (existingCartItem) {
-      // Nếu sản phẩm đã tồn tại trong cart, kiểm tra số lượng còn lại
-      const newAmount = existingCartItem.amount + 1;
-      if (newAmount <= availableQuantity) {
-        const updatedCart = cart.map(cartItem =>
-          cartItem.id_sp === item.id_sp ? { ...cartItem, amount: newAmount } : cartItem
-        );
-        Notify();
-        setCart(updatedCart);
-      } else {
-        console.error('Số lượng vượt quá giới hạn');
-        quantityNotify();
-      }
-    } else {
-      // Nếu sản phẩm chưa tồn tại trong cart, thêm mới với amount là 1 nếu còn hàng
-      if (availableQuantity > 0) {
-        const updatedCart = [...cart, { ...item, amount: 1 }];
-        Notify();
-        setCart(updatedCart);
-      } else {
-        console.error('Sản phẩm đã hết hàng');
-        quantityNotify();
-      }
-    }
-  };
 
   useEffect(() => {
     axios.get(`/api/product/getPetAccessories`)
@@ -262,273 +173,21 @@ export default function Home() {
                 slidesPerView: 4,
               },
             }}
-            spaceBetween={50}
-            // autoplay={{
-            //   delay: 2500,
-            //   disableOnInteraction: false,
-            // }}
+            spaceBetween={24}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
             navigation={true}
             modules={[Autoplay, Navigation]}
           >
             {dataAccessories.map((item, i) => {
               return (
                 <SwiperSlide>
-                  <div class="z-1 position-absolute rounded-3 px-3 border border-dark-subtle bg-white">
-                    New
-                  </div>
-                  <div class="z-1 position-absolute end-0 rounded-3 bg-white">
-                    <button class="btn border border-dark-subtle btn-outline-heart"><Icon icon="fluent:heart-24-filled" class="fs-5"></Icon></button>
-                  </div>
-                  <div class="card position-relative text-center text-md-start border p-2">
-                    <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + item.hinh} class="img-fluid rounded-4 border-bottom mt-4 bg-image" /></a>
-                    <div class="card-body p-0">
-                      <a href={"/detailproduct/" + item.id_sp}>
-                        <h6 class="card-title pt-4 text-truncate">{item.ten}</h6>
-                      </a>
-
-                      <div class="card-text">
-                        <h5 class="secondary-font text-primary">{item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
-
-                        <span class="rating secondary-font">
-                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                          <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                          {/* 5.0 */}
-                        </span>
-
-                        <div class="d-flex flex-wrap justify-content-center mt-3">
-                          <button onClick={() => { onAddToCartHandler(item) }} class="btn btn-cart px-4 pt-3 pb-3 border">
-                            <h6 class="text-uppercase m-0">Add to Cart</h6>
-                          </button>
-                          {/* <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                            <Icon icon="fluent:heart-24-filled" class="fs-5"></Icon>
-                          </a> */}
-                        </div>
-
-
-                      </div>
-
-                    </div>
-                  </div>
+                  <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} delay={i * 200} />
                 </SwiperSlide>
               )
             })}
-            {/* <SwiperSlide>
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                New
-              </div>
-              <div class="card position-relative text-center text-md-start">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item1.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0 ">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0
-                    </span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap justify-content-between mt-3">
-                      <a href="/#" class="btn-cart px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item2.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-                  </div>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                -10%
-              </div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item3.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item4.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item7.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item8.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </SwiperSlide> */}
           </Swiper>
         </div>
       </section>
@@ -1289,18 +948,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {/* <section id="service">
         <div class="container py-5 my-5">
           <div class="row g-md-5 pt-4">

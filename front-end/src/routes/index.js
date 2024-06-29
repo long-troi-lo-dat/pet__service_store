@@ -7,6 +7,7 @@ import Shop from "../pages/Shop";
 import DetailProduct from "../pages/DetailProduct";
 import BookingService from "../pages/BookingService";
 import Cart from "../pages/Cart";
+import Wishlist from "../pages/Wishlist";
 import Success from "../pages/NotifySuccess";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
@@ -51,6 +52,7 @@ const publicRoutes = [
   { path: "/detailproduct/:id", component: DetailProduct },
   { path: "/bookingservice", component: BookingService },
   { path: "/cart", component: Cart },
+  { path: "/wishlist", component: Wishlist },
   { path: "/success", component: Success },
   { path: "/login", component: SignIn },
   { path: "/register", component: SignUp },

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import GlobalState from "./Context";
 import { publicRoutes } from "./routes";
+import Notify from "./components/Notify";
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
         <Routes>
           {publicRoutes.map((item, index) => {
             const Page = item.component;
-            return <Route key={index} path={item.path} element={<Page />} />;
+            return <Route key={index} path={item.path} element={<><Page /> <Notify /></>} />;
           })}
         </Routes>
         <Footer />
