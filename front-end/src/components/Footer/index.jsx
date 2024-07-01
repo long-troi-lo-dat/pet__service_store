@@ -3,27 +3,25 @@ import LogoHeader from "../../assets/logo-1.png";
 
 function Footer(props) {
   return (
-    <footer
-      style={{
-        width: "100%",
-        backgroundColor: "White",
-        marginTop: "50px",
-        marginBottom: "20px"
-      }}
-    >
-      <div class="tillefinal" style={{ color: "#41403E", backgroundColor: "#f9f3ec", textAlign: "center" }}>
-        Hotline hỗ trợ 24/7 của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc
-        của bạn | 077 766 3476
+    <footer>
+      <div class="container-fluid text-center py-2 marquee" style={{ color: "#41403E", backgroundColor: "#f9f3ec" }}>
+        <p class="m-0 d-none d-md-block">
+          Hotline hỗ trợ 24/7 của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc
+          của bạn | 077 766 3476
+        </p>
+        <p class="m-0 d-md-none d-block">
+          Hotline hỗ trợ 24/7 của chúng tôi | 077 766 3476
+        </p>
       </div>
-      <div class="container">
-        <div class="d-flex justify-content-between">
-          <div class="mb-6 md:mb-0" style={{ maxWidth: "400px", textAlign: "justify" }}>
-            <img src={LogoHeader} alt="" />
-            <p style={{ fontSize: "13px" }}>
+      <div class="container my-2">
+        <div class="row">
+          <div class="col-12 col-lg-3">
+            <img src={LogoHeader} alt="" class="img-fluid" />
+            <p class="small text-justify">
               DG House ra đời với mong muốn mang lại cho khách hàng sự chuyên nghiệp, uy tín mang nét đẹp hoa mỹ mà chúng tôi đem lại sự trải nghiệm tốt nhất cho thú cưng của chúng ta. Với nhiều năm kinh nghiệm trong ngành dịch vụ thú cưng bao gồm: Spa thú cưng, Khách sạn thú cưng, Dịch vụ thú cưng tại nhà,…
             </p>
           </div>
-          <div>
+          <div class="col-6 col-lg-3">
             <h3 style={{ height: "62px", lineHeight: "62px" }}>
               Dịch vụ
             </h3>
@@ -39,7 +37,7 @@ function Footer(props) {
               </li>
             </ul>
           </div>
-          <div>
+          <div class="col-6 col-lg-3">
             <h3 style={{ height: "62px", lineHeight: "62px" }}>
               Truy cập
             </h3>
@@ -52,7 +50,7 @@ function Footer(props) {
               </li>
             </ul>
           </div>
-          <div>
+          <div class="col-12 col-lg-3">
             <img src={process.env.REACT_APP_URL_API + "/footer/logo-da-thong-bao-voi-bo-cong-thuong.png"} alt="" />
           </div>
         </div>

@@ -16,7 +16,26 @@ import 'swiper/css/pagination';
 export default function Home() {
 
   const { shouldScroll, setShouldScroll } = useContext(GlobalContext);
-  const [dataAccessories, setDataAccessories] = useState([])
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [dataAccessories, setDataAccessories] = useState([]);
+  const [dataFood, setDataFood] = useState([]);
+  const [category, setCategory] = useState([]);
+
+  const handleBtns = (word) => {
+    console.log(word);
+    console.log(dataFood);
+    console.log(category);
+
+    if (word === "all") {
+      setCategory(dataFood);
+    } else if (word === "cat") {
+      const filtered = dataFood.filter(item => item.ten.toLowerCase().includes("mèo"));
+      setCategory(filtered);
+    } else if (word === "dog") {
+      const filtered = dataFood.filter(item => item.ten.toLowerCase().includes("chó"));
+      setCategory(filtered);
+    }
+  };
 
   useEffect(() => {
     axios.get(`/api/product/getPetAccessories`)
@@ -24,19 +43,28 @@ export default function Home() {
         setDataAccessories(response.data);
       })
       .catch((error) => {
-        console.error('error fetching data :', error);
+        console.error('error fetching data:', error);
       });
+
+    axios.get(`/api/product/getPetFood`)
+      .then((response) => {
+        setDataFood(response.data);
+        setCategory(response.data);
+      })
+      .catch((error) => {
+        console.error('error fetching data:', error);
+      });
+
     if (shouldScroll) {
       const element = document.getElementById("dichvutialong");
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
-        setShouldScroll(false)
+        setShouldScroll(false);
       }
     }
   }, [shouldScroll, setShouldScroll]);
   return (
     <>
-
       <Navbar />
       <section id="banner" style={{ background: "#F9F3EC" }}>
         <div class="container">
@@ -51,22 +79,19 @@ export default function Home() {
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
           >
-
             <SwiperSlide>
               <div class="row banner-content align-items-center">
                 <div class="img-wrapper col-md-5">
                   <img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/banner-img.png"} class="img-fluid" />
                 </div>
                 <div class="content-wrapper col-md-7 p-5 mb-5">
-                  <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
-                  <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
-                    pets</span>
+                  <div class="secondary-font text-primary text-uppercase mb-4">Khuyến mãi 10 - 20 %</div>
+                  <h2 class="banner-title display-1 fw-normal">Lựa chọn tốt nhất cho <span class="text-primary">Cún cưng</span>
                   </h2>
-                  <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                    shop now
+                  <a href="/shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Mua ngay
                   </a>
                 </div>
-
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -75,13 +100,11 @@ export default function Home() {
                   <img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/banner-img3.png"} class="img-fluid" />
                 </div>
                 <div class="content-wrapper col-md-7 p-5 mb-5">
-                  <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
-                  <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
-                    pets</span>
+                  <div class="secondary-font text-primary text-uppercase mb-4">Khuyến mãi 10 - 20 %</div>
+                  <h2 class="banner-title display-1 fw-normal">Lựa chọn tốt nhất cho <span class="text-primary">Hoàng thượng</span>
                   </h2>
-                  <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                    shop now
-
+                  <a href="/shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Mua ngay
                   </a>
                 </div>
 
@@ -93,13 +116,11 @@ export default function Home() {
                   <img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/banner-img4.png"} class="img-fluid" />
                 </div>
                 <div class="content-wrapper col-md-7 p-5 mb-5">
-                  <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
-                  <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
-                    pets</span>
+                  <div class="secondary-font text-primary text-uppercase mb-4">Khuyến mãi 10 - 20 %</div>
+                  <h2 class="banner-title display-1 fw-normal">Lựa chọn tốt nhất cho <span class="text-primary">Cún cưng</span>
                   </h2>
-                  <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                    shop now
-
+                  <a href="/shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Mua ngay
                   </a>
                 </div>
 
@@ -111,35 +132,37 @@ export default function Home() {
 
       <section id="categories">
         <div class="container my-3 py-5">
-          <div class="row my-5">
-            <div class="col text-center">
+          <div class="row my-5 justify-content-center">
+            <div class="col-6 col-md-4 col-lg-2 text-center">
               <a href="/#" class="categories-item">
                 <Icon class="category-icon" icon="ph:bowl-food" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
-                <h5>Foodies</h5>
+                <h6>Thức ăn</h6>
               </a>
             </div>
-            <div class="col text-center">
-              <a href="/#" class="categories-item">
-                <Icon class="category-icon" icon="ph:bird" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
-                <h5>Bird Shop</h5>
-              </a>
-            </div>
-            <div class="col text-center">
+            <div class="col-6 col-md-4 col-lg-2 text-center">
               <a href="/#" class="categories-item">
                 <Icon class="category-icon" icon="ph:dog" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
-                <h5>Dog Shop</h5>
+                <h6>Dành cho chó</h6>
               </a>
             </div>
-            <div class="col text-center">
-              <a href="/#" class="categories-item">
-                <Icon class="category-icon" icon="ph:fish" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
-                <h5>Fish Shop</h5>
-              </a>
-            </div>
-            <div class="col text-center">
+            <div class="col-6 col-md-4 col-lg-2 text-center">
               <a href="/#" class="categories-item">
                 <Icon class="category-icon" icon="ph:cat" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
-                <h5>Cat Shop</h5>
+                <h6>Dành cho mèo</h6>
+              </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+              <a href="/#" class="categories-item">
+                <Icon class="category-icon" icon="ph:fish" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
+                <h6>Dành cho cá</h6>
+                <p className="small text-muted">sắp ra mắt!</p>
+              </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+              <a href="/#" class="categories-item">
+                <Icon class="category-icon" icon="ph:bird" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
+                <h6>Dành cho chim</h6>
+                <p className="small text-muted">sắp ra mắt!</p>
               </a>
             </div>
           </div>
@@ -150,29 +173,27 @@ export default function Home() {
         <div class="container pb-5">
 
           <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
-            <h2 class="display-3 fw-normal">Pet Accessories</h2>
+            <h2 class="display-3 fw-normal">Phụ kiện</h2>
             <div>
-              <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                shop now
+              <a href="/shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                Mua ngay
               </a>
             </div>
           </div>
 
           <Swiper
             breakpoints={{
-              576: {
-                slidesPerView: 1,
-              },
               768: {
                 slidesPerView: 2,
               },
               992: {
-                slidesPerView: 4,
+                slidesPerView: 3,
               },
-              1400: {
+              1200: {
                 slidesPerView: 4,
               },
             }}
+            slidesPerView={2}
             spaceBetween={24}
             autoplay={{
               delay: 3000,
@@ -190,330 +211,53 @@ export default function Home() {
             })}
           </Swiper>
         </div>
-      </section>
+      </section >
 
       <section id="foodies" class="my-5">
         <div class="container my-5 py-5">
 
           <div class="section-header d-md-flex justify-content-between align-items-center">
-            <h2 class="display-3 fw-normal">Pet Foodies</h2>
+            <h2 class="display-3 fw-normal">Thức ăn</h2>
             <div class="mb-4 mb-md-0">
               <p class="m-0">
-                <button class="filter-button me-4  active" data-filter="*">ALL</button>
-                <button class="filter-button me-4 " data-filter=".cat">CAT</button>
-                <button class="filter-button me-4 " data-filter=".dog">DOG</button>
-                <button class="filter-button me-4 " data-filter=".bird">BIRD</button>
+                <button
+                  onClick={() => {
+                    setActiveItemIndex(0);
+                    handleBtns("all");
+                  }}
+                  className={`filter-button me-4 ${activeItemIndex === 0 ? "active" : ""}`}>Tất cả</button>
+                <button
+                  onClick={() => {
+                    setActiveItemIndex(1);
+                    handleBtns("cat");
+                  }}
+                  className={`filter-button me-4 ${activeItemIndex === 1 ? "active" : ""}`}>Mèo</button>
+                <button
+                  onClick={() => {
+                    setActiveItemIndex(2);
+                    handleBtns("dog");
+                  }}
+                  className={`filter-button me-4 ${activeItemIndex === 2 ? "active" : ""}`}>Chó</button>
               </p>
             </div>
             <div>
-              <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                shop now
+              <a href="/shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                Mua ngay
               </a>
             </div>
           </div>
 
           <div class="isotope-container row">
-
-            <div class="item cat col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item9.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
+            {category.map((item, i) => (
+              <div class="item col-6 col-md-4 col-lg-3 my-4">
+                <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} delay={i * 200} />
               </div>
-            </div>
-
-            <div class="item dog col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                New
-              </div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item10.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="item dog col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item11.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="item cat col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                Sold
-              </div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item12.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="item bird col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item13.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="item bird col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item14.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="item dog col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                Sale
-              </div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item15.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="item cat col-md-4 col-lg-3 my-4">
-              <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle"></div>
-              <div class="card position-relative">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/item16.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
-                  <a href="single-product.html">
-                    <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                  </a>
-
-                  <div class="card-text">
-                    <span class="rating secondary-font">
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                      5.0</span>
-
-                    <h3 class="secondary-font text-primary">$18.00</h3>
-
-                    <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
-                      </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                        <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
-                      </a>
-                    </div>
-
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
+            ))}
           </div>
 
 
         </div>
-      </section>
+      </section >
 
       <section id="banner-2" class="my-3" style={{ background: "#F9F3EC" }}>
         <div class="container">
@@ -526,7 +270,7 @@ export default function Home() {
               <h2 class="banner-title display-1 fw-normal">Clearance sale !!!
               </h2>
               <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                shop now
+                Mua ngay
               </a>
             </div>
 
@@ -599,7 +343,7 @@ export default function Home() {
             <h2 class="display-3 fw-normal">Best selling products</h2>
             <div>
               <a href="/#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                shop now
+                Mua ngay
               </a>
             </div>
           </div>
@@ -623,7 +367,7 @@ export default function Home() {
                   </a>
 
                   <div class="card-text">
-                    <span class="rating secondary-font">
+                    <span class="rating secondary-font d-flex align-items-center">
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
@@ -634,10 +378,10 @@ export default function Home() {
                     <h3 class="secondary-font text-primary">$18.00</h3>
 
                     <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                      <a href="/#" class="btn-cart me-3 px-3 pt-3 pb-3">
+                        <h6 class="text-uppercase m-0">Add to Cart</h6>
                       </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                      <a href="/#" class="btn-wishlist px-3 pt-2 ">
                         <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
                       </a>
                     </div>
@@ -669,10 +413,10 @@ export default function Home() {
                     <h3 class="secondary-font text-primary">$18.00</h3>
 
                     <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                      <a href="/#" class="btn-cart me-2 px-3 pt-2 pb-2">
+                        <h6 class="text-uppercase m-0">Add to Cart</h6>
                       </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                      <a href="/#" class="btn-wishlist px-3 pt-2 ">
                         <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
                       </a>
                     </div>
@@ -694,7 +438,7 @@ export default function Home() {
                   </a>
 
                   <div class="card-text">
-                    <span class="rating secondary-font">
+                    <span class="rating secondary-font d-flex align-items-center">
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
@@ -705,10 +449,10 @@ export default function Home() {
                     <h3 class="secondary-font text-primary">$18.00</h3>
 
                     <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                      <a href="/#" class="btn-cart me-3 px-3 pt-3 pb-3">
+                        <h6 class="text-uppercase m-0">Add to Cart</h6>
                       </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                      <a href="/#" class="btn-wishlist px-3 pt-2 ">
                         <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
                       </a>
                     </div>
@@ -729,7 +473,7 @@ export default function Home() {
                   </a>
 
                   <div class="card-text">
-                    <span class="rating secondary-font">
+                    <span class="rating secondary-font d-flex align-items-center">
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
@@ -740,10 +484,10 @@ export default function Home() {
                     <h3 class="secondary-font text-primary">$18.00</h3>
 
                     <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                      <a href="/#" class="btn-cart me-3 px-3 pt-3 pb-3">
+                        <h6 class="text-uppercase m-0">Add to Cart</h6>
                       </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                      <a href="/#" class="btn-wishlist px-3 pt-2 ">
                         <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
                       </a>
                     </div>
@@ -766,7 +510,7 @@ export default function Home() {
                   </a>
 
                   <div class="card-text">
-                    <span class="rating secondary-font">
+                    <span class="rating secondary-font d-flex align-items-center">
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
@@ -777,10 +521,10 @@ export default function Home() {
                     <h3 class="secondary-font text-primary">$18.00</h3>
 
                     <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                      <a href="/#" class="btn-cart me-3 px-3 pt-3 pb-3">
+                        <h6 class="text-uppercase m-0">Add to Cart</h6>
                       </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                      <a href="/#" class="btn-wishlist px-3 pt-2 ">
                         <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
                       </a>
                     </div>
@@ -801,7 +545,7 @@ export default function Home() {
                   </a>
 
                   <div class="card-text">
-                    <span class="rating secondary-font">
+                    <span class="rating secondary-font d-flex align-items-center">
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                       <Icon icon="clarity:star-solid" class="text-primary"></Icon>
@@ -812,10 +556,10 @@ export default function Home() {
                     <h3 class="secondary-font text-primary">$18.00</h3>
 
                     <div class="d-flex flex-wrap mt-3">
-                      <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                      <a href="/#" class="btn-cart me-3 px-3 pt-3 pb-3">
+                        <h6 class="text-uppercase m-0">Add to Cart</h6>
                       </a>
-                      <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                      <a href="/#" class="btn-wishlist px-3 pt-2 ">
                         <Icon icon="fluent:heart-28-filled" class="fs-5"></Icon>
                       </a>
                     </div>
@@ -883,7 +627,7 @@ export default function Home() {
 
               </div>
               <div class="card position-relative">
-                <a href="single-post.html" class="m-auto"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/blog1.jpg"} class="img-fluid rounded-4" /></a>
+                <a href="single-post.html" class=""><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/blog1.jpg"} class="img-fluid rounded-4" /></a>
                 <div class="card-body p-0 text-justify">
                   <a href="single-post.html">
                     <h3 class="card-title pt-4 pb-3 m-0">10 Reasons to be helpful towards any animals</h3>
@@ -907,7 +651,7 @@ export default function Home() {
               </div>
               <div class="card position-relative">
                 <a href="single-post.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/blog2.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
+                <div class="card-body p-0 text-justify">
                   <a href="single-post.html">
                     <h3 class="card-title pt-4 pb-3 m-0">How to know your pet is hungry</h3>
                   </a>
@@ -930,7 +674,7 @@ export default function Home() {
               </div>
               <div class="card position-relative">
                 <a href="single-post.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/images/blog3.jpg"} class="img-fluid rounded-4" /></a>
-                <div class="card-body p-0">
+                <div class="card-body p-0 text-justify">
                   <a href="single-post.html">
                     <h3 class="card-title pt-4 pb-3 m-0">Best home for your pets</h3>
                   </a>

@@ -60,7 +60,7 @@ function Item(props) {
                 <button class="btn border border-dark-subtle btn-outline-heart"><Icon icon="fluent:heart-24-filled" class="fs-5"></Icon></button>
             </div>
             <div class="card position-relative text-center text-md-start border p-2">
-                <a href="single-product.html"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + props.hinh} class="img-fluid rounded-4 border-bottom mt-4 bg-image" /></a>
+                <a href="single-product.html" className="d-flex justify-content-center"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + props.hinh} class="img-product text-center rounded-4 border-bottom mt-4" /></a>
                 <div class="card-body p-0">
                     <a href={"/detailproduct/" + props.id_sp}>
                         <h6 class="card-title pt-4 text-truncate">{props.ten}</h6>
@@ -70,7 +70,7 @@ function Item(props) {
                         <h5 class="secondary-font text-primary">{props.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
 
                         <span class="rating secondary-font">
-                            <div class="">
+                            <div class="d-flex justify-content-md-start justify-content-center align-items-center">
                                 <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                                 <Icon icon="clarity:star-solid" class="text-primary"></Icon>
                                 <Icon icon="clarity:star-solid" class="text-primary"></Icon>

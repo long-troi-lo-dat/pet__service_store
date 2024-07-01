@@ -8,6 +8,7 @@ const productController = require('../controllers/productController');
 // define route for /api/product
 router.get('/', productController.getProducts);
 router.get('/getPetAccessories', productController.getPetAccessories);
+router.get('/getPetFood', productController.getPetFood);
 router.get('/:id', productController.getOneProduct);
 router.post('/', uploadProductImages.array('productImages', 10), productController.createProduct);
 router.put('/:id', productController.updateProduct);

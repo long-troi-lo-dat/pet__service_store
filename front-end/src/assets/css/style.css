@@ -673,3 +673,36 @@ Single Product section style start
   color: var(--light-color);
   background-color: var(--accent-color);
 }
+
+
+/* Custom css */
+.marquee {
+  /* width: 450px; */
+  /* line-height: 50px; */
+  background-color: red;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.marquee p:hover {
+  padding-left: 0;
+  animation: none;
+}
+
+.marquee p {
+  display: block;
+  /* padding-left: 100%; */
+  /* animation: marquee 15s linear infinite; */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}

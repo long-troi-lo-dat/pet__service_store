@@ -33,4 +33,9 @@ module.exports = {
       .then(results => res.json(results))
       .catch(err => res.status(500).send(err));
   },
+  getPetFood: (req, res) => {
+    productModel.getPetFood()
+      .then(results => res.json(results))
+      .catch(err => res.status(500).send(err));
+  },
 };

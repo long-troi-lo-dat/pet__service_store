@@ -655,7 +655,13 @@ progress {
 
 .img-fluid {
   max-width: 100%;
-  height: auto;
+  max-height: auto;
+}
+
+.img-product {
+  width: auto;
+  max-height: 200px;
+  margin: auto;
 }
 
 .img-thumbnail {
@@ -4086,7 +4092,7 @@ fieldset:disabled .btn {
 .dropdown-menu[data-bs-popper] {
   top: 100%;
   left: 0;
-  margin-top: 0.125rem;
+  /* margin-top: 0.125rem; */
 }
 
 .dropdown-menu-start {
@@ -4514,7 +4520,8 @@ fieldset:disabled .btn {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #0d6efd;
+  /* border-bottom: 1px solid #d1d1d1; */
+  color: #41403E;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }

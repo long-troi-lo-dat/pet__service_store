@@ -76,5 +76,15 @@ module.exports = {
         resolve(results);
       });
     });
-  }
+  },
+  getPetFood: () => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT sanpham.*,hinhanh.url AS hinh FROM `sanpham` INNER JOIN hinhanh ON sanpham.id_sp = hinhanh.id_sanpham where id_dm=2 ORDER BY ngaythem DESC LIMIT 8", (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(results);
+      });
+    });
+  },
 };
