@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   FiSearch,
   FiShoppingCart,
@@ -19,10 +18,7 @@ import "swiper/css";
 import 'swiper/css/pagination';
 
 function NavbarLayout() {
-
-  const navigate = useNavigate();
-  const [openProfile, setOpenProfile] = useState(false)
-  const { cart, setCart } = useContext(GlobalContext);
+  const { cart } = useContext(GlobalContext);
 
   const [show, setShow] = useState(false);
   const showDropdown = (e) => {
@@ -30,17 +26,6 @@ function NavbarLayout() {
   }
   const hideDropdown = e => {
     setShow(false);
-  }
-
-  const id = localStorage.getItem("id_user")
-
-  const LogoutSubmit = () => {
-    localStorage.setItem("header", 0)
-    localStorage.setItem("id_user", 0)
-    localStorage.setItem("vaitro", 0)
-    localStorage.setItem("login", "no")
-    setOpenProfile((prev) => !prev)
-    navigate("/")
   }
 
   if (localStorage.getItem("header") === 0 || localStorage.getItem("header") !== undefined) {
