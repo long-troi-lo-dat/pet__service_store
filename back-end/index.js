@@ -50,7 +50,6 @@ app.get("/shop/:category/:detail/:price", (req, res) => {
 
   const sql = `SELECT * FROM sanpham WHERE ${conditions} ORDER BY id_dm ASC, ngaythem DESC`;
 
-  // Execute the query with parameters
   db.query(sql, params, (err, data) => {
     if (err) {
       console.error(err);
