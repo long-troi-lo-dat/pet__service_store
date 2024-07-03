@@ -21,7 +21,6 @@ const formBooking = {
 };
 
 const GlobalState = ({ children }) => {
-  const [shouldScroll, setShouldScroll] = useState(false);
   const [cart, setCart] = useState([])
   const [formData, setFormData] = useState({ formBooking, iduser: iduser });
 
@@ -37,8 +36,6 @@ const GlobalState = ({ children }) => {
       value={{
         addressFormData,
         setAddressFormData,
-        shouldScroll,
-        setShouldScroll,
         formData,
         setFormData,
         cart,

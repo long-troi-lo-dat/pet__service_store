@@ -104,6 +104,11 @@ hr:not([size]) {
   background: none !important;
 }
 
+.thumbnail {
+  margin-bottom: 30px;
+}
+
+
 h6,
 .h6,
 h5,

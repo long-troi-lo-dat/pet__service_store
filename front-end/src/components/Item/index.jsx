@@ -60,7 +60,8 @@ function Item(props) {
                 <button class="btn border border-dark-subtle btn-outline-heart"><Icon icon="fluent:heart-24-filled" class="fs-5"></Icon></button>
             </div>
             <div class="card position-relative text-center text-md-start border p-2">
-                <a href="single-product.html" className="d-flex justify-content-center"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + props.hinh} class="img-product text-center rounded-4 border-bottom mt-4" /></a>
+                <a href="single-product.html" className="d-flex justify-content-center"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + props.hinh} class="img-product text-center rounded-4 mt-4" /></a>
+                <hr />
                 <div class="card-body p-0">
                     <a href={"/detailproduct/" + props.id_sp}>
                         <h6 class="card-title pt-4 text-truncate">{props.ten}</h6>
