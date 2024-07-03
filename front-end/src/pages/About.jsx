@@ -1,5 +1,4 @@
 import React from "react";
-import imageAbout from "../assets/img/images-about/image1.png";
 import imageMain from "../assets/img/images-about/logo-2.png";
 import dogImage from "../assets/img/images-about/dogImage.png";
 import catImage from "../assets/img/images-about/catImage.png";
