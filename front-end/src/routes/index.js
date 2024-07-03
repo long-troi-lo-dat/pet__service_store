@@ -49,6 +49,7 @@ const publicRoutes = [
   { path: "/blog", component: Blog },
   { path: "/contact", component: Contact },
   { path: "/shop", component: Shop },
+  { path: "/shop/:id", component: Shop },
   { path: "/detailproduct/:id", component: DetailProduct },
   { path: "/bookingservice", component: BookingService },
   { path: "/cart", component: Cart },

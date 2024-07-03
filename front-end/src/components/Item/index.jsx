@@ -1,20 +1,22 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { unLogin, IssetInCartNotify, Notify, quantityNotify } from "../Validate/Notify";
 import { GlobalContext } from "../../Context";
-import Aos from 'aos'
-import 'aos/dist/aos.css'
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+
 function Item(props) {
-    const { cart, setCart } = useContext(GlobalContext)
+    const { cart, setCart } = useContext(GlobalContext);
 
     useEffect(() => {
-        Aos.init({ duration: 1500 })
-    })
+        Aos.init({ duration: 1000 });
+    }, []);
 
     const onAddToCartHandler = (item) => {
+        console.log(cart);
 
         if (localStorage.getItem('login') === 'no') {
-            unLogin()
+            unLogin();
             return;
         }
 
@@ -44,6 +46,7 @@ function Item(props) {
                 const updatedCart = [...cart, { ...item, amount: 1 }];
                 Notify();
                 setCart(updatedCart);
+                console.log(cart, "oisadbngoiasgoias");
             } else {
                 console.error('Sản phẩm đã hết hàng');
                 quantityNotify();
@@ -53,50 +56,47 @@ function Item(props) {
 
     return (
         <div data-aos="fade-up" data-aos-delay={props.delay}>
-            <div class="z-1 position-absolute rounded-3 px-3 border border-dark-subtle bg-white">
+            <div className="z-1 position-absolute rounded-3 px-3 border border-dark-subtle bg-white">
                 New
             </div>
-            <div class="z-1 position-absolute end-0 rounded-3 bg-white">
-                <button class="btn border border-dark-subtle btn-outline-heart"><Icon icon="fluent:heart-24-filled" class="fs-5"></Icon></button>
+            <div className="z-1 position-absolute end-0 rounded-3 bg-white">
+                <button className="btn border border-dark-subtle btn-outline-heart">
+                    <Icon icon="fluent:heart-24-filled" className="fs-5" />
+                </button>
             </div>
-            <div class="card position-relative text-center text-md-start border p-2">
-                <a href="single-product.html" className="d-flex justify-content-center"><img alt="dghouse.shop" src={process.env.REACT_APP_URL_API + "/products/" + props.hinh} class="img-product text-center rounded-4 mt-4" /></a>
+            <div className="card position-relative text-center text-md-start border p-2">
+                <a href="single-product.html" className="d-flex justify-content-center">
+                    <img alt="dghouse.shop" src={`${process.env.REACT_APP_URL_API}/products/${props.hinh}`} className="img-product text-center rounded-4 mt-4" />
+                </a>
                 <hr />
-                <div class="card-body p-0">
-                    <a href={"/detailproduct/" + props.id_sp}>
-                        <h6 class="card-title pt-4 text-truncate">{props.ten}</h6>
+                <div className="card-body p-0">
+                    <a href={`/detailproduct/${props.id_sp}`}>
+                        <h6 className="card-title pt-4 text-truncate">{props.ten}</h6>
                     </a>
-
-                    <div class="card-text">
-                        <h5 class="secondary-font text-primary">{props.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
-
-                        <span class="rating secondary-font">
-                            <div class="d-flex justify-content-md-start justify-content-center align-items-center">
-                                <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                                <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                                <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                                <Icon icon="clarity:star-solid" class="text-primary"></Icon>
-                                <Icon icon="clarity:star-solid" class="text-primary"></Icon>
+                    <div className="card-text">
+                        <h5 className="secondary-font text-primary">
+                            {props.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                        </h5>
+                        <span className="rating secondary-font">
+                            <div className="d-flex justify-content-md-start justify-content-center align-items-center">
+                                <Icon icon="clarity:star-solid" className="text-primary" />
+                                <Icon icon="clarity:star-solid" className="text-primary" />
+                                <Icon icon="clarity:star-solid" className="text-primary" />
+                                <Icon icon="clarity:star-solid" className="text-primary" />
+                                <Icon icon="clarity:star-solid" className="text-primary" />
                                 5.0
                             </div>
                         </span>
-
-                        <div class="d-flex flex-wrap justify-content-center mt-3">
-                            <button onClick={() => { onAddToCartHandler(props) }} class="btn btn-cart px-4 pt-3 pb-3 border">
-                                <h6 class="text-uppercase m-0">Add to Cart</h6>
+                        <div className="d-flex flex-wrap justify-content-center mt-3">
+                            <button onClick={() => { onAddToCartHandler(props) }} className="btn btn-cart px-4 pt-3 pb-3 border">
+                                <h6 className="text-uppercase m-0">Add to Cart</h6>
                             </button>
-                            {/* <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                            <Icon icon="fluent:heart-24-filled" class="fs-5"></Icon>
-                          </a> */}
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Item
+export default Item;

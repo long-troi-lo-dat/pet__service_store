@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from "react";
 import { GlobalContext } from "../Context";
+import { useParams } from "react-router-dom";
 
 const unLogin = () => toast.error('Vui lòng đăng nhập!!', {
   position: "bottom-left",
@@ -53,10 +54,12 @@ function Shop() {
   const [data, setData] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-
   const [isShowCart, setShowCart] = useState(false)
 
-
+  const params = useParams();
+  if (params.id) {
+    console.log(params.id);
+  }
   const filterProducts = (value) => {
     const filtered = data.filter((product) => {
       return value && product.ten && product.ten.toLowerCase().includes(value);

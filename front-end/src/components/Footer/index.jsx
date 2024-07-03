@@ -10,7 +10,7 @@ function Footer(props) {
           của bạn | 077 766 3476
         </p>
         <p class="m-0 d-md-none d-block">
-          Hotline hỗ trợ 24/7 của chúng tôi | 077 766 3476
+          Hotline hỗ trợ của chúng tôi | 077 766 3476
         </p>
       </div>
       <div class="container my-2">
