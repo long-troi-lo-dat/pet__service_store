@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../axios";
-import { GlobalContext } from "../Context";
 import Navbar from '../components/Navbar';
 import Item from "../components/Item";
 import { Swiper, SwiperSlide } from 'swiper/react';
