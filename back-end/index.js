@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api", route);
 
 app.get("/", (req, res) => {
-  return res.send("hellooooooooooooooo")
+  res.send("hellooooooooooooooo")
 })
 
 app.get("/shop/:category/:detail/:price", (req, res) => {
