@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar"
 import Footer from "./components/Footer";
 import GlobalState from "./Context";
 import { publicRoutes } from "./routes";
@@ -9,6 +10,7 @@ const App = () => {
   return (
     <>
       <GlobalState>
+      <Navbar />
         <Routes>
           {publicRoutes.map((item, index) => {
             const Page = item.component;

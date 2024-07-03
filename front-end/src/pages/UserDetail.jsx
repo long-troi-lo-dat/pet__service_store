@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import moment from 'moment';
-import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 
 function UserDetail(props) {
@@ -117,8 +116,7 @@ function UserDetail(props) {
 
 
     return (
-        <>
-            <Navbar />
+        <> 
             <div class="container 100-vh">
                 <div class="container-content rounded bg-white mt-5 mb-5">
                     <div class="row bg-light py-3">

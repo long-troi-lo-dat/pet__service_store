@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../axios';
-import Navbar from '../components/Navbar';
 import { unLogin, IssetInCartNotify, Notify, quantityNotify } from "../components/Validate/Notify";
 import { GlobalContext } from "../Context";
 
@@ -65,7 +64,6 @@ function Detail() {
 
     return (
         <>
-            <Navbar />
             <div className="container-fluid" style={{ background: "#f9f3ec" }}>
                 <div className="container py-3">
                     <div className="py-5 my-3">

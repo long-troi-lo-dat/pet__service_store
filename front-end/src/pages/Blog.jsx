@@ -2,7 +2,6 @@ import React from "react";
 // import './style/style.css';
 import imgthumbnail from "../assets/img/images-blog/thumbnail.png"
 import thumbnailswiper from "../assets/img/images-blog/thumbnailswiper.png"
-import Navbar from "../components/Navbar";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import "swiper/css";
@@ -10,7 +9,6 @@ import 'swiper/css/pagination';
 function Blog(props) {
     return (
         <>
-            <Navbar />
             <section id="banner" class="py-3" style={{ background: "#F9F3EC" }}>
                 <div class="container">
                     <div class="hero-content py-5 my-3">

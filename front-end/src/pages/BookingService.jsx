@@ -2,7 +2,7 @@ import axios from '../axios';
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../Context";
-import Navbar from "../components/Navbar";
+;
 function Booking(props) {
   const navigate = useNavigate();
   const { formData, setFormData } = useContext(GlobalContext);
@@ -37,7 +37,6 @@ function Booking(props) {
   console.log(formData)
   return (
     <>
-      <Navbar />
       <div className="sv__coverfull w-4/5 m-auto py-8">
         <h5 class="h5 mb-0 text-gray-800">Đặt Lịch Nhanh</h5>
         <span>

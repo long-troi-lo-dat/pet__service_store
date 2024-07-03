@@ -1,12 +1,10 @@
 import React from 'react';
-// import './style/service.css';
 import backgroundImg from "../assets/img/images-service/background.jpg";
-import Navbar from '../components/Navbar';
+;
 
 function Service(props) {
     return (
         <>
-            <Navbar />
             <div
                 style={{
                     fontFamily: "Montsterrat",

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../axios';
-import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -54,8 +53,7 @@ function Resetpassword() {
     }, []);
 
     return (
-        <>
-            <Navbar />
+        <>            
             {/* <h2>Nhập mật khẩu mới</h2>
             <input type="password" placeholder="Nhập mật khẩu mới" name="matkhaumoi" onChange={(e) => setPassword(e.target.value)} />
             <button onClick={doimatkhau}>Thay đổi mật khẩu</button> */}

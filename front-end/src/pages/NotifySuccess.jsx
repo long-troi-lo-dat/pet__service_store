@@ -1,10 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 
 function Success(props) {
     return (
         <>
-            <Navbar />
+            
             <div id="notfound">
                 <div class="notfound">
                     <h1 className="h1">Đặt hàng thành công</h1>

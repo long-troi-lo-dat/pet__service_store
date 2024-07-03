@@ -1,10 +1,8 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 
 function Notfound() {
     return (
         <>
-            <Navbar />
             <div id="notfound">
                 <div class="notfound">
                     <div class="notfound-404">

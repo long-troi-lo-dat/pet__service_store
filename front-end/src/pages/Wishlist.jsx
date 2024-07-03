@@ -1,10 +1,8 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 
 function Wishlist() {
     return (
         <>
-            <Navbar />
             <section id="banner" class="py-3" style={{ background: "#F9F3EC" }}>
                 <div class="container">
                     <div class="hero-content py-5 my-3">

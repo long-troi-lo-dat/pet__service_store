@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import axios from '../axios';
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -35,8 +34,7 @@ function UserDetailEdit(props) {
     }, [id]);
     console.log(editUser, "oadsigoaidsngoasdngoiasdgnoia")
     return (
-        <>
-            <Navbar />
+        <>  
             <div class="container rounded bg-white mt-5 mb-5">
                 {/* {dataUser.map((item, i) => ( */}
                 <div class="row">

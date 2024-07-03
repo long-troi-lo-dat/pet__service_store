@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axios";
-import Navbar from '../components/Navbar';
+
 import Item from "../components/Item";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -72,7 +72,6 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
       <section id="banner" style={{ background: "#F9F3EC" }}>
         <div class="container mb-5">
           <Swiper

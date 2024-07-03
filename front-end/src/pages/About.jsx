@@ -9,13 +9,11 @@ import Image5 from "../assets/img/images-about/image5.png";
 import Image6 from "../assets/img/images-about/image6.png";
 import Image7 from "../assets/img/images-about/image7.png";
 import Image8 from "../assets/img/images-about/image8.png";
-import Navbar from "../components/Navbar";
 
 function About(props) {
 
   return (
     <>
-      <Navbar />
       <section id="banner" class="py-3" style={{ background: "#F9F3EC" }}>
         <div class="container">
           <div class="hero-content py-5 my-3">

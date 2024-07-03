@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 // import '../assets/css/global3.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "../components/Navbar";
 import { useContext } from "react";
 import { GlobalContext } from "../Context";
 
@@ -108,7 +107,6 @@ function Cart() {
   return (
     <>
       <div className="">
-        <Navbar />
         <div className="container sv__coverfull m-auto py-8">
           <div className="row">
             <div className="col-xl-5 col-lg-7">
