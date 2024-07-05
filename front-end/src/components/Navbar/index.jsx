@@ -16,7 +16,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import "swiper/css";
 import 'swiper/css/pagination';
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function NavbarLayout() {
   const { cart } = useContext(GlobalContext);
