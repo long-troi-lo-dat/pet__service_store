@@ -96,7 +96,7 @@ function Register(props) {
                     </div>
                   </label>
                   <div class="d-grid my-3">
-                    <button onClick={() => { handleRegisterSubmit() }} class="btn btn-dark btn-lg rounded-1">Đăng ký</button>
+                    <button onClick={handleRegisterSubmit} class="btn btn-dark btn-lg rounded-1">Đăng ký</button>
                   </div>
 
                 </div>

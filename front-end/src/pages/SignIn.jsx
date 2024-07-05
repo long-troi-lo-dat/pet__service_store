@@ -98,7 +98,7 @@ function Login(props) {
                     </div>
                   </label>
                   <div class="d-grid my-3">
-                    <button onClick={() => { handleLoginSubmit() }} class="btn btn-dark btn-lg rounded-1">Đăng nhập</button>
+                    <button onClick={handleLoginSubmit} class="btn btn-dark btn-lg rounded-1">Đăng nhập</button>
                   </div>
 
                 </div>
