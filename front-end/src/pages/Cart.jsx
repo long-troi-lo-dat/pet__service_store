@@ -106,9 +106,117 @@ function Cart() {
 
   return (
     <>
-      <div className="">
-        <div className="container sv__coverfull m-auto py-8">
+      <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
+        <div class="container">
+          <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Đặt hàng và thanh toán</h2>
+            <nav class="breadcrumb">
+              <div class="breadcrumb-item">Trang chủ</div>
+              <span class="breadcrumb-item active">Đặt hàng và thanh toán</span>
+            </nav>
+          </div>
+        </div>
+      </section>
+      <section id="cart">
+        <div className="container mb-5">
           <div className="row">
+            <div className="col-xl-7 col-lg-7">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">
+                    Danh sách sản phẩm trong giỏ hàng
+                  </h6>
+                </div>
+                {cart.length > 0 ? (
+                  <div class="card-body">
+                    <table
+                      class="table table-bordered"
+                      id="dataTable"
+                      width="100%"
+                      cellspacing="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th style={{}}>Hình ảnh</th>
+                          <th style={{ width: "100px" }}>Tên sản phẩm</th>
+                          <th style={{ width: "100px" }}>Giá</th>
+                          <th style={{ width: "100px" }}>Số lượng</th>
+                          <th style={{ width: "140px" }}>Thành tiền</th>
+                          <th>Xóa</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cart
+                          ? cart.map((item, i) => (
+                            <tr>
+                              <td style={{}}>
+                                <img
+                                  src={
+                                    process.env.REACT_APP_URL_API +
+                                    "/" +
+                                    item.hinhanh +
+                                    ".webp"
+                                  }
+                                  alt="img"
+                                />
+                              </td>
+                              <td style={{}}>{item.ten}</td>
+                              <td style={{}}>
+                                {item.gia.toLocaleString("vi", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                              </td>
+                              <td style={{ textAlign: "center" }}>
+                                <div>
+                                  <button
+                                    onClick={() => thaydoisoluong(item, -1)}
+                                  >
+                                    -
+                                  </button>
+                                  <input
+                                    type="text"
+                                    style={{ width: "100%" }}
+                                    value={item.amount}
+                                    readOnly={true}
+                                    className="text-center"
+                                  />
+                                  <button
+                                    onClick={() => thaydoisoluong(item, 1)}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </td>
+                              <td style={{}}>
+                                {(item.gia * item.amount).toLocaleString(
+                                  "vi",
+                                  { style: "currency", currency: "VND" }
+                                )}
+                              </td>
+                              <td>
+                                <button onClick={() => removeProduct(item)}>
+                                  Xóa
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                          : ""}
+                      </tbody>
+                    </table>
+                    <div>
+                      Tổng số tiền:{" "}
+                      {tongtien.toLocaleString("vi", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <div class="card-body">Chưa có sản phẩm trong giỏ hàng</div>
+                )}
+              </div>
+            </div>
             <div className="col-xl-5 col-lg-7">
               <h5 class="h2 mb-0 text-gray-800">Thông tin giao hàng</h5>
               <span>
@@ -185,118 +293,9 @@ function Cart() {
                 Tiếp tục mua sắm
               </button>
             </div>
-            <div className="col-xl-7 col-lg-7">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">
-                    Danh sách sản phẩm trong giỏ hàng
-                  </h6>
-                </div>
-                {cart.length > 0 ? (
-                  <div class="card-body">
-                    <table
-                      class="table table-bordered"
-                      id="dataTable"
-                      width="100%"
-                      cellspacing="0"
-                    >
-                      <thead>
-                        <tr>
-                          <th style={{}}>Hình ảnh</th>
-                          <th style={{ width: "100px" }}>Tên sản phẩm</th>
-                          <th style={{ width: "100px" }}>Giá</th>
-                          <th style={{ width: "100px" }}>Số lượng</th>
-                          <th style={{ width: "140px" }}>Thành tiền</th>
-                          <th>Xóa</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {cart
-                          ? cart.map((item, i) => (
-                              <tr>
-                                <td style={{}}>
-                                  <img
-                                    src={
-                                      process.env.REACT_APP_URL_API +
-                                      "/" +
-                                      item.hinhanh +
-                                      ".webp"
-                                    }
-                                    alt="img"
-                                  />
-                                </td>
-                                <td style={{}}>{item.ten}</td>
-                                <td style={{}}>
-                                  {item.gia.toLocaleString("vi", {
-                                    style: "currency",
-                                    currency: "VND",
-                                  })}
-                                </td>
-                                <td style={{ textAlign: "center" }}>
-                                  <div>
-                                    <button
-                                      onClick={() => thaydoisoluong(item, -1)}
-                                    >
-                                      -
-                                    </button>
-                                    <input
-                                      type="text"
-                                      style={{ width: "100%" }}
-                                      value={item.amount}
-                                      readOnly={true}
-                                      className="text-center"
-                                    />
-                                    <button
-                                      onClick={() => thaydoisoluong(item, 1)}
-                                    >
-                                      +
-                                    </button>
-                                  </div>
-                                </td>
-                                <td style={{}}>
-                                  {(item.gia * item.amount).toLocaleString(
-                                    "vi",
-                                    { style: "currency", currency: "VND" }
-                                  )}
-                                </td>
-                                <td>
-                                  <button onClick={() => removeProduct(item)}>
-                                    Xóa
-                                  </button>
-                                </td>
-                              </tr>
-                            ))
-                          : ""}
-                      </tbody>
-                    </table>
-                    <div>
-                      Tổng số tiền:{" "}
-                      {tongtien.toLocaleString("vi", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  <div class="card-body">Chưa có sản phẩm trong giỏ hàng</div>
-                )}
-              </div>
-            </div>
           </div>
-          <ToastContainer
-            position="bottom-left"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
         </div>
-      </div>
+      </section>
     </>
   );
 }

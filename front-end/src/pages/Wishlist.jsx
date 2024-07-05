@@ -3,7 +3,7 @@ import React from 'react'
 function Wishlist() {
     return (
         <>
-            <section id="banner" class="py-3" style={{ background: "#F9F3EC" }}>
+            <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
                 <div class="container">
                     <div class="hero-content py-5 my-3">
                         <h2 class="display-1 mt-3 mb-0">Wishlist</h2>

@@ -1,5 +1,8 @@
 import React from "react";
-// import './style/style.css';
+
+import FastRegister from "../components/FastRegister"
+import Services from "../components/Services"
+
 import imgthumbnail from "../assets/img/images-blog/thumbnail.png"
 import thumbnailswiper from "../assets/img/images-blog/thumbnailswiper.png"
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,7 +12,7 @@ import 'swiper/css/pagination';
 function Blog(props) {
     return (
         <>
-            <section id="banner" class="py-3" style={{ background: "#F9F3EC" }}>
+            <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
                 <div class="container">
                     <div class="hero-content py-5 my-3">
                         <h2 class="display-1 mt-3 mb-0">Blogs</h2>
@@ -31,7 +34,7 @@ function Blog(props) {
                     }}
                     navigation={true}
                     modules={[Autoplay, Pagination, Navigation]}
-                    className="my-3 py-5"
+                    className="pb-5"
                 >
                     <SwiperSlide>
                         <div class="post-entry d-lg-flex">
@@ -192,6 +195,8 @@ function Blog(props) {
                     </div>
                 </div>
             </div>
+            <FastRegister />
+            <Services />
         </>
 
     );

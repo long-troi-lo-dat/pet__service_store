@@ -108,6 +108,21 @@ hr:not([size]) {
   margin-bottom: 30px;
 }
 
+.iframe-rwd {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.iframe-rwd iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 
 h6,
 .h6,
@@ -660,7 +675,8 @@ progress {
 
 .img-fluid {
   max-width: 100%;
-  max-height: auto;
+  height: auto;
+  max-height: 300px;
 }
 
 .img-product {
@@ -3243,7 +3259,7 @@ textarea.form-control.is-invalid {
 }
 
 .btn:hover {
-  color: #212529;
+  color: #DEAD6F;
 }
 
 .btn-check:focus+.btn,

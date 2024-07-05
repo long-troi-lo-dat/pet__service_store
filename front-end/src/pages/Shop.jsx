@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from '../axios';
-import { Menu } from 'antd';
+
+import FastRegister from "../components/FastRegister"
+import Services from "../components/Services"
+
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from "react";
 import { GlobalContext } from "../Context";
@@ -52,180 +55,461 @@ function Shop() {
 
   return (
     <>
-      <div className="container">
-        <div class="container-content shop-banner flex">
-          <div className="banner-left">
-            <div>
-              <h1>DG HOUSE STORE</h1>
-              <h3>SẢN PHẨM</h3>
-            </div>
-          </div>
-          <div className="banner-right">
-            <img
-              class=""
-              alt=""
-              src="https://petservicehcm.com/wp-content/uploads/2021/04/pet-cover-1440x548.jpeg"
-            />
+      <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
+        <div class="container">
+          <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Cửa hàng</h2>
+            <nav class="breadcrumb">
+              <div class="breadcrumb-item">Trang chủ</div>
+              <span class="breadcrumb-item active">Cửa hàng</span>
+            </nav>
           </div>
         </div>
-        <div className="container-content ml-3 mb-3">
-          <div className="flex justify-content-end">
-            <label htmlFor="search-form">
-              <div class="d-flex form-inputs">
-                {/* <i class="fas fa-search" style={{ lineHeight: "35px", marginRight: "5px" }}></i> */}
-                {/* <input class="form-control" style={{ marginRight: "19.9px", width: "290px" }} type="text" placeholder="Search any product..." value={input} onChange={(e) => handleChange(e.target.value)} /> */}
-                <form class="form-inline">
-                  <input class="form-control mr-sm-2"
-                    type="search"
-                    placeholder="Tìm kiếm sản phẩm"
-                    aria-label="Search"
-                    value={searchInput}
-                    onChange={handleChange}
-                    id="searchInput" />
-                  {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
-                </form>
-              </div>
-              {/* {results.length > 0 && <div class="d-flex flex-column bg-light" style={{ marginTop: "10px", position: "absolute", zIndex: "10", width: "310px", maxHeight: "300px", overflowY: "scroll", padding: "8px" }}>
-                  {results.map((item, id) => (
-                    <div class="d-flex" style={{ marginBottom: "6px", width: "100%" }}>
-                      <img src={item.hinh} width="100px" height="60px" alt="" />
-                      <a href={"/detail/" + item.id_sp} class="btn btn-info" style={{ border: "none", backgroundColor: "white", color: "black", fontSize: "12px", textAlign: "left", fontWeight: "600" }}>{item.ten}</a>
-                    </div>
-                  ))}
-                </div>} */}
-            </label>
-          </div>
-        </div >
-        <div class="container-content">
-          <div className="row" style={{ justifyContent: "space-around" }}>
-            <>
-              <div className="product-left">
-                {/* <ul class="list-group mb-3">
-                      <li class="list-group-item" style={{ backgroundColor: "#273172", color: "white" }} aria-current="true">Thực phẩm chức năng</li>
-                      <li class="list-group-item" onClick={() => phanloai("shop100")}>Dưới 100.000đ</li>
-                      <li class="list-group-item" onClick={() => phanloai("shopduoi500")}>Dưới 500.000đ</li>
-                      <li class="list-group-item" onClick={() => phanloai("shoptren500")}>Trên 500.000đ</li>
-                    </ul> */}
-                <Menu mode="inline" style={{ display: "flex", flexDirection: "column", gap: "15px", fontSize: "1rem", position: "relative", border: "1px solid #e5e7eb", color: "black" }}>
-                  <div className="logo" style={{ borderBottom: "1px solid #e5e7eb" }}>
-                    <h3 style={{ margin: "0 20px", paddingBottom: "15px" }}>Danh mục</h3>
-                  </div>
-                  <Menu.SubMenu key="thucung" title="Thú cưng">
-                    <Menu.Item key='thucung-0'><button onClick={() => phanloaidanhmuc(1, 0, 0)}>Tất cả giống loài</button></Menu.Item>
-                    <Menu.Item key='thucung-1'><button onClick={() => phanloaidanhmuc(1, 1, 0)}>Phốc sóc</button></Menu.Item>
-                    <Menu.Item key='thucung-2'><button onClick={() => phanloaidanhmuc(1, 2, 0)}>Corgi chân lùn</button></Menu.Item>
-                    <Menu.Item key='thucung-3'><button onClick={() => phanloaidanhmuc(1, 3, 0)}>Alasa</button></Menu.Item>
-                    <Menu.Item key='thucung-4'><button onClick={() => phanloaidanhmuc(1, 4, 0)}>Shiba</button></Menu.Item>
-                    <Menu.Item key='thucung-5'><button onClick={() => phanloaidanhmuc(1, 5, 0)}>Husky</button></Menu.Item>
-                  </Menu.SubMenu>
-                  <Menu.SubMenu key="thucan" title="Thức ăn">
-                    <Menu.Item key='thucan-0'><button onClick={() => phanloaidanhmuc(2, 0, 0)}>Tất cả thức ăn</button></Menu.Item>
-                    <Menu.Item key='thucan-1'><button onClick={() => phanloaidanhmuc(2, 0, 100000)}>Dưới 100.000đ</button></Menu.Item>
-                    <Menu.Item key='thucan-2'><button onClick={() => phanloaidanhmuc(2, 0, 200000)}>Dưới 200.000đ</button></Menu.Item>
-                    <Menu.Item key='thucan-3'><button onClick={() => phanloaidanhmuc(2, 0, 300000)}>Trên 200.000đ</button></Menu.Item>
-                  </Menu.SubMenu>
-                  <Menu.SubMenu key="chamsocsuckhoe" title="Chăm sóc sức khỏe">
-                    <Menu.Item key='chamsocsuckhoe-1'><button onClick={() => phanloaidanhmuc(3, 0, 0)}>Dinh dưỡng</button></Menu.Item>
-                  </Menu.SubMenu>
-                  <Menu.SubMenu key="phukien" title="Phụ kiện">
-                    <Menu.Item key='phukien-0'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Tất cả phụ kiện</button></Menu.Item>
-                    <Menu.Item key='phukien-1'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Dưới 100.000đ</button></Menu.Item>
-                    <Menu.Item key='phukien-2'><button onClick={() => phanloaidanhmuc(4, 0, 0)}>Dưới 200.000đ</button></Menu.Item>
-                  </Menu.SubMenu>
-                  <Menu.SubMenu key="dochoi" title="Đồ chơi">
-                    <Menu.Item key='dochoi-0'><button onClick={() => phanloaidanhmuc(5, 0, 0)}>Tất cả đồ chơi</button></Menu.Item>
-                    <Menu.Item key='dochoi-5'><button onClick={() => phanloaidanhmuc(5, 0, 50000)}>Dưới 50.000đ</button></Menu.Item>
-                    <Menu.Item key='dochoi-2'><button onClick={() => phanloaidanhmuc(5, 0, 100000)}>Dưới 100.000đ</button></Menu.Item>
-                  </Menu.SubMenu>
-                </Menu>
-              </div>
-              <div className="product-right pr-0">
-                <div className="row">
-                  {filteredProducts.length > 0 ? (
-                    filteredProducts.map((item, i) => {
-                      return (
-                        <div key={i} className="col-lg-3 col-md-12 mb-4" >
-                          <div className="card" style={{ position: "relative", overflow: "hidden" }}>
-                            {item.soluong === 0 ? <div class="sold_out" >Hết hàng</div> : ""}
-                            <a href={`/detail/${item.id_sp}`}>
-                              <img
-                                src={`${process.env.REACT_APP_URL_API}/${item.hinh}`}
-                                style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
-                                className="card-img-top"
-                                alt="..."
-                              />
-                            </a>
-                            <div className="card-body" style={{ borderTop: "1px solid #e5e7eb" }}>
-                              <div className="card-title" style={{ minHeight: '96px', fontSize: '16px' }}>
-                                {item.ten}
-                              </div>
-                              <div className="card-title" style={{ fontSize: '16px' }}>
-                                {item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                              </div>
-                              <a href={`/detail/${item.id_sp}`} className="btn btn-info" style={{ minWidth: '164px' }}>
-                                Chi tiết
-                              </a>
-                              <button onClick={() => {  }} className="btn btn-success" style={{ minWidth: '164px' }}>
-                                Thêm vào giỏ
-                              </button>
-                              {/* {isSoldOut && <div className="sold-out-label">Sold Out</div>} */}
-                            </div>
-                          </div>
-                        </div>
-                      )
-                      // }
-                    })
-                  ) : (
-                    data.map((item, i) => {
-                      // const isSoldOut = item.soluong === 0;
-                      // var soldOut = ""
-                      // if (item.soluong === 0) {
-                      //   soldOut = '<div class="sold_out" >Hết hàng</div>'
-                      // }
-                      // if (item.soluong !== 0) {
-                      return (
-                        item.anhien === 0 ?
-                          <div key={i} className={item.soluong === 0 ? 'col-lg-3 col-md-12 mb-4 sold_out_product' : 'col-lg-3 col-md-12 mb-4'}>
-                            <div className="card" style={{ position: "relative", overflow: "hidden" }}>
-                              {/* <img src="http://www.savoy-sharm.com/media-room/images/hi-res/king-bed-room-accommodation-savoy-luxury-5-stars-accommodation-sharm-el-sheikh.jpg" alt="" /> */}
-                              {item.soluong === 0 ? <div class="sold_out" >Tạm hết hàng</div> : ""}
-                              <a href={`/detail/${item.id_sp}`}>
-                                <img
-                                  src={`${process.env.REACT_APP_URL_API}/${item.hinh}`}
-                                  style={{ maxWidth: '80%', maxHeight: '163.512px', minWidth: '163.512px', minHeight: '163.512px', margin: '20px auto' }}
-                                  className="card-img-top"
-                                  alt="..."
-                                />
-                              </a>
-                              <div className="card-body" style={{ borderTop: "1px solid #e5e7eb" }}>
-                                <div className="card-title" style={{ minHeight: '96px', fontSize: '16px' }}>
-                                  {item.ten}
-                                </div>
-                                <div className="card-title" style={{ fontSize: '16px' }}>
-                                  {item.gia.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                                </div>
-                                <a href={`/detail/${item.id_sp}`} className="btn btn-info" style={{ minWidth: '164px' }}>
-                                  Chi tiết
-                                </a>
-                                <button onClick={() => { }} className={item.soluong === 0 ? "btn btn-success disabled" : "btn btn-success"} style={{ minWidth: '164px' }}>
-                                  Thêm vào giỏ
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          :
-                          ""
-                      )
-                      // }
-                    })
-                  )}
-                  {/* <Pagination defaultCurrent={1} total={50} /> */}
+      </section>
+      <div class="shopify-grid">
+        <div class="container mb-5">
+          <div class="row flex-md-row-reverse g-md-5 mb-5">
+
+            <main class="col-md-9">
+              <div class="filter-shop d-md-flex justify-content-between align-items-center">
+                <div class="showing-product">
+                  <p class="m-0">Đang hiện 1–9 trong 55 kết quả</p>
+                </div>
+                <div class="sort-by">
+                  <select class="filter-categories border-0 m-0">
+                    <option value="">Mặc định</option>
+                    <option value="">Tên (A - Z)</option>
+                    <option value="">Tên (Z - A)</option>
+                    <option value="">Giá (Low-High)</option>
+                    <option value="">Giá (High-Low)</option>
+                  </select>
                 </div>
               </div>
-            </>
+
+              <div class="product-grid row ">
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    New
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    New
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    New
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    Sold
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    New
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    New
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    Sale
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    New
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 my-4">
+                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                    New
+                  </div>
+                  <div class="card position-relative">
+                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/thuoc-bo-sung-canxi-cho-vegebrand-goat-milk-calcium-tablet-400x400.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                    <div class="card-body p-0">
+                      <a href="single-product.html">
+                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
+                      </a>
+
+                      <div class="card-text">
+                        <span class="rating secondary-font">
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          5.0</span>
+
+                        <h3 class="secondary-font text-primary">$18.00</h3>
+
+                        <div class="d-flex flex-wrap mt-3">
+                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                          </a>
+                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                          </a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <nav class="navigation paging-navigation text-center mt-5" role="navigation">
+                <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
+                  <a href="/#" class="pagination-arrow d-flex align-items-center mx-3">
+                    <iconify-icon icon="ic:baseline-keyboard-arrow-left" class="pagination-arrow fs-1"></iconify-icon>
+                  </a>
+                  <span aria-current="page" class="page-numbers mt-2 fs-3 mx-3 current">1</span>
+                  <a class="page-numbers mt-2 fs-3 mx-3" href="/#">2</a>
+                  <a class="page-numbers mt-2 fs-3 mx-3" href="/#">3</a>
+                  <a href="/#" class="pagination-arrow d-flex align-items-center mx-3">
+                    <iconify-icon icon="ic:baseline-keyboard-arrow-right" class="pagination-arrow fs-1"></iconify-icon>
+                  </a>
+                </div>
+              </nav>
+
+            </main>
+            <aside class="col-md-3 mt-5">
+              <div class="sidebar">
+                <div class="widget-menu">
+                  <div class="widget-search-bar">
+                    <div class="search-bar border rounded-2 border-dark-subtle pe-3">
+                      <form id="search-form" class="text-center d-flex align-items-center" action="" method="">
+                        <input type="text" class="form-control border-0 bg-transparent" placeholder="Search for products" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"></path>
+                        </svg>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="widget-product-categories pt-5">
+                  <h4 class="widget-title">Danh mục</h4>
+                  <ul class="product-categories sidebar-list list-unstyled">
+                    <li class="cat-item">
+                      <button href="/collections/categories" className="btn nav-item">Tất cả</button>
+                    </li>
+                    <li class="cat-item">
+                      <button className="btn nav-item">Chó</button>
+                    </li>
+                    <li class="cat-item">
+                      <button className="btn nav-item">Thức ăn</button>
+                    </li>
+                    <li class="cat-item">
+                      <button className="btn nav-item">Dinh dưỡng</button>
+                    </li>
+                    <li class="cat-item">
+                      <button className="btn nav-item">Phụ kiện</button>
+                    </li>
+                    <li class="cat-item">
+                      <button className="btn nav-item">Đồ chơi</button>
+                    </li>
+                  </ul>
+                </div>
+                <div class="widget-price-filter pt-3">
+                  <h4 class="widget-titlewidget-title">Sắp xếp theo giá</h4>
+                  <ul class="product-tags sidebar-list list-unstyled">
+                    <li class="tags-item">
+                      <button className="btn nav-item">Thấp hơn 100 ngàn</button>
+                    </li>
+                    <li class="tags-item">
+                      <button className="btn nav-item">100 ngàn - 200 ngàn</button>
+                    </li>
+                    <li class="tags-item">
+                      <button className="btn nav-item">200 ngàn - 300 ngàn</button>
+                    </li>
+                    <li class="tags-item">
+                      <button className="btn nav-item">300 ngàn - 400 ngàn</button>
+                    </li>
+                    <li class="tags-item">
+                      <button className="btn nav-item">400 ngàn - 500 ngàn</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </aside>
+            <FastRegister />
+            <Services />
           </div>
         </div>
-      </div >
+      </div>
     </>
   );
 }

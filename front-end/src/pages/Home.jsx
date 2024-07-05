@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "../axios";
 
 import Item from "../components/Item";
+import FastRegister from "../components/FastRegister"
+import Services from "../components/Services"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Icon } from '@iconify/react';
@@ -75,6 +77,7 @@ export default function Home() {
       <section id="banner" style={{ background: "#F9F3EC" }}>
         <div class="container mb-5">
           <Swiper
+            loop="true"
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
@@ -188,6 +191,7 @@ export default function Home() {
           </div>
 
           <Swiper
+            loop="true"
             breakpoints={{
               768: {
                 slidesPerView: 2,
@@ -369,36 +373,8 @@ export default function Home() {
           </Swiper>
         </div>
       </section>
-
-      <section id="register" style={{ background: "url('images/background-img.png') no-repeat" }}>
-        <div class="container ">
-          <div class="row mb-5">
-            <div class="offset-md-3 col-md-6 my-5 ">
-              <h2 class="display-3 fw-normal text-center">Giảm giá 20% cho <span class="text-primary">Lần mua đầu tiên</span>
-              </h2>
-              <form>
-                <div class="mb-3">
-                  <input type="email" class="form-control form-control-lg" name="email" id="email"
-                    placeholder="nguyenvana@gmail.com" />
-                </div>
-                <div class="mb-3">
-                  <input type="password" class="form-control form-control-lg" name="email" id="password1"
-                    placeholder="Mật khẩu" />
-                </div>
-                <div class="mb-3">
-                  <input type="password" class="form-control form-control-lg" name="email" id="password2"
-                    placeholder="Xác nhận mật khẩu" />
-                </div>
-
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-dark btn-lg rounded-1">Đăng ký ngay</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <FastRegister />
+      <Services />
       <section id="latest-blog" class="mb-5">
         <div class="container py-5 my-5">
           <div class="row mt-5">

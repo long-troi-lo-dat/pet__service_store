@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       <GlobalState>
-      <Navbar />
+        <Navbar />
         <Routes>
           {publicRoutes.map((item, index) => {
             const Page = item.component;

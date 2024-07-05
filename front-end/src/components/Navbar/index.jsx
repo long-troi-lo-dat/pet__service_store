@@ -16,7 +16,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import "swiper/css";
 import 'swiper/css/pagination';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function NavbarLayout() {
   const { cart } = useContext(GlobalContext);
@@ -100,7 +100,7 @@ function NavbarLayout() {
                 <Link to="/about" className="mx-2 nav-link">Giới thiệu</Link>
                 <Link to="/blog" className="mx-2 nav-link">Blog</Link>
                 <Link to="/contact" className="mx-2 nav-link">Liên hệ</Link>
-                <Link to="/booking" className="mx-2 nav-link">Dịch vụ</Link>
+                <Link to="/bookingservice" className="mx-2 nav-link">Dịch vụ</Link>
                 <NavDropdown
                   title="Cửa hàng"
                   id={`offcanvasNavbarDropdown-expand-lg`}
@@ -108,7 +108,7 @@ function NavbarLayout() {
                   onMouseEnter={showDropdown}
                   onMouseLeave={hideDropdown}
                   as={Link}
-                  to="/shop"
+                  href="/shop"
                 >
                   <NavDropdown.Item><Link to="/shop/2" style={{ color: "#41403E" }}>Thú cưng</Link></NavDropdown.Item>
                   <NavDropdown.Item><Link to="/shop" style={{ color: "#41403E" }}>Thức ăn</Link></NavDropdown.Item>

@@ -9,7 +9,7 @@ function Item(props) {
     const { cart, setCart } = useContext(GlobalContext);
 
     useEffect(() => {
-        Aos.init({ duration: 1000 });
+        Aos.init({ duration: 600 });
     }, []);
 
     const onAddToCartHandler = (item) => {
@@ -46,7 +46,6 @@ function Item(props) {
                 const updatedCart = [...cart, { ...item, amount: 1 }];
                 Notify();
                 setCart(updatedCart);
-                console.log(cart, "oisadbngoiasgoias");
             } else {
                 console.error('Sản phẩm đã hết hàng');
                 quantityNotify();
