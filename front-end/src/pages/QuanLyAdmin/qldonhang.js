@@ -95,7 +95,7 @@ function AdminDonHang(props) {
                             <li class="nav-item dropdown no-arrow d-sm-none">
                                 <a
                                     class="nav-link dropdown-toggle"
-                                    href="#"
+                                    href="/#"
                                     id="searchDropdown"
                                     role="button"
                                     data-toggle="dropdown"
@@ -129,7 +129,7 @@ function AdminDonHang(props) {
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a
                                     class="nav-link dropdown-toggle"
-                                    href="#"
+                                    href="/#"
                                     id="alertsDropdown"
                                     role="button"
                                     data-toggle="dropdown"
@@ -144,7 +144,7 @@ function AdminDonHang(props) {
                                     aria-labelledby="alertsDropdown"
                                 >
                                     <h6 class="dropdown-header">Alerts Center</h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="mr-3">
                                             <div class="icon-circle bg-primary">
                                                 <i class="fas fa-file-alt text-white"></i>
@@ -157,7 +157,7 @@ function AdminDonHang(props) {
                                             </span>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="mr-3">
                                             <div class="icon-circle bg-success">
                                                 <i class="fas fa-donate text-white"></i>
@@ -168,7 +168,7 @@ function AdminDonHang(props) {
                                             $290.29 has been deposited into your account!
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="mr-3">
                                             <div class="icon-circle bg-warning">
                                                 <i class="fas fa-exclamation-triangle text-white"></i>
@@ -182,7 +182,7 @@ function AdminDonHang(props) {
                                     </a>
                                     <a
                                         class="dropdown-item text-center small text-gray-500"
-                                        href="#"
+                                        href="/#"
                                     >
                                         Show All Alerts
                                     </a>
@@ -191,7 +191,7 @@ function AdminDonHang(props) {
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a
                                     class="nav-link dropdown-toggle"
-                                    href="#"
+                                    href="/#"
                                     id="messagesDropdown"
                                     role="button"
                                     data-toggle="dropdown"
@@ -206,7 +206,7 @@ function AdminDonHang(props) {
                                     aria-labelledby="messagesDropdown"
                                 >
                                     <h6 class="dropdown-header">Message Center</h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -225,7 +225,7 @@ function AdminDonHang(props) {
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -242,7 +242,7 @@ function AdminDonHang(props) {
                                             <div class="small text-gray-500">Jae Chun · 1d</div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -261,7 +261,7 @@ function AdminDonHang(props) {
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="/#">
                                         <div class="dropdown-list-image mr-3">
                                             <img
                                                 class="rounded-circle"
@@ -283,7 +283,7 @@ function AdminDonHang(props) {
                                     </a>
                                     <a
                                         class="dropdown-item text-center small text-gray-500"
-                                        href="#"
+                                        href="/#"
                                     >
                                         Read More Messages
                                     </a>

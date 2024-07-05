@@ -1,7 +1,5 @@
 const db = require("../config/database");
-const jwt = require("jsonwebtoken")
 
-const { generateToken, verifyToken } = require("../utils/jwt")
 const authModel = require("../models/authModel")
 
 const registerUser = (req, res) => {
