@@ -1,7 +1,6 @@
 import axios from "../axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import '../assets/css/global3.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
