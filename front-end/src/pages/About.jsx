@@ -10,7 +10,7 @@ import Image6 from "../assets/img/images-about/image6.png";
 import Image7 from "../assets/img/images-about/image7.png";
 import Image8 from "../assets/img/images-about/image8.png";
 
-function About(props) {
+function About() {
 
   return (
     <>

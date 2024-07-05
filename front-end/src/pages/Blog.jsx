@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import "swiper/css";
 import 'swiper/css/pagination';
-function Blog(props) {
+function Blog() {
     return (
         <>
             <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
