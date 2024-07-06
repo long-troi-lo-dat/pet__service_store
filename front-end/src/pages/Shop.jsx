@@ -6,6 +6,8 @@ import Services from "../components/Services"
 
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Icon } from '@iconify/react';
+
 function Shop() {
   const [data, setData] = useState([]);
 
@@ -68,11 +70,11 @@ function Shop() {
 
                           <div class="card-text">
                             <span class="rating secondary-font">
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                              <Icon icon="clarity:star-solid" className="text-primary" />
+                              <Icon icon="clarity:star-solid" className="text-primary" />
+                              <Icon icon="clarity:star-solid" className="text-primary" />
+                              <Icon icon="clarity:star-solid" className="text-primary" />
+                              <Icon icon="clarity:star-solid" className="text-primary" />
                               5.0</span>
 
                             <h3 class="secondary-font text-primary">{item.gia}</h3>
@@ -108,11 +110,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
@@ -146,11 +148,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
@@ -184,11 +186,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
@@ -222,11 +224,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
@@ -260,11 +262,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
@@ -298,11 +300,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
@@ -336,11 +338,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
@@ -374,11 +376,11 @@ function Shop() {
 
                       <div class="card-text">
                         <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
+                          <Icon icon="clarity:star-solid" className="text-primary" />
                           5.0</span>
 
                         <h3 class="secondary-font text-primary">$18.00</h3>
