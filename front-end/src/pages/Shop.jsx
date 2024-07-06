@@ -3,10 +3,9 @@ import axios from '../axios';
 
 import FastRegister from "../components/FastRegister"
 import Services from "../components/Services"
+import Item from "../components/Item"
 
 import 'react-toastify/dist/ReactToastify.css';
-
-import { Icon } from '@iconify/react';
 
 function Shop() {
   const [data, setData] = useState([]);
@@ -57,43 +56,7 @@ function Shop() {
               <div class="product-grid row ">
                 {data.map((item, i) => {
                   return (
-                    <div class="col-md-4 my-4" key={i}>
-                      <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                        New
-                      </div>
-                      <div class="card position-relative">
-                        <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/${item.hinh}`} class="img-product rounded-4" alt="dghouse-product" /></a>
-                        <div class="card-body p-0">
-                          <a href="single-product.html">
-                            <h3 class="card-title pt-4 m-0">{item.ten}</h3>
-                          </a>
-
-                          <div class="card-text">
-                            <span class="rating secondary-font">
-                              <Icon icon="clarity:star-solid" className="text-primary" />
-                              <Icon icon="clarity:star-solid" className="text-primary" />
-                              <Icon icon="clarity:star-solid" className="text-primary" />
-                              <Icon icon="clarity:star-solid" className="text-primary" />
-                              <Icon icon="clarity:star-solid" className="text-primary" />
-                              5.0</span>
-
-                            <h3 class="secondary-font text-primary">{item.gia}</h3>
-
-                            <div class="d-flex flex-wrap mt-3">
-                              <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                                <h5 class="text-uppercase m-0">Add to Cart</h5>
-                              </a>
-                              <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
-                              </a>
-                            </div>
-
-
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
+                    <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} delay={i * 200} />
                   )
                 })}
 
