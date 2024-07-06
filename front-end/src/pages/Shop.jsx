@@ -5,46 +5,11 @@ import FastRegister from "../components/FastRegister"
 import Services from "../components/Services"
 
 import 'react-toastify/dist/ReactToastify.css';
-import { useContext } from "react";
-import { GlobalContext } from "../Context";
-import { useParams } from "react-router-dom";
 
 function Shop() {
-  const { cart } = useContext(GlobalContext)
   const [data, setData] = useState([]);
-  // const [filteredProducts, setFilteredProducts] = useState([]);
-  // const [searchInput, setSearchInput] = useState('');
 
-  const params = useParams();
-  if (params.id) {
-    console.log(params.id);
-  }
-  const filterProducts = (value) => {
-    console.log("filtered")
-    // const filtered = data.filter((product) => {
-    //   return value && product.ten && product.ten.toLowerCase().includes(value);
-    // });
-    // setFilteredProducts(filtered);
-  };
-
-  const handleChange = (event) => {
-    const value = event.target.value.toLowerCase();
-    // setSearchInput(value);
-    filterProducts(value);
-  };
-
-  const phanloaidanhmuc = (category, detail, price) => {
-    axios.get(`/shop/${category}/${detail}/${price}`)
-      .then((response) => {
-        setData(response.data)
-      })
-      .catch((error) => {
-        console.error('error fetching data :', error);
-      });
-  }
   useEffect(() => {
-    console.log(cart, "cart");
-
     axios.get(`/api/product`)
       .then((response) => {
         setData(response.data);
@@ -52,7 +17,7 @@ function Shop() {
       .catch((error) => {
         console.error('error fetching data :', error);
       });
-  }, [cart]);
+  }, []);
 
   return (
     <>
@@ -88,45 +53,49 @@ function Shop() {
               </div>
 
               <div class="product-grid row ">
-                <div class="col-md-4 my-4">
-                  <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                    New
-                  </div>
-                  <div class="card position-relative">
-                    <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/1-lak-1616-1247x1496.webp`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
-                    <div class="card-body p-0">
-                      <a href="single-product.html">
-                        <h3 class="card-title pt-4 m-0">Grey hoodie</h3>
-                      </a>
-
-                      <div class="card-text">
-                        <span class="rating secondary-font">
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                          5.0</span>
-
-                        <h3 class="secondary-font text-primary">$18.00</h3>
-
-                        <div class="d-flex flex-wrap mt-3">
-                          <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                            <h5 class="text-uppercase m-0">Add to Cart</h5>
-                          </a>
-                          <a href="/#" class="btn-wishlist px-4 pt-3 ">
-                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
-                          </a>
-                        </div>
-
-
+                {data.map((item, i) => {
+                  return (
+                    <div class="col-md-4 my-4" key={i}>
+                      <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                        New
                       </div>
+                      <div class="card position-relative">
+                        <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/${item.hinh}`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                        <div class="card-body p-0">
+                          <a href="single-product.html">
+                            <h3 class="card-title pt-4 m-0">{item.ten}</h3>
+                          </a>
 
+                          <div class="card-text">
+                            <span class="rating secondary-font">
+                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                              5.0</span>
+
+                            <h3 class="secondary-font text-primary">{item.gia}</h3>
+
+                            <div class="d-flex flex-wrap mt-3">
+                              <a href="/#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                <h5 class="text-uppercase m-0">Add to Cart</h5>
+                              </a>
+                              <a href="/#" class="btn-wishlist px-4 pt-3 ">
+                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                              </a>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  )
+                })}
 
-                <div class="col-md-4 my-4">
+                {/* <div class="col-md-4 my-4">
                   <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
                     New
                   </div>
@@ -428,7 +397,7 @@ function Shop() {
 
                     </div>
                   </div>
-                </div>
+                </div> */}
 
               </div>
 
@@ -465,7 +434,7 @@ function Shop() {
                   <h4 class="widget-title">Danh mục</h4>
                   <ul class="product-categories sidebar-list list-unstyled">
                     <li class="cat-item">
-                      <button href="/collections/categories" className="btn nav-item">Tất cả</button>
+                      <button className="btn nav-item" >Tất cả</button>
                     </li>
                     <li class="cat-item">
                       <button className="btn nav-item">Chó</button>
