@@ -1,17 +1,17 @@
-import React from "react";
-// import React, { useEffect, useState } from "react";
-// import axios from '../axios';
+import React, { useEffect, useState } from "react";
+import axios from '../axios';
 
 import FastRegister from "../components/FastRegister"
 import Services from "../components/Services"
 
 import 'react-toastify/dist/ReactToastify.css';
-// import { useContext } from "react";
-// import { GlobalContext } from "../Context";
+import { useContext } from "react";
+import { GlobalContext } from "../Context";
 import { useParams } from "react-router-dom";
 
 function Shop() {
-  // const [data, setData] = useState([]);
+  const { cart } = useContext(GlobalContext)
+  const [data, setData] = useState([]);
   // const [filteredProducts, setFilteredProducts] = useState([]);
   // const [searchInput, setSearchInput] = useState('');
 
@@ -19,39 +19,40 @@ function Shop() {
   if (params.id) {
     console.log(params.id);
   }
-  // const filterProducts = (value) => {
-  //   const filtered = data.filter((product) => {
-  //     return value && product.ten && product.ten.toLowerCase().includes(value);
-  //   });
-  //   setFilteredProducts(filtered);
-  // };
+  const filterProducts = (value) => {
+    console.log("filtered")
+    // const filtered = data.filter((product) => {
+    //   return value && product.ten && product.ten.toLowerCase().includes(value);
+    // });
+    // setFilteredProducts(filtered);
+  };
 
-  // const handleChange = (event) => {
-  //   const value = event.target.value.toLowerCase();
-  //   setSearchInput(value);
-  //   filterProducts(value);
-  // };
+  const handleChange = (event) => {
+    const value = event.target.value.toLowerCase();
+    // setSearchInput(value);
+    filterProducts(value);
+  };
 
-  // const phanloaidanhmuc = (category, detail, price) => {
-  //   axios.get(`/shop/${category}/${detail}/${price}`)
-  //     .then((response) => {
-  //       setData(response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.error('error fetching data :', error);
-  //     });
-  // }
-  // useEffect(() => {
-  //   console.log(cart, "cart");
+  const phanloaidanhmuc = (category, detail, price) => {
+    axios.get(`/shop/${category}/${detail}/${price}`)
+      .then((response) => {
+        setData(response.data)
+      })
+      .catch((error) => {
+        console.error('error fetching data :', error);
+      });
+  }
+  useEffect(() => {
+    console.log(cart, "cart");
 
-  //   axios.get(`/api/product`)
-  //     .then((response) => {
-  //       setData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('error fetching data :', error);
-  //     });
-  // }, [cart]);
+    axios.get(`/api/product`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error('error fetching data :', error);
+      });
+  }, [cart]);
 
   return (
     <>
