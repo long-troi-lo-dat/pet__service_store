@@ -6,11 +6,11 @@ function Wishlist() {
             <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
                 <div class="container">
                     <div class="hero-content py-5 my-3">
-                        <h2 class="display-1 mt-3 mb-0">Wishlist</h2>
+                        <h2 class="display-1 mt-3 mb-0">Ưa thích</h2>
                         <nav class="breadcrumb">
                             <a class="breadcrumb-item nav-link" href="/#">Home</a>
                             <a class="breadcrumb-item nav-link" href="/#">Pages</a>
-                            <span class="breadcrumb-item active" aria-current="page">Wishlist</span>
+                            <span class="breadcrumb-item active" aria-current="page">Ưa thích</span>
                         </nav>
                     </div>
                 </div>
