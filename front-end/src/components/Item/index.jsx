@@ -70,7 +70,7 @@ function Item(props) {
                 <hr />
                 <div className="card-body p-0">
                     <a href={`/detailproduct/${props.id_sp}`}>
-                        <h6 className="card-title pt-4 text-truncate">{props.ten}</h6>
+                        <h6 className="card-title pt-4 text-truncate" style={{ minWidth: "38.4px" }}>{props.ten}</h6>
                     </a>
                     <div className="card-text">
                         <h5 className="secondary-font text-primary">
