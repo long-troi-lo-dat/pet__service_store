@@ -60,7 +60,7 @@ function Shop() {
                         New
                       </div>
                       <div class="card position-relative">
-                        <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/${item.hinh}`} class="img-fluid rounded-4" alt="dghouse-product" /></a>
+                        <a href="single-product.html"><img src={`${process.env.REACT_APP_URL_API}/products/${item.hinh}`} class="img-product rounded-4" alt="dghouse-product" /></a>
                         <div class="card-body p-0">
                           <a href="single-product.html">
                             <h3 class="card-title pt-4 m-0">{item.ten}</h3>
