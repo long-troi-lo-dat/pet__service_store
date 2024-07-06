@@ -56,7 +56,9 @@ function Shop() {
               <div class="product-grid row ">
                 {data.map((item, i) => {
                   return (
-                    <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} delay={i * 200} />
+                    <div class="col-md-4 my-4">
+                      <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} delay={i * 200} />
+                    </div>
                   )
                 })}
 
