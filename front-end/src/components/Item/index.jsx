@@ -54,7 +54,7 @@ function Item(props) {
     };
 
     return (
-        <div data-aos="fade-up" data-aos-delay={props.delay}>
+        <>
             <div className="z-1 position-absolute rounded-3 px-3 border border-dark-subtle bg-white">
                 New
             </div>
@@ -70,7 +70,7 @@ function Item(props) {
                 <hr />
                 <div className="card-body p-0">
                     <a href={`/detailproduct/${props.id_sp}`}>
-                        <h6 className="card-title pt-4 text-truncate">{props.ten}</h6>
+                        <h6 className="card-title mt-2 text-truncate lh2">{props.ten}</h6>
                     </a>
                     <div className="card-text">
                         <h5 className="secondary-font text-primary">
@@ -94,7 +94,7 @@ function Item(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

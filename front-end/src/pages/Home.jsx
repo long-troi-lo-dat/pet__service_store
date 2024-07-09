@@ -4,6 +4,7 @@ import axios from "../axios";
 import Item from "../components/Item";
 import FastRegister from "../components/FastRegister"
 import Services from "../components/Services"
+import Loadingscreen from "../components/Loadingscreen"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Icon } from '@iconify/react';
@@ -15,7 +16,7 @@ import "swiper/css";
 import 'swiper/css/pagination';
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true)
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [dataAccessories, setDataAccessories] = useState([]);
   const [dataFood, setDataFood] = useState([]);
@@ -35,15 +36,13 @@ export default function Home() {
   };
 
   const getData = async () => {
-    setLoading(true)
     await axios.get(`/api/product/getPetAccessories`)
       .then((response) => {
-        setDataAccessories(response.data);
         setLoading(false)
+        setDataAccessories(response.data);
       })
       .catch((error) => {
         console.error('error fetching data:', error);
-        setLoading(false)
       });
 
     await axios.get(`/api/product/getPetFood`)
@@ -54,7 +53,6 @@ export default function Home() {
       })
       .catch((error) => {
         console.error('error fetching data:', error);
-        setLoading(false)
       });
 
   }
@@ -64,12 +62,7 @@ export default function Home() {
   }, []);
 
   if (loading) {
-    return (
-      <div class="preloader-wrapper" >
-        <div class="preloader">
-        </div>
-      </div>
-    )
+    return <Loadingscreen />
   }
 
   return (
@@ -141,7 +134,7 @@ export default function Home() {
 
       <section id="categories">
         <div class="container mb-5">
-          <div class="row justify-content-center align-items-center">
+          <div class="row justify-content-center">
             <div class="col-6 col-md-4 col-lg-2 text-center">
               <a href="/#" class="categories-item">
                 <Icon class="category-icon" icon="ph:bowl-food" style={{ fontSize: '100px', color: "#DEAD6F99" }}></Icon>
@@ -215,7 +208,9 @@ export default function Home() {
             {dataAccessories.map((item, i) => {
               return (
                 <SwiperSlide>
-                  <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} delay={i * 200} />
+                  <div data-aos="fade-up" data-aos-delay={i * 200}>
+                    <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} />
+                  </div>
                 </SwiperSlide>
               )
             })}

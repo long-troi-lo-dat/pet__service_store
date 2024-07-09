@@ -32,7 +32,6 @@ function UserDetailEdit(props) {
                 console.error('error fetching data :', error);
             });
     }, [id]);
-    console.log(editUser, "oadsigoaidsngoasdngoiasdgnoia")
     return (
         <>  
             <div class="container rounded bg-white mt-5 mb-5">

@@ -16,20 +16,37 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import "swiper/css";
 import 'swiper/css/pagination';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavbarLayout() {
   const { cart } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
-  const [show, setShow] = useState(false);
-  const showDropdown = (e) => {
-    setShow(!show);
+  const isLogedIn = localStorage.getItem("isLogedIn")
+  const id_user = localStorage.getItem("id_user")
+
+  const [showCate, setShowCate] = useState(false);
+  const showCateDropdown = (e) => {
+    setShowCate(!showCate);
   }
-  const hideDropdown = e => {
-    setShow(false);
+  const hideCateDropdown = e => {
+    setShowCate(false);
   }
+  const [showUser, setShowUser] = useState(false);
+  const showUserDropdown = (e) => {
+    setShowUser(!showUser);
+  }
+  const hideUserDropdown = e => {
+    setShowUser(false);
+  }
+
+  const handleLogoutSubmit = () => {
+    localStorage.clear();
+    navigate("/login")
+    // history.push('/login'); // Redirect to login page after logout
+  };
   return (
-    <section>
+    <header>
       <div className="container pt-3">
         <div className="row align-items-center">
           <div class="col-12 col-md-6 col-lg-3 text-center text-md-start">
@@ -104,11 +121,11 @@ function NavbarLayout() {
                 <NavDropdown
                   title="Cửa hàng"
                   id={`offcanvasNavbarDropdown-expand-lg`}
-                  show={show}
-                  onMouseEnter={showDropdown}
-                  onMouseLeave={hideDropdown}
+                  show={showCate}
+                  onMouseEnter={showCateDropdown}
+                  onMouseLeave={hideCateDropdown}
                   as={Link}
-                  href="/shop"
+                  to="/shop"
                 >
                   <NavDropdown.Item><Link to="/shop/2" style={{ color: "#41403E" }}>Thú cưng</Link></NavDropdown.Item>
                   <NavDropdown.Item><Link to="/shop" style={{ color: "#41403E" }}>Thức ăn</Link></NavDropdown.Item>
@@ -122,7 +139,19 @@ function NavbarLayout() {
           </Navbar.Offcanvas>
           <Navbar.Toggle className="justify-content-start" aria-controls={`offcanvasNavbar-expand-lg`} />
           <Navbar className="col-2 justify-content-end">
-            <Link className="nav-link" to="/login"><FiUser size={24} color="#41403E" /></Link>
+            {!isLogedIn ?
+              <Link className="nav-link" to="/login"><FiUser size={24} color="#41403E" /></Link>
+              :
+              <NavDropdown
+                title={<FiUser size={24} color="#41403E" />}
+                show={showUser}
+                onMouseEnter={showUserDropdown}
+                onMouseLeave={hideUserDropdown}
+              >
+                <NavDropdown.Item><Link to={`/userdetail/${id_user}`} style={{ color: "#41403E" }}>Tài khoản</Link></NavDropdown.Item>
+                <NavDropdown.Item><Link onClick={handleLogoutSubmit} style={{ color: "#41403E" }}>Đăng xuất</Link></NavDropdown.Item>
+              </NavDropdown>
+            }
             <Link className="nav-link" to="/wishlist"><FiHeart size={24} color="#41403E" /></Link>
             <Link className="nav-link" to="/cart">
               <FiShoppingCart size={24} color="#41403E" />
@@ -132,8 +161,8 @@ function NavbarLayout() {
             </Link>
           </Navbar>
         </Container>
-      </Navbar>
-    </section >
+      </Navbar >
+    </header >
   );
 }
 

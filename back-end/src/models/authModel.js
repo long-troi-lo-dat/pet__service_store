@@ -1,52 +1,77 @@
 const db = require("../config/database");
-const jwt = require("jsonwebtoken")
+const bcrypt = require('bcryptjs');
 
-const { generateToken, verifyToken } = require("../utils/jwt")
+const { generateAccessToken, generateRefreshToken } = require("../utils/jwt")
 
-const registerUser = (nguoidung) => {
+const detailUser = (id) => {
     return new Promise((resolve, reject) => {
-        const { email, password } = nguoidung
-        if (!email || !password) {
-            return
-        }
-        const hashedPassword = bcrypt.hash(password, 10);
-        db.query(`SELECT * FROM nguoidung WHERE email=?`, [email], async (err, results) => {
+        db.query(`SELECT * FROM nguoidung WHERE id_user=?`, [id], (err, results) => {
             if (err) {
-                reject(err);
+                return reject(err);
             }
-            if (results.length == 0) {
-                db.query(`INSERT INTO nguoidung (email,matkhau) VALUES (?,?)`, [email, hashedPassword], async (err, results) => {
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve("Tạo tài khoản thành công");
-                })
-            } else {
-                reject("Tạo tài khoản không thành công do email đã tồn tại")
+            return resolve(results);
+        });
+    });
+};
+const registerUser = async (nguoidung) => {
+    return new Promise((resolve, reject) => {
+        const { hoten, email, matkhau } = nguoidung;
+        if (!hoten || !email || !matkhau) {
+            return reject("Họ tên, email và mật khẩu không được để trống");
+        }
+        bcrypt.hash(matkhau, 10, (err, hashedPassword) => {
+            if (err) {
+                return reject(err);
             }
-        })
-    })
-}
+            db.query(`SELECT * FROM nguoidung WHERE email=?`, [email], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (results.length === 0) {
+                    db.query(`INSERT INTO nguoidung (hoTen, email, matkhau) VALUES (?, ?, ?)`, [hoten, email, hashedPassword], (err, results) => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        return resolve("Tạo tài khoản thành công");
+                    });
+                } else {
+                    return reject("Email đã tồn tại trong hệ thống");
+                }
+            });
+        });
+    });
+};
+
 const loginUser = (nguoidung) => {
     return new Promise((resolve, reject) => {
-        const { email, password } = nguoidung
-        if (!email || !password) {
-            return
+        const { email, matkhau } = nguoidung;
+        if (!email || !matkhau) {
+            return reject("Email và mật khẩu không được để trống");
         }
-        db.query(`SELECT * FROM nguoidung WHERE email=? and matkhau=?`, [email, password], async (err, results) => {
+        db.query(`SELECT * FROM nguoidung WHERE email=?`, [email], async (err, results) => {
             if (err) {
-                reject(err);
+                return reject(err);
             }
             if (results.length > 0) {
-                console.log(results[0], "results.data")
-                const { id_user, hoTen, vaitro } = results[0]
-                const accessToken = generateToken({ id_user, hoTen, vaitro }, process.env.JWT_ACCESS_TOKEN_SECRET, 1440)
-                console.log(accessToken)
+                const user = results[0];
+                bcrypt.compare(matkhau, user.matkhau, (err, isMatch) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    if (isMatch) {
+                        const { id_user, hoTen, vaitro } = user;
+                        const accessToken = generateAccessToken({ id_user, hoTen, vaitro }, process.env.JWT_ACCESS_TOKEN_SECRET, '30m');
+                        const refreshToken = generateRefreshToken({ id_user, hoTen, vaitro }, process.env.JWT_REFRESH_TOKEN_SECRET, '365d');
+                        resolve({ id_user, accessToken, refreshToken });
+                    } else {
+                        return reject("Đăng nhập thất bại!! dòng 52 authModel");
+                    }
+                });
             } else {
-                reject("Đăng nhập không thành công")
+                return reject("Đăng nhập không thành công");
             }
-        })
-    })
-}
+        });
+    });
+};
 
-module.exports = { registerUser, loginUser }
+module.exports = { detailUser, registerUser, loginUser }

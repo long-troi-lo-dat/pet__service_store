@@ -10,14 +10,19 @@ const App = () => {
   return (
     <>
       <GlobalState>
-        <Navbar />
         <Routes>
           {publicRoutes.map((item, index) => {
             const Page = item.component;
-            return <Route key={index} path={item.path} element={<><Page /> <Notify /></>} />;
+            return <Route key={index} path={item.path} element={
+              <>
+                <Navbar />
+                <Page />
+                <Notify />
+                <Footer />
+              </>
+            } />;
           })}
         </Routes>
-        <Footer />
       </GlobalState>
     </>
   );
