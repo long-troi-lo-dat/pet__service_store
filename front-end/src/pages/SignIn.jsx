@@ -19,6 +19,7 @@ function Login() {
 
 
   const handleLoginSubmit = async (event) => {
+    console.log("submit dang nhap thanh cong")
     event.preventDefault();
     await axios.post("/api/auth/login", formData)
       .then(response => {

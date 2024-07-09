@@ -19,6 +19,7 @@ function Register() {
   };
 
   const handleRegisterSubmit = (event) => {
+    console.log("submit dang ky thanh cong")
     axios.post("/api/auth/register", formData)
       .then(response => {
         console.log("dang ky thanh cong")
