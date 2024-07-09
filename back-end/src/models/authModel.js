@@ -23,7 +23,7 @@ const registerUser = async (nguoidung) => {
             if (err) {
                 return reject(err);
             }
-            db.query(`SELECT * FROM nguoidung WHERE email=?`, [email], (err, results) => {
+            db.query(`SELECT * FROM nguoidung WHERE email=?`, [email], async (err, results) => {
                 if (err) {
                     return reject(err);
                 }

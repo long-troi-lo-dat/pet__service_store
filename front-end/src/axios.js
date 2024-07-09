@@ -6,7 +6,7 @@ const app = axios.create({
     baseURL,
     withCredentials: true,
     headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': baseURL,
         'Content-Type': 'application/json',
     },
 });

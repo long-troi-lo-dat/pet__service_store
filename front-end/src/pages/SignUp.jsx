@@ -22,7 +22,7 @@ function Register() {
     console.log("submit dang ky thanh cong")
     axios.post("/api/auth/register", formData)
       .then(response => {
-        console.log("dang ky thanh cong")
+        console.log(response.data)
         navigate("/login")
       })
       .catch(error => {
