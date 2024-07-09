@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from '../axios'
 import { Link, useNavigate } from "react-router-dom";
 
@@ -21,18 +21,13 @@ function Register() {
   const handleRegisterSubmit = (event) => {
     axios.post("/api/auth/register", formData)
       .then(response => {
-        const { accessToken } = response.data;
-        localStorage.setItem('accessToken', accessToken);
-        navigate("/")
+        console.log("dang ky thanh cong")
+        navigate("/login")
       })
       .catch(error => {
         return error;
       });
   };
-
-  useEffect(() => {
-    console.log(formData)
-  }, [formData])
 
   return (
     <>

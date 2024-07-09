@@ -4,7 +4,7 @@ import axios from "../axios";
 import Item from "../components/Item";
 import FastRegister from "../components/FastRegister"
 import Services from "../components/Services"
-import Loadingscreen from "../components/Loadingscreen"
+import LoadingScreen from "../components/Loadingscreen"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Icon } from '@iconify/react';
@@ -62,7 +62,7 @@ export default function Home() {
   }, []);
 
   if (loading) {
-    return <Loadingscreen />
+    return <LoadingScreen />
   }
 
   return (

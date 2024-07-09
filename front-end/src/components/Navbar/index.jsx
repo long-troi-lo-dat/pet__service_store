@@ -43,8 +43,8 @@ function NavbarLayout() {
   const handleLogoutSubmit = () => {
     localStorage.clear();
     navigate("/login")
-    // history.push('/login'); // Redirect to login page after logout
-  };
+  }
+
   return (
     <header>
       <div className="container pt-3">

@@ -690,17 +690,7 @@ app.get("/userdetailedit/:id", (req, res) => {
     return res.json(data);
   });
 });
-app.get("/userdetail/:id", (req, res) => {
-  const id = req.params.id;
-  // const sql = "SELECT * FROM `nguoidung` WHERE id_user = ?";
-  const sql = "SELECT * FROM `nguoidung` WHERE id_user = ?";
-  db.query(sql, id, (err, data) => {
-    if (err) {
-      return res.json(err);
-    }
-    return res.json(data);
-  });
-});
+
 app.post("/updatethongtin", (req, res) => {
   const values = [
     req.body.hoTen,

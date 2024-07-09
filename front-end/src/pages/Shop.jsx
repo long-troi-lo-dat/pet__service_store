@@ -4,22 +4,30 @@ import axios from '../axios';
 import FastRegister from "../components/FastRegister"
 import Services from "../components/Services"
 import Item from "../components/Item"
+import LoadingScreen from "../components/Loadingscreen"
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
 function Shop() {
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios.get(`/api/product`)
       .then((response) => {
         setData(response.data);
+        setLoading(false)
       })
       .catch((error) => {
+        setLoading(false)
         console.error('error fetching data :', error);
       });
   }, []);
 
+  if (loading) {
+    return <LoadingScreen />
+  }
   return (
     <>
       <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>

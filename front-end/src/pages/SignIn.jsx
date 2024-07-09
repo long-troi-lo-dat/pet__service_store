@@ -22,7 +22,7 @@ function Login() {
     event.preventDefault();
     await axios.post("/api/auth/login", formData)
       .then(response => {
-        console.log(response.data)
+        console.log("dang nhap thanh cong")
         const { id_user, accessToken, refreshToken } = response.data;
         localStorage.setItem('id_user', id_user);
         localStorage.setItem('accessToken', accessToken);
