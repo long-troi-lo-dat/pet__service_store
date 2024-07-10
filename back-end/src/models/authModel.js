@@ -21,16 +21,16 @@ const registerUser = async (nguoidung) => {
         }
         bcrypt.hash(matkhau, 10, (err, hashedPassword) => {
             if (err) {
-                return reject(err);
+                return reject("Lỗi khi mã hóa mật khẩu");
             }
             db.query(`SELECT * FROM nguoidung WHERE email=?`, [email], async (err, results) => {
                 if (err) {
-                    return reject(err);
+                    return reject("Lỗi truy vấn cơ sở dữ liệu");
                 }
                 if (results.length === 0) {
                     db.query(`INSERT INTO nguoidung (hoTen, email, matkhau) VALUES (?, ?, ?)`, [hoten, email, hashedPassword], (err, results) => {
                         if (err) {
-                            return reject(err);
+                            return reject("Lỗi khi tạo tài khoản");
                         }
                         return resolve("Tạo tài khoản thành công");
                     });
@@ -42,6 +42,7 @@ const registerUser = async (nguoidung) => {
     });
 };
 
+
 const loginUser = (nguoidung) => {
     return new Promise((resolve, reject) => {
         const { email, matkhau } = nguoidung;
@@ -50,13 +51,13 @@ const loginUser = (nguoidung) => {
         }
         db.query(`SELECT * FROM nguoidung WHERE email=?`, [email], async (err, results) => {
             if (err) {
-                return reject(err);
+                return reject("Lỗi truy vấn cơ sở dữ liệu");
             }
             if (results.length > 0) {
                 const user = results[0];
                 bcrypt.compare(matkhau, user.matkhau, (err, isMatch) => {
                     if (err) {
-                        return reject(err);
+                        return reject("Lỗi khi mã hóa mật khẩu");
                     }
                     if (isMatch) {
                         const { id_user, hoTen, vaitro } = user;
@@ -64,7 +65,7 @@ const loginUser = (nguoidung) => {
                         const refreshToken = generateRefreshToken({ id_user, hoTen, vaitro }, process.env.JWT_REFRESH_TOKEN_SECRET, '365d');
                         resolve({ id_user, accessToken, refreshToken });
                     } else {
-                        return reject("Đăng nhập thất bại!! dòng 52 authModel");
+                        return reject("Tài khoản hoặc mật khẩu không đúng!!");
                     }
                 });
             } else {

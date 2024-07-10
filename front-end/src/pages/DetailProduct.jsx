@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../axios';
-import { unLogin, IssetInCartNotify, Notify, quantityNotify } from "../components/Validate/Notify";
+import { UnLoginError, IssetInCartNotify, AddToCartSuccess, OutOfStuckError } from "../components/Validate/Notify";
 import { GlobalContext } from "../Context";
 
 function Detail() {
@@ -13,9 +13,10 @@ function Detail() {
     const { cart, setCart } = useContext(GlobalContext)
 
     const onAddToCartHandler = (item) => {
+        console.log(cart);
 
         if (localStorage.getItem('login') === 'no') {
-            unLogin()
+            UnLoginError();
             return;
         }
 
@@ -34,20 +35,20 @@ function Detail() {
                 const updatedCart = cart.map(cartItem =>
                     cartItem.id_sp === item.id_sp ? { ...cartItem, amount: newAmount } : cartItem
                 );
-                Notify();
+                AddToCartSuccess();
                 setCart(updatedCart);
             } else {
                 console.error('Số lượng vượt quá giới hạn');
-                quantityNotify();
+                OutOfStuckError();
             }
         } else {
             if (availableQuantity > 0) {
                 const updatedCart = [...cart, { ...item, amount: 1 }];
-                Notify();
+                AddToCartSuccess();
                 setCart(updatedCart);
             } else {
                 console.error('Sản phẩm đã hết hàng');
-                quantityNotify();
+                OutOfStuckError();
             }
         }
     };

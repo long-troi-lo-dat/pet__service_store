@@ -6,6 +6,7 @@ import {
   FiHeart
 } from "react-icons/fi";
 import { GlobalContext } from "../../Context";
+import { LogoutSuccess } from "../Validate/Notify";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 
@@ -42,6 +43,7 @@ function NavbarLayout() {
 
   const handleLogoutSubmit = () => {
     localStorage.clear();
+    LogoutSuccess()
     navigate("/login")
   }
 
@@ -149,7 +151,7 @@ function NavbarLayout() {
                 onMouseLeave={hideUserDropdown}
               >
                 <NavDropdown.Item><Link to={`/userdetail/${id_user}`} style={{ color: "#41403E" }}>Tài khoản</Link></NavDropdown.Item>
-                <NavDropdown.Item><Link onClick={handleLogoutSubmit} style={{ color: "#41403E" }}>Đăng xuất</Link></NavDropdown.Item>
+                <NavDropdown.Item onClick={handleLogoutSubmit}><Link style={{ color: "#41403E" }}>Đăng xuất</Link></NavDropdown.Item>
               </NavDropdown>
             }
             <Link className="nav-link" to="/wishlist"><FiHeart size={24} color="#41403E" /></Link>

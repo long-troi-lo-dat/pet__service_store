@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from '../axios'
+import { RegisterSuccess } from "../components/Validate/Notify";
 import { Link, useNavigate } from "react-router-dom";
 
 const initialFormData = {
@@ -19,16 +20,20 @@ function Register() {
   };
 
   const handleRegisterSubmit = (event) => {
-    console.log("submit dang ky thanh cong")
+    event.preventDefault();
+    console.log("submit dang ky thanh cong");
     axios.post("/api/auth/register", formData)
       .then(response => {
-        console.log(response.data)
-        navigate("/login")
+        RegisterSuccess();
+        navigate("/login");
       })
       .catch(error => {
-        return error;
+        if (error.response) {
+          console.log(error.response.data);
+        }
       });
   };
+
 
   return (
     <>
@@ -79,30 +84,30 @@ function Register() {
               <p class="mb-0">Hoặc đăng ký bằng email</p>
               <hr class="my-1" />
 
-              {/* <form class="form-group flex-wrap"> */}
-              <div class="form-input col-lg-12 my-4">
+              <form class="form-group flex-wrap">
+                <div class="form-input col-lg-12 my-4">
 
-                <input type="text" name="hoten" placeholder="Tên của bạn" class="form-control mb-3 p-4" onChange={handleChangeInput} />
-                <input type="text" name="email" placeholder="Địa chỉ email" class="form-control mb-3 p-4" onChange={handleChangeInput} />
-                <input type="password" name="matkhau" placeholder="Mật khẩu" class="form-control mb-3 p-4" onChange={handleChangeInput} />
-                {/* <input type="password" placeholder="Nhập lại mật khẩu" class="form-control mb-3 p-4" onChange={handleChangeInput} /> */}
+                  <input type="text" name="hoten" placeholder="Tên của bạn" class="form-control mb-3 p-4" onChange={handleChangeInput} />
+                  <input type="text" name="email" placeholder="Địa chỉ email" class="form-control mb-3 p-4" onChange={handleChangeInput} />
+                  <input type="password" name="matkhau" placeholder="Mật khẩu" class="form-control mb-3 p-4" onChange={handleChangeInput} />
+                  {/* <input type="password" placeholder="Nhập lại mật khẩu" class="form-control mb-3 p-4" onChange={handleChangeInput} /> */}
 
-                <label class="py-3 d-flex flex-wrap justify-content-between">
-                  <div>
-                    <input type="checkbox" required="" class="d-inline" />
-                    <span class="label-body ps-2">Ghi nhớ mật khẩu</span>
+                  <label class="py-3 d-flex flex-wrap justify-content-between">
+                    <div>
+                      <input type="checkbox" required="" class="d-inline" />
+                      <span class="label-body ps-2">Ghi nhớ mật khẩu</span>
+                    </div>
+
+                    <div id="passwordHelpBlock" class="form-text ">
+                      <a href="/#" class="text-primary  fw-bold">Quên mật khẩu?</a>
+                    </div>
+                  </label>
+                  <div class="d-grid my-3">
+                    <button onClick={handleRegisterSubmit} class="btn btn-dark btn-lg rounded-1">Đăng ký</button>
                   </div>
 
-                  <div id="passwordHelpBlock" class="form-text ">
-                    <a href="/#" class="text-primary  fw-bold">Quên mật khẩu?</a>
-                  </div>
-                </label>
-                <div class="d-grid my-3">
-                  <button onClick={handleRegisterSubmit} class="btn btn-dark btn-lg rounded-1">Đăng ký</button>
                 </div>
-
-              </div>
-              {/* </form> */}
+              </form>
 
             </div>
 

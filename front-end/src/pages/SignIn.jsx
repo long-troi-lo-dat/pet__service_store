@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LoginSuccess } from "../components/Validate/Notify";
 import axios from '../axios';
 
 const initialFormData = {
@@ -18,12 +19,12 @@ function Login() {
   };
 
 
-  const handleLoginSubmit = async (event) => {
+  const handleLoginSubmit = (event) => {
+    event.preventDefault()
     console.log("submit dang nhap thanh cong")
-    event.preventDefault();
-    await axios.post("/api/auth/login", formData)
+    axios.post("/api/auth/login", formData)
       .then(response => {
-        console.log("dang nhap thanh cong")
+        LoginSuccess()
         const { id_user, accessToken, refreshToken } = response.data;
         localStorage.setItem('id_user', id_user);
         localStorage.setItem('accessToken', accessToken);
@@ -32,7 +33,9 @@ function Login() {
         navigate("/")
       })
       .catch(error => {
-        return error;
+        if (error.response) {
+          console.log(error.response.data);
+        }
       });
   };
 
@@ -85,7 +88,7 @@ function Login() {
               <p class="mb-0">Hoặc đăng nhập bằng email</p>
               <hr class="my-1" />
 
-              <form id="form1" class="form-group flex-wrap ">
+              <form id="form1" class="form-group flex-wrap">
                 <div class="form-input col-lg-12 my-4">
 
                   <input type="text" name="email" placeholder="Địa chỉ email" class="form-control mb-3 p-4" onChange={handleChangeInput} />

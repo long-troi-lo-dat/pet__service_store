@@ -10,7 +10,7 @@ const getDetailUser = (req, res) => {
 const registerUser = (req, res) => {
     const nguoidung = req.body
     authModel.registerUser(nguoidung)
-        .then((results) => res.json(results))
+        .then((results) => res.json({ message: results }))
         .catch((err) => res.status(500).send(err));
 };
 

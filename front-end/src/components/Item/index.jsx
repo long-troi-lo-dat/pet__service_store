@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Icon } from '@iconify/react';
-import { unLogin, IssetInCartNotify, Notify, quantityNotify } from "../Validate/Notify";
+import { UnLoginError, IssetInCartNotify, AddToCartSuccess, OutOfStuckError } from "../Validate/Notify";
 import { GlobalContext } from "../../Context";
 import Aos from 'aos';
 import 'aos/dist/aos.css';
@@ -16,7 +16,7 @@ function Item(props) {
         console.log(cart);
 
         if (localStorage.getItem('login') === 'no') {
-            unLogin();
+            UnLoginError();
             return;
         }
 
@@ -35,20 +35,20 @@ function Item(props) {
                 const updatedCart = cart.map(cartItem =>
                     cartItem.id_sp === item.id_sp ? { ...cartItem, amount: newAmount } : cartItem
                 );
-                Notify();
+                AddToCartSuccess();
                 setCart(updatedCart);
             } else {
                 console.error('Số lượng vượt quá giới hạn');
-                quantityNotify();
+                OutOfStuckError();
             }
         } else {
             if (availableQuantity > 0) {
                 const updatedCart = [...cart, { ...item, amount: 1 }];
-                Notify();
+                AddToCartSuccess();
                 setCart(updatedCart);
             } else {
                 console.error('Sản phẩm đã hết hàng');
-                quantityNotify();
+                OutOfStuckError();
             }
         }
     };
