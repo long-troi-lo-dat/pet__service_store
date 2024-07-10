@@ -33,9 +33,8 @@ function UserDetailEdit(props) {
             });
     }, [id]);
     return (
-        <>  
+        <>
             <div class="container rounded bg-white mt-5 mb-5">
-                {/* {dataUser.map((item, i) => ( */}
                 <div class="row">
                     <div class="col-md-12 border">
                         <div class="p-3 py-5">
@@ -64,7 +63,6 @@ function UserDetailEdit(props) {
                         </div>
                     </div>
                 </div>
-                {/* ))} */}
             </div>
         </>
     );
