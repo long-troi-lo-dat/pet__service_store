@@ -424,7 +424,6 @@ app.get("/thongke/chinhanh/dichvu/nhanvien/:nhanvien/chua", (req, res) => {
 });
 
 app.get("/thongke/dichvu/tongtien", (req, res) => {
-  // const sql = `SELECT nhanvien, COUNT(*) AS so_don_hang FROM donhangdichvu where MONTH(ngay) = 11 GROUP BY nhanvien;`
   const sql = `SELECT MONTH(ngay) as thang, SUM(tongtien) AS tong_tien_thang
   FROM donhangdichvu
   GROUP BY MONTH(ngay)`;
