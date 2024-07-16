@@ -6,16 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { GlobalContext } from "../Context";
 
-// const Notify = () => toast.success('Đặt hàng thành công', {
-//   position: "bottom-left",
-//   autoClose: 5000,
-//   hideProgressBar: false,
-//   closeOnClick: true,
-//   pauseOnHover: true,
-//   draggable: true,
-//   progress: undefined,
-//   theme: "light",
-// });
 
 const quantityNotify = () =>
   toast.error("Số lượng còn lại của sản phẩm không đủ", {
@@ -129,32 +119,27 @@ function Cart() {
                 {cart.length > 0 ? (
                   <div class="card-body">
                     <table
-                      class="table table-bordered"
-                      id="dataTable"
-                      width="100%"
-                      cellspacing="0"
+                      class="table"
                     >
                       <thead>
                         <tr>
-                          <th style={{}}>Hình ảnh</th>
-                          <th style={{ width: "100px" }}>Tên sản phẩm</th>
-                          <th style={{ width: "100px" }}>Giá</th>
-                          <th style={{ width: "100px" }}>Số lượng</th>
-                          <th style={{ width: "140px" }}>Thành tiền</th>
-                          <th>Xóa</th>
+                          <th scope="col">Hình ảnh</th>
+                          <th scope="col">Tên sản phẩm</th>
+                          <th scope="col">Giá</th>
+                          <th scope="col">Số lượng</th>
+                          <th scope="col">Thành tiền</th>
+                          <th scope="col">Xóa</th>
                         </tr>
                       </thead>
                       <tbody>
                         {cart
                           ? cart.map((item, i) => (
                             <tr>
-                              <td style={{}}>
+                              <th scope="row">{i + 1}</th>
+                              <td>
                                 <img
                                   src={
-                                    process.env.REACT_APP_URL_API +
-                                    "/" +
-                                    item.hinhanh +
-                                    ".webp"
+                                    `${process.env.REACT_APP_URL_API}/products/${item.hinh}`
                                   }
                                   alt="img"
                                 />
