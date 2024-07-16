@@ -20,8 +20,6 @@ jobs:
       - name: Install dependencies and build front-end
         run: |
           cd front-end
-          npm install
-          npm run build
 
       - name: Deploy front-end
         uses: appleboy/scp-action@v0.1.7

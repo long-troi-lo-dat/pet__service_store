@@ -200,7 +200,8 @@ export default function Home() {
             spaceBetween={24}
             autoplay={{
               delay: 3000,
-              disableOnInteraction: false,
+              // disableOnInteraction: false,
+              autoplayDisableOnInteraction: true,
             }}
             navigation={true}
             modules={[Autoplay, Navigation]}
@@ -254,7 +255,7 @@ export default function Home() {
 
           <div class="isotope-container row">
             {category.map((item, i) => (
-              <div class="item col-12 col-md-4 col-lg-3 my-4">
+              <div class="item col col-md-4 col-lg-3 col-xl-3 my-4">
                 <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} delay={i * 200} />
               </div>
             ))}
