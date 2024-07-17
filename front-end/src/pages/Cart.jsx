@@ -1,10 +1,11 @@
 import axios from "../axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { GlobalContext } from "../Context";
+import { FiTrash } from "react-icons/fi";
 
 
 const quantityNotify = () =>
@@ -123,73 +124,59 @@ function Cart() {
                     >
                       <thead>
                         <tr>
-                          <th scope="col">Hình ảnh</th>
-                          <th scope="col">Tên sản phẩm</th>
-                          <th scope="col">Giá</th>
-                          <th scope="col">Số lượng</th>
-                          <th scope="col">Thành tiền</th>
-                          <th scope="col">Xóa</th>
+                          <th scope="col" className="card-title text-uppercase">Sản phẩm</th>
+                          <th scope="col" className="card-title text-uppercase">Giá</th>
+                          <th scope="col" className="card-title text-uppercase">SL</th>
+                          <th scope="col" className="card-title text-uppercase"></th>
                         </tr>
                       </thead>
                       <tbody>
-                        {cart
-                          ? cart.map((item, i) => (
-                            <tr>
-                              <th scope="row">{i + 1}</th>
-                              <td>
-                                <img
-                                  src={
-                                    `${process.env.REACT_APP_URL_API}/products/${item.hinh}`
-                                  }
-                                  alt="img"
-                                />
-                              </td>
-                              <td style={{}}>{item.ten}</td>
-                              <td style={{}}>
-                                {item.gia.toLocaleString("vi", {
-                                  style: "currency",
-                                  currency: "VND",
-                                })}
-                              </td>
-                              <td style={{ textAlign: "center" }}>
-                                <div>
-                                  <button
-                                    onClick={() => thaydoisoluong(item, -1)}
-                                  >
-                                    -
-                                  </button>
-                                  <input
-                                    type="text"
-                                    style={{ width: "100%" }}
-                                    value={item.amount}
-                                    readOnly={true}
-                                    className="text-center"
-                                  />
-                                  <button
-                                    onClick={() => thaydoisoluong(item, 1)}
-                                  >
-                                    +
-                                  </button>
+                        {
+                          cart.map((item, i) => (
+                            <tr key={i}>
+                              <td className="py-4">
+                                <div className="cart-info d-flex flex-wrap align-items-center ">
+                                  <div className="col-lg-3">
+                                    <div className="card-image">
+                                      <img src={`${process.env.REACT_APP_URL_API}/products/${item.hinh}`} alt="cloth" className="img-fluid" />
+                                    </div>
+                                  </div>
+                                  <div className="col-lg-9">
+                                    <div className="card-detail ps-3">
+                                      <h6 className="card-title">
+                                        <Link to={`/detailproduct/${item.id_sp}`} className="text-decoration-none text-primary">{item.ten}</Link>
+                                      </h6>
+                                    </div>
+                                  </div>
                                 </div>
                               </td>
-                              <td style={{}}>
-                                {(item.gia * item.amount).toLocaleString(
-                                  "vi",
-                                  { style: "currency", currency: "VND" }
-                                )}
+                              <td className="py-4 align-middle">
+                                <div className="total-price">
+                                  <span className="secondary-font fw-medium">{item.gia}</span>
+                                </div>
                               </td>
-                              <td>
-                                <button onClick={() => removeProduct(item)}>
-                                  Xóa
-                                </button>
+                              <td className="py-4 align-middle">
+                                <div className="total-price">
+                                  <span className="secondary-font fw-medium">{item.soluong}</span>
+                                </div>
+                              </td>
+                              <td className="py-4 align-middle">
+                                <div className="d-flex align-items-center">
+                                  <div className="me-4"><button className="btn btn-dark p-3 text-uppercase fs-6 btn-rounded-none w-100">Add to cart</button></div>
+                                  <div className="cart-remove">
+                                    <button className="">
+                                      <FiTrash fontSize={20} />
+                                    </button>
+                                  </div>
+                                </div>
                               </td>
                             </tr>
                           ))
-                          : ""}
+                        }
                       </tbody>
                     </table>
                     <div>
-                      Tổng số tiền:{" "}
+                      Tổng số tiền:
                       {tongtien.toLocaleString("vi", {
                         style: "currency",
                         currency: "VND",

@@ -1,33 +1,48 @@
 import React, { useEffect, useState } from "react";
 import axios from '../axios';
-
+import {
+  FiChevronLeft,
+  FiChevronRight
+} from "react-icons/fi";
 import FastRegister from "../components/FastRegister"
 import Services from "../components/Services"
 import Item from "../components/Item"
 import LoadingScreen from "../components/Loadingscreen"
 
-
 import 'react-toastify/dist/ReactToastify.css';
 
 function Shop() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(12);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     axios.get(`/api/product`)
       .then((response) => {
         setData(response.data);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         console.error('error fetching data :', error);
       });
-  }, []);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   if (loading) {
     return <LoadingScreen />
   }
+
   return (
     <>
       <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
@@ -48,44 +63,44 @@ function Shop() {
             <main class="col-md-9">
               <div class="filter-shop d-md-flex justify-content-between align-items-center">
                 <div class="showing-product">
-                  <p class="m-0">Đang hiện 1–9 trong {data.length} kết quả</p>
+                  <p class="m-0">Đang hiện {indexOfFirstItem + 1}–{Math.min(indexOfLastItem, data.length)} trong {data.length} kết quả</p>
                 </div>
                 <div class="sort-by">
                   <select class="filter-categories border-0 m-0">
                     <option value="" key={1}>Mặc định</option>
-                    <option value="" key={1}>Tên (A - Z)</option>
-                    <option value="" key={1}>Tên (Z - A)</option>
-                    <option value="" key={1}>Giá (Low-High)</option>
-                    <option value="" key={1}>Giá (High-Low)</option>
+                    <option value="" key={2}>Tên (A - Z)</option>
+                    <option value="" key={3}>Tên (Z - A)</option>
+                    <option value="" key={4}>Giá (Thấp - Cao)</option>
+                    <option value="" key={5}>Giá (Cao - Thấp)</option>
                   </select>
                 </div>
               </div>
 
               <div class="product-grid row ">
-                {data.map((item, i) => {
-                  return (
-                    <div class="col-md-4 my-4">
-                      <Item key={item.id_sp} id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} />
-                    </div>
-                  )
-                })}
+                {currentItems.map((item, i) => (
+                  <div class="col-md-4 my-4" key={item.id_sp}>
+                    <Item id_sp={item.id_sp} ten={item.ten} gia={item.gia} ngaythem={item.ngaythem} soluong={item.soluong} id_gl={item.id_gl} dob={item.dob} mota={item.mota} anhien={item.anhien} id_dm={item.id_dm} hinh={item.hinh} />
+                  </div>
+                ))}
               </div>
 
               <nav class="navigation paging-navigation text-center mt-5" role="navigation">
                 <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
-                  <a href="/#" class="pagination-arrow d-flex align-items-center mx-3">
-                    <iconify-icon icon="ic:baseline-keyboard-arrow-left" class="pagination-arrow fs-1"></iconify-icon>
-                  </a>
-                  <span aria-current="page" class="page-numbers mt-2 fs-3 mx-3 current">1</span>
-                  <a class="page-numbers mt-2 fs-3 mx-3" href="/#">2</a>
-                  <a class="page-numbers mt-2 fs-3 mx-3" href="/#">3</a>
-                  <a href="/#" class="pagination-arrow d-flex align-items-center mx-3">
-                    <iconify-icon icon="ic:baseline-keyboard-arrow-right" class="pagination-arrow fs-1"></iconify-icon>
-                  </a>
+                  <button onClick={() => paginate(currentPage - 1)} class={`pagination-arrow d-flex align-items-center mx-3 btn ${currentPage === 1 ? 'disabled' : ''}`}>
+                    <FiChevronLeft class="pagination-arrow" fontSize={30} />
+                  </button>
+                  {Array.from({ length: Math.ceil(data.length / itemsPerPage) }, (_, i) => (
+                    <button key={i} onClick={() => paginate(i + 1)} className={`page-numbers fs-3 mx-3 btn ${currentPage === i + 1 ? 'current' : ''}`}>
+                      {i + 1}
+                    </button>
+                  ))}
+                  <button onClick={() => paginate(currentPage + 1)} class={`pagination-arrow d-flex align-items-center mx-3 btn ${currentPage === Math.ceil(data.length / itemsPerPage) ? 'disabled' : ''}`}>
+                    <FiChevronRight class="pagination-arrow" fontSize={30} />
+                  </button>
                 </div>
               </nav>
-
             </main>
+
             <aside class="col-md-3 mt-5">
               <div class="sidebar">
                 <div class="widget-menu">
@@ -104,7 +119,7 @@ function Shop() {
                   <h4 class="widget-title">Danh mục</h4>
                   <ul class="product-categories sidebar-list list-unstyled">
                     <li class="cat-item">
-                      <button className="btn nav-item" >Tất cả</button>
+                      <button className="btn nav-item" onClick={fetchData}>Tất cả</button>
                     </li>
                     <li class="cat-item">
                       <button className="btn nav-item">Chó</button>
@@ -145,6 +160,7 @@ function Shop() {
                 </div>
               </div>
             </aside>
+
             <FastRegister />
             <Services />
           </div>

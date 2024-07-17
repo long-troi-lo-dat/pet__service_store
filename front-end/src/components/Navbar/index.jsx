@@ -3,7 +3,7 @@ import {
   FiSearch,
   FiShoppingCart,
   FiUser,
-  FiHeart
+  FiHeart,
 } from "react-icons/fi";
 import { GlobalContext } from "../../Context";
 import { LogoutSuccess } from "../Validate/Notify";

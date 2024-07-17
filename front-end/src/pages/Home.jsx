@@ -176,11 +176,9 @@ export default function Home() {
 
           <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
             <h2 class="display-3 fw-normal">Phụ kiện</h2>
-            <div>
-              <a href="/shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                Mua ngay
-              </a>
-            </div>
+            <a href="/shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+              Mua ngay
+            </a>
           </div>
 
           <Swiper

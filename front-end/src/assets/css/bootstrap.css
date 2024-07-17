@@ -3939,7 +3939,7 @@ fieldset:disabled .btn {
 .btn-outline-heart:active,
 .btn-outline-heart.active,
 .btn-outline-heart.dropdown-toggle.show {
-  color: #fff;
+  color: #bb2d3b;
   background-color: #212529;
   border-color: #212529;
 }

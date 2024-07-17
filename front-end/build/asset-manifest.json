@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "https://www.dghouse.shop/static/css/main.3878fff8.css",
-    "main.js": "https://www.dghouse.shop/static/js/main.2e8190d8.js",
+    "main.css": "https://www.dghouse.shop/static/css/main.07b825d8.css",
+    "main.js": "https://www.dghouse.shop/static/js/main.10b4afa2.js",
     "static/js/453.a074a449.chunk.js": "https://www.dghouse.shop/static/js/453.a074a449.chunk.js",
     "static/media/logo-2.png": "https://www.dghouse.shop/static/media/logo-2.e191622975489c6bb925.png",
     "static/media/image4.png": "https://www.dghouse.shop/static/media/image4.5050da294ba8d56e9352.png",
@@ -25,12 +25,12 @@
     "static/media/8.jpg": "https://www.dghouse.shop/static/media/8.f4a59d370c0743124f6c.jpg",
     "static/media/thumbnail.png": "https://www.dghouse.shop/static/media/thumbnail.811e666105cb85c2d94b.png",
     "index.html": "https://www.dghouse.shop/index.html",
-    "main.3878fff8.css.map": "https://www.dghouse.shop/static/css/main.3878fff8.css.map",
-    "main.2e8190d8.js.map": "https://www.dghouse.shop/static/js/main.2e8190d8.js.map",
+    "main.07b825d8.css.map": "https://www.dghouse.shop/static/css/main.07b825d8.css.map",
+    "main.10b4afa2.js.map": "https://www.dghouse.shop/static/js/main.10b4afa2.js.map",
     "453.a074a449.chunk.js.map": "https://www.dghouse.shop/static/js/453.a074a449.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3878fff8.css",
-    "static/js/main.2e8190d8.js"
+    "static/css/main.07b825d8.css",
+    "static/js/main.10b4afa2.js"
   ]
 }

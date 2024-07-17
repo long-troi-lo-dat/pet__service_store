@@ -8,23 +8,21 @@ import Notify from "./components/Notify";
 
 const App = () => {
   return (
-    <>
-      <GlobalState>
-        <Routes>
-          {publicRoutes.map((item, index) => {
-            const Page = item.component;
-            return <Route key={index} path={item.path} element={
-              <>
-                <Navbar />
-                <Page />
-                <Notify />
-                <Footer />
-              </>
-            } />;
-          })}
-        </Routes>
-      </GlobalState>
-    </>
+    <GlobalState>
+      <Routes>
+        {publicRoutes.map((item, index) => {
+          const Page = item.component;
+          return <Route key={index} path={item.path} element={
+            <>
+              <Navbar />
+              <Page />
+              <Notify />
+              <Footer />
+            </>
+          } />;
+        })}
+      </Routes>
+    </GlobalState>
   );
 };
 
