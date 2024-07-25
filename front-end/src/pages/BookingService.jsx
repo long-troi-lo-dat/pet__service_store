@@ -40,33 +40,33 @@ function Booking(props) {
   console.log(formData)
   return (
     <>
-      <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
-        <div class="container">
-          <div class="hero-content py-5 my-3">
-            <h2 class="display-1 mt-3 mb-0">Đặt lịch dịch vụ</h2>
-            <nav class="breadcrumb">
-              <div class="breadcrumb-item">Trang chủ</div>
-              <span class="breadcrumb-item active">Đặt lịch dịch vụ</span>
+      <section id="banner" className="py-3 mb-5" style={{ background: "#F9F3EC" }}>
+        <div className="container">
+          <div className="hero-content py-5 my-3">
+            <h2 className="display-1 mt-3 mb-0">Đặt lịch dịch vụ</h2>
+            <nav className="breadcrumb">
+              <div className="breadcrumb-item">Trang chủ</div>
+              <span className="breadcrumb-item active">Đặt lịch dịch vụ</span>
             </nav>
           </div>
         </div>
       </section>
       <section id="booking">
         <div className="container mb-5">
-          <h3 class="">Đặt Lịch hẹn</h3>
+          <h3 className="">Đặt Lịch hẹn</h3>
           <p>
             Các trường được đánh dấu <span className="text-danger">*</span> là bắt buộc
           </p>
-          <div class="row mt-3">
-            <div class="d-sm align-items-center justify-content-between mb-4">
-              <div class="mt-0">
-                <div class="row g-3">
-                  <div class="col-12">
-                    <label className="form-label" for="dichvu">
+          <div className="row mt-3">
+            <div className="d-sm align-items-center justify-content-between mb-4">
+              <div className="mt-0">
+                <div className="row g-3">
+                  <div className="col-12">
+                    <label className="form-label" htmlFor="dichvu">
                       Dịch vụ <span className="text-danger">*</span>
                     </label>
                     <select
-                      class="form-select form-control"
+                      className="form-select form-control"
                       name="dichvu"
                       id="dichvu"
                       onChange={handleChangeInput}
@@ -83,12 +83,12 @@ function Booking(props) {
                       </option>
                     </select>
                   </div>
-                  <div class="col-12">
-                    <label for="chinhanh" class="form-label">
+                  <div className="col-12">
+                    <label htmlFor="chinhanh" className="form-label">
                       Chi nhánh <span className="text-danger">*</span>
                     </label>
                     <select
-                      class="form-select form-control"
+                      className="form-select form-control"
                       aria-label="Default select example"
                       name="chinhanh"
                       id="chinhanh"
@@ -99,13 +99,13 @@ function Booking(props) {
                       <option value="3">778/B1 Nguyễn Kiệm, phường 04, quận Phú Nhuận, TP HCM</option>
                     </select>
                   </div>
-                  <div class="col-12">
-                    <label for="hoten" class="form-label">
+                  <div className="col-12">
+                    <label htmlFor="hoten" className="form-label">
                       Họ tên <span className="text-danger">*</span>
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="hoten"
                       placeholder="Họ và tên"
                       name="hoten"
@@ -113,80 +113,80 @@ function Booking(props) {
                     />
                     <input
                       type="hidden"
-                      class="form-control"
+                      className="form-control"
                       id="iduser"
                       name="iduser"
                       value={iduser}
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-md-6">
-                    <label for="sodienthoai" class="form-label">
+                  <div className="col-md-6">
+                    <label htmlFor="sodienthoai" className="form-label">
                       Số điện thoại <span className="text-danger">*</span>
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="sodienthoai"
                       placeholder="Số điện thoại"
                       name="sdt"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-md-6">
-                    <label for="email" class="form-label">
+                  <div className="col-md-6">
+                    <label htmlFor="email" className="form-label">
                       Email <span className="text-danger">*</span>
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="email"
                       name="email"
                       placeholder="Email của bạn"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-md-6">
-                    <label for="ngay" class="form-label">
+                  <div className="col-md-6">
+                    <label htmlFor="ngay" className="form-label">
                       Ngày <span className="text-danger">*</span>
                     </label>
                     <input
                       type="date"
-                      class="form-control"
+                      className="form-control"
                       id="ngay"
                       name="ngay"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-md-6">
-                    <label for="thoigian" class="form-label">
+                  <div className="col-md-6">
+                    <label htmlFor="thoigian" className="form-label">
                       Thời gian <span className="text-danger">*</span>
                     </label>
                     <input type="time"
-                      class="form-control"
+                      className="form-control"
                       id="thoigian"
                       name="thoigian"
                       onChange={handleChangeInput} />
                   </div>
-                  <div class="col-12">
-                    <label for="tenthucung" class="form-label">
+                  <div className="col-12">
+                    <label htmlFor="tenthucung" className="form-label">
                       Tên thú cưng <span className="text-danger">*</span>
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="tenthucung"
                       placeholder="Tên của thú cưng"
                       name="tenthucung"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-12">
-                    <label class="form-label">
+                  <div className="col-12">
+                    <label className="form-label">
                       Loài <span className="text-danger">*</span>
                     </label>
                     <select
-                      class="form-select form-control"
+                      className="form-select form-control"
                       name="loai"
                       onChange={handleChangeInput}
                     >
@@ -196,51 +196,51 @@ function Booking(props) {
                       <option value="Others">Khác</option>
                     </select>
                   </div>
-                  <div class="col-12">
-                    <label for="thuocgiong" class="form-label">
+                  <div className="col-12">
+                    <label htmlFor="thuocgiong" className="form-label">
                       Thuộc giống loài
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="thuocgiong"
                       placeholder="Thuộc giống loài"
                       name="thuocgiong"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-md-6">
-                    <label for="tuoi" class="form-label">
+                  <div className="col-md-6">
+                    <label htmlFor="tuoi" className="form-label">
                       Tuổi (năm) <span className="text-danger">*</span>
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="tuoi"
                       placeholder="1"
                       name="tuoi"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-md-6">
-                    <label for="trongluong" class="form-label">
+                  <div className="col-md-6">
+                    <label htmlFor="trongluong" className="form-label">
                       Trọng lượng (Kg) <span className="text-danger">*</span>
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="trongluong"
                       placeholder="1"
                       name="trongluong"
                       onChange={handleChangeInput}
                     />
                   </div>
-                  <div class="col-12">
-                    <label for="ghichu" class="form-label">
+                  <div className="col-12">
+                    <label htmlFor="ghichu" className="form-label">
                       Ghi chú cho nhân viên
                     </label>
                     <textarea
-                      class="form-control"
+                      className="form-control"
                       name="ghichu"
                       onChange={handleChangeInput}
                       id="ghichu"
@@ -249,8 +249,8 @@ function Booking(props) {
                     ></textarea>
                   </div>
                 </div>
-                <div class="d-grid mt-3">
-                  <button onClick={handleBookingSubmit} class="btn btn-dark btn-lg rounded-1">Đặt lịch</button>
+                <div className="d-grid mt-3">
+                  <button onClick={handleBookingSubmit} className="btn btn-dark btn-lg rounded-1">Đặt lịch</button>
                 </div>
               </div>
             </div>

@@ -214,6 +214,13 @@ p {
   margin-bottom: 1rem;
 }
 
+p.comment {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px;
+}
+
 abbr[title],
 abbr[data-bs-original-title] {
   -webkit-text-decoration: underline dotted;

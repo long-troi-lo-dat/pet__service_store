@@ -116,23 +116,23 @@ function AdminAddNguoiDung(props) {
                     </Menu>
                 </Sider>
             </Layout>
-            <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
+                    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul className="navbar-nav ml-auto">
+                            <div className="topbar-divider d-none d-sm-block"></div>
+                            {/* <li className="nav-item dropdown no-arrow"> */}
                             <span
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
                             >
                                 {dataUser.map((item, i) => (
                                     <>
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                             {item.hoTen}
                                         </span>
                                         <img
-                                            class="img-profile rounded-circle"
+                                            className="img-profile rounded-circle"
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTK5QTN7bjRgXhzUHiR8o7fNjypmI5P3Ui5Zgpz1hcQ&s"
                                             alt=""
                                             width="30px"
@@ -151,42 +151,42 @@ function AdminAddNguoiDung(props) {
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Thêm mới nhân viên</h1>
+                    <div className="container-fluid">
+                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 className="h3 mb-0 text-gray-800">Thêm mới nhân viên</h1>
                         </div>
-                        <div class="card shadow mb-4">
-                            {/* <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Tên sản phẩm</label>
-                                        <input type="text" class="form-control" id="inputEmail4"
+                        <div className="card shadow mb-4">
+                            {/* <div className="card-body">
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label htmlFor="inputEmail4">Tên sản phẩm</label>
+                                        <input type="text" className="form-control" id="inputEmail4"
                                             placeholder="Tên sản phẩm" name="ten" onChange={handleChangeInput} />
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="gia">Giá</label>
-                                        <input type="text" class="form-control" id="gia" placeholder="Giá" name="gia" onChange={handleChangeInput} />
+                                    <div className="form-group col-md-6">
+                                        <label htmlFor="gia">Giá</label>
+                                        <input type="text" className="form-control" id="gia" placeholder="Giá" name="gia" onChange={handleChangeInput} />
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="img">Url hình ảnh</label>
-                                    <input type="text" class="form-control" id="img" name="hinhanh" placeholder="Copy link url hình ảnh..." onChange={handleChangeInput} />
+                                <div className="form-group">
+                                    <label htmlFor="img">Url hình ảnh</label>
+                                    <input type="text" className="form-control" id="img" name="hinhanh" placeholder="Copy link url hình ảnh..." onChange={handleChangeInput} />
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="inputAddress2">Số lượng</label>
-                                        <input type="text" class="form-control" id="inputAddress2"
+                                <div className="form-row">
+                                    <div className="form-group col-md-12">
+                                        <label htmlFor="inputAddress2">Số lượng</label>
+                                        <input type="text" className="form-control" id="inputAddress2"
                                             placeholder="Số lượng còn trong kho" name="soluong" onChange={handleChangeInput} />
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputCity">Mô tả</label>
-                                    <input type="text" class="form-control" id="inputCity" placeholder="Mô tả sản phẩm" name="mota" onChange={handleChangeInput} />
+                                <div className="form-group">
+                                    <label htmlFor="inputCity">Mô tả</label>
+                                    <input type="text" className="form-control" id="inputCity" placeholder="Mô tả sản phẩm" name="mota" onChange={handleChangeInput} />
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputIdDM">Danh mục</label>
+                                <div className="form-group">
+                                    <label htmlFor="inputIdDM">Danh mục</label>
                                     <select
-                                        class="form-select"
+                                        className="form-select"
                                         aria-label="Default select example"
                                         name="iddm"
                                         onChange={handleChangeInput}
@@ -215,43 +215,43 @@ function AdminAddNguoiDung(props) {
                                         </option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary" onClick={handleSubmit}>Thêm mới</button>
+                                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Thêm mới</button>
                             </div> */}
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Họ và tên</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="hoTen" onChange={handleChangeInput} /></div>
+                            <div className="card-body">
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Họ và tên</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="hoTen" onChange={handleChangeInput} /></div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Số điện thoại</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="sdt" onChange={handleChangeInput} /></div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label class="labels">Ảnh đại diện</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="anhdaidien" onChange={handleChangeInput} placeholder="Copy paste link hình vào đây" /></div>
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Số điện thoại</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="sdt" onChange={handleChangeInput} /></div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Email</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="email" onChange={handleChangeInput} /></div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Mật khẩu</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="password" class="form-control" name="matkhau" onChange={handleChangeInput} /></div>
+                                <div className="form-row">
+                                    <div className="form-group col-md-12">
+                                        <label className="labels">Ảnh đại diện</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="anhdaidien" onChange={handleChangeInput} placeholder="Copy paste link hình vào đây" /></div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Địa chỉ</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="diachi" onChange={handleChangeInput} /></div>
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Email</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="email" onChange={handleChangeInput} /></div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Mô tả</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="mota" onChange={handleChangeInput} /></div>
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Mật khẩu</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="password" className="form-control" name="matkhau" onChange={handleChangeInput} /></div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Chi nhánh</label><div style={{ display: "flex", lineHeight: "38px" }}>
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Địa chỉ</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="diachi" onChange={handleChangeInput} /></div>
+                                    </div>
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Mô tả</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="mota" onChange={handleChangeInput} /></div>
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Chi nhánh</label><div style={{ display: "flex", lineHeight: "38px" }}>
                                             <select
-                                                class="form-select form-control"
+                                                className="form-select form-control"
                                                 aria-label="Default select example"
                                                 name="chinhanh"
                                                 id="chinhanh"
@@ -263,10 +263,10 @@ function AdminAddNguoiDung(props) {
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="labels">Vai trò</label><div style={{ display: "flex", lineHeight: "38px" }}>
+                                    <div className="form-group col-md-6">
+                                        <label className="labels">Vai trò</label><div style={{ display: "flex", lineHeight: "38px" }}>
                                             <select
-                                                class="form-select form-control"
+                                                className="form-select form-control"
                                                 aria-label="Default select example"
                                                 name="vaitro"
                                                 id="vaitro"
@@ -279,7 +279,7 @@ function AdminAddNguoiDung(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 d-flex justify-content-center"><button type="submit" class="btn btn-primary" onClick={handleSubmit}>Thêm mới</button></div>
+                                <div className="col-md-12 d-flex justify-content-center"><button type="submit" className="btn btn-primary" onClick={handleSubmit}>Thêm mới</button></div>
                             </div>
                         </div>
                     </div>

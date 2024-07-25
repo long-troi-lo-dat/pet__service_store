@@ -100,23 +100,23 @@ function AdminAddDichVu(props) {
                     </Menu>
                 </Sider>
             </Layout>
-            <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
+                    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul className="navbar-nav ml-auto">
+                            <div className="topbar-divider d-none d-sm-block"></div>
+                            {/* <li className="nav-item dropdown no-arrow"> */}
                             <span
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
                             >
                                 {dataUser.map((item, i) => (
                                     <>
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                             {item.hoTen}
                                         </span>
                                         <img
-                                            class="img-profile rounded-circle"
+                                            className="img-profile rounded-circle"
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTK5QTN7bjRgXhzUHiR8o7fNjypmI5P3Ui5Zgpz1hcQ&s"
                                             alt=""
                                             width="30px"
@@ -135,28 +135,28 @@ function AdminAddDichVu(props) {
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Thêm mới dịch vụ</h1>
+                    <div className="container-fluid">
+                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 className="h3 mb-0 text-gray-800">Thêm mới dịch vụ</h1>
                         </div>
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Tên dịch vụ</label>
-                                        <input type="text" class="form-control" id="inputEmail4"
+                        <div className="card shadow mb-4">
+                            <div className="card-body">
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label htmlFor="inputEmail4">Tên dịch vụ</label>
+                                        <input type="text" className="form-control" id="inputEmail4"
                                             placeholder="Tên dịch vụ" name="ten" onChange={handleChangeInput} />
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="inputPassword4">Giá</label>
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Giá" name="gia" onChange={handleChangeInput} />
+                                    <div className="form-group col-md-6">
+                                        <label htmlFor="inputPassword4">Giá</label>
+                                        <input type="text" className="form-control" id="inputPassword4" placeholder="Giá" name="gia" onChange={handleChangeInput} />
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputCity">Mô tả</label>
-                                    <input type="text" class="form-control" id="inputCity" placeholder="Mô tả sản phẩm" name="mota" onChange={handleChangeInput} />
+                                <div className="form-group">
+                                    <label htmlFor="inputCity">Mô tả</label>
+                                    <input type="text" className="form-control" id="inputCity" placeholder="Mô tả sản phẩm" name="mota" onChange={handleChangeInput} />
                                 </div>
-                                <button class="btn btn-primary" onClick={handleSubmit}>Thêm mới</button>
+                                <button className="btn btn-primary" onClick={handleSubmit}>Thêm mới</button>
                             </div>
                         </div>
                     </div>

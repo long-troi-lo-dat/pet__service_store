@@ -34,25 +34,25 @@ function UserDetailEdit(props) {
     }, [id]);
     return (
         <>
-            <div class="container rounded bg-white mt-5 mb-5">
-                <div class="row">
-                    <div class="col-md-12 border">
-                        <div class="p-3 py-5">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="text-right">Thay đổi thông tin cá nhân</h4>
+            <div className="container rounded bg-white mt-5 mb-5">
+                <div className="row">
+                    <div className="col-md-12 border">
+                        <div className="p-3 py-5">
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <h4 className="text-right">Thay đổi thông tin cá nhân</h4>
                             </div>
                             <div className="row">
-                                <div class="col-md-12">
-                                    <label class="labels">Họ và tên</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="hoTen" value={editUser.hoTen} onChange={handleInput} /></div>
+                                <div className="col-md-12">
+                                    <label className="labels">Họ và tên</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="hoTen" value={editUser.hoTen} onChange={handleInput} /></div>
                                 </div>
-                                <div class="col-md-12 mt-3">
-                                    <label class="labels">Ảnh đại diện</label> <div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="anhdaidien" value={editUser.anhdaidien} onChange={handleInput} /></div>
+                                <div className="col-md-12 mt-3">
+                                    <label className="labels">Ảnh đại diện</label> <div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="anhdaidien" value={editUser.anhdaidien} onChange={handleInput} /></div>
                                 </div>
-                                <div class="col-md-12 mt-3">
-                                    <label class="labels">Số điện thoại</label> <div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="sdt" value={editUser.sdt} onChange={handleInput} /></div>
+                                <div className="col-md-12 mt-3">
+                                    <label className="labels">Số điện thoại</label> <div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="sdt" value={editUser.sdt} onChange={handleInput} /></div>
                                 </div>
-                                <div class="col-md-12 mt-3">
-                                    <label class="labels">Địa chỉ</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" class="form-control" name="diachi" value={editUser.diachi} onChange={handleInput} /></div>
+                                <div className="col-md-12 mt-3">
+                                    <label className="labels">Địa chỉ</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="text" className="form-control" name="diachi" value={editUser.diachi} onChange={handleInput} /></div>
                                 </div>
                                 <div className="col-md-12 mt-3 d-flex justify-content-center">
                                     <button onClick={() => navigate(`/userdetail/${localStorage.getItem("id_user")}`)} className="btn btn-danger" style={{ minWidth: "200px" }}>Hủy cập nhật</button>

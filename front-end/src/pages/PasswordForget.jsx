@@ -53,7 +53,7 @@ export default function ForgetPassword() {
                                 </span>
                             </div>
                             <div className="flex space-x-4 mr-8 ">
-                                <li class="dropdown">
+                                <li className="dropdown">
                                     <NavLink to="/login">
                                         <FiUser size={24} color="white" />
                                     </NavLink>
@@ -66,16 +66,16 @@ export default function ForgetPassword() {
             {/* <h2>Forgot Password</h2>
             <input type="text" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <button onClick={handleForgotPassword}>Send OTP</button> */}
-            <div class="container" style={{}}>
-                <div class="card text-center" style={{ width: "400px", margin: "100px auto" }}>
-                    <div class="card-header h5 text-white" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Khôi Phục Mật Khẩu</div>
-                    <div class="card-body px-5">
-                        <div class="form-outline">
-                            <input type="email" id="typeEmail" placeholder="Nhập Email ở đây . . ." class="form-control my-3" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <div className="container" style={{}}>
+                <div className="card text-center" style={{ width: "400px", margin: "100px auto" }}>
+                    <div className="card-header h5 text-white" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Khôi Phục Mật Khẩu</div>
+                    <div className="card-body px-5">
+                        <div className="form-outline">
+                            <input type="email" id="typeEmail" placeholder="Nhập Email ở đây . . ." className="form-control my-3" value={email} onChange={(e) => setEmail(e.target.value)} />
                             <span style={{ color: "red" }}>{message}</span>
                         </div>
-                        <button onClick={handleForgotPassword} class="btn btn-primary w-100 mt-3" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Khôi phục</button>
-                        <div class="d-flex justify-content-between mt-4">
+                        <button onClick={handleForgotPassword} className="btn btn-primary w-100 mt-3" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Khôi phục</button>
+                        <div className="d-flex justify-content-between mt-4">
                             <button onClick={() => navigate("/login")}>Đăng nhập</button>
                             <button onClick={() => navigate("/register")}>Đăng ký</button>
                         </div>

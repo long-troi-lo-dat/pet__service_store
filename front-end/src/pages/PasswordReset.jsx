@@ -58,16 +58,16 @@ function Resetpassword() {
             <input type="password" placeholder="Nhập mật khẩu mới" name="matkhaumoi" onChange={(e) => setPassword(e.target.value)} />
             <button onClick={doimatkhau}>Thay đổi mật khẩu</button> */}
             <div>
-                <div class="container" style={{}}>
-                    <div class="card text-center" style={{ width: "600px", margin: "100px auto" }}>
-                        <div class="card-header h5 text-white" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Tạo mật khẩu mới</div>
-                        <div class="pt-3">
+                <div className="container" style={{}}>
+                    <div className="card text-center" style={{ width: "600px", margin: "100px auto" }}>
+                        <div className="card-header h5 text-white" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Tạo mật khẩu mới</div>
+                        <div className="pt-3">
                             <p>Vui lòng nhập mật khẩu mới</p>
                         </div>
-                        <div class="card-body px-5 ">
+                        <div className="card-body px-5 ">
                             <input type="password" placeholder="Nhập mật khẩu mới" name="matkhaumoi" onChange={(e) => setPassword(e.target.value)} style={{ padding: "10px 5px" }} />
-                            <div class="d-flex justify-content-between mt-6 pt-3">
-                                <button onClick={doimatkhau} class="btn btn-primary w-100" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Xác nhận</button>
+                            <div className="d-flex justify-content-between mt-6 pt-3">
+                                <button onClick={doimatkhau} className="btn btn-primary w-100" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Xác nhận</button>
                             </div>
                         </div>
                     </div>

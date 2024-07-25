@@ -70,34 +70,34 @@ function ChangePassword(props) {
     }, [id]);
     return (
         <>
-            <div class="container rounded bg-white mt-5 mb-5">
+            <div className="container rounded bg-white mt-5 mb-5">
                 {dataUser.map((item, i) => (
-                    <div class="row">
-                        <div class="col-md-3 border-right">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src={item.anhdaidien ? item.anhdaidien : "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"} alt="" />
-                                <span class="font-weight-bold">{item.hoTen}</span>
-                                <span class="text-black-50">{item.email}</span>
+                    <div className="row">
+                        <div className="col-md-3 border-right">
+                            <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img className="rounded-circle mt-5" width="150px" src={item.anhdaidien ? item.anhdaidien : "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"} alt="" />
+                                <span className="font-weight-bold">{item.hoTen}</span>
+                                <span className="text-black-50">{item.email}</span>
                             </div>
                         </div>
-                        <div class="col-md-9 border">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Thay đổi mật khẩu</h4>
+                        <div className="col-md-9 border">
+                            <div className="p-3 py-5">
+                                <div className="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 className="text-right">Thay đổi mật khẩu</h4>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <label class="labels">Mật khẩu hiện tại</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="password" class="form-control" name="oldpassword" value={formData.oldpassword} onChange={handleChangeInput} /></div>
+                                <div className="row mt-3">
+                                    <div className="col-md-12">
+                                        <label className="labels">Mật khẩu hiện tại</label><div style={{ display: "flex", lineHeight: "38px" }}><input type="password" className="form-control" name="oldpassword" value={formData.oldpassword} onChange={handleChangeInput} /></div>
                                     </div>
                                     {/* {messageError && <span style={{ color: "red" }}>{messageError}</span>} */}
-                                    <div class="col-md-12 mt-3">
-                                        <label class="labels">Mật khẩu mới</label> <div style={{ display: "flex", lineHeight: "38px" }}><input type="password" class="form-control" name="newpassword" value={formData.newpassword} onChange={handleChangeInput} /></div>
+                                    <div className="col-md-12 mt-3">
+                                        <label className="labels">Mật khẩu mới</label> <div style={{ display: "flex", lineHeight: "38px" }}><input type="password" className="form-control" name="newpassword" value={formData.newpassword} onChange={handleChangeInput} /></div>
                                     </div>
                                     {messageError && <span style={{ color: "red" }}>{messageError}</span>}
                                 </div>
-                                <div class="mt-5 text-center">
-                                    <button class="btn btn-danger profile-button" type="button" onClick={() => { navigate(`/userdetail/${localStorage.getItem("id_user")}`) }}>Hủy thay đổi</button>
+                                <div className="mt-5 text-center">
+                                    <button className="btn btn-danger profile-button" type="button" onClick={() => { navigate(`/userdetail/${localStorage.getItem("id_user")}`) }}>Hủy thay đổi</button>
                                     <button style={{ margin: "0 15px" }}></button>
-                                    <button class="btn btn-success profile-button" type="button" onClick={handleChangePassword}>Đổi mật khẩu</button>
+                                    <button className="btn btn-success profile-button" type="button" onClick={handleChangePassword}>Đổi mật khẩu</button>
                                 </div>
                             </div>
                         </div>

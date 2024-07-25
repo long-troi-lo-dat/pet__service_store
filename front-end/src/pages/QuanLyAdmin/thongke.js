@@ -314,23 +314,23 @@ function Thongke(props) {
                     </Menu>
                 </Sider>
             </Layout>
-            <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
+                    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul className="navbar-nav ml-auto">
+                            <div className="topbar-divider d-none d-sm-block"></div>
+                            {/* <li className="nav-item dropdown no-arrow"> */}
                             <span
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
                             >
                                 {dataUser.map((item, i) => (
                                     <>
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                             {item.hoTen}
                                         </span>
                                         <img
-                                            class="img-profile rounded-circle"
+                                            className="img-profile rounded-circle"
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTK5QTN7bjRgXhzUHiR8o7fNjypmI5P3Ui5Zgpz1hcQ&s"
                                             alt=""
                                             width="30px"
@@ -349,13 +349,13 @@ function Thongke(props) {
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid row">
-                        <div class="col-xl-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Đơn hàng chưa xác nhận</h6>
+                    <div className="container-fluid row">
+                        <div className="col-xl-3">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Đơn hàng chưa xác nhận</h6>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                                         <span style={{ padding: "5px" }}><BsCart fontSize={52} /></span>
                                         {dataChuaXacNhan.map((item, i) => (
@@ -365,12 +365,12 @@ function Thongke(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Doanh thu tháng {currentMonth}</h6>
+                        <div className="col-xl-3">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Doanh thu tháng {currentMonth}</h6>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                                         <span style={{ padding: "5px" }}><BsBank fontSize={52} /></span>
                                         {dataTKTT.map((item, i) => (
@@ -382,12 +382,12 @@ function Thongke(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Số người đăng ký mới</h6>
+                        <div className="col-xl-3">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Số người đăng ký mới</h6>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                                         <span style={{ padding: "5px" }}><BsUniversalAccess fontSize={52} /></span>
                                         {dataNewRegister.map((item, i) => (
@@ -397,12 +397,12 @@ function Thongke(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Số lịch đặt mới</h6>
+                        <div className="col-xl-3">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Số lịch đặt mới</h6>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                                         <span style={{ padding: "5px" }}><BsListTask fontSize={52} /></span>
                                         {dataDHDVChuaHoanThanh.map((item, i) => (
@@ -412,12 +412,12 @@ function Thongke(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê đơn hàng đã hoàn thành của từng nhân viên</h6>
+                        <div className="col-xl-6">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Thống kê đơn hàng đã hoàn thành của từng nhân viên</h6>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <Chart
                                         options={stateDonHang.options}
                                         series={stateDonHang.series}
@@ -427,12 +427,12 @@ function Thongke(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê tổng doanh thu đặt lịch của 2 chi nhánh</h6>
+                        <div className="col-xl-6">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Thống kê tổng doanh thu đặt lịch của 2 chi nhánh</h6>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <Chart
                                         options={stateTongTien.options}
                                         series={stateTongTien.series}

@@ -51,24 +51,24 @@ function NavbarLayout() {
     <header>
       <div className="container pt-3">
         <div className="row align-items-center">
-          <div class="col-12 col-md-6 col-lg-3 text-center text-md-start">
-            <a class="navbar-brand" href="/#"><img src={process.env.REACT_APP_URL_API + "/navbar/logo-1.png"} alt="" /></a>
+          <div className="col-12 col-md-6 col-lg-3 text-center text-md-start">
+            <a className="navbar-brand" href="/#"><img src={process.env.REACT_APP_URL_API + "/navbar/logo-1.png"} alt="" /></a>
           </div>
           <div className="col-lg-6 d-none d-lg-block">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm. . ." />
-              <button class="input-group-text bg-none px-4"><FiSearch fontSize={20} /></button>
+            <div className="input-group">
+              <input type="text" className="form-control" placeholder="Tìm kiếm sản phẩm. . ." />
+              <button className="input-group-text bg-none px-4"><FiSearch fontSize={20} /></button>
             </div>
           </div>
-          <div class="col-6 col-lg-3 d-none d-md-block">
+          <div className="col-6 col-lg-3 d-none d-md-block">
             <div className="row">
-              <div class="col-6 text-end text-muted">
+              <div className="col-6 text-end text-muted">
                 Liên hệ
-                <h6 class="text-black">+84 77 766 3476</h6>
+                <h6 className="text-black">+84 77 766 3476</h6>
               </div>
-              <div class="col-6 text-end text-muted">
+              <div className="col-6 text-end text-muted">
                 Địa chỉ
-                <h6 class="text-black">Bình Thạnh, HCM</h6>
+                <h6 className="text-black">Bình Thạnh, HCM</h6>
               </div>
             </div>
           </div>
@@ -126,15 +126,13 @@ function NavbarLayout() {
                   show={showCate}
                   onMouseEnter={showCateDropdown}
                   onMouseLeave={hideCateDropdown}
-                  as={Link}
-                  to="/shop"
                 >
-                  <NavDropdown.Item><Link to="/shop/2" style={{ color: "#41403E" }}>Thú cưng</Link></NavDropdown.Item>
-                  <NavDropdown.Item><Link to="/shop" style={{ color: "#41403E" }}>Thức ăn</Link></NavDropdown.Item>
-                  <NavDropdown.Item><Link to="/shop" style={{ color: "#41403E" }}>Dinh dưỡng</Link></NavDropdown.Item>
-                  <NavDropdown.Item><Link to="/shop" style={{ color: "#41403E" }}>Phụ kiện</Link></NavDropdown.Item>
-                  <NavDropdown.Item><Link to="/shop" style={{ color: "#41403E" }}>Đồ chơi</Link></NavDropdown.Item>
-                  <NavDropdown.Item><Link to="/shop" style={{ color: "#41403E" }}>Dịch vụ</Link></NavDropdown.Item>
+                  <NavDropdown.Item to="/shop/2" style={{ color: "#41403E" }}>Thú cưng</NavDropdown.Item>
+                  <NavDropdown.Item to="/shop" style={{ color: "#41403E" }}>Thức ăn</NavDropdown.Item>
+                  <NavDropdown.Item to="/shop" style={{ color: "#41403E" }}>Dinh dưỡng</NavDropdown.Item>
+                  <NavDropdown.Item to="/shop" style={{ color: "#41403E" }}>Phụ kiện</NavDropdown.Item>
+                  <NavDropdown.Item to="/shop" style={{ color: "#41403E" }}>Đồ chơi</NavDropdown.Item>
+                  <NavDropdown.Item to="/shop" style={{ color: "#41403E" }}>Dịch vụ</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Offcanvas.Body>
@@ -157,7 +155,7 @@ function NavbarLayout() {
             <Link className="nav-link" to="/wishlist"><FiHeart size={24} color="#41403E" /></Link>
             <Link className="nav-link" to="/cart">
               <FiShoppingCart size={24} color="#41403E" />
-              <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
+              <span className="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
                 {cart.length}
               </span>
             </Link>

@@ -211,23 +211,23 @@ function NhanVienDichVuDatLich(props) {
                     </Menu>
                 </Sider>
             </Layout>
-            <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
+                    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul className="navbar-nav ml-auto">
+                            <div className="topbar-divider d-none d-sm-block"></div>
+                            {/* <li className="nav-item dropdown no-arrow"> */}
                             <span
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
                             >
                                 {dataUser.map((item, i) => (
                                     <>
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                             {item.hoTen}
                                         </span>
                                         <img
-                                            class="img-profile rounded-circle"
+                                            className="img-profile rounded-circle"
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTK5QTN7bjRgXhzUHiR8o7fNjypmI5P3Ui5Zgpz1hcQ&s"
                                             alt=""
                                             width="30px"
@@ -246,13 +246,13 @@ function NhanVienDichVuDatLich(props) {
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid row">
-                        <div class="col-xl-6">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê phân chia đơn hàng 10 ngày tới của bạn</h6>
+                    <div className="container-fluid row">
+                        <div className="col-xl-6">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Thống kê phân chia đơn hàng 10 ngày tới của bạn</h6>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <CSVLink data={stateDonHangChuaExport} filename="thongke-donhang-10ngaytoi-nhanvien" className="btn btn-success">Xuất bảng excel</CSVLink>
                                     <Chart
                                         options={stateDonHangChua.options}
@@ -263,12 +263,12 @@ function NhanVienDichVuDatLich(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Doanh thu</h6>
+                        <div className="col-xl-3">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Doanh thu</h6>
                                 </div>
-                                <div class="card-body" style={{ fontSize: "13px" }}>
+                                <div className="card-body" style={{ fontSize: "13px" }}>
                                     Doanh thu tháng này là
                                     {doanhthu.map((item, i) => (
                                         <span> {item.tong_tien_thang} </span>
@@ -277,12 +277,12 @@ function NhanVienDichVuDatLich(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Đơn đặt lịch</h6>
+                        <div className="col-xl-3">
+                            <div className="card shadow mb-4">
+                                <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary">Đơn đặt lịch</h6>
                                 </div>
-                                <div class="card-body" style={{ fontSize: "13px" }}>
+                                <div className="card-body" style={{ fontSize: "13px" }}>
                                     Đã hoàn thành
                                     {tongdon.map((item, i) => (
                                         <span> {item.donhangdahoanthanh} </span>
@@ -292,22 +292,22 @@ function NhanVienDichVuDatLich(props) {
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Quản lý đặt lịch</h1>
+                    <div className="container-fluid">
+                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 className="h3 mb-0 text-gray-800">Quản lý đặt lịch</h1>
                         </div>
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-around mb-4">
-                                    {/* <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1> */}
-                                    <div class="col-5 d-flex justify-content-around">
-                                        <button class="btn btn-primary" onClick={() => { chonlocdatlich("chuaphancong") }}>Chưa phân công</button>
-                                        <button class="btn btn-primary" onClick={() => { chonlocdatlich("dangthuchien") }}>Đang thực hiện</button>
-                                        <button class="btn btn-primary" onClick={() => { chonlocdatlich("dahoanthanh") }}>Đã hoàn thành</button>
+                        <div className="card shadow mb-4">
+                            <div className="card-body">
+                                <div className="d-flex justify-content-around mb-4">
+                                    {/* <h1 className="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1> */}
+                                    <div className="col-5 d-flex justify-content-around">
+                                        <button className="btn btn-primary" onClick={() => { chonlocdatlich("chuaphancong") }}>Chưa phân công</button>
+                                        <button className="btn btn-primary" onClick={() => { chonlocdatlich("dangthuchien") }}>Đang thực hiện</button>
+                                        <button className="btn btn-primary" onClick={() => { chonlocdatlich("dahoanthanh") }}>Đã hoàn thành</button>
                                     </div>
                                 </div>
                                 <table
-                                    class="table table-bordered"
+                                    className="table table-bordered"
                                     id="dataTable"
                                     width="100%"
                                     cellspacing="0"
@@ -369,7 +369,7 @@ function NhanVienDichVuDatLich(props) {
                                                             : "Đã hoàn thành"}
                                                 </td>
                                                 <td style={{ maxWidth: "160px" }}>
-                                                    <button class="btn btn-info" data-toggle="modal"
+                                                    <button className="btn btn-info" data-toggle="modal"
                                                         data-target="#exampleModal" id={item.id} onClick={handleShow}
                                                         style={{ fontSize: "13px", minWidth: "140px" }}
                                                     >
@@ -378,7 +378,7 @@ function NhanVienDichVuDatLich(props) {
                                                     {item.trangthai < 3 ?
                                                         <button
                                                             type="button"
-                                                            class="btn btn-success"
+                                                            className="btn btn-success"
                                                             // onClick={NextStatus}
                                                             onClick={() => NextStatus(item.trangthai, item.id)}
                                                             style={{ fontSize: "13px", minWidth: "140px" }}
@@ -395,7 +395,7 @@ function NhanVienDichVuDatLich(props) {
                                                         ""
                                                     }
                                                     <button
-                                                        class="btn btn-danger"
+                                                        className="btn btn-danger"
                                                         data-toggle="modal"
                                                         data-target="#logoutModal"
                                                         onClick={() => BackStatus(item.trangthai, item.id)}
@@ -426,7 +426,7 @@ function NhanVienDichVuDatLich(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table className="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th style={{ width: "5%" }}>Id</th>

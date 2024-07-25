@@ -120,23 +120,23 @@ function AdminBinhLuan(props) {
                     </Menu>
                 </Sider>
             </Layout>
-            <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
+                    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul className="navbar-nav ml-auto">
+                            <div className="topbar-divider d-none d-sm-block"></div>
+                            {/* <li className="nav-item dropdown no-arrow"> */}
                             <span
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
                             >
                                 {dataUser.map((item, i) => (
                                     <>
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                             {item.hoTen}
                                         </span>
                                         <img
-                                            class="img-profile rounded-circle"
+                                            className="img-profile rounded-circle"
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTK5QTN7bjRgXhzUHiR8o7fNjypmI5P3Ui5Zgpz1hcQ&s"
                                             alt=""
                                             width="30px"
@@ -155,14 +155,14 @@ function AdminBinhLuan(props) {
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Quản lý bình luận</h1>
+                    <div className="container-fluid">
+                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 className="h3 mb-0 text-gray-800">Quản lý bình luận</h1>
                         </div>
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
+                        <div className="card shadow mb-4">
+                            <div className="card-body">
                                 <table
-                                    class="table table-bordered"
+                                    className="table table-bordered"
                                     id="dataTable"
                                     width="100%"
                                     cellspacing="0"
@@ -190,7 +190,7 @@ function AdminBinhLuan(props) {
                                                 <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                     {item.anHien === 0 ?
                                                         <button
-                                                            class="btn btn-danger"
+                                                            className="btn btn-danger"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
                                                             style={{ minWidth: "140px", fontSize: "13px" }}
@@ -200,7 +200,7 @@ function AdminBinhLuan(props) {
                                                         </button>
                                                         :
                                                         <button
-                                                            class="btn btn-success"
+                                                            className="btn btn-success"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
                                                             style={{ minWidth: "140px", fontSize: "13px" }}

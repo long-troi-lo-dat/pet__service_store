@@ -73,7 +73,7 @@ function OTPInput() {
                                 </span>
                             </div>
                             <div className="flex space-x-4 mr-8 ">
-                                <li class="dropdown">
+                                <li className="dropdown">
                                     <NavLink to="/login">
                                         <FiUser size={24} color="white" />
                                     </NavLink>
@@ -86,14 +86,14 @@ function OTPInput() {
             <div>
                 {/* <input type="text" placeholder="Enter OTP" onChange={(e) => setOtp(e.target.value)} />
                 <button onClick={handleVerifyOTP}>Verify OTP</button> */}
-                <div class="container" style={{}}>
-                    <div class="card text-center" style={{ width: "600px", margin: "100px auto" }}>
-                        <div class="card-header h5 text-white" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Nhập mã OTP</div>
-                        <div class="pt-3">
+                <div className="container" style={{}}>
+                    <div className="card text-center" style={{ width: "600px", margin: "100px auto" }}>
+                        <div className="card-header h5 text-white" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Nhập mã OTP</div>
+                        <div className="pt-3">
                             <p>Vui lòng kiểm tra email {emailFromLocal}</p>
                         </div>
-                        <div class="card-body px-5 ">
-                            {/* <div class="form-outline">
+                        <div className="card-body px-5 ">
+                            {/* <div className="form-outline">
                                 <input
                                     style={{ width: "60px", textAlign: "center", borderRadius: "7px", padding: "15px", fontSize: "20px" }}
                                     maxLength="1"
@@ -202,14 +202,14 @@ function OTPInput() {
                                         ])
                                     }
                                 />
-                                <label class="form-label mt-3" for="typeEmail">Vui lòng kiểm tra mã OTP trong email</label>
+                                <label className="form-label mt-3" htmlFor="typeEmail">Vui lòng kiểm tra mã OTP trong email</label>
                             </div> */}
                             {/* {otp.map((s, key) =>
                                 <input onChange={(e) => setOtp(e.target.value)} style={{ width: "60px", textAlign: "center", borderRadius: "7px", padding: "15px", fontSize: "20px" }} key={key} value={s} onPaste={onPaste} onInput={update(key)} />
                             )} */}
                             <input type="text" placeholder="Nhập mã OTP ở đây" onChange={(e) => setOtp(e.target.value)} style={{ padding: "10px 5px" }} />
-                            <div class="d-flex justify-content-between mt-6 pt-3">
-                                <button onClick={handleVerifyOTP} class="btn btn-primary w-100" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Xác nhận</button>
+                            <div className="d-flex justify-content-between mt-6 pt-3">
+                                <button onClick={handleVerifyOTP} className="btn btn-primary w-100" style={{ backgroundColor: "rgb(34, 42, 99)" }}>Xác nhận</button>
                             </div>
                         </div>
                     </div>

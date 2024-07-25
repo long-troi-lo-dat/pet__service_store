@@ -167,23 +167,23 @@ function AdminDonHang(props) {
                     </Menu>
                 </Sider>
             </Layout>
-            <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
+                    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul className="navbar-nav ml-auto">
+                            <div className="topbar-divider d-none d-sm-block"></div>
+                            {/* <li className="nav-item dropdown no-arrow"> */}
                             <span
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
                             >
                                 {dataUser.map((item, i) => (
                                     <>
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                             {item.hoTen}
                                         </span>
                                         <img
-                                            class="img-profile rounded-circle"
+                                            className="img-profile rounded-circle"
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTK5QTN7bjRgXhzUHiR8o7fNjypmI5P3Ui5Zgpz1hcQ&s"
                                             alt=""
                                             width="30px"
@@ -202,14 +202,14 @@ function AdminDonHang(props) {
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1>
+                    <div className="container-fluid">
+                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 className="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1>
                         </div>
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
+                        <div className="card shadow mb-4">
+                            <div className="card-body">
                                 <table
-                                    class="table table-bordered"
+                                    className="table table-bordered"
                                     id="dataTable"
                                     width="100%"
                                     cellspacing="0"
@@ -250,7 +250,7 @@ function AdminDonHang(props) {
                                                                 : "thành công"}</td>
                                                 <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                     <button
-                                                        class="btn btn-info"
+                                                        className="btn btn-info"
                                                         data-toggle="modal"
                                                         data-target="#exampleModal"
                                                         style={{ minWidth: "140px", fontSize: "13px" }}
@@ -260,7 +260,7 @@ function AdminDonHang(props) {
                                                     </button>
                                                     <button
                                                         type="button"
-                                                        class="btn btn-success"
+                                                        className="btn btn-success"
                                                         style={{ minWidth: "140px", fontSize: "13px" }}
                                                         // onClick={NextStatus}
                                                         onClick={() => NextStatus(item.trangthai, item.id)}
@@ -274,7 +274,7 @@ function AdminDonHang(props) {
                                                                     : "Giao thành công"}
                                                     </button>
                                                     {/* <button
-                                                        class="btn btn-danger"
+                                                        className="btn btn-danger"
                                                         data-toggle="modal"
                                                         data-target="#logoutModal"
                                                         style={{ minWidth: "100px", fontSize: "13px" }}
@@ -283,7 +283,7 @@ function AdminDonHang(props) {
                                                         Hoàn tác
                                                     </button> */}
                                                     <button
-                                                        class="btn btn-danger"
+                                                        className="btn btn-danger"
                                                         data-toggle="modal"
                                                         data-target="#logoutModal"
                                                         style={{ minWidth: "140px", fontSize: "13px" }}
@@ -299,14 +299,14 @@ function AdminDonHang(props) {
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Đơn đã hoàn thành</h1>
+                    <div className="container-fluid">
+                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 className="h3 mb-0 text-gray-800">Đơn đã hoàn thành</h1>
                         </div>
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
+                        <div className="card shadow mb-4">
+                            <div className="card-body">
                                 <table
-                                    class="table table-bordered"
+                                    className="table table-bordered"
                                     id="dataTable"
                                     width="100%"
                                     cellspacing="0"
@@ -348,7 +348,7 @@ function AdminDonHang(props) {
                                                                 : "thành công"}</td>
                                                 <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                     <button
-                                                        class="btn btn-info"
+                                                        className="btn btn-info"
                                                         data-toggle="modal"
                                                         data-target="#exampleModal"
                                                         style={{ minWidth: "140px", fontSize: "13px" }}
@@ -381,7 +381,7 @@ function AdminDonHang(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table className="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Id</th>

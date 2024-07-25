@@ -148,23 +148,23 @@ function AdminSanPham(props) {
                     </Menu>
                 </Sider>
             </Layout>
-            <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            {/* <li class="nav-item dropdown no-arrow"> */}
+                    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul className="navbar-nav ml-auto">
+                            <div className="topbar-divider d-none d-sm-block"></div>
+                            {/* <li className="nav-item dropdown no-arrow"> */}
                             <span
-                                class="nav-link"
+                                className="nav-link"
                                 onClick={() => setOpenProfile((prev) => !prev)}
                             >
                                 {dataUser.map((item, i) => (
                                     <>
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                             {item.hoTen}
                                         </span>
                                         <img
-                                            class="img-profile rounded-circle"
+                                            className="img-profile rounded-circle"
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTK5QTN7bjRgXhzUHiR8o7fNjypmI5P3Ui5Zgpz1hcQ&s"
                                             alt=""
                                             width="30px"
@@ -183,30 +183,30 @@ function AdminSanPham(props) {
                             </div>}
                         </ul>
                     </nav>
-                    <div class="container-fluid">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Quản lý sản phẩm</h1>
+                    <div className="container-fluid">
+                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 className="h3 mb-0 text-gray-800">Quản lý sản phẩm</h1>
                         </div>
 
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    {/* <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1> */}
-                                    <button class="btn btn-primary" onClick={() => { phanloaidanhmuc(0) }}>Tất cả</button>
-                                    <button class="btn btn-primary" onClick={() => { phanloaidanhmuc(1) }}>Đồ chơi</button>
-                                    <button class="btn btn-primary" onClick={() => { phanloaidanhmuc(2) }}>Thức ăn</button>
-                                    <button class="btn btn-primary" onClick={() => { phanloaidanhmuc(3) }}>Phụ kiện thú cưng</button>
-                                    <button class="btn btn-primary" onClick={() => { phanloaidanhmuc(4) }}>Thực phẩm chức năng</button>
-                                    <button class="btn btn-primary" onClick={() => { phanloaidanhmuc(5) }}>Sản phẩm điều trị</button>
-                                    <button class="btn btn-primary" onClick={() => { phanloaidanhmuc(6) }}>Chó</button>
+                        <div className="card shadow mb-4">
+                            <div className="card-body">
+                                <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                                    {/* <h1 className="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1> */}
+                                    <button className="btn btn-primary" onClick={() => { phanloaidanhmuc(0) }}>Tất cả</button>
+                                    <button className="btn btn-primary" onClick={() => { phanloaidanhmuc(1) }}>Đồ chơi</button>
+                                    <button className="btn btn-primary" onClick={() => { phanloaidanhmuc(2) }}>Thức ăn</button>
+                                    <button className="btn btn-primary" onClick={() => { phanloaidanhmuc(3) }}>Phụ kiện thú cưng</button>
+                                    <button className="btn btn-primary" onClick={() => { phanloaidanhmuc(4) }}>Thực phẩm chức năng</button>
+                                    <button className="btn btn-primary" onClick={() => { phanloaidanhmuc(5) }}>Sản phẩm điều trị</button>
+                                    <button className="btn btn-primary" onClick={() => { phanloaidanhmuc(6) }}>Chó</button>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-end mb-4 border" style={{ marginLeft: "44%", padding: "5px" }}>
+                                <div className="d-flex align-items-center justify-content-end mb-4 border" style={{ marginLeft: "44%", padding: "5px" }}>
                                     <span style={{ marginRight: "5px" }}>Tìm kiếm sản phẩm ở đây nè</span>
-                                    <form class="form-inline mr-auto navbar-search">
-                                        <div class="input-group">
+                                    <form className="form-inline mr-auto navbar-search">
+                                        <div className="input-group">
                                             <input
                                                 type="text"
-                                                class="form-control bg-light border-0 small"
+                                                className="form-control bg-light border-0 small"
                                                 placeholder="Tìm kiếm sản phẩm . . ."
                                                 aria-label="Search"
                                                 aria-describedby="basic-addon2"
@@ -223,7 +223,7 @@ function AdminSanPham(props) {
                                 {filteredProducts.length > 0 ? (
                                     // Render filtered products
                                     <table
-                                        class="table table-bordered"
+                                        className="table table-bordered"
                                         id="dataTable"
                                         width="100%"
                                         cellspacing="0"
@@ -255,7 +255,7 @@ function AdminSanPham(props) {
                                                     <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                         {item.anhien === 0 ?
                                                             <button
-                                                                class="btn btn-danger"
+                                                                className="btn btn-danger"
                                                                 data-toggle="modal"
                                                                 data-target="#exampleModal"
                                                                 style={{ minWidth: "140px", fontSize: "13px" }}
@@ -265,7 +265,7 @@ function AdminSanPham(props) {
                                                             </button>
                                                             :
                                                             <button
-                                                                class="btn btn-success"
+                                                                className="btn btn-success"
                                                                 data-toggle="modal"
                                                                 data-target="#exampleModal"
                                                                 style={{ minWidth: "140px", fontSize: "13px" }}
@@ -275,7 +275,7 @@ function AdminSanPham(props) {
                                                             </button>
                                                         }
                                                         <a
-                                                            class="btn btn-info"
+                                                            className="btn btn-info"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
                                                             style={{ minWidth: "140px", fontSize: "13px" }}
@@ -290,7 +290,7 @@ function AdminSanPham(props) {
                                     </table>
                                 ) : (
                                     <table
-                                        class="table table-bordered"
+                                        className="table table-bordered"
                                         id="dataTable"
                                         width="100%"
                                         cellspacing="0"
@@ -323,7 +323,7 @@ function AdminSanPham(props) {
                                                     <td style={{ textAlign: "center", maxWidth: "154px", }}>
                                                         {item.anhien === 0 ?
                                                             <button
-                                                                class="btn btn-danger"
+                                                                className="btn btn-danger"
                                                                 data-toggle="modal"
                                                                 data-target="#exampleModal"
                                                                 style={{ minWidth: "140px", fontSize: "13px" }}
@@ -333,7 +333,7 @@ function AdminSanPham(props) {
                                                             </button>
                                                             :
                                                             <button
-                                                                class="btn btn-success"
+                                                                className="btn btn-success"
                                                                 data-toggle="modal"
                                                                 data-target="#exampleModal"
                                                                 style={{ minWidth: "140px", fontSize: "13px" }}
@@ -343,7 +343,7 @@ function AdminSanPham(props) {
                                                             </button>
                                                         }
                                                         <a
-                                                            class="btn btn-info"
+                                                            className="btn btn-info"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal"
                                                             style={{ minWidth: "140px", fontSize: "13px" }}

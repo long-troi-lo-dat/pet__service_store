@@ -4,13 +4,13 @@ import Services from "../components/Services"
 function Contact() {
     return (
         <>
-            <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
-                <div class="container">
-                    <div class="hero-content py-5 my-3">
-                        <h2 class="display-1 mt-3 mb-0">Liên hệ</h2>
-                        <nav class="breadcrumb">
-                            <div class="breadcrumb-item">Trang chủ</div>
-                            <span class="breadcrumb-item active">Liên hệ</span>
+            <section id="banner" className="py-3 mb-5" style={{ background: "#F9F3EC" }}>
+                <div className="container">
+                    <div className="hero-content py-5 my-3">
+                        <h2 className="display-1 mt-3 mb-0">Liên hệ</h2>
+                        <nav className="breadcrumb">
+                            <div className="breadcrumb-item">Trang chủ</div>
+                            <span className="breadcrumb-item active">Liên hệ</span>
                         </nav>
                     </div>
                 </div>
@@ -58,8 +58,8 @@ function Contact() {
                                 <div className="col-lg-12 mb-3">
                                     <textarea className="form-control ps-3" style={{ height: "150px" }} placeholder="Lời nhắn của bạn" />
                                 </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-dark btn-lg rounded-1">Submit</button>
+                                <div className="d-grid">
+                                    <button type="submit" className="btn btn-dark btn-lg rounded-1">Submit</button>
                                 </div>
                             </form>
                         </div>

@@ -3,8 +3,8 @@ import React from 'react'
 function LoadingScreen() {
 
     return (
-        <div class="preloader-wrapper">
-            <div class="loader"></div>
+        <div className="preloader-wrapper">
+            <div className="loader"></div>
         </div>
     )
 }

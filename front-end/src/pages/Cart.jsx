@@ -96,13 +96,13 @@ function Cart() {
 
   return (
     <>
-      <section id="banner" class="py-3 mb-5" style={{ background: "#F9F3EC" }}>
-        <div class="container">
-          <div class="hero-content py-5 my-3">
-            <h2 class="display-1 mt-3 mb-0">Đặt hàng và thanh toán</h2>
-            <nav class="breadcrumb">
-              <div class="breadcrumb-item">Trang chủ</div>
-              <span class="breadcrumb-item active">Đặt hàng và thanh toán</span>
+      <section id="banner" className="py-3 mb-5" style={{ background: "#F9F3EC" }}>
+        <div className="container">
+          <div className="hero-content py-5 my-3">
+            <h2 className="display-1 mt-3 mb-0">Đặt hàng và thanh toán</h2>
+            <nav className="breadcrumb">
+              <div className="breadcrumb-item">Trang chủ</div>
+              <span className="breadcrumb-item active">Đặt hàng và thanh toán</span>
             </nav>
           </div>
         </div>
@@ -111,16 +111,16 @@ function Cart() {
         <div className="container mb-5">
           <div className="row">
             <div className="col-xl-7 col-lg-7">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">
+              <div className="card shadow mb-4">
+                <div className="card-header py-3">
+                  <h6 className="m-0 font-weight-bold text-primary">
                     Danh sách sản phẩm trong giỏ hàng
                   </h6>
                 </div>
                 {cart.length > 0 ? (
-                  <div class="card-body">
+                  <div className="card-body">
                     <table
-                      class="table"
+                      className="table"
                     >
                       <thead>
                         <tr>
@@ -184,62 +184,62 @@ function Cart() {
                     </div>
                   </div>
                 ) : (
-                  <div class="card-body">Chưa có sản phẩm trong giỏ hàng</div>
+                  <div className="card-body">Chưa có sản phẩm trong giỏ hàng</div>
                 )}
               </div>
             </div>
             <div className="col-xl-5 col-lg-7">
-              <h5 class="h2 mb-0 text-gray-800">Thông tin giao hàng</h5>
+              <h5 className="h2 mb-0 text-gray-800">Thông tin giao hàng</h5>
               <span>
                 Các trường được đánh dấu <span className="text-danger">*</span>{" "}
                 là bắt buộc
               </span>
               <div className="row g-3 mt-2">
-                <div class="col-12">
-                  <label for="hoten" class="form-label">
+                <div className="col-12">
+                  <label htmlFor="hoten" className="form-label">
                     Họ tên <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="hoten"
                     name="hoten"
                     onChange={handleChangeInput}
                     placeholder="Họ và tên"
                   />
                 </div>
-                <div class="col-12">
-                  <label for="sodienthoai" class="form-label">
+                <div className="col-12">
+                  <label htmlFor="sodienthoai" className="form-label">
                     Số điện thoại <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="sodienthoai"
                     name="sodienthoai"
                     onChange={handleChangeInput}
                     placeholder="Số điện thoại"
                   />
                 </div>
-                <div class="col-md-12">
-                  <label for="diachi" class="form-label">
+                <div className="col-md-12">
+                  <label htmlFor="diachi" className="form-label">
                     Địa chỉ <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="diachi"
                     name="diachi"
                     onChange={handleChangeInput}
                     placeholder="Địa chỉ nhận hàng"
                   />
                 </div>
-                <div class="col-12">
-                  <label for="ghichu" class="form-label">
+                <div className="col-12">
+                  <label htmlFor="ghichu" className="form-label">
                     Ghi chú
                   </label>
                   <textarea
-                    class="form-control"
+                    className="form-control"
                     id="ghichu"
                     name="ghichu"
                     onChange={handleChangeInput}
@@ -249,13 +249,13 @@ function Cart() {
                 </div>
               </div>
               <button
-                class="btn btn-success mt-4 bg-success"
+                className="btn btn-success mt-4 bg-success"
                 onClick={handleSubmit}
               >
                 Gửi xác nhận
               </button>
               <button
-                class="btn btn-info mt-4 bg-info"
+                className="btn btn-info mt-4 bg-info"
                 style={{ marginLeft: "20px" }}
                 onClick={() => {
                   navigate("/shop");
