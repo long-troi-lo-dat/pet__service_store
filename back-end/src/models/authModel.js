@@ -34,17 +34,6 @@ const updateUser = (nguoidung, anhdaidien, id) => {
     });
 }
 
-// const updateUser = (nguoidung, id) => {
-//     return new Promise((resolve, reject) => {
-//         const { hoTen, sdt, matkhau, diachi } = nguoidung
-//         db.query(`UPDATE nguoidung SET hoTen=?,sdt=?,matkhau=?,diachi=? WHERE id_user=?`, [hoTen, sdt, matkhau, diachi, id], (err, results) => {
-//             if (err) {
-//                 return reject(err);
-//             }
-//             return resolve(results);
-//         });
-//     });
-// };
 const registerUser = async (nguoidung) => {
     return new Promise((resolve, reject) => {
         const { hoten, email, matkhau } = nguoidung;
