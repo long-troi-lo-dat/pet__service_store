@@ -25,9 +25,9 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           source: "front-end/build/*"
-          target: ${{ secrets.FRONTEND_DEPLOY_PATH  }}
+          target: "${{ secrets.FRONTEND_DEPLOY_PATH  }}"
           strip_components: 2
-          debug: true
+
       - name: Deploy back-end
         uses: appleboy/ssh-action@v1.0.3
         with:
