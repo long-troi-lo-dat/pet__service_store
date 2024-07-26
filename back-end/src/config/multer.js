@@ -10,6 +10,26 @@ const productImageStorage = multer.diskStorage({
     }
 })
 
-const uploadProductImages = multer({ storage: productImageStorage });
+const commentImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "../../uploads/comments"))
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}_${file.originalname}`)
+    }
+})
 
-module.exports = { uploadProductImages }
+const userImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "../../uploads/users"));
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}_${file.originalname}`);
+    }
+});
+
+const uploadProductImages = multer({ storage: productImageStorage });
+const uploadCommentImages = multer({ storage: commentImageStorage });
+const uploadUserImages = multer({ storage: userImageStorage });
+
+module.exports = { uploadProductImages, uploadCommentImages, uploadUserImages }

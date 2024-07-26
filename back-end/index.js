@@ -64,28 +64,6 @@ app.get("/shop/:category/:detail/:price", (req, res) => {
   });
 });
 
-app.get("/binhluan/:id", (req, res) => {
-  const sql = "SELECT * FROM binhluan where anHien=0 and id_sp= ?";
-  const id = req.params.id;
-  db.query(sql, [id], (err, data) => {
-    if (err) return res.json("Error");
-    return res.json(data);
-  });
-});
-app.get("/AdminBinhLuan", (req, res) => {
-  const sql = "SELECT * FROM binhluan";
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-app.get("/AdminSanPham", (req, res) => {
-  const sql = "SELECT * FROM sanpham order by ngaythem desc";
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
 app.get("/employee/shop/:category", (req, res) => {
   const iddm = req.params.category;
   let sql = "SELECT * FROM sanpham ORDER BY ngaythem DESC";
@@ -104,14 +82,7 @@ app.get("/AdminDichVu", (req, res) => {
     return res.json(data);
   });
 });
-app.get("/AdminThuCung", (req, res) => {
-  const sql =
-    "select thucung.*, giongloai.ten as tengiongloai from thucung INNER JOIN giongloai on thucung.id_gl = giongloai.id_gl order by thucung.id";
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
+
 app.get("/AdminNguoiDung", (req, res) => {
   const sql = "SELECT * FROM nguoidung";
   db.query(sql, (err, data) => {
@@ -119,6 +90,7 @@ app.get("/AdminNguoiDung", (req, res) => {
     return res.json(data);
   });
 });
+
 app.get("/quanlynguoidung/:cate", (req, res) => {
   const cate = req.params.cate;
   var cateText = "not vaitro=0";

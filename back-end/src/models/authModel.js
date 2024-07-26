@@ -13,6 +13,33 @@ const detailUser = (id) => {
         });
     });
 };
+
+const updateUser = (nguoidung, anhdaidien, id) => {
+    return new Promise((resolve, reject) => {
+        const { hoTen, sdt, matkhau, diachi } = nguoidung;
+        const query = `UPDATE nguoidung SET hoTen=?, sdt=?, matkhau=?, diachi=?${anhdaidien ? ', anhdaidien=?' : ''} WHERE id_user=?`;
+        const values = anhdaidien ? [hoTen, sdt, matkhau, diachi, anhdaidien, id] : [hoTen, sdt, matkhau, diachi, id];
+
+        db.query(query, values, (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(results);
+        });
+    });
+}
+
+// const updateUser = (nguoidung, id) => {
+//     return new Promise((resolve, reject) => {
+//         const { hoTen, sdt, matkhau, diachi } = nguoidung
+//         db.query(`UPDATE nguoidung SET hoTen=?,sdt=?,matkhau=?,diachi=? WHERE id_user=?`, [hoTen, sdt, matkhau, diachi, id], (err, results) => {
+//             if (err) {
+//                 return reject(err);
+//             }
+//             return resolve(results);
+//         });
+//     });
+// };
 const registerUser = async (nguoidung) => {
     return new Promise((resolve, reject) => {
         const { hoten, email, matkhau } = nguoidung;
@@ -61,7 +88,7 @@ const loginUser = (nguoidung) => {
                     }
                     if (isMatch) {
                         const { id_user, hoTen, vaitro } = user;
-                        const accessToken = generateAccessToken({ id_user, hoTen, vaitro }, process.env.JWT_ACCESS_TOKEN_SECRET, '30m');
+                        const accessToken = generateAccessToken({ id_user, hoTen, vaitro }, process.env.JWT_ACCESS_TOKEN_SECRET, '10s');
                         const refreshToken = generateRefreshToken({ id_user, hoTen, vaitro }, process.env.JWT_REFRESH_TOKEN_SECRET, '365d');
                         resolve({ id_user, accessToken, refreshToken });
                     } else {
@@ -75,4 +102,4 @@ const loginUser = (nguoidung) => {
     });
 };
 
-module.exports = { detailUser, registerUser, loginUser }
+module.exports = { detailUser, updateUser, registerUser, loginUser }

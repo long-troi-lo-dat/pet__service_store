@@ -6,6 +6,14 @@ const getDetailUser = (req, res) => {
         .then((results) => res.json(results))
         .catch((err) => res.status(500).send(err));
 };
+const updateUser = (req, res) => {
+    const nguoidung = req.body;
+    const anhdaidien = req.file ? req.file.filename : null;
+    const id = req.params.id_user;
+    authModel.updateUser(nguoidung, anhdaidien, id)
+        .then((results) => res.json(results))
+        .catch((err) => res.status(500).send(err));
+}
 
 const registerUser = (req, res) => {
     const nguoidung = req.body
@@ -21,4 +29,4 @@ const loginUser = (req, res) => {
         .catch((err) => res.status(500).send(err));
 };
 
-module.exports = { getDetailUser, registerUser, loginUser }
+module.exports = { getDetailUser, updateUser, registerUser, loginUser }
