@@ -1,24 +1,24 @@
 import axios from "../axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { GlobalContext } from "../Context";
 import { FiTrash } from "react-icons/fi";
 
 
-const quantityNotify = () =>
-  toast.error("Số lượng còn lại của sản phẩm không đủ", {
-    position: "bottom-left",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
+// const quantityNotify = () =>
+//   toast.error("Số lượng còn lại của sản phẩm không đủ", {
+//     position: "bottom-left",
+//     autoClose: 5000,
+//     hideProgressBar: false,
+//     closeOnClick: true,
+//     pauseOnHover: true,
+//     draggable: true,
+//     progress: undefined,
+//     theme: "light",
+//   });
 
 function Cart() {
   const { cart, setCart } = useContext(GlobalContext);
@@ -44,34 +44,34 @@ function Cart() {
     tinhtongtien();
   });
 
-  const thaydoisoluong = (sanpham, sl) => {
-    const idx = cart.indexOf(sanpham);
-    const arr = [...cart];
+  // const thaydoisoluong = (sanpham, sl) => {
+  //   const idx = cart.indexOf(sanpham);
+  //   const arr = [...cart];
 
-    if (sanpham.soluong > 0) {
-      const updatedAmount = arr[idx].amount + sl;
+  //   if (sanpham.soluong > 0) {
+  //     const updatedAmount = arr[idx].amount + sl;
 
-      if (updatedAmount < 1) {
-        arr[idx].amount = 1;
-      } else if (updatedAmount <= sanpham.soluong) {
-        arr[idx].amount = updatedAmount;
-      } else {
-        console.error("Số lượng vượt quá giới hạn");
-        quantityNotify();
-        return;
-      }
-    } else {
-      console.error("Sản phẩm đã hết hàng");
-      quantityNotify();
-      return;
-    }
+  //     if (updatedAmount < 1) {
+  //       arr[idx].amount = 1;
+  //     } else if (updatedAmount <= sanpham.soluong) {
+  //       arr[idx].amount = updatedAmount;
+  //     } else {
+  //       console.error("Số lượng vượt quá giới hạn");
+  //       quantityNotify();
+  //       return;
+  //     }
+  //   } else {
+  //     console.error("Sản phẩm đã hết hàng");
+  //     quantityNotify();
+  //     return;
+  //   }
 
-    setCart([...arr]);
-  };
-  const removeProduct = (sanpham) => {
-    const arr = cart.filter((sp) => sp.id_sp !== sanpham.id_sp);
-    setCart([...arr]);
-  };
+  //   setCart([...arr]);
+  // };
+  // const removeProduct = (sanpham) => {
+  //   const arr = cart.filter((sp) => sp.id_sp !== sanpham.id_sp);
+  //   setCart([...arr]);
+  // };
 
   const handleChangeInput = (event) => {
     const name = event.target.name;
