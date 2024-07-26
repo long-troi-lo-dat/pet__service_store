@@ -17,14 +17,19 @@ const detailUser = (id) => {
 const updateUser = (nguoidung, anhdaidien, id) => {
     return new Promise((resolve, reject) => {
         const { hoTen, sdt, matkhau, diachi } = nguoidung;
-        const query = `UPDATE nguoidung SET hoTen=?, sdt=?, matkhau=?, diachi=?${anhdaidien ? ', anhdaidien=?' : ''} WHERE id_user=?`;
-        const values = anhdaidien ? [hoTen, sdt, matkhau, diachi, anhdaidien, id] : [hoTen, sdt, matkhau, diachi, id];
-
-        db.query(query, values, (err, results) => {
+        bcrypt.hash(matkhau, 10, (err, hashedPassword) => {
             if (err) {
-                return reject(err);
+                return reject("Lỗi khi mã hóa mật khẩu");
             }
-            resolve(results);
+            const query = `UPDATE nguoidung SET hoTen=?, sdt=?, matkhau=?, diachi=?${anhdaidien ? ', anhdaidien=?' : ''} WHERE id_user=?`;
+            const values = anhdaidien ? [hoTen, sdt, hashedPassword, diachi, anhdaidien, id] : [hoTen, sdt, hashedPassword, diachi, id];
+
+            db.query(query, values, (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(results);
+            });
         });
     });
 }
