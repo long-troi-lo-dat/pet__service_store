@@ -10,10 +10,11 @@ const updateUser = (req, res) => {
     const nguoidung = req.body;
     const anhdaidien = req.file ? req.file.filename : null;
     const id = req.params.id_user;
+    console.log(nguoidung, anhdaidien, id);
     authModel.updateUser(nguoidung, anhdaidien, id)
         .then((results) => res.json(results))
         .catch((err) => res.status(500).send(err));
-}
+};
 
 const registerUser = (req, res) => {
     const nguoidung = req.body

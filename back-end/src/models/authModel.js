@@ -32,7 +32,8 @@ const updateUser = (nguoidung, anhdaidien, id) => {
             });
         });
     });
-}
+};
+
 
 const registerUser = async (nguoidung) => {
     return new Promise((resolve, reject) => {

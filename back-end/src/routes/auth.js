@@ -4,7 +4,7 @@ const router = express.Router();
 const { uploadUserImages } = require("../config/multer")
 // import controller 
 const authController = require('../controllers/authController');
-const middlewareToken = require('../middlewares/token');
+// const middlewareToken = require('../middlewares/token');
 
 // define route for /api/auth
 router.get('/:id_user', authController.getDetailUser);

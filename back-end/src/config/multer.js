@@ -3,7 +3,7 @@ const path = require("path")
 
 const productImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, `${process.env.REACT_APP_URL_API}/products`)
+        cb(null, path.join(__dirname, "../../uploads/products"))
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}_${file.originalname}`)
@@ -12,7 +12,7 @@ const productImageStorage = multer.diskStorage({
 
 const commentImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, `${process.env.REACT_APP_URL_API}/comments`)
+        cb(null, path.join(__dirname, "../../uploads/comments"))
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}_${file.originalname}`)
@@ -21,7 +21,7 @@ const commentImageStorage = multer.diskStorage({
 
 const userImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, `${process.env.REACT_APP_URL_API}/users`);
+        cb(null, path.join(__dirname, "../../uploads/users"));
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}_${file.originalname}`);

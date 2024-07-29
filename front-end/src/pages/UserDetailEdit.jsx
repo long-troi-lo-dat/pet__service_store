@@ -35,8 +35,12 @@ function UserDetailEdit() {
             }
             formData.append('id_user', id);
 
-            await axios.put(`/api/auth/${id}`, formData);
-            navigate(`/userdetail/${id}`);
+            await axios.put(`/api/auth/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            // navigate(`/userdetail/${id}`);
         } catch (err) {
             console.error('Error updating user details:', err);
         }

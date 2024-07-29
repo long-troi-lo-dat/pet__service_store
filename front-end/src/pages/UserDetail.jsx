@@ -6,21 +6,20 @@ function UserDetail() {
     const [user, setUser] = useState({});
     const { id } = useParams();
 
-    const fetchUserData = async () => {
-        try {
-            const accessToken = localStorage.getItem('accessToken');
-            const response = await axios.get(`/api/auth/${id}`, {
-                headers: { token: `Bearer ${accessToken}` },
-            });
-            setUser(response.data[0]);
-        } catch (error) {
-            console.log('Error fetching data:', error);
-        }
-    };
-
     useEffect(() => {
-        fetchUserData();
-    });
+        const fetchUserData = async () => {
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                const response = await axios.get(`/api/auth/${id}`, {
+                    headers: { token: `Bearer ${accessToken}` },
+                });
+                setUser(response.data[0]);
+            } catch (error) {
+                console.log('Error fetching data:', error);
+            }
+        };
+        fetchUserData()
+    }, [id]);
 
     return (
         <>
