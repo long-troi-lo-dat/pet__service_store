@@ -1,12 +1,5 @@
 const multer = require("multer")
 const path = require("path")
-const fs = require('fs');
-
-const uploadUserImageDir = path.join(__dirname, '../../uploads/users');
-
-if (!fs.existsSync(uploadUserImageDir)) {
-    fs.mkdirSync(uploadUserImageDir, { recursive: true });
-}
 
 const productImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -28,7 +21,7 @@ const commentImageStorage = multer.diskStorage({
 
 const userImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, uploadUserImageDir);
+        cb(null, path.join(__dirname, "../../uploads/users"));
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}_${file.originalname}`);

@@ -11,6 +11,11 @@ const updateUser = (req, res) => {
     const anhdaidien = req.file ? req.file.filename : null;
     const id = req.params.id_user;
     console.log(nguoidung, anhdaidien, id);
+    if (req.fileValidationError) {
+        return res.status(400).send(req.fileValidationError);
+    } else if (!req.file) {
+        return res.status(400).send('Please select an image to upload');
+    }
     authModel.updateUser(nguoidung, anhdaidien, id)
         .then((results) => res.json(results))
         .catch((err) => res.status(500).send(err));
