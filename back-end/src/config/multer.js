@@ -21,7 +21,7 @@ const commentImageStorage = multer.diskStorage({
 
 const userImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, __dirname + "../../uploads/users");
+        cb(null, path.join(process.cwd(), "/uploads/users"));
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}_${file.originalname}`);
